@@ -1,0 +1,638 @@
+[
+  {
+    "name": "Hero_Stats",
+    "data": [
+      {
+        "row": 0,
+        "type": "string",
+        "property": "name",
+        "schema": "name"
+      },
+      {
+        "row": 0,
+        "type": "string",
+        "property": "image_url",
+        "schema": "portrait"
+      },
+      {
+        "row": 1,
+        "type": "string",
+        "property": "heroclass",
+        "schema": "a.title"
+      },
+      {
+        "row": 2,
+        "type": "string",
+        "property": "color",
+        "schema": "a.title"
+      },
+      {
+        "row": 3,
+        "type": "string",
+        "property": "species",
+        "schema": "a.title"
+      },
+      {
+        "row": 4,
+        "type": "number",
+        "property": "stars",
+        "schema": "a.title"
+      },
+      {
+        "row": 5,
+        "type": "string",
+        "property": "type",
+        "schema": "a.title./"
+      },
+      {
+        "row": 6,
+        "type": "string",
+        "property": "pattern",
+        "schema": "a.title./"
+      },
+      {
+        "row": [
+          7,
+          9,
+          11,
+          13
+        ],
+        "type": "number",
+        "property": {
+          "base": "attack",
+          "then": [
+            "att75",
+            "att85",
+            "att95",
+            "att100"
+          ]
+        },
+        "schema": "text"
+      },
+      {
+        "row": [
+          8,
+          10,
+          12,
+          14
+        ],
+        "type": "number",
+        "property": {
+          "base": "defense",
+          "then": [
+            "def75",
+            "def85",
+            "def95",
+            "def100"
+          ]
+        },
+        "schema": "text"
+      },
+      {
+        "row": 15,
+        "type": "string",
+        "property": "lead_color",
+        "schema": "lead"
+      },
+      {
+        "row": 16,
+        "type": "string",
+        "property": "lead_species",
+        "schema": "lead"
+      },
+      {
+        "row": 17,
+        "type": "string",
+        "property": "base_IA",
+        "schema": "text"
+      }
+    ],
+    "type": "hero"
+  },
+  {
+    "name": "Hero_Talents",
+    "data": [
+      {
+        "row": 0,
+        "type": "string",
+        "property": "name",
+        "schema": "name"
+      },
+      {
+        "row": 1,
+        "type": "string",
+        "property": "base",
+        "schema": "talent"
+      },
+      {
+        "row": 2,
+        "type": "string",
+        "property": "ascend",
+        "schema": "talent"
+      },
+      {
+        "row": 3,
+        "type": "string",
+        "property": "merge",
+        "schema": "talent"
+      }
+    ],
+    "type": "hero"
+  },
+  {
+    "name": "Hero_Gear",
+    "data": [
+      {
+        "row": 0,
+        "type": "string",
+        "property": "heroname",
+        "schema": "a.title"
+      },
+      {
+        "row": 1,
+        "type": "string",
+        "property": "ascend",
+        "schema": "text"
+      },
+      {
+        "row": [
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "type": "string",
+        "property": {
+          "base": "",
+          "then": [
+            "Amulet",
+            "Weapon",
+            "Ring",
+            "Head",
+            "Off-Hand",
+            "Body"
+          ]
+        },
+        "schema": "item"
+      }
+    ],
+    "type": "hero"
+  },
+  {
+    "name": "Pet_Stats",
+    "data": [
+      {
+        "row": 0,
+        "type": "string",
+        "property": "name",
+        "schema": "name"
+      },
+      {
+        "row": 0,
+        "type": "string",
+        "property": "image_url",
+        "schema": "portrait"
+      },
+      {
+        "row": 1,
+        "type": "number",
+        "property": "stars",
+        "schema": "a.title"
+      },
+      {
+        "row": 2,
+        "type": "string",
+        "property": "petclass",
+        "schema": "a.title"
+      },
+      {
+        "row": 3,
+        "type": "string",
+        "property": "color",
+        "schema": "a.title"
+      },
+      {
+        "row": 4,
+        "type": "string",
+        "property": "signature",
+        "schema": "name"
+      },
+      {
+        "row": 5,
+        "type": "string",
+        "property": "signature_bis",
+        "schema": "name"
+      },
+      {
+        "row": 6,
+        "type": "number",
+        "property": "attack",
+        "schema": "text"
+      },
+      {
+        "row": 7,
+        "type": "number",
+        "property": "defense",
+        "schema": "text"
+      },
+      {
+        "row": 8,
+        "type": "number",
+        "property": "manacost",
+        "schema": "text"
+      }
+    ],
+    "type": "pet"
+  },
+  {
+    "name": "Pet_Talents",
+    "data": [
+      {
+        "row": 0,
+        "type": "string",
+        "property": "name",
+        "schema": "name"
+      },
+      {
+        "row": 0,
+        "type": "string",
+        "property": "image_url",
+        "schema": "portrait"
+      },
+      {
+        "row": 1,
+        "type": "number",
+        "property": "base",
+        "schema": "text"
+      },
+      {
+        "row": 2,
+        "type": "number",
+        "property": "silver",
+        "schema": "text"
+      },
+      {
+        "row": 3,
+        "type": "string",
+        "property": "gold",
+        "schema": "text"
+      },
+      {
+        "row": 4,
+        "type": "string",
+        "property": "gold_description",
+        "schema": "text"
+      },
+      {
+        "row": 5,
+        "type": "string",
+        "property": "full",
+        "schema": "talent"
+      },
+      {
+        "row": [
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15
+        ],
+        "type": "string",
+        "property": "merge",
+        "schema": "text"
+      }
+    ],
+    "type": "pet"
+  },
+  {
+    "name": "Talents",
+    "data": [
+      {
+        "row": 0,
+        "type": "string",
+        "property": "name",
+        "schema": "name"
+      },
+      {
+        "row": 0,
+        "type": "string",
+        "property": "image_url",
+        "schema": "portrait"
+      }
+    ],
+    "type": "talent"
+  },
+  {
+    "name": "single_hero",
+    "data": [
+      {
+        "row": "hero_name",
+        "type": "string",
+        "property": "image_url",
+        "schema": "portrait"
+      },
+      {
+        "row": "Hero Description",
+        "type": "string",
+        "property": {
+          "base": "",
+          "then": [
+            "Class",
+            "heroclass",
+            "Color",
+            "color",
+            "Species",
+            "species"
+          ]
+        },
+        "schema": "text"
+      },
+      {
+        "row": "Hero Description",
+        "type": "icon",
+        "property": {
+          "base": "",
+          "then": [
+            "Stars",
+            "stars"
+          ]
+        },
+        "schema": "stars"
+      },
+      {
+        "row": "Hero Description",
+        "type": "AI",
+        "property": {
+          "base": "",
+          "then": [
+            "AI",
+            "AI",
+            "AI Speed",
+            "AI Speed"
+          ]
+        },
+        "schema": "AI"
+      },
+      {
+        "row": "Talents",
+        "type": "Talents",
+        "property": {
+          "base": "",
+          "then": [
+            "Talents",
+            "base"
+          ]
+        },
+        "schema": "talents"
+      },
+      {
+        "row": "Talents",
+        "type": "Talents",
+        "property": {
+          "base": "",
+          "then": [
+            "Merge Talents",
+            "merge"
+          ]
+        },
+        "schema": "talents"
+      },
+      {
+        "row": "Talents",
+        "type": "Talents",
+        "property": {
+          "base": "",
+          "then": [
+            "A1 Talent",
+            "ascend 1"
+          ]
+        },
+        "schema": "text"
+      },
+      {
+        "row": "Talents",
+        "type": "Talents",
+        "property": {
+          "base": "",
+          "then": [
+            "A2 Talent",
+            "ascend 2"
+          ]
+        },
+        "schema": "text"
+      },
+      {
+        "row": "Talents",
+        "type": "Talents",
+        "property": {
+          "base": "",
+          "then": [
+            "A3 Talent",
+            "ascend 3"
+          ]
+        },
+        "schema": "text"
+      },
+      {
+        "row": "Gear",
+        "type": "Gear",
+        "property": {
+          "base": "",
+          "then": [
+            "Base",
+            "A0",
+            "Amulet",
+            "Weapon",
+            "Ring",
+            "Head",
+            "Off-Hand",
+            "Body"
+          ]
+        },
+        "schema": "gear"
+      },
+      {
+        "row": "Gear",
+        "type": "Gear",
+        "property": {
+          "base": "",
+          "then": [
+            "A1 Gear",
+            "A1",
+            "Amulet",
+            "Weapon",
+            "Ring",
+            "Head",
+            "Off-Hand",
+            "Body"
+          ]
+        },
+        "schema": "gear"
+      },
+      {
+        "row": "Gear",
+        "type": "Gear",
+        "property": {
+          "base": "",
+          "then": [
+            "A2 Gear",
+            "A2",
+            "Amulet",
+            "Weapon",
+            "Ring",
+            "Head",
+            "Off-Hand",
+            "Body"
+          ]
+        },
+        "schema": "gear"
+      },
+      {
+        "row": "Gear",
+        "type": "Gear",
+        "property": {
+          "base": "",
+          "then": [
+            "A3 Gear",
+            "A3",
+            "Amulet",
+            "Weapon",
+            "Ring",
+            "Head",
+            "Off-Hand",
+            "Body"
+          ]
+        },
+        "schema": "gear"
+      },
+      {
+        "row": "Stat Caps (Base + Gear)",
+        "type": "number",
+        "property": {
+          "base": "attack",
+          "then": [
+            "Basic Attack",
+            "att75"
+          ]
+        },
+        "schema": "stats"
+      },
+      {
+        "row": "Stat Caps (Base + Gear)",
+        "type": "number",
+        "property": {
+          "base": "defense",
+          "then": [
+            "Basic Health",
+            "def75"
+          ]
+        },
+        "schema": "stats"
+      },
+      {
+        "row": "Stat Caps (Base + Gear)",
+        "type": "number",
+        "property": {
+          "base": "attack",
+          "then": [
+            "A1 Attack",
+            "att85"
+          ]
+        },
+        "schema": "stats"
+      },
+      {
+        "row": "Stat Caps (Base + Gear)",
+        "type": "number",
+        "property": {
+          "base": "defense",
+          "then": [
+            "A1 Health",
+            "def85"
+          ]
+        },
+        "schema": "stats"
+      },
+      {
+        "row": "Stat Caps (Base + Gear)",
+        "type": "number",
+        "property": {
+          "base": "attack",
+          "then": [
+            "A2 Attack",
+            "att95"
+          ]
+        },
+        "schema": "stats"
+      },
+      {
+        "row": "Stat Caps (Base + Gear)",
+        "type": "number",
+        "property": {
+          "base": "defense",
+          "then": [
+            "A2 Health",
+            "def95"
+          ]
+        },
+        "schema": "stats"
+      },
+      {
+        "row": "Stat Caps (Base + Gear)",
+        "type": "number",
+        "property": {
+          "base": "attack",
+          "then": [
+            "A3 Attack",
+            "att100"
+          ]
+        },
+        "schema": "stats"
+      },
+      {
+        "row": "Stat Caps (Base + Gear)",
+        "type": "number",
+        "property": {
+          "base": "defense",
+          "then": [
+            "A3 Health",
+            "def100"
+          ]
+        },
+        "schema": "stats"
+      }
+    ],
+    "type": "hero"
+  },
+  {
+    "name": "single_talent",
+    "data": [
+      {
+        "row": "h1",
+        "type": "string",
+        "property": "name",
+        "schema": "name"
+      },
+      {
+        "row": "floatleft",
+        "type": "string",
+        "property": "image_url",
+        "schema": "portrait"
+      },
+      {
+        "row": "mw-parser-output",
+        "type": "string",
+        "property": "description",
+        "schema": "text"
+      }
+    ],
+    "type": "talent"
+  }
+]
