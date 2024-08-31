@@ -1,0 +1,275 @@
+{
+	"info": {
+		"_postman_id": "7fcaa32c-f835-4b9a-843c-209fc1df2133",
+		"name": "Heroes",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34841762"
+	},
+	"item": [
+		{
+			"name": "getAllHeroes",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"getAllHeroes request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200)\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8008/hero",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8008",
+					"path": [
+						"hero"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getHeroByName",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"getHeroByName request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200)\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8008/hero/sandor",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8008",
+					"path": [
+						"hero",
+						"sandor"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getHeroById",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"getHeroById request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200)\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8008/hero/664e4743d74c2ddddbc0738c",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8008",
+					"path": [
+						"hero",
+						"664e4743d74c2ddddbc0738c"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getHeroesByClass",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"getHeroesByClass request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200)\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8008/hero/class?heroclass=Rogue",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8008",
+					"path": [
+						"hero",
+						"class"
+					],
+					"query": [
+						{
+							"key": "heroclass",
+							"value": "Rogue"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getHeroesByTalent",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"getHeroesByTalent request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200)\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8008/hero/talent?talent=cutlass-\\and-flintlock",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8008",
+					"path": [
+						"hero",
+						"talent"
+					],
+					"query": [
+						{
+							"key": "talent",
+							"value": "cutlass-\\and-flintlock"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getHeroesByGearName",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"getHeroesByGearName request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200)\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8008/hero/gear?gear_name=Sword",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8008",
+					"path": [
+						"hero",
+						"gear"
+					],
+					"query": [
+						{
+							"key": "gear_name",
+							"value": "Sword"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getHeroesByGearNameAndQuality",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"getHeroesByGearNameAndQuality request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200)\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8008/hero/gear?gear_name=Sword&gear_quality=Mythic",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8008",
+					"path": [
+						"hero",
+						"gear"
+					],
+					"query": [
+						{
+							"key": "gear_name",
+							"value": "Sword"
+						},
+						{
+							"key": "gear_quality",
+							"value": "Mythic"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
