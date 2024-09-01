@@ -1,0 +1,108 @@
+{
+	"info": {
+		"_postman_id": "17006868-fafa-43e0-a862-07ed1a74d98b",
+		"name": "Levels",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38037716"
+	},
+	"item": [
+		{
+			"name": "Add level",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Shrine\",\r\n    \"floor\": 7,\r\n    \"number\": 4,\r\n    \"energies\": 20\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8008/levels",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8008",
+					"path": [
+						"levels"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Levels",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8008/levels",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8008",
+					"path": [
+						"levels"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Level by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8008/levels/66d42d9b9b45eddddd9c6e07",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8008",
+					"path": [
+						"levels",
+						"66d42d9b9b45eddddd9c6e07"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Level by name",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8008/levels/shrine/floor/7/number/4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8008",
+					"path": [
+						"levels",
+						"shrine",
+						"floor",
+						"7",
+						"number",
+						"4"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
