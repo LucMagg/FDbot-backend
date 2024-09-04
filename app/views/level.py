@@ -16,17 +16,20 @@ def get_level_by_id(level):
     return jsonify(level_obj.to_dict())
   return jsonify({'error': 'Level not found'}), 404
 
-@levels_blueprint.route('/levels/<level>/floor/<floor>/number/<number>', methods=['GET'])
-def get_level(level, floor, number):
-  level_obj = LevelService.get_one_level(str(level), int(floor), int(number))
+@levels_blueprint.route('/levels', methods=['GET'])
+def get_level():
+  level = request.args.get('level')
+  floor = request.args.get('floor')
+  number = request.args.get('number')
+ 
+  if level is not None and floor is not None and number is not None:
+    level_obj = LevelService.get_one_level(str(level), int(floor), int(number))
+    if level_obj:
+      return jsonify(level_obj.to_dict())
+  else:
+    levels = LevelService.get_all_levels()
+    if levels:
+      return jsonify([level.to_dict() for level in levels])
   if level_obj:
     return jsonify(level_obj.to_dict())
-  return jsonify({'error': 'Level not found'}), 404
-
-
-@levels_blueprint.route('/levels', methods=['GET'])
-def get_levels():
-  levels = LevelService.get_all_levels()
-  if levels:
-    return jsonify([level.to_dict() for level in levels])
-  return jsonify({'error': 'Levels not found'}), 404
+  return jsonify({'error': 'Level(s) not found'}), 404
