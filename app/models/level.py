@@ -26,7 +26,7 @@ class Level:
     level = {
       "name": self.name,
       "cost": self.cost,
-      'rewards': [reward.to_dict() for reward in self.rewards] if self.rewards else [],
+      "rewards": [reward.to_dict() for reward in self.rewards] if self.rewards else [],
     }
     if self._id:
       level["_id"] = str(self._id)

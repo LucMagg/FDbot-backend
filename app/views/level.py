@@ -17,12 +17,11 @@ def add_level():
   return jsonify(new_level.to_dict()), 201
 
 @levels_blueprint.route('/levels/<level>', methods=['GET'])
-def get_level_by_id(level):
+def get_level_by_name(level):
   level_obj = LevelService.get_one_level(level)
   if level_obj:
     return jsonify(level_obj.to_dict())
   return jsonify({'error': 'Level not found'}), 404
-
 
 @levels_blueprint.route('/levels/<level>/reward', methods=['POST'])
 def add_reward(level):
