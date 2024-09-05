@@ -14,6 +14,7 @@ from .views.wikiSchema import wikiSchema_blueprint
 from .views.update import update_blueprint
 from .views.comment import comment_blueprint
 from .views.level import levels_blueprint
+from .views.command import command_blueprint
 
 
 def create_app(config_name='default'):
@@ -36,5 +37,6 @@ def create_app(config_name='default'):
   app.register_blueprint(update_blueprint)
   app.register_blueprint(comment_blueprint)
   app.register_blueprint(levels_blueprint)
+  app.register_blueprint(command_blueprint)
 
   return app

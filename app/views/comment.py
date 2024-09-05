@@ -11,10 +11,6 @@ def add_comment():
   comment = request.args.get('comment')
   author = request.args.get('author')
 
-  print(hero_or_pet)
-  print(comment)
-  print(author)
-
   if hero_or_pet and comment:
     to_comment = HeroService.get_one_hero(hero_or_pet)
     comment_type = 'hero'

@@ -10,6 +10,7 @@ def init_pipelines():
       'color': 1,
       'species': 1,
       'stars': 1,
+      'talents': 1,
       'ascend_max': 1,
       'attack': 1,
       'defense': 1,

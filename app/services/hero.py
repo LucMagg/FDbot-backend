@@ -3,6 +3,7 @@ from bson.objectid import ObjectId
 from bson.errors import InvalidId
 from math import ceil
 from datetime import datetime
+from collections import defaultdict
 
 from app.models.hero import Hero
 from app.services.pet import PetService
@@ -48,18 +49,6 @@ class HeroService:
   def def_max(hero):
     return hero['defense']['max'] + hero['def_gear'] + hero['def_merge'] + hero['def_pet_boost']
   
-  def add_stats(hero, heroes):
-    hero['att_gear'] = HeroService.att_gear(hero)
-    hero['att_merge'] = HeroService.att_gear(hero)
-    hero['att_pet_boost'] = HeroService.att_pet_boost(hero)
-    hero['att_max'] = HeroService.att_max(hero)
-    hero['def_gear'] = HeroService.def_gear(hero)
-    hero['def_merge'] = HeroService.def_gear(hero)
-    hero['def_pet_boost'] = HeroService.def_pet_boost(hero)
-    hero['def_max'] = HeroService.def_max(hero)
-    hero = HeroService.add_stats_rank(hero, heroes)
-    return hero
-  
   def add_stats_rank(hero, heroes):
     for stat, rank in [('att_max', 'att_rank'), ('def_max', 'def_rank')]:
       if all(stat in h for h in heroes):
@@ -82,6 +71,37 @@ class HeroService:
             break
 
     hero['class_count'] = len(heroes)
+    return hero
+  
+  def add_unique_talents(hero, heroes):
+    talent_count = {}
+    for h in heroes:
+      if h['name'] != hero['name']:
+        for talent in h['talents']:
+          if talent['name'] in talent_count.keys():
+            talent_count[talent['name']] += 1
+          else:
+            talent_count[talent['name']] = 1
+
+    unique_talents = []
+    for talent in hero['talents']:
+      if talent['name'] not in talent_count.keys() and talent['name'] not in unique_talents:
+        unique_talents.append(talent['name'])
+
+    hero['unique_talents'] = unique_talents
+    return hero
+  
+  def add_stats(hero, heroes):
+    hero['att_gear'] = HeroService.att_gear(hero)
+    hero['att_merge'] = HeroService.att_gear(hero)
+    hero['att_pet_boost'] = HeroService.att_pet_boost(hero)
+    hero['att_max'] = HeroService.att_max(hero)
+    hero['def_gear'] = HeroService.def_gear(hero)
+    hero['def_merge'] = HeroService.def_gear(hero)
+    hero['def_pet_boost'] = HeroService.def_pet_boost(hero)
+    hero['def_max'] = HeroService.def_max(hero)
+    hero = HeroService.add_stats_rank(hero, heroes)
+    hero = HeroService.add_unique_talents(hero, heroes)
     return hero
 
   @staticmethod
