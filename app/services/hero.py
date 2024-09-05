@@ -50,7 +50,7 @@ class HeroService:
     return hero['defense']['max'] + hero['def_gear'] + hero['def_merge'] + hero['def_pet_boost']
   
   def add_stats_rank(hero, heroes):
-    for stat, rank in [('att_max', 'att_rank'), ('def_max', 'def_rank')]:
+    for stat, rank, average in [('att_max', 'att_rank', 'att_average'), ('def_max', 'def_rank', 'def_average')]:
       if all(stat in h for h in heroes):
         sorted_list = sorted(heroes, key=lambda h: h[stat], reverse=True)
         
@@ -69,6 +69,12 @@ class HeroService:
           if hero['name'] == item['name']:
             hero[rank] = item[rank]
             break
+        
+        total = 0
+        for h in heroes:
+          total += h[stat]
+        hero[average] = round(total / len(heroes))
+        
 
     hero['class_count'] = len(heroes)
     return hero
