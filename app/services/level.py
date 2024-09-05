@@ -1,6 +1,6 @@
 from flask import current_app
-from bson.objectid import ObjectId
 from app.models.level import Level
+from app.models.reward import Reward
 
 class LevelService:
 
@@ -10,15 +10,24 @@ class LevelService:
     return level.create(current_app.mongo_db)
 
   @staticmethod
-  def get_one_level_by_id(level_id):
-    level_obj = Level.read_by_id(current_app.mongo_db, ObjectId(level_id))
-    return level_obj if level_obj else None
-
-  @staticmethod
-  def get_one_level(level_name, level_floor, level_number):
-    level_obj = Level.read_by_level(current_app.mongo_db, level_name, level_floor, level_number)
+  def get_one_level(level_name):
+    level_obj = Level.read_by_level(current_app.mongo_db, level_name)
     return level_obj if level_obj else None
 
   @staticmethod
   def get_all_levels():
     return Level.read_all(current_app.mongo_db)
+
+  @staticmethod
+  def add_reward(level_name, reward_data):
+    level = Level.read_by_level(current_app.mongo_db, level_name)
+    if level:
+      return level.add_reward(current_app.mongo_db, Reward.from_dict(reward_data))
+    return None
+
+  @staticmethod
+  def get_expected_reward(level_name):
+    level = Level.read_by_level(current_app.mongo_db, level_name)
+    if level:
+      return level.expected_reward()
+    return None
