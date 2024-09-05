@@ -13,7 +13,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"Shrine\",\r\n    \"floor\": 7,\r\n    \"number\": 4,\r\n    \"energies\": 20\r\n}",
+					"raw": "{\r\n    \"name\": \"Shrine_7_4\",\r\n    \"cost\": 20\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -59,7 +59,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8008/levels/66d42d9b9b45eddddd9c6e07",
+					"raw": "http://localhost:8008/levels/Shrine_7_4",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -67,19 +67,28 @@
 					"port": "8008",
 					"path": [
 						"levels",
-						"66d42d9b9b45eddddd9c6e07"
+						"Shrine_7_4"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Get Level by name",
+			"name": "Add reward",
 			"request": {
-				"method": "GET",
+				"method": "POST",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"quantity\": 35000\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": "http://localhost:8008/levels/shrine/floor/7/number/4",
+					"raw": "http://localhost:8008/levels/shrine_7_4/reward",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -87,11 +96,36 @@
 					"port": "8008",
 					"path": [
 						"levels",
-						"shrine",
-						"floor",
-						"7",
-						"number",
-						"4"
+						"shrine_7_4",
+						"reward"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get expected reward",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8008/levels/shrine_7_4/reward",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8008",
+					"path": [
+						"levels",
+						"shrine_7_4",
+						"reward"
 					],
 					"query": [
 						{
