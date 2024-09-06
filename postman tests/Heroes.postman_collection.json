@@ -59,7 +59,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8008/hero/sandor",
+					"raw": "http://localhost:8008/hero/tropical-ariane",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -67,7 +67,41 @@
 					"port": "8008",
 					"path": [
 						"hero",
-						"sandor"
+						"tropical-ariane"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getHeroByPet",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"getHeroByName request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200)\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8008/hero/tropical-ariane",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8008",
+					"path": [
+						"hero",
+						"tropical-ariane"
 					]
 				}
 			},

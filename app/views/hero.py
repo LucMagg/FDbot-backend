@@ -53,6 +53,14 @@ def get_heroes_by_talent():
     return jsonify(heroes)
   return jsonify({'error': 'Heroes not found'}), 404
 
+@hero_blueprint.route('/hero/pet', methods=['GET'])
+def get_heroes_by_pet():
+  pet = request.args.get('pet')
+  heroes = HeroService.get_heroes_by_pet(pet)
+  if heroes:
+    return jsonify(heroes)
+  return jsonify({'error': 'Heroes not found'}), 404
+
 
 """
 @hero_blueprint.route('/hero-lead', methods=['PUT'])

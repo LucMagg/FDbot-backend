@@ -5,6 +5,7 @@ from datetime import date
 from pymongo import UpdateOne
 
 from app.models.talent import Talent
+from app.models.pet import Pet
 from app.utils.strUtils import str_to_slug, slug_to_str
 from app.utils.types import *
 
@@ -389,6 +390,30 @@ class Hero:
     for stage in pipeline_stages:
       if '$match' in stage:
         stage['$match']['talents.name'] = slug_to_str(talent)
+
+    heroes = list(db.heroes.aggregate(pipeline_stages))
+    data = []
+    for hero in heroes:
+      hero['_id'] = str(hero['_id'])
+      data.append(hero)
+    return data
+  
+  @staticmethod
+  def read_by_pet(db, pet):
+    pet = Pet.read_by_name(db, pet)
+    if not pet:
+      return None
+    
+    pipeline_doc = db.pipelines.find_one({'name': 'heroes_by_pet'})
+    if not pipeline_doc:
+      return None
+
+    pipeline_stages = [stage.copy() for stage in pipeline_doc['pipeline']]
+
+    for stage in pipeline_stages:
+      if '$match' in stage:
+        stage['$match']['color'] = pet.color
+        stage['$match']['heroclass'] = pet.petclass
 
     heroes = list(db.heroes.aggregate(pipeline_stages))
     data = []

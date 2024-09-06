@@ -173,6 +173,15 @@ class HeroService:
       return None
     
   @staticmethod
+  def get_heroes_by_pet(pet_name):
+    heroes = Hero.read_by_pet(current_app.mongo_db, pet_name)
+
+    if heroes:
+      return heroes
+    else:
+      return None
+    
+  @staticmethod
   def add_comment(hero_to_comment, comment, author):
     existing_comment = next((c for c in hero_to_comment['comments'] if c['author'] == author), None)
     if existing_comment:
