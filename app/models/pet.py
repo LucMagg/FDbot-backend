@@ -125,6 +125,25 @@ class Pet:
     return [Pet.from_dict(pet) for pet in data] if data else None
   
   @staticmethod
+  def read_by_class(db, petclass):
+    pipeline_doc = db.pipelines.find_one({'name': 'pets_by_class'})
+    if not pipeline_doc:
+      return None
+
+    pipeline_stages = [stage.copy() for stage in pipeline_doc['pipeline']]
+
+    for stage in pipeline_stages:
+      if '$match' in stage:
+        stage['$match']['petclass'] = slug_to_str(petclass)
+
+    pets = list(db.pets.aggregate(pipeline_stages))
+    data = []
+    for pet in pets:
+      pet['_id'] = str(pet['_id'])
+      data.append(pet)
+    return data
+  
+  @staticmethod
   def read_by_talent(db, talent):
     pipeline_doc = db.pipelines.find_one({'name': 'pets_by_talent'})
     if not pipeline_doc:
@@ -132,14 +151,11 @@ class Pet:
 
     pipeline_stages = [stage.copy() for stage in pipeline_doc['pipeline']]
 
-    print(talent)
-
     for stage in pipeline_stages:
       if '$match' in stage:
         stage['$match']['talents.name'] = slug_to_str(talent)
 
     pets = list(db.pets.aggregate(pipeline_stages))
-    print(pets)
     data = []
     for pet in pets:
       pet['_id'] = str(pet['_id'])

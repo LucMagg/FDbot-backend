@@ -28,6 +28,14 @@ def get_pets():
     return jsonify([pet.to_dict() for pet in pets])
   return jsonify({'error': 'Pets not found'}), 404
 
+@pet_blueprint.route('/pet/class', methods=['GET'])
+def get_pets_by_class():
+  petclass = request.args.get('class')
+  pets = PetService.get_pets_by_class(petclass)
+  if pets:
+    return jsonify(pets)
+  return jsonify({'error': 'Pets not found'}), 404
+
 @pet_blueprint.route('/pet/talent', methods=['GET'])
 def get_pets_by_talent():
   talent = request.args.get('talent')

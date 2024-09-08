@@ -4,7 +4,7 @@ def init_pipelines():
   heroes_by_class_pipeline = [
     {'$match': {'heroclass': '{{heroclass}}'}},
     {'$project': {
-      '_id': 0,
+      '_id': 1,
       'name': 1,
       'heroclass': 1,
       'color': 1,
@@ -84,6 +84,19 @@ def init_pipelines():
     {'$project': {'name': 1}}
   ]
 
+  pets_by_class_pipeline = [
+    {'$match': {'petclass': '{{petclass}}'}},
+    {'$project': {
+      '_id': 1,
+      'name': 1,
+      'petclass': 1,
+      'signature': 1,
+      'signature_bis': 1,
+      'color': 1,
+      'stars': 1
+    }}
+  ]
+
   pets_by_talent_pipeline = [
     {'$match': {'talents': {'$exists': True, '$ne': []}}},
     {'$unwind': '$talents'},
@@ -129,8 +142,10 @@ def init_pipelines():
   does_pipeline_exists('heroes_by_gear_name_and_quality', heroes_by_gear_name_and_quality_pipeline)
   does_pipeline_exists('heroes_by_talent', heroes_by_talent_pipeline)
   does_pipeline_exists('heroes_by_pet', heroes_by_pet_pipeline)
+  does_pipeline_exists('pets_by_class', pets_by_class_pipeline)
   does_pipeline_exists('pets_by_talent', pets_by_talent_pipeline)
   does_pipeline_exists('pets_by_color_or_heroname', pets_by_color_or_heroname_pipeline)
+  pets_by_class_pipeline
 
 
 def does_pipeline_exists(pipeline_name, pipeline_definition):

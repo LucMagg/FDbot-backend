@@ -25,6 +25,15 @@ class PetService:
     return Pet.read_all(current_app.mongo_db)
   
   @staticmethod
+  def get_pets_by_class(petclass):
+    pets = Pet.read_by_class(current_app.mongo_db, petclass)
+
+    if pets:
+      return pets
+    else:
+      return None
+  
+  @staticmethod
   def get_pets_by_talent(talent_name):
     pets = Pet.read_by_talent(current_app.mongo_db, talent_name)
 
