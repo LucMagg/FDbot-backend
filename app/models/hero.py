@@ -321,6 +321,17 @@ class Hero:
     return [Hero.from_dict(hero) for hero in data] if data else None
   
   @staticmethod
+  def read_all_classes(db):
+    pipeline_doc = db.pipelines.find_one({'name': 'list_all_classes'})
+    if not pipeline_doc:
+      return None
+
+    pipeline_stages = [stage.copy() for stage in pipeline_doc['pipeline']]
+
+    classes = list(db.heroes.aggregate(pipeline_stages))  
+    return classes
+  
+  @staticmethod
   def read_by_class(db, heroclass):
     pipeline_doc = db.pipelines.find_one({'name': 'heroes_by_class'})
     if not pipeline_doc:

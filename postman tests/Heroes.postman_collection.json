@@ -59,7 +59,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8008/hero/tropical-ariane",
+					"raw": "http://localhost:8008/hero/sandor",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -67,7 +67,7 @@
 					"port": "8008",
 					"path": [
 						"hero",
-						"tropical-ariane"
+						"sandor"
 					]
 				}
 			},
@@ -161,7 +161,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8008/hero/class?heroclass=Rogue",
+					"raw": "http://localhost:8008/hero/class?class=Rogue",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -173,8 +173,48 @@
 					],
 					"query": [
 						{
-							"key": "heroclass",
+							"key": "class",
 							"value": "Rogue"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllClasses",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"getAllClasses request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200)\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8008/hero/class?class=all",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8008",
+					"path": [
+						"hero",
+						"class"
+					],
+					"query": [
+						{
+							"key": "class",
+							"value": "all"
 						}
 					]
 				}
@@ -201,7 +241,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8008/hero/talent?talent=cutlass-\\and-flintlock",
+					"raw": "http://localhost:8008/hero/talent?talent=rend",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -214,7 +254,7 @@
 					"query": [
 						{
 							"key": "talent",
-							"value": "cutlass-\\and-flintlock"
+							"value": "rend"
 						}
 					]
 				}

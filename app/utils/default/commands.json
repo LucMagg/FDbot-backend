@@ -42,7 +42,7 @@
   },
   "name": "class",
   "type": 1,
-  "description": "Permet de lister les différents héros de la classe passée en paramètre.",
+  "description": "Permet de lister les différents héros et pets de la classe passée en paramètre.",
   "options": [
     {
       "name": "classe",

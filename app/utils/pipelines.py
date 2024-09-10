@@ -84,6 +84,15 @@ def init_pipelines():
     {'$project': {'name': 1}}
   ]
 
+  list_all_classes_pipeline = [
+    {'$group': {'_id': "$heroclass"}},
+    {'$project': {
+      '_id': 0,
+      'heroclass': '$_id'
+    }},
+    {'$sort': {'heroclass': 1 }}
+  ]
+
   pets_by_class_pipeline = [
     {'$match': {'petclass': '{{petclass}}'}},
     {'$project': {
@@ -134,19 +143,23 @@ def init_pipelines():
     {'$replaceRoot': {'newRoot': '$pet'}}
   ]
 
+  pipelines = [
+    ['heroes_by_class', heroes_by_class_pipeline],
+    ['heroes_by_gear_name', heroes_by_gear_name_pipeline],
+    ['heroes_by_gear_name_and_quality', heroes_by_gear_name_and_quality_pipeline],
+    ['heroes_by_talent', heroes_by_talent_pipeline],
+    ['heroes_by_pet', heroes_by_pet_pipeline],
+    ['list_all_classes', list_all_classes_pipeline],
+    ['pets_by_class', pets_by_class_pipeline],
+    ['pets_by_talent', pets_by_talent_pipeline],
+    ['pets_by_color_or_heroname', pets_by_color_or_heroname_pipeline]
+  ]
+
   print('PIPELINES CHECK')
   print('---------------')
 
-  does_pipeline_exists('heroes_by_class', heroes_by_class_pipeline)
-  does_pipeline_exists('heroes_by_gear_name', heroes_by_gear_name_pipeline)
-  does_pipeline_exists('heroes_by_gear_name_and_quality', heroes_by_gear_name_and_quality_pipeline)
-  does_pipeline_exists('heroes_by_talent', heroes_by_talent_pipeline)
-  does_pipeline_exists('heroes_by_pet', heroes_by_pet_pipeline)
-  does_pipeline_exists('pets_by_class', pets_by_class_pipeline)
-  does_pipeline_exists('pets_by_talent', pets_by_talent_pipeline)
-  does_pipeline_exists('pets_by_color_or_heroname', pets_by_color_or_heroname_pipeline)
-  pets_by_class_pipeline
-
+  for p in pipelines:
+    does_pipeline_exists(p[0], p[1])
 
 def does_pipeline_exists(pipeline_name, pipeline_definition):
   db = current_app.mongo_db

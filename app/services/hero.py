@@ -143,7 +143,11 @@ class HeroService:
 
   @staticmethod
   def get_heroes_by_class(heroclass):
-    heroes = Hero.read_by_class(current_app.mongo_db, heroclass)
+    if heroclass == 'all':
+      classes = Hero.read_all_classes(current_app.mongo_db)
+      return classes
+    else:
+      heroes = Hero.read_by_class(current_app.mongo_db, heroclass)
     to_return = []
     for hero in heroes:
       hero = HeroService.add_stats(hero, heroes)

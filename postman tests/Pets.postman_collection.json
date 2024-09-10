@@ -148,6 +148,46 @@
 			"response": []
 		},
 		{
+			"name": "getPetsByClass",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"getPetsByClass request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200)\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8008/pet/class?class=rogue",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8008",
+					"path": [
+						"pet",
+						"class"
+					],
+					"query": [
+						{
+							"key": "class",
+							"value": "rogue"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "getPetsByHeroname",
 			"event": [
 				{

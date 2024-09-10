@@ -1,16 +1,78 @@
 [{
+  "_id": {
+    "$oid": "66d066d8a3c0cdb7486e5407"
+  },
   "name": "error",
   "color": "red",
   "title": "Erreur",
+  "description": {
+    "hero": [
+      {
+        "text": "Le héros "
+      },
+      {
+        "text": " n'a pas été trouvé dans la base des héros recensés.\nMerci de vérifier et de réitérer la commande :cry:"
+      }
+    ],
+    "pet": [
+      {
+        "text": "Le pet "
+      },
+      {
+        "text": " n'a pas été trouvé dans la base des pets recensés.\nMerci de vérifier et de réitérer la commande :cry:"
+      }
+    ],
+    "addcomment": [
+      {
+        "text": "Le héros ou le pet "
+      },
+      {
+        "text": " n'a pas été trouvé dans la base des héros/pets recensés.\nMerci de vérifier et de réitérer la commande :cry:"
+      },
+      {
+        "text": "Le but de la commande est d'envoyer un commentaire...\nS'il n'y en a pas, ça sert à rien :rofl:"
+      }
+    ],
+    "talent": [
+      {
+        "text": "Le talent "
+      },
+      {
+        "text": " n'a pas été trouvé dans la base des talents recensés.\nMerci de vérifier et de réitérer la commande :cry:"
+      }
+    ],
+    "class": [
+      {
+        "text": "La classe "
+      },
+      {
+        "text": " n'a pas été trouvée dans la base des classes recensées.\nMerci de vérifier et de réitérer la commande :cry:"
+      }
+    ],
+    "item": [
+      {
+        "text": "L'objet "
+      },
+      {
+        "text": " n'a pas été trouvé dans la base des objets recensés.\nMerci de vérifier et de réitérer la commande :cry:"
+      }
+    ]
+  },
   "name_slug": "error"
 },
 {
+  "_id": {
+    "$oid": "66d066d8a3c0cdb7486e5408"
+  },
   "name": "footer",
   "ok": "généré par F&D-bot",
   "too_long": "\n**[...]**\n\n:warning: la fin est tronquée pour cause de dépassement de la taille maximum d'un message sur discord :shrug:\nSi possible, merci d'affiner votre recherche pour avoir le résultat complet :wink:",
   "name_slug": "footer"
 },
 {
+  "_id": {
+    "$oid": "66d066d8a3c0cdb7486e5409"
+  },
   "name": "wait",
   "color": "default",
   "title": "Requête en cours...",
@@ -18,25 +80,31 @@
   "name_slug": "wait"
 },
 {
+  "_id": {
+    "$oid": "66d066d8a3c0cdb7486e540a"
+  },
   "name": "class",
   "color": "default",
   "title": "Liste des ",
   "name_slug": "class"
 },
 {
+  "_id": {
+    "$oid": "66d066d8a3c0cdb7486e540b"
+  },
   "name": "help",
   "color": "default",
   "description": {
-    "addcomment": "Cette commande permet d'ajouter un commentaire sur le héros ou le pet passé en paramètre.\nIl est possible de laisser jusqu'à 3 commentaires différents par héros/pet.\nCependant, si vous avez déjà laissé un commentaire sur le héros/pet en question, il sera simplement mis à jour et non ajouté en tant que commentaire supplémentaire.\nSi le héros/pet en question a déjà 3 commentaires et que vous n'en aviez jamais laissé un, alors c'est le plus ancien commentaire qui sera remplacé par le vôtre :wink:\nExemple de commande valide : /addcomment Adana blablabla blablabla.",
+    "addcomment": "Cette commande permet d'ajouter un commentaire sur le héros ou le pet passé en paramètre.\nIl est possible de laisser un nombre conséquent de commentaires.\nCependant, si vous avez déjà  laissé un commentaire sur le héros/pet en question, il sera simplement mis à jour plutôt que d'être ajouté en tant que commentaire supplémentaire.\nSi le héros/pet en question a trop de commentaires et que le rendu sur Discord est trop long, seuls les derniers commentaires seront affichés :wink:\nExemple de commande valide : /addcomment Adana blablabla blablabla.",
     "class": "Cette commande permet de lister les différents héros de la classe passée en paramètre.\nExemple de commande valide : /class Rogue\n\nLes différentes classes recensées sont :\n",
     "error": "\n\nSi vous constatez qu'une erreur s'est glissée dans le retour du bot, n'hésitez pas à mettre à jour la source depuis le Fandom Wiki (/update help pour + d'infos :wink:)",
-    "generic": "Voici les différentes commandes disponibles pour le bot :\n\n- /addcomment [NomDuHéros][Commentaire] : permet d'ajouter un commentaire sur le héros en question\n- /class [NomDeLaClasse] : affiche les héros de la classe passée en paramètre\n- /bothelp : affiche ce bloc d'aide \n- /hero [NomDuHéros] : affiche les informations du héros passé en paramètre\n- /item [NomDeL'item] : affiche les héros pouvant équiper l'item passé en paramètre\n- /pet [NomDuPet] : affiche les informations du pet passé en paramètre\n- /petlist [NomDuHéros] : affiche les pets pouvant être équipés avec le héros passé en paramètre\n- /talent [NomDuTalent] : affiche la liste des héros possédant le talent passé en paramètre\n- /update : met à jour le bot\n\nÀ noter que chacunes des commandes ci-dessus ont un paramètre \"help\" pour plus d'info, et qu'elles ne sont (pour l'instant) disponibles qu'en anglais :wink:",
-    "hero": "Cette commande renvoie les caractéristiques suivantes du héros passé en paramètre :\n- Le nombre d'étoiles, la couleur, la classe, l'espèce, l'ascend max et le lvl max\n- Les attributs à l'ascend max (attaque et défense), le classement par rapport aux autres héros de la même classe et l'orientation offensive (ratio attaque/défense)\n- Le(s) bonus de leader\n- Les talents de base, d'ascend et de merge s'il y en a, et le(s) talent(s) unique(s) à la classe s'il y en a\n- La liste des équipements utilisés en fonction de l'ascend du héros\n- Le pet signature et ses bonus/talents s'il existe\n- Le(s) commentaire(s) laissé(s) par les joueurs à propos de ce héros. Vous pouvez vous-même laisser un commentaire si vous le souhaitez via la commande /addcomment (/addcomment help pour + d'infos :wink:)\n\nExemple de commande valide : /hero Sandor",
+    "generic": "Voici les différentes commandes disponibles pour le bot :\n\n- /addcomment [NomDuHérosOuPet][Commentaire] : permet d'ajouter un commentaire sur le héros/pet en question\n- /class [NomDeLaClasse] : affiche les héros/pets de la classe passée en paramètre\n- /bothelp : affiche ce bloc d'aide \n- /hero [NomDuHéros] : affiche les informations du héros passé en paramètre\n- /item [NomDeL'item] : affiche les héros pouvant équiper l'item passé en paramètre\n- /pet [NomDuPet] : affiche les informations du pet passé en paramètre\n- /petlist [NomDuHéros] : affiche les pets pouvant être équipés par le héros passé en paramètre\n- /talent [NomDuTalent] : affiche la liste des héros/pets possédant le talent passé en paramètre\n- /update : met à jour le bot\n\nÀ noter que chacunes des commandes ci-dessus ont un paramètre \"help\" pour plus d'info, et qu'elles ne sont disponibles qu'en anglais :wink:",
+    "hero": "Cette commande renvoie les caractéistiques suivantes du héros passé en paramètre :\n- Le nombre d'étoiles, la couleur, la classe, l'espèce, l'ascend max et le lvl max\n- Les attributs à l'ascend max (attaque et défense), le classement par rapport aux autres héros de la même classe et l'orientation offensive (ratio attaque/défense)\n- Le(s) bonus de leader\n- Les talents de base, d'ascend et de merge s'il y en a, et le(s) talent(s) unique(s) à la classe s'il y en a\n- La liste des équipements utilisés en fonction de l'ascend du héros\n- Le pet signature et ses bonus/talents s'il existe\n- Le(s) commentaire(s) laissé(s) par les joueurs à propos de ce héros. Vous pouvez vous-même laisser un commentaire si vous le souhaitez via la commande /addcomment (/addcomment help pour + d'infos :wink:)\n\nExemple de commande valide : /hero Sandor",
     "item": "Cette commande permet de lister les différents héros pouvant équiper l'item passé en paramètre.\nLes héros en question sont classés par étoile, et le nombre d'occurences de l'item est repris.\nSi la qualité de l'item n'est pas indiquée, alors tous les héros pouvant équiper cette catégorie d'item seront listés\nExemple de commande valide : /item Exalted Dagger ou /item Dagger",
     "pet": "Cette commande renvoie les caractéristiques suivantes du pet passé en paramètre :\n- La couleur, le nombre d'étoiles et la classe privilégiée du pet\n- Le bonus d'attribut au niveau max (en %)\n- Le(s) héros signature, ainsi que les autres héros pouvant profiter du bonus (même couleur, même classe)\n- Les talents de base, de merge, de classe et le gold talent avec son coût en mana\n- Le(s) commentaire(s) laissé(s) par les joueurs à propos de ce pet. Vous pouvez vous-même laisser un commentaire si vous le souhaitez via la commande /addcomment (/addcomment help pour + d'infos :wink:)\n\nExemple de commande valide : /pet Almond",
     "petlist": "Cette commande permet de lister les différents pets pouvant être équipés par le héros passé en paramètre.\nLes pets en question sont classés par étoile, en indiquant les bonus correspondants, ainsi que le coût en mana s'il s'agit du talent gold.\n\nExemple de commande valide : /petlist Sandor",
     "talent": "Cette commande permet de lister les différents héros et/ou pets possédant le talent passé en paramètre.\nLa liste est classée par étoile, et le nombre d'occurences du talent est repris.\n\nExemple de commande valide : /talent Tumble",
-    "update": "Cette commande sert à mettre à jour le bot depuis le site du Fandom Wiki (https://friends-and-dragons.fandom.com/wiki/)\n\nLes différents paramètres possibles sont :\n-   stats : pour mettre à jour les attributs/classes des héros à partir de la page https://friends-and-dragons.fandom.com/wiki/Hero_Stats\n-   gear : pour mettre à jour les stuffs des héros à partir de la page https://friends-and-dragons.fandom.com/wiki/Hero_Gear\n-   talents : pour mettre à jour les talents des héros à partir de la page https://friends-and-dragons.fandom.com/wiki/Hero_Talents\n-   all (ou aucun paramètre) : pour mettre à jour les 3 tables ci-dessus\n\nSi vous souhaitez ajouter un héros du jeu ou modifier un paramètre mal renseigné, il vous suffit de mettre à jour le wiki puis d'entrer la commande correspondante pour que le bot récupère votre modification.\nPour info, la page Hero_Stats est utilisée comme référence : si un héros n'y apparaît pas, il ne sera pas référencé pour le bot.\nIl est donc primordial de mettre à jour cette page si vous souhaitez référencer un nouveau héros :wink:"
+    "update": "Cette commande sert à mettre à jour le bot depuis le site du Fandom Wiki (https://friends-and-dragons.fandom.com/wiki/)\n\nLes différents paramètres possibles sont :\n-   héros : pour mettre à jour les héros\n-   talents : pour mettre  jour les talents\n-   pets : pour mettre à jour les talents\n-   all (ou aucun paramètre) : pour mettre à jour les 3 tables ci-dessus\n\nSi vous souhaitez ajouter un héros du jeu ou modifier un paramètre mal renseigné, il vous suffit de mettre à jour le wiki puis d'entrer la commande correspondante pour que le bot récupère votre modification.\nPour info, la page Hero_Stats est utilisée comme référence : si un héros n'y apparaît pas, il ne sera pas référencé pour le bot.\nIl est donc primordial de mettre à jour cette page si vous souhaitez référencer un nouveau héros :wink:"
   },
   "title": {
     "command": "Aide de la commande /",
@@ -45,16 +113,25 @@
   "name_slug": "help"
 },
 {
+  "_id": {
+    "$oid": "66d066d8a3c0cdb7486e540c"
+  },
   "name": "nocomment",
   "description": "Pas de commentaire pour l'instant :shrug:\nN'hésitez pas à ajouter le vôtre via la commande /addcomment (/addcomment help pour plus d'info)",
   "name_slug": "nocomment"
 },
 {
+  "_id": {
+    "$oid": "66d066d8a3c0cdb7486e540d"
+  },
   "name": "petlist",
-  "title": "Liste des pets équipables par le héros ",
+  "title": "Liste des pets Ã©quipables par le héros ",
   "name_slug": "petlist"
 },
 {
+  "_id": {
+    "$oid": "66d066d8a3c0cdb7486e540e"
+  },
   "name": "dhjk",
   "items": [
     {
@@ -67,7 +144,7 @@
     },
     {
       "gif": "https://media1.tenor.com/m/84rqaYkWVVQAAAAC/the-office-michael-scott.gif",
-      "text": "# Priez DHJK !!! #\nUn jour Quand j'étais jeune chef de guilde j'ai du résoudre un conflit dans la guilde.\nJ'ai donc tranché pour clore le conflit. Face aux protestations du moment où ca parlait de faire des règles ou une charte ou ce genre de chose, j'ai poliment rappelé que : \"Pas besoin de règles puisque ici le chef c'est moi!\".\nA partir de là ben zeyuka a mouillé son pantalon et tu connais les conséquences.\n(Non pas que ça me déplaise.)\nEt depuis la paix règne sur [FR]acasse!\n*dhjk en personne*"
+      "text": "# Priez DHJK !!! #\nUn jour Quand j'étais jeune chef de guilde j'ai du résoudre un conflit dans la guilde.\nJ'ai donc tranché pour clore le conflit. Face aux protestations du moment où ça parlait de faire des règles ou une charte ou ce genre de chose, j'ai poliment rappelé que : \"Pas besoin de règles puisque ici le chef c'est moi!\".\nÀ partir de là ben zeyuka a mouillé son pantalon et tu connais les conséquences.\n(Non pas que ça me déplaise.)\nEt depuis la paix règne sur [FR]acasse!\n*dhjk en personne*"
     },
     {
       "gif": "https://media1.tenor.com/m/xEcQqDV9bY4AAAAC/estupefacto.gif",
@@ -81,6 +158,9 @@
   "name_slug": "dhjk"
 },
 {
+  "_id": {
+    "$oid": "66d066d8a3c0cdb7486e540f"
+  },
   "name": "none",
   "color": "red",
   "title": "Commande non trouvée",
@@ -88,6 +168,9 @@
   "name_slug": "none"
 },
 {
+  "_id": {
+    "$oid": "66d066d8a3c0cdb7486e5410"
+  },
   "name": "update",
   "color": "default",
   "title": "Récupération des données",
