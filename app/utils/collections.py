@@ -7,7 +7,7 @@ def init_collections():
   print('-----------------')
   existing_collections = current_app.mongo_db.list_collection_names()
 
-  static_collections = ['commands','dusts','messages','qualities','wikiSchemas']
+  static_collections = ['commands','dusts','messages','qualities','wikiSchemas','levels']
 
   for collec in static_collections:
     json_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'default', collec + '.json')
