@@ -1,0 +1,145 @@
+[{
+  "_id": {
+    "$oid": "66d9dd16eed493476a4dbdd1"
+  },
+  "name": "shrine74",
+  "cost": 20,
+  "rewards": [
+    {
+      "quantity": 10000,
+      "appearances": 1,
+      "type": null
+    },
+    {
+      "quantity": 15000,
+      "appearances": 1,
+      "type": null
+    },
+    {
+      "quantity": 35000,
+      "appearances": 4,
+      "type": null
+    },
+    {
+      "quantity": 20000,
+      "appearances": 1,
+      "type": "gold"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "66e0a79b6eb81ab18251e530"
+  },
+  "name": "superlevel",
+  "cost": 1,
+  "rewards": [
+    {
+      "quantity": 15000,
+      "appearances": 2,
+      "type": "potions"
+    },
+    {
+      "quantity": 10000,
+      "appearances": 3,
+      "type": "potions"
+    },
+    {
+      "quantity": 25000,
+      "appearances": 1,
+      "type": "potions"
+    },
+    {
+      "quantity": 50000,
+      "appearances": 1,
+      "type": "potions"
+    },
+    {
+      "quantity": 5000,
+      "appearances": 2,
+      "type": "potions"
+    },
+    {
+      "quantity": 2500,
+      "appearances": 1,
+      "type": "potions"
+    },
+    {
+      "quantity": 7500,
+      "appearances": 1,
+      "type": "potions"
+    },
+    {
+      "quantity": 12500,
+      "appearances": 2,
+      "type": "potions"
+    },
+    {
+      "quantity": 15,
+      "appearances": 3,
+      "type": "gold"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "66e0a7fc6eb81ab18251e531"
+  },
+  "name": "name2",
+  "cost": 10,
+  "rewards": []
+},
+{
+  "_id": {
+    "$oid": "66e46a5548078b3d340f63ab"
+  },
+  "name": "newlevel",
+  "cost": 1,
+  "rewards": [
+    {
+      "quantity": 15,
+      "appearances": 1,
+      "type": "gold"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "66e46aaa48078b3d340f63ac"
+  },
+  "name": "newlevel2",
+  "cost": 1,
+  "rewards": []
+},
+{
+  "_id": {
+    "$oid": "66e46be1a641fb8df9824077"
+  },
+  "name": "newlevel3",
+  "cost": 1,
+  "rewards": []
+},
+{
+  "_id": {
+    "$oid": "66e53ebd4b6f7d0d7ce88c74"
+  },
+  "name": "newlevel4",
+  "cost": 4,
+  "rewards": []
+},
+{
+  "_id": {
+    "$oid": "66e54621def744a0513a6118"
+  },
+  "name": "shrine-1-1",
+  "cost": 1,
+  "rewards": []
+},
+{
+  "_id": {
+    "$oid": "66e556d9def744a0513a6119"
+  },
+  "name": "uwu",
+  "cost": 1,
+  "rewards": []
+}]
