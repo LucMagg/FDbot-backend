@@ -23,10 +23,12 @@ class Level:
     )
 
   def to_dict(self) -> Dict:
+    rewards = [reward.to_dict() for reward in self.rewards] if self.rewards else []
+    rewards = sorted(rewards, key = lambda r: (-r.get('appearances'), -r.get('quantity')))
     level = {
       "name": self.name,
       "cost": self.cost,
-      "rewards": [reward.to_dict() for reward in self.rewards] if self.rewards else [],
+      "rewards": rewards,
     }
     if self._id:
       level["_id"] = str(self._id)
@@ -47,7 +49,7 @@ class Level:
       reward = existing_rewards[0]
       reward.appearances += 1
     elif len(existing_rewards) == 0:
-      reward = Reward(reward_data.quantity, 1)
+      reward = Reward(reward_data.quantity, 1, reward_data.type)
       self.rewards.append(reward)
     else:
       return None
