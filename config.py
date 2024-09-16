@@ -5,6 +5,7 @@ class Config:
   load_dotenv()
   MONGO_URI = f"mongodb+srv://{os.getenv('MONGODB_USER')}:{os.getenv('MONGODB_PWD')}@{os.getenv('MONGODB_CLUSTER')}"  
   MONGO_DB_NAME = os.getenv('MONGODB_DB')
+  MONGO_DB_BACKUP = os.getenv('MONGODB_BACKUP_DB')
 
 
 class DevelopmentConfig(Config):

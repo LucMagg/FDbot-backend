@@ -1,0 +1,341 @@
+[{
+  "_id": {
+    "$oid": "66d0671ee392f6e1e03302a8"
+  },
+  "name": "heroes_by_gear_name",
+  "pipeline": [
+    {
+      "$match": {
+        "gear": {
+          "$exists": true,
+          "$ne": []
+        }
+      }
+    },
+    {
+      "$unwind": "$gear"
+    },
+    {
+      "$match": {
+        "gear.name": "{{gear_name}}"
+      }
+    },
+    {
+      "$group": {
+        "_id": "$_id",
+        "name": {
+          "$first": "$name"
+        },
+        "gear": {
+          "$push": {
+            "ascend": "$gear.ascend",
+            "quality": "$gear.quality"
+          }
+        },
+        "heroclass": {
+          "$first": "$heroclass"
+        },
+        "color": {
+          "$first": "$color"
+        },
+        "stars": {
+          "$first": "$stars"
+        }
+      }
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "66d0671ee392f6e1e03302a9"
+  },
+  "name": "heroes_by_gear_name_and_quality",
+  "pipeline": [
+    {
+      "$match": {
+        "gear": {
+          "$exists": true,
+          "$ne": []
+        }
+      }
+    },
+    {
+      "$unwind": "$gear"
+    },
+    {
+      "$match": {
+        "gear.name": "{{gear_name}}",
+        "gear.quality": "{{gear_quality}}"
+      }
+    },
+    {
+      "$project": {
+        "_id": 1,
+        "name": 1,
+        "heroclass": 1,
+        "color": 1,
+        "stars": 1,
+        "gear.ascend": 1
+      }
+    },
+    {
+      "$group": {
+        "_id": "$_id",
+        "name": {
+          "$first": "$name"
+        },
+        "gear": {
+          "$push": "$gear.ascend"
+        },
+        "heroclass": {
+          "$first": "$heroclass"
+        },
+        "color": {
+          "$first": "$color"
+        },
+        "stars": {
+          "$first": "$stars"
+        }
+      }
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "66d0671ee392f6e1e03302aa"
+  },
+  "name": "heroes_by_talent",
+  "pipeline": [
+    {
+      "$match": {
+        "talents": {
+          "$exists": true,
+          "$ne": []
+        }
+      }
+    },
+    {
+      "$unwind": "$talents"
+    },
+    {
+      "$match": {
+        "talents.name": "{{talent_name}}"
+      }
+    },
+    {
+      "$project": {
+        "_id": 1,
+        "name": 1,
+        "heroclass": 1,
+        "color": 1,
+        "stars": 1,
+        "talents.position": 1
+      }
+    },
+    {
+      "$group": {
+        "_id": "$_id",
+        "name": {
+          "$first": "$name"
+        },
+        "talents": {
+          "$push": "$talents.position"
+        },
+        "heroclass": {
+          "$first": "$heroclass"
+        },
+        "color": {
+          "$first": "$color"
+        },
+        "stars": {
+          "$first": "$stars"
+        }
+      }
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "66d0671ee392f6e1e03302ab"
+  },
+  "name": "pets_by_talent",
+  "pipeline": [
+    {
+      "$match": {
+        "talents": {
+          "$exists": true,
+          "$ne": []
+        }
+      }
+    },
+    {
+      "$unwind": "$talents"
+    },
+    {
+      "$match": {
+        "talents.name": "{{talent_name}}"
+      }
+    },
+    {
+      "$project": {
+        "_id": 1,
+        "name": 1,
+        "petclass": 1,
+        "color": 1,
+        "stars": 1,
+        "talents.position": 1
+      }
+    },
+    {
+      "$group": {
+        "_id": "$_id",
+        "name": {
+          "$first": "$name"
+        },
+        "talents": {
+          "$push": "$talents.position"
+        },
+        "petclass": {
+          "$first": "$petclass"
+        },
+        "color": {
+          "$first": "$color"
+        },
+        "stars": {
+          "$first": "$stars"
+        }
+      }
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "66d0671ee392f6e1e03302ac"
+  },
+  "name": "pets_by_color_or_heroname",
+  "pipeline": [
+    {
+      "$match": {
+        "$or": [
+          {
+            "color": "{{color}}"
+          },
+          {
+            "signature": "{{heroname}}"
+          },
+          {
+            "signature_bis": "{{heroname}}"
+          }
+        ]
+      }
+    },
+    {
+      "$group": {
+        "_id": "$_id",
+        "pet": {
+          "$first": "$$ROOT"
+        }
+      }
+    },
+    {
+      "$replaceRoot": {
+        "newRoot": "$pet"
+      }
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "66d999d2958496155e3f51c8"
+  },
+  "name": "heroes_by_class",
+  "pipeline": [
+    {
+      "$match": {
+        "heroclass": "{{heroclass}}"
+      }
+    },
+    {
+      "$project": {
+        "_id": 0,
+        "name": 1,
+        "heroclass": 1,
+        "color": 1,
+        "species": 1,
+        "stars": 1,
+        "talents": 1,
+        "ascend_max": 1,
+        "attack": 1,
+        "defense": 1,
+        "pet": 1
+      }
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "66db70c0d09a6b41110e1953"
+  },
+  "name": "heroes_by_pet",
+  "pipeline": [
+    {
+      "$match": {
+        "color": "{{color}}",
+        "heroclass": "{{petclass}}"
+      }
+    },
+    {
+      "$project": {
+        "name": 1
+      }
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "66dd51be5ed31ffb638d0790"
+  },
+  "name": "pets_by_class",
+  "pipeline": [
+    {
+      "$match": {
+        "petclass": "{{petclass}}"
+      }
+    },
+    {
+      "$project": {
+        "_id": 1,
+        "name": 1,
+        "petclass": 1,
+        "signature": 1,
+        "signature_bis": 1,
+        "color": 1,
+        "stars": 1
+      }
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "66de9bb765e9103eb6b91c86"
+  },
+  "name": "list_all_classes",
+  "pipeline": [
+    {
+      "$group": {
+        "_id": "$heroclass"
+      }
+    },
+    {
+      "$project": {
+        "_id": 0,
+        "heroclass": "$_id"
+      }
+    },
+    {
+      "$sort": {
+        "heroclass": 1
+      }
+    }
+  ]
+}]

@@ -1,6 +1,6 @@
 from flask import Flask
 from config import config
-from .utils.pipelines import init_pipelines
+from backup import init_backup
 from .utils.collections import init_collections
 
 from .extensions import init_mongo
@@ -24,8 +24,8 @@ def create_app(config_name='default'):
   init_mongo(app)
 
   with app.app_context():
+    init_backup(app)
     init_collections()
-    init_pipelines()
 
   app.register_blueprint(dust_blueprint)
   app.register_blueprint(message_blueprint)

@@ -1,5 +1,6 @@
 import json, os
 from flask import current_app
+from bson.json_util import dumps
 from app.services.update import UpdateService
 
 def init_collections():
@@ -7,26 +8,50 @@ def init_collections():
   print('-----------------')
   existing_collections = current_app.mongo_db.list_collection_names()
 
-  static_collections = ['commands','dusts','messages','qualities','wikiSchemas','levels']
+  static_collections = ['commands','dusts','messages','qualities','wikiSchemas','levels', 'pipelines']
 
   for collec in static_collections:
+    needs_update = None
     json_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'default', collec + '.json')
     
-    if collec not in existing_collections:
-      print(f'  Collection {collec} doesn\'t exist, creation in progress...')
-      
-      with open(json_file, 'r') as file:
-        data = json.load(file)
-      
+    with open(json_file, 'r', encoding='utf-8') as file:
+      json_data = json.load(file)
+    
+    for item in json_data:
+      if "_id" in item:
+        del item["_id"]
+    
+    if collec in existing_collections:
       collection = current_app.mongo_db[collec]
-      if isinstance(data, list):
-        collection.insert_many(data)
+      db_data = list(collection.find({}, {'_id': 0}))
+        
+      json_str = dumps(json_data, sort_keys=True)
+      db_str = dumps(db_data, sort_keys=True)
+        
+      if json_str != db_str:
+        print(json_str)
+        print(db_str)
+        print(f'  Collection {collec} différente du JSON...')
+        collection.drop()
+        needs_update = 'mise à jour'
       else:
-        collection.insert_one(data)
-      
-      print(f'  Collection {collec} created')
+        print(f'  Collection {collec} à jour')
     else:
-      print(f'  Collection {collec} already exists')
+      print(f'  Collection {collec} n\'existe pas...')
+      needs_update = 'créée'
+    
+    if needs_update:
+      collection = current_app.mongo_db[collec]
+        
+      if isinstance(json_data, list):
+        for item in json_data:
+          item.pop('_id', None)
+        collection.insert_many(json_data)
+      else:
+        json_data.pop('_id', None)
+        collection.insert_one(json_data)
+      
+      print(f'  Collection {collec} {needs_update}')
   
   dynamic_collections = ['heroes','pets','talents']  
   dynamic_collections_names = ''
@@ -42,8 +67,8 @@ def init_collections():
   
   
   if need_to_create_dynamic_collections:
-    print(f'  Update collections {dynamic_collections_names}...')
+    print(f'  Collections {dynamic_collections_names} en cours de création...')
     UpdateService.update_all()
-    print(f'  Collections created')
+    print(f'  Collections créées')
   else:
-    print(f'  Collections {dynamic_collections_names} already exist')  
+    print(f'  Collections {dynamic_collections_names} déjà existantes')  

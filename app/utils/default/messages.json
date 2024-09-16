@@ -56,6 +56,20 @@
       {
         "text": " n'a pas été trouvé dans la base des objets recensés.\nMerci de vérifier et de réitérer la commande :cry:"
       }
+    ],
+    "petlist" : [
+      {
+        "text": "Le héros "
+      },
+      {
+        "text": " n'a pas été trouvé dans la base des héros recensés.\nMerci de vérifier et de réitérer la commande :cry:"
+      },
+      {
+        "text": "Le héros "
+      },
+      {
+        "text": "n'a aucun pet à équiper, désolé :grin:"
+      }
     ]
   },
   "name_slug": "error"
@@ -125,7 +139,7 @@
     "$oid": "66d066d8a3c0cdb7486e540d"
   },
   "name": "petlist",
-  "title": "Liste des pets Ã©quipables par le héros ",
+  "title": "Liste des pets équipables par le héros ",
   "name_slug": "petlist"
 },
 {
