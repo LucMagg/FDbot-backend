@@ -11,12 +11,12 @@ def need_backup(db_names: list):
 
 def delete_old_and_corrupted_backups(db_names: list, app):
   for db in db_names:
-    try:
+    if '_' in db:
       db_date = datetime.strptime(db.split('_')[1], '%d-%m-%y')
-      if datetime.now() - db_date > timedelta(days=app.config['DAYS_OF_BACKUP_RETENTION']):
+      if datetime.now() - db_date > timedelta(days=int(app.config['DAYS_OF_BACKUP_RETENTION'])):
         app.mongo_client.drop_database(db)
         print(f"  Backup expiré ({db}) : suppression...")
-    except:
+    else:
       app.mongo_client.drop_database(db)
       print(f"  Backup incohérent détecté ({db}) : suppression...")
 
@@ -25,7 +25,6 @@ def backup_my_db(app):
   print(f"{os.getenv('HOST')} - - [{time}] Vérification du backup de la database")
 
   backup_database_names = [db for db in app.mongo_client.list_database_names() if app.config['MONGO_DB_BACKUP'] in db]
-
   delete_old_and_corrupted_backups(backup_database_names, app)
 
   if not need_backup(backup_database_names):
@@ -68,4 +67,3 @@ def init_backup(app):
     with app.app_context():
       backup_my_db(app)
       is_backup_done = True
-
