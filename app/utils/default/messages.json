@@ -191,9 +191,10 @@
   "description": {
     "all": "Récupération de toutes les données du Fandom Wiki réussie \n",
     "erreur": "Le paramètre entré pour la commande /update n'a pas été reconnu :cry:\nMerci de vérifier et de réitérer la commande :wink:",
-    "part1": "Récupération de le liste des ",
+    "part1": "Récupération de la liste des ",
     "part2": " du Fandom Wiki réussie \n",
-    "thxmsg": "Merci pour ta contribution :thumbsup:"
+    "thxmsg": "Merci pour ta contribution :thumbsup:",
+    "warning": "\n\nLa commande /update peut être (très) longue, il va falloir redoubler de patience :grin:"
   },
   "name_slug": "update"
 }]

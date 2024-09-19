@@ -155,12 +155,20 @@
       "required": false,
       "choices": [
         {
+          "name": "help",
+          "value": "help"
+        },
+        {
           "name": "Héros",
-          "value": "heroes"
+          "value": "hero"
         },
         {
           "name": "Pets",
-          "value": "pets"
+          "value": "pet"
+        },
+        {
+          "name": "Talents",
+          "value": "talent"
         },
         {
           "name": "Tout",

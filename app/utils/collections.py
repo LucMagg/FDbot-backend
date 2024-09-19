@@ -29,8 +29,6 @@ def init_collections():
       db_str = dumps(db_data, sort_keys=True)
         
       if json_str != db_str:
-        print(json_str)
-        print(db_str)
         print(f'  Collection {collec} différente du JSON...')
         collection.drop()
         needs_update = 'mise à jour'
