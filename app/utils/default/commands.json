@@ -179,6 +179,73 @@
   ]
 },
 {
+  "name": "level",
+  "type": 1,
+  "description": "Ajoute un niveau pour récolter des données sur ses récompenses",
+  "options": [
+    {
+      "name": "name",
+      "description": "Nom du niveau",
+      "type": 3,
+      "required": true
+    },
+    {
+      "name": "cost",
+      "description": "Coût du niveau en énergies",
+      "type": 3,
+      "required": true
+    }
+  ]
+},
+{
+  "name": "reward",
+  "type": 1,
+  "description": "Ajoute une récompense pour un niveau",
+  "options": [
+    {
+      "name": "level",
+      "description": "Nom du niveau",
+      "type": 3,
+      "required": true
+    },
+    {
+      "name": "type",
+      "description": "Type de récompense",
+      "type": 3,
+      "required": true,
+      "choices": [
+        {
+          "name": "gold",
+          "value": 1
+        },
+        {
+          "name": "potions",
+          "value": 2
+        }
+      ]
+    },
+    {
+      "name": "quantity",
+      "description": "Quantitée reçue",
+      "type": 4,
+      "required": true
+    }
+  ]
+},
+{
+  "name": "reward-stat",
+  "type": 1,
+  "description": "Afficher les stats de récompense pour un niveau",
+  "options": [
+    {
+      "name": "level",
+      "description": "Nom du niveau pour lequel les stats de récompenses seront affichées",
+      "type": 3,
+      "required": true
+    }
+  ]
+},
+{
   "_id": {
     "$oid": "66d8524b0f048b7ec4ca34ac"
   },

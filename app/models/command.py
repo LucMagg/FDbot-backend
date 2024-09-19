@@ -18,7 +18,7 @@ class Choice:
   def to_dict(self) -> Dict:
     return {
       'name': self.name,
-      'type': self.value
+      'value': self.value
     }
 
 
