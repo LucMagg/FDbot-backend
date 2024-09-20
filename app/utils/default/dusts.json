@@ -1,95 +1,97 @@
-[{
-  "conversion": {
-    "input": {
-      "name": null,
-      "quantity": null
+[
+  {
+    "conversion": {
+      "input": {
+        "name": null,
+        "quantity": null
+      },
+      "output": {
+        "name": null,
+        "quantity": null
+      }
     },
-    "output": {
-      "name": null,
-      "quantity": null
-    }
-  },
-  "icon": ":purple_circle:",
-  "name": "Epic",
-  "price_in_gems": {
-    "price": 125,
-    "quantity": 50
-  },
-  "name_slug": "epic"
-},
-{
-  "conversion": {
-    "input": {
-      "name": null,
-      "quantity": null
-    },
-    "output": {
-      "name": null,
-      "quantity": null
-    }
-  },
-  "icon": ":green_circle:",
-  "name": "Exalted",
-  "price_in_gems": {
-    "price": 1250,
-    "quantity": 50
-  },
-  "name_slug": "exalted"
-},
-{
-  "conversion": {
-    "input": {
-      "name": null,
-      "quantity": null
-    },
-    "output": {
-      "name": null,
-      "quantity": null
-    }
-  },
-  "icon": ":orange_circle:",
-  "name": "Divine",
-  "price_in_gems": {
-    "price": 2500,
-    "quantity": 50
-  },
-  "name_slug": "divine"
-},
-{
-  "conversion": {
-    "input": {
-      "name": "Epic",
-      "quantity": 1500
-    },
-    "output": {
-      "name": "Mythic",
+    "icon": ":purple_circle:",
+    "name": "Epic",
+    "price_in_gems": {
+      "price": 125,
       "quantity": 50
-    }
-  },
-  "icon": ":yellow_circle:",
-  "name": "Mythic",
-  "price_in_gems": {
-    "price": 375,
-    "quantity": 50
-  },
-  "name_slug": "mythic"
-},
-{
-  "conversion": {
-    "input": {
-      "name": "Mythic",
-      "quantity": 1250
     },
-    "output": {
-      "name": "Legendary",
+    "name_slug": "epic"
+  },
+  {
+    "conversion": {
+      "input": {
+        "name": "Epic",
+        "quantity": 1500
+      },
+      "output": {
+        "name": "Mythic",
+        "quantity": 50
+      }
+    },
+    "icon": ":yellow_circle:",
+    "name": "Mythic",
+    "price_in_gems": {
+      "price": 375,
       "quantity": 50
-    }
+    },
+    "name_slug": "mythic"
   },
-  "icon": ":red_circle:",
-  "name": "Legendary",
-  "price_in_gems": {
-    "price": 750,
-    "quantity": 50
+  {
+    "conversion": {
+      "input": {
+        "name": "Mythic",
+        "quantity": 1250
+      },
+      "output": {
+        "name": "Legendary",
+        "quantity": 50
+      }
+    },
+    "icon": ":red_circle:",
+    "name": "Legendary",
+    "price_in_gems": {
+      "price": 750,
+      "quantity": 50
+    },
+    "name_slug": "legendary"
   },
-  "name_slug": "legendary"
-}]
+  {
+    "conversion": {
+      "input": {
+        "name": null,
+        "quantity": null
+      },
+      "output": {
+        "name": null,
+        "quantity": null
+      }
+    },
+    "icon": ":green_circle:",
+    "name": "Exalted",
+    "price_in_gems": {
+      "price": 1250,
+      "quantity": 50
+    },
+    "name_slug": "exalted"
+  },
+  {
+    "conversion": {
+      "input": {
+        "name": null,
+        "quantity": null
+      },
+      "output": {
+        "name": null,
+        "quantity": null
+      }
+    },
+    "icon": ":orange_circle:",
+    "name": "Divine",
+    "price_in_gems": {
+      "price": 2500,
+      "quantity": 50
+    },
+    "name_slug": "divine"
+  }
+]
