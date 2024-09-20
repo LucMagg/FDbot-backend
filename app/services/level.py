@@ -1,6 +1,6 @@
 from flask import current_app
 from app.models.level import Level
-from app.models.reward import Reward
+
 
 class LevelService:
 
@@ -22,7 +22,7 @@ class LevelService:
   def add_reward(level_name, reward_data):
     level = Level.read_by_level(current_app.mongo_db, level_name)
     if level:
-      return level.add_reward(current_app.mongo_db, Reward.from_dict(reward_data))
+      return level.add_reward(current_app.mongo_db, reward_data)
     return None
 
   @staticmethod

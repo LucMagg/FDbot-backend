@@ -1,140 +1,152 @@
-[{
-  "discount_price": 100,
-  "icon": ":purple_circle:",
-  "name": "Epic",
-  "price": 200,
-  "recycling": {
-    "dust": {
-      "name": "Epic",
-      "quantity": 25
+[
+  {
+    "discount_price": 10,
+    "icon": ":blue_circle:",
+    "name": "Magic",
+    "price": 20,
+    "recycling": {
+      "dust": {
+        "name": "Epic",
+        "quantity": 10
+      },
+      "gold": 250
     },
-    "gold": 1000
+    "name_slug": "magic",
+    "type": "gear"
   },
-  "name_slug": "epic"
-},
-{
-  "discount_price": 10,
-  "icon": ":blue_circle:",
-  "name": "Magic",
-  "price": 20,
-  "recycling": {
-    "dust": {
-      "name": "Epic",
-      "quantity": 10
+  {
+    "discount_price": 100,
+    "icon": ":purple_circle:",
+    "name": "Epic",
+    "price": 200,
+    "recycling": {
+      "dust": {
+        "name": "Epic",
+        "quantity": 25
+      },
+      "gold": 1000
     },
-    "gold": 250
+    "name_slug": "epic",
+    "type": "gear"
   },
-  "name_slug": "magic"
-},
-{
-  "discount_price": 375,
-  "icon": ":yellow_circle:",
-  "name": "Mythic",
-  "price": 750,
-  "recycling": {
-    "dust": {
-      "name": "Mythic",
-      "quantity": 20
+  {
+    "discount_price": 375,
+    "icon": ":yellow_circle:",
+    "name": "Mythic",
+    "price": 750,
+    "recycling": {
+      "dust": {
+        "name": "Mythic",
+        "quantity": 20
+      },
+      "gold": 2500
     },
-    "gold": 2500
+    "name_slug": "mythic",
+    "type": "gear"
   },
-  "name_slug": "mythic"
-},
-{
-  "discount_price": 750,
-  "icon": ":red_circle:",
-  "name": "Legendary",
-  "price": 1500,
-  "recycling": {
-    "dust": {
-      "name": "Legendary",
-      "quantity": 15
+  {
+    "discount_price": 750,
+    "icon": ":red_circle:",
+    "name": "Legendary",
+    "price": 1500,
+    "recycling": {
+      "dust": {
+        "name": "Legendary",
+        "quantity": 15
+      },
+      "gold": 10000
     },
-    "gold": 10000
+    "name_slug": "legendary",
+    "type": "gear"
   },
-  "name_slug": "legendary"
-},
-{
-  "discount_price": 1000,
-  "icon": ":green_circle:",
-  "name": "Exalted",
-  "price": 2500,
-  "recycling": {
-    "dust": {
-      "name": "Exalted",
-      "quantity": 10
+  {
+    "discount_price": 1000,
+    "icon": ":green_circle:",
+    "name": "Exalted",
+    "price": 2500,
+    "recycling": {
+      "dust": {
+        "name": "Exalted",
+        "quantity": 10
+      },
+      "gold": 25000
     },
-    "gold": 25000
+    "name_slug": "exalted",
+    "type": "gear"
   },
-  "name_slug": "exalted"
-},
-{
-  "discount_price": null,
-  "icon": ":purple_circle:",
-  "name": "Radiant",
-  "price": 200,
-  "recycling": {
-    "dust": {
-      "name": "Epic",
-      "quantity": 25
+  {
+    "discount_price": null,
+    "icon": ":purple_circle:",
+    "name": "Radiant",
+    "price": 200,
+    "recycling": {
+      "dust": {
+        "name": "Epic",
+        "quantity": 25
+      },
+      "gold": 1000
     },
-    "gold": 1000
+    "name_slug": "radiant",
+    "type": "amulet"
   },
-  "name_slug": "radiant"
-},
-{
-  "discount_price": null,
-  "icon": ":yellow_circle:",
-  "name": "Brilliant",
-  "price": 1000,
-  "recycling": {
-    "dust": {
-      "name": "Mythic",
-      "quantity": 20
+  {
+    "discount_price": null,
+    "icon": ":yellow_circle:",
+    "name": "Brilliant",
+    "price": 1000,
+    "recycling": {
+      "dust": {
+        "name": "Mythic",
+        "quantity": 20
+      },
+      "gold": 2500
     },
-    "gold": 2500
+    "name_slug": "brilliant",
+    "type": "amulet"
   },
-  "name_slug": "brilliant"
-},
-{
-  "discount_price": 1980,
-  "icon": ":orange_circle:",
-  "name": "Divine",
-  "price": 4950,
-  "recycling": {
-    "dust": {
-      "name": "Divine",
-      "quantity": 5
+  {
+    "discount_price": 1980,
+    "icon": ":orange_circle:",
+    "name": "Divine",
+    "price": 4950,
+    "recycling": {
+      "dust": {
+        "name": "Divine",
+        "quantity": 5
+      },
+      "gold": 50000
     },
-    "gold": 50000
+    "name_slug": "divine",
+    "type": "amulet"
   },
-  "name_slug": "divine"
-},
-{
-  "discount_price": null,
-  "icon": ":red_circle:",
-  "name": "Coruscating",
-  "price": 3000,
-  "recycling": {
-    "dust": {
-      "name": "Legendary",
-      "quantity": 15
+  {
+    "discount_price": null,
+    "icon": ":red_circle:",
+    "name": "Coruscating",
+    "price": 3000,
+    "recycling": {
+      "dust": {
+        "name": "Legendary",
+        "quantity": 15
+      },
+      "gold": 10000
     },
-    "gold": 10000
+    "name_slug": "coruscating",
+    "type": "amulet"
   },
-  "name_slug": "coruscating"
-},
-{
-  "discount_price": null,
-  "icon": ":orange_circle:",
-  "name": "Incandescent",
-  "price": 5000,
-  "recycling": {
-    "dust": {
-      "name": "Divine",
-      "quantity": 5
+  {
+    "discount_price": null,
+    "icon": ":orange_circle:",
+    "name": "Incandescent",
+    "price": 5000,
+    "recycling": {
+      "dust": {
+        "name": "Divine",
+        "quantity": 5
+      },
+      "gold": 50000
     },
-    "gold": 50000
-  },
-  "name_slug": "incandescent"
-}]
+    "name_slug": "incandescent",
+    "type": "amulet"
+  }
+]

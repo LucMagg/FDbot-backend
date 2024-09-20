@@ -1,14 +1,5 @@
 from typing import Dict
 
-from enum import Enum
-
-class Quality(Enum):
-    MAGIC = 1
-    EPIC = 2
-    MYTHIC = 3
-    LEGENDARY = 4
-    EXALTED = 5
-    DIVINE = 6
 
 class Reward:
   def __init__(self, quantity: int, appearances: int, type: str):
@@ -16,12 +7,15 @@ class Reward:
     self.appearances = appearances
     self.type = type
 
+  def __eq__(self, other):
+    return self.quantity == other.quantity and self.type == other.type
+
   @classmethod
   def from_dict(cls, data: Dict):
     return cls(
-      quantity= data.get('quantity'),
-      appearances= data.get('appearances'),
-      type= data.get('type')
+      quantity=data.get('quantity'),
+      appearances=data.get('appearances'),
+      type=data.get('type')
     )
 
   def to_dict(self) -> Dict:
@@ -31,25 +25,31 @@ class Reward:
       "type": self.type
     }
 
+
 class GoldReward(Reward):
-  def __init__(self, quantity: int, appearances: int):
-    Reward.__init__(self, quantity, appearances, "gold")
+  def __init__(self, reward_data):
+    Reward.__init__(self, reward_data['quantity'], reward_data['appearances'], "gold")
+
 
 class PotionsReward(Reward):
-  def __init__(self, quantity: int, appearances: int):
-    Reward.__init__(self, quantity, appearances, "potions")
+  def __init__(self, reward_data):
+    Reward.__init__(self, reward_data['quantity'], reward_data['appearances'], "potions")
+
 
 class GearReward(Reward):
-  def __init__(self, quality: Quality, appearances: int):
-    Reward.__init__(self, 1, appearances, "gear")
-    self.quality = quality
+  def __init__(self, reward_data):
+    Reward.__init__(self, 1, reward_data['appearances'], "gear")
+    self.quality = reward_data['quality']
+
+  def __eq__(self, other):
+    return super().__eq__(other) and self.quality == other.quality
 
   @classmethod
   def from_dict(cls, data: Dict):
-    return cls(
-      quality=data.get('quality'),
-      appearances=data.get('appearances'),
-    )
+    return cls({
+      "quality": data.get('quality'),
+      "appearances": data.get('appearances')
+    })
 
   def to_dict(self) -> Dict:
     return {
@@ -60,17 +60,20 @@ class GearReward(Reward):
     }
 
 class DustReward(Reward):
-  def __init__(self, quantity: int, quality: Quality, appearances: int):
-    Reward.__init__(self, quantity, appearances, "dust")
-    self.quality = quality
+  def __init__(self, reward_data):
+    Reward.__init__(self, reward_data['quantity'], reward_data['appearances'], "dust")
+    self.quality = reward_data['quality']
+
+  def __eq__(self, other):
+    return super().__eq__(other) and self.quality == other.quality
 
   @classmethod
   def from_dict(cls, data: Dict):
-    return cls(
-      quantity=data.get('quantity'),
-      quality=data.get('quality'),
-      appearances=data.get('appearances')
-    )
+    return cls({
+      'quantity': data.get('quantity'),
+      'quality': data.get('quality'),
+      'appearances': data.get('appearances')
+    })
 
   def to_dict(self) -> Dict:
     return {

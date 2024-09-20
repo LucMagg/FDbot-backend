@@ -221,6 +221,14 @@
         {
           "name": "potions",
           "value": 2
+        },
+        {
+          "name": "dust",
+          "value": 3
+        },
+        {
+          "name": "gear",
+          "value": 4
         }
       ]
     },

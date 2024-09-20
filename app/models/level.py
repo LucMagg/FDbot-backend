@@ -1,7 +1,7 @@
 from bson import ObjectId
 from typing import Dict, Optional, List
 
-from .reward import Reward
+from .reward import Reward, GoldReward, PotionsReward, GearReward, DustReward
 from ..utils.strUtils import str_to_slug
 
 
@@ -18,7 +18,7 @@ class Level:
       _id = str(data.get('_id')) if data.get('_id') else None,
       name = str_to_slug(data.get('name')),
       cost= data.get('cost'),
-      rewards = [Reward.from_dict(reward_data) for reward_data in data.get('rewards', []) if
+      rewards = [Level.create_reward(reward_data) for reward_data in data.get('rewards', []) if
                isinstance(reward_data, dict)]
     )
 
@@ -43,14 +43,15 @@ class Level:
     self._id = result.inserted_id
     return self
 
-  def add_reward(self, db, reward_data):
-    existing_rewards = [existing_reward for existing_reward in self.rewards if existing_reward.quantity == reward_data.quantity and existing_reward.type == existing_reward.type]
+  def add_reward(self, db, reward_data: Dict):
+    reward_data['appearances'] = 1
+    new_reward = Level.create_reward(reward_data)
+    existing_rewards = [existing_reward for existing_reward in self.rewards if existing_reward == new_reward]
     if len(existing_rewards) == 1:
       reward = existing_rewards[0]
       reward.appearances += 1
     elif len(existing_rewards) == 0:
-      reward = Reward(reward_data.quantity, 1, reward_data.type)
-      self.rewards.append(reward)
+      self.rewards.append(new_reward)
     else:
       return None
     db.levels.update_one({"_id": self._id}, {"$set": {'rewards': [reward.to_dict() for reward in self.rewards]}})
@@ -68,11 +69,6 @@ class Level:
     return Level.from_dict(data) if data else None
 
   @staticmethod
-  def read_by_level2(db, level_name):
-    data = db.levels.find_one({"name": str_to_slug(level_name)})
-    return Level.from_dict(data) if data else None
-
-  @staticmethod
   def read_by_level(db, level_name):
     data = db.levels.find_one({"name": str_to_slug(level_name)})
     return Level.from_dict(data) if data else None
@@ -80,3 +76,13 @@ class Level:
   @staticmethod
   def read_all(db):
     return [Level.from_dict(level) for level in db.levels.find()]
+
+  @staticmethod
+  def create_reward(reward_data):
+    factories = {
+      "gold": GoldReward,
+      "potions": PotionsReward,
+      "gear": GearReward,
+      "dust": DustReward
+    }
+    return factories[reward_data['type']](reward_data)

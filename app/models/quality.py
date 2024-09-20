@@ -42,7 +42,7 @@ class Recycling:
 
 
 class Quality:
-  def __init__(self, name: str, name_slug: str, icon: str, price: int, recycling: Recycling, discount_price: Optional[int] = None, _id: Optional[str] = None):
+  def __init__(self, name: str, name_slug: str, icon: str, price: int, recycling: Recycling, type: str, discount_price: Optional[int] = None, _id: Optional[str] = None):
     self._id = ObjectId(_id) if _id else None
     self.name = name
     self.name_slug = name_slug
@@ -50,6 +50,7 @@ class Quality:
     self.price = price
     self.discount_price = discount_price
     self.recycling = recycling
+    self.type = type
 
   @classmethod
   def from_dict(cls, data: Dict):
@@ -60,7 +61,8 @@ class Quality:
       icon = data.get('icon'),
       price = data.get('price'),
       discount_price = data.get('discount_price'),
-      recycling = Recycling.from_dict(data.get('recycling'))
+      recycling = Recycling.from_dict(data.get('recycling')),
+      type = data.get('type')
     )
 
   def to_dict(self) -> Dict:
@@ -71,7 +73,8 @@ class Quality:
       "icon": self.icon,
       "price": self.price,
       "discount_price": self.discount_price,
-      "recycling": self.recycling.to_dict()
+      "recycling": self.recycling.to_dict(),
+      "type": self.type
     }
   
   def create(self, db):
@@ -95,6 +98,11 @@ class Quality:
   @staticmethod
   def read_all(db):
     return [Quality.from_dict(quality) for quality in db.qualities.find()]
+
+  @staticmethod
+  def read_by_type(db, type):
+    qualities = [Quality.from_dict(quality) for quality in db.qualities.find()]
+    return [quality for quality in qualities if quality.type == type]
   
   @staticmethod
   def update_by_name(db, quality_name, update_data):
