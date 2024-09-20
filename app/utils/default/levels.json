@@ -8,17 +8,17 @@
     {
       "quantity": 10000,
       "appearances": 1,
-      "type": null
+      "type": "gold"
     },
     {
       "quantity": 15000,
       "appearances": 1,
-      "type": null
+      "type": "gold"
     },
     {
       "quantity": 35000,
       "appearances": 4,
-      "type": null
+      "type": "gold"
     },
     {
       "quantity": 20000,
@@ -85,61 +85,7 @@
   "_id": {
     "$oid": "66e0a7fc6eb81ab18251e531"
   },
-  "name": "name2",
+  "name": "emptylevel",
   "cost": 10,
-  "rewards": []
-},
-{
-  "_id": {
-    "$oid": "66e46a5548078b3d340f63ab"
-  },
-  "name": "newlevel",
-  "cost": 1,
-  "rewards": [
-    {
-      "quantity": 15,
-      "appearances": 1,
-      "type": "gold"
-    }
-  ]
-},
-{
-  "_id": {
-    "$oid": "66e46aaa48078b3d340f63ac"
-  },
-  "name": "newlevel2",
-  "cost": 1,
-  "rewards": []
-},
-{
-  "_id": {
-    "$oid": "66e46be1a641fb8df9824077"
-  },
-  "name": "newlevel3",
-  "cost": 1,
-  "rewards": []
-},
-{
-  "_id": {
-    "$oid": "66e53ebd4b6f7d0d7ce88c74"
-  },
-  "name": "newlevel4",
-  "cost": 4,
-  "rewards": []
-},
-{
-  "_id": {
-    "$oid": "66e54621def744a0513a6118"
-  },
-  "name": "shrine-1-1",
-  "cost": 1,
-  "rewards": []
-},
-{
-  "_id": {
-    "$oid": "66e556d9def744a0513a6119"
-  },
-  "name": "uwu",
-  "cost": 1,
   "rewards": []
 }]
