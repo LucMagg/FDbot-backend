@@ -44,7 +44,7 @@ class Level:
     return self
 
   def add_reward(self, db, reward_data):
-    existing_rewards = [existing_reward for existing_reward in self.rewards if existing_reward.quantity == reward_data.quantity]
+    existing_rewards = [existing_reward for existing_reward in self.rewards if existing_reward.quantity == reward_data.quantity and existing_reward.type == existing_reward.type]
     if len(existing_rewards) == 1:
       reward = existing_rewards[0]
       reward.appearances += 1
