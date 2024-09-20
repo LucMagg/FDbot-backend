@@ -168,7 +168,7 @@ class UpdateService:
     result = []
     current = ''
     for char in rawstring:
-      if char.isupper() and current and not current[-1].isspace():
+      if char.isupper() and current and not current[-1].isspace() and not current[-1] in ['-', '&', ':']:
         result.append(current)
         current = char
       else:
@@ -459,31 +459,12 @@ class UpdateService:
 
       case 'talent':
         to_return = []
-        for a in td.find_all('a'): 
-          tal = a['href'].split('.png')[0]
-          if a['class'] == ['image']:
-            talName = tal.split('/')
-            talent = talName[len(talName)-1][5:]
-          else:
-            talName = tal.split('=')
-            talent = talName[1][5:]
-
-          if '%26' in talent:
-            talent = '&'.join(talent.split('%26'))
-
-          i = 1
-          while i < len(talent):
-            if talent[i] == str.upper(talent[i]):
-              talent = talent[0:i] + ' ' + talent[i:]
-              i+=1
-            i+=1
-
-          if 'of' in talent:
-            talent = ' of '.join(talent.split('of'))
-          if 'to ' in talent:
-            talent = ' to '.join(talent.split('to '))
-          talent = talent.replace('  ', ' ')
-
+        talents = UpdateService.split_str_to_list(td.get_text())
+        for talent in talents:
+          talent = talent.split('1st')[0]
+          talent = talent.split('2nd')[0]
+          talent = talent.split('3rd')[0]
           to_return.append(talent)
+        return to_return
 
     return to_return

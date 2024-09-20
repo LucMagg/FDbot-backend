@@ -400,7 +400,8 @@ class Hero:
 
     for stage in pipeline_stages:
       if '$match' in stage:
-        stage['$match']['talents.name'] = slug_to_str(talent)
+        stage['$match']['talents.name'] = talent
+        print(talent)
 
     heroes = list(db.heroes.aggregate(pipeline_stages))
     data = []

@@ -1,5 +1,7 @@
 from flask import Blueprint, jsonify, request, current_app
 from app.services.hero import HeroService
+from app.services.talent import TalentService
+from app.utils.strUtils import slug_to_str
 
 hero_blueprint = Blueprint('hero', __name__)
 
@@ -47,10 +49,16 @@ def get_heroes_by_gear_name_and_quality():
 @hero_blueprint.route('/hero/talent', methods=['GET'])
 def get_heroes_by_talent():
   talent = request.args.get('talent')
-  heroes = HeroService.get_heroes_by_talent(talent)
-  if heroes:
-    return jsonify(heroes)
-  return jsonify({'error': 'Heroes not found'}), 404
+  talent_to_find = TalentService.get_one_talent(slug_to_str(talent))
+  print(talent_to_find.name_slug)
+
+  if talent_to_find:
+    heroes = HeroService.get_heroes_by_talent(talent_to_find.name)
+    if heroes:
+      return jsonify(heroes)
+    return jsonify({'error': 'Heroes not found'}), 404
+  
+  return jsonify({'error': 'Talent not found'}), 404
 
 @hero_blueprint.route('/hero/pet', methods=['GET'])
 def get_heroes_by_pet():
