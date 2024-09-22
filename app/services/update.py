@@ -167,15 +167,31 @@ class UpdateService:
   def split_str_to_list(rawstring):
     result = []
     current = ''
+    print(rawstring)
     for char in rawstring:
       if char.isupper() and current and not current[-1].isspace() and not current[-1] in ['-', '&', ':']:
         result.append(current)
         current = char
+      elif char == chr(10):
+        pass
       else:
         current += char
     if current:
       result.append(current)
-    return [' '.join(skill.split()) for skill in result]
+
+    to_return = []
+    to_delete = False
+    for elem in result:
+      if 'File:' in elem:
+        to_delete = True
+      elif '.png' in elem:
+        to_delete = False
+      elif not to_delete:
+        to_return.append(elem)
+
+    print(to_return)
+
+    return [' '.join(skill.split()) for skill in to_return]
 
   @staticmethod
   def find_text_from_bs_object(bs_obj, to_add, schema_item_list):

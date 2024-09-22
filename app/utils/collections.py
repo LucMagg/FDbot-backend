@@ -8,7 +8,7 @@ def init_collections():
   print('-----------------')
   existing_collections = current_app.mongo_db.list_collection_names()
 
-  static_collections = ['commands','dusts','messages','qualities','wikiSchemas','levels', 'pipelines']
+  static_collections = ['commands','dusts','messages','qualities','wikiSchemas', 'pipelines']
 
   for collec in static_collections:
     needs_update = None
