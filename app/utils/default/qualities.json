@@ -12,7 +12,8 @@
       "gold": 250
     },
     "name_slug": "magic",
-    "type": "gear"
+    "type": "gear",
+    "grade": 1
   },
   {
     "discount_price": 100,
@@ -27,7 +28,8 @@
       "gold": 1000
     },
     "name_slug": "epic",
-    "type": "gear"
+    "type": "gear",
+    "grade": 2
   },
   {
     "discount_price": 375,
@@ -42,7 +44,8 @@
       "gold": 2500
     },
     "name_slug": "mythic",
-    "type": "gear"
+    "type": "gear",
+    "grade": 3
   },
   {
     "discount_price": 750,
@@ -57,7 +60,8 @@
       "gold": 10000
     },
     "name_slug": "legendary",
-    "type": "gear"
+    "type": "gear",
+    "grade": 4
   },
   {
     "discount_price": 1000,
@@ -72,7 +76,24 @@
       "gold": 25000
     },
     "name_slug": "exalted",
-    "type": "gear"
+    "type": "gear",
+    "grade": 5
+  },  
+  {
+    "discount_price": 1980,
+    "icon": ":orange_circle:",
+    "name": "Divine",
+    "price": 4950,
+    "recycling": {
+      "dust": {
+        "name": "Divine",
+        "quantity": 5
+      },
+      "gold": 50000
+    },
+    "name_slug": "divine",
+    "type": "gear",
+    "grade": 6
   },
   {
     "discount_price": null,
@@ -87,7 +108,8 @@
       "gold": 1000
     },
     "name_slug": "radiant",
-    "type": "amulet"
+    "type": "amulet",
+    "grade": 1
   },
   {
     "discount_price": null,
@@ -102,22 +124,8 @@
       "gold": 2500
     },
     "name_slug": "brilliant",
-    "type": "amulet"
-  },
-  {
-    "discount_price": 1980,
-    "icon": ":orange_circle:",
-    "name": "Divine",
-    "price": 4950,
-    "recycling": {
-      "dust": {
-        "name": "Divine",
-        "quantity": 5
-      },
-      "gold": 50000
-    },
-    "name_slug": "divine",
-    "type": "amulet"
+    "type": "amulet",
+    "grade": 2
   },
   {
     "discount_price": null,
@@ -132,7 +140,8 @@
       "gold": 10000
     },
     "name_slug": "coruscating",
-    "type": "amulet"
+    "type": "amulet",
+    "grade": 3
   },
   {
     "discount_price": null,
@@ -147,6 +156,7 @@
       "gold": 50000
     },
     "name_slug": "incandescent",
-    "type": "amulet"
+    "type": "amulet",
+    "grade": 4
   }
 ]

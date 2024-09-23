@@ -16,7 +16,8 @@
       "price": 125,
       "quantity": 50
     },
-    "name_slug": "epic"
+    "name_slug": "epic",
+    "grade": 2
   },
   {
     "conversion": {
@@ -35,7 +36,8 @@
       "price": 375,
       "quantity": 50
     },
-    "name_slug": "mythic"
+    "name_slug": "mythic",
+    "grade": 3
   },
   {
     "conversion": {
@@ -54,7 +56,8 @@
       "price": 750,
       "quantity": 50
     },
-    "name_slug": "legendary"
+    "name_slug": "legendary",
+    "grade": 4
   },
   {
     "conversion": {
@@ -73,7 +76,8 @@
       "price": 1250,
       "quantity": 50
     },
-    "name_slug": "exalted"
+    "name_slug": "exalted",
+    "grade": 5
   },
   {
     "conversion": {
@@ -92,6 +96,7 @@
       "price": 2500,
       "quantity": 50
     },
-    "name_slug": "divine"
+    "name_slug": "divine",
+    "grade": 6
   }
 ]

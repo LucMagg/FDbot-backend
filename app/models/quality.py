@@ -42,7 +42,7 @@ class Recycling:
 
 
 class Quality:
-  def __init__(self, name: str, name_slug: str, icon: str, price: int, recycling: Recycling, type: str, discount_price: Optional[int] = None, _id: Optional[str] = None):
+  def __init__(self, name: str, name_slug: str, icon: str, price: int, recycling: Recycling, type: str, grade: int, discount_price: Optional[int] = None, _id: Optional[str] = None):
     self._id = ObjectId(_id) if _id else None
     self.name = name
     self.name_slug = name_slug
@@ -51,6 +51,7 @@ class Quality:
     self.discount_price = discount_price
     self.recycling = recycling
     self.type = type
+    self.grade = grade
 
   @classmethod
   def from_dict(cls, data: Dict):
@@ -62,7 +63,8 @@ class Quality:
       price = data.get('price'),
       discount_price = data.get('discount_price'),
       recycling = Recycling.from_dict(data.get('recycling')),
-      type = data.get('type')
+      type = data.get('type'),
+      grade = data.get('grade')
     )
 
   def to_dict(self) -> Dict:
@@ -74,7 +76,8 @@ class Quality:
       "price": self.price,
       "discount_price": self.discount_price,
       "recycling": self.recycling.to_dict(),
-      "type": self.type
+      "type": self.type,
+      "grade": self.grade
     }
   
   def create(self, db):

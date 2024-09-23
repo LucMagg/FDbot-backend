@@ -61,12 +61,13 @@ class Conversion:
 
 
 class Dust:
-  def __init__(self, name: str, name_slug: str, icon: str, price_in_gems: Price_in_gems, conversion: Optional[Conversion] = None, _id: Optional[str] = None):
+  def __init__(self, name: str, name_slug: str, icon: str, price_in_gems: Price_in_gems, grade: int, conversion: Optional[Conversion] = None, _id: Optional[str] = None):
     self._id = ObjectId(_id) if _id else None
     self.name = name
     self.name_slug = name_slug
     self.icon = icon
     self.price_in_gems = price_in_gems
+    self.grade = grade
     self.conversion = conversion
 
   @classmethod
@@ -77,6 +78,7 @@ class Dust:
       name_slug = str_to_slug(data.get('name')),
       icon = data.get('icon'),
       price_in_gems = Price_in_gems.from_dict(data.get('price_in_gems', {})),
+      grade = data.get('grade'),
       conversion = Conversion.from_dict(data.get('conversion', {})) if data.get('conversion') else None
     )
 
@@ -86,6 +88,7 @@ class Dust:
       "name": self.name,
       "name_slug": self.name_slug,
       "icon": self.icon,
+      "grade": self.grade,
       "price_in_gems": self.price_in_gems.to_dict(),
     }
     if self.conversion:
