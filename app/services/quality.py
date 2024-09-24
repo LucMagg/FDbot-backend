@@ -28,5 +28,4 @@ class QualityService:
 
   @staticmethod
   def get_gear_qualities():
-    qualities = Quality.read_by_type(current_app.mongo_db, 'gear')
-    return [quality.name for quality in qualities]
+    return Quality.read_by_type(current_app.mongo_db, 'gear')

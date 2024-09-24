@@ -21,9 +21,9 @@ def get_quality(quality):
 
 @quality_blueprint.route('/quality', methods=['GET'])
 def get_qualitys():
-  qualitys = QualityService.get_all_qualitys()
-  if qualitys:
-    return jsonify([quality.to_dict() for quality in qualitys])
+  qualities = QualityService.get_all_qualitys()
+  if qualities:
+    return jsonify([quality.to_dict() for quality in qualities])
   return jsonify({'error': 'Qualitys not found'}), 404
 
 
@@ -31,5 +31,5 @@ def get_qualitys():
 def get_gear_qualities():
   qualities = QualityService.get_gear_qualities()
   if qualities:
-    return jsonify(qualities)
+    return jsonify([quality.to_dict() for quality in qualities])
   return jsonify({'error': 'Gear qualities not found'}), 404

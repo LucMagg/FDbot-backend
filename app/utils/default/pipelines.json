@@ -338,4 +338,48 @@
       }
     }
   ]
+},
+{
+  "name": "unique_gear",
+  "pipeline": [
+    {
+      "$match": {
+        "gear": {
+          "$exists": true,
+          "$ne": []
+        }
+      }
+    },
+    {
+      "$unwind": "$gear"
+    },
+    {
+      "$match": {
+        "gear.name": {
+          "$ne": null
+        },
+        "gear.position": "{{position}}",
+        "type": "{{type}}"
+      }
+    },
+    {
+      "$group": {
+        "_id":{
+          "name": "$gear.name",
+          "position": "$gear.position"
+        },
+        "types": {
+          "$addToSet": "$type"
+        }
+      }
+    },
+    {
+      "$project": {
+        "_id": 0,
+        "name": "$_id.name",
+        "position": "$_id.position",
+        "types": 1
+      }
+    }
+  ]
 }]
