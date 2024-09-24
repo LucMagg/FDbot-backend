@@ -1,0 +1,164 @@
+{
+	"info": {
+		"_postman_id": "18a3a510-5450-4541-88b4-33eee655c74a",
+		"name": "Gear",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34841762"
+	},
+	"item": [
+		{
+			"name": "getAllUniqueGear",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"getAllUniqueGear request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200)\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8008/gear",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8008",
+					"path": [
+						"gear"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getUniqueGearByPosition",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"getUniqueGearByPosition request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200)\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8008/gear?position=Weapon,Off-Hand",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8008",
+					"path": [
+						"gear"
+					],
+					"query": [
+						{
+							"key": "position",
+							"value": "Weapon,Off-Hand"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getUniqueGearByType",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"getUniqueGearByType request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200)\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8008/gear?type=Magic,Ranged",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8008",
+					"path": [
+						"gear"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "Magic,Ranged"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getUniqueGearByTypeAndPosition",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"getUniqueGearByTypeAndPosition request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200)\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8008/gear?type=Magic,Ranged&position=Weapon,Off-Hand",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8008",
+					"path": [
+						"gear"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "Magic,Ranged"
+						},
+						{
+							"key": "position",
+							"value": "Weapon,Off-Hand"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

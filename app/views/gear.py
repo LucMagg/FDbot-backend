@@ -9,10 +9,12 @@ def get_gear():
   type = request.args.get('type', None)
   position = request.args.get('position', None)
 
-  if ',' in type:
-    type = type.split(',')
-  if ',' in position:
-    position = position.split(',')
+  if type:
+    if ',' in type:
+      type = type.split(',')
+  if position:
+    if ',' in position:
+      position = position.split(',')
 
   print(type)
   print(position)
