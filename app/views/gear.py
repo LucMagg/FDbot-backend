@@ -23,3 +23,11 @@ def get_gear():
   if gear_data:
     return gear_data, 200
   return jsonify({'error': 'Gear not found'}), 404
+
+@gear_blueprint.route('/gear/all', methods=['GET'])
+def get_all_gear():
+  gear_data = GearService.get_all_gear()
+
+  if gear_data:
+    return list(gear_data)[0]['gears'], 200
+  return jsonify({'error': 'Gear not found'}), 404

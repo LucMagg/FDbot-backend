@@ -382,4 +382,47 @@
       }
     }
   ]
+},
+{
+  "name": "list_all_gear",
+  "pipeline": [
+    {
+      "$unwind": "$gear"
+    },
+    {
+      "$match": {
+        "gear.name": {
+          "$ne": null
+        }
+      }
+    },
+    {
+      "$project": {
+        "_id": 0,
+        "gear_only": "$gear.name",
+        "gear_and_quality": {
+          "$concat": ["$gear.quality", " ", "$gear.name"]
+        }
+      }
+    },
+    {
+      "$group": {
+        "_id": null,
+        "gears": {
+          "$addToSet": "$gear_only"
+        },
+        "gears_with_quality": {
+          "$addToSet": "$gear_and_quality"
+        }
+      }
+    },
+    {
+      "$project": {
+        "_id": 0,
+        "gears": {
+          "$setUnion": ["$gears", "$gears_with_quality"]
+        }
+      }
+    }
+  ]
 }]

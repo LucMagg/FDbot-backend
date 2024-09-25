@@ -37,3 +37,15 @@ class GearService:
           g['types'].append('Melee')
         g['types'].remove('Melee/Ranged')
     return gear
+  
+  @staticmethod
+  def get_all_gear():   
+    pipeline_doc = current_app.mongo_db.pipelines.find_one({'name': 'list_all_gear'})
+    if not pipeline_doc:
+      return None
+
+    pipeline_stages = [stage.copy() for stage in pipeline_doc['pipeline']]
+
+    gear = list(current_app.mongo_db.heroes.aggregate(pipeline_stages))
+
+    return gear
