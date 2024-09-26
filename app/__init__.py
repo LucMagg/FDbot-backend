@@ -16,6 +16,7 @@ from .views.comment import comment_blueprint
 from .views.level import levels_blueprint
 from .views.command import command_blueprint
 from .views.gear import gear_blueprint
+from .views.ready import ready_blueprint
 
 
 def create_app(config_name='default'):
@@ -40,5 +41,6 @@ def create_app(config_name='default'):
   app.register_blueprint(levels_blueprint)
   app.register_blueprint(command_blueprint)
   app.register_blueprint(gear_blueprint)
+  app.register_blueprint(ready_blueprint)
 
   return app
