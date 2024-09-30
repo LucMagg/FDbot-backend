@@ -16,7 +16,7 @@
       "name": "commentaire",
       "description": "Commentaire à ajouter sur la description du héros/pet",
       "type": 3,
-      "required": true
+      "required": false
     }
   ]
 },

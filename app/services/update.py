@@ -5,7 +5,7 @@ from app.models.wikiSchema import WikiSchema
 from app.models.hero import Hero
 from app.models.pet import Pet
 from app.models.talent import Talent
-from app.utils.strUtils import str_to_wiki_url
+from app.utils.strUtils import str_to_wiki_url, str_to_slug
 
 
 base_url = 'https://friends-and-dragons.fandom.com/wiki/'
@@ -85,6 +85,15 @@ class UpdateService:
                 del pet['gold_description']
               
               Talent.update_talents(current_app.mongo_db, pet_talents)
+            
+            if any('signature' in d for d in updated_array_of_dicts):
+              heroes_to_update = []
+              for pet in updated_array_of_dicts:
+                heroes_to_update.append({'name': pet['signature'], 'pet': pet['name']})
+                if pet['signature_bis'] is not None:
+                  heroes_to_update.append({'name': pet['signature_bis'], 'pet': pet['name']})
+              Hero.update_heroes(current_app.mongo_db, heroes_to_update)  
+
             Pet.update_pets(current_app.mongo_db, updated_array_of_dicts)
           case 'talent':
             Talent.update_talents(current_app.mongo_db, updated_array_of_dicts)
@@ -167,7 +176,6 @@ class UpdateService:
   def split_str_to_list(rawstring):
     result = []
     current = ''
-    print(rawstring)
     for char in rawstring:
       if char.isupper() and current and not current[-1].isspace() and not current[-1] in ['-', '&', ':']:
         result.append(current)
@@ -188,8 +196,6 @@ class UpdateService:
         to_delete = False
       elif not to_delete:
         to_return.append(elem)
-
-    print(to_return)
 
     return [' '.join(skill.split()) for skill in to_return]
 
