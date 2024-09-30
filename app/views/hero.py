@@ -49,8 +49,7 @@ def get_heroes_by_gear_name_and_quality():
 @hero_blueprint.route('/hero/talent', methods=['GET'])
 def get_heroes_by_talent():
   talent = request.args.get('talent')
-  talent_to_find = TalentService.get_one_talent(slug_to_str(talent))
-  print(talent_to_find.name_slug)
+  talent_to_find = TalentService.get_one_talent(talent)
 
   if talent_to_find:
     heroes = HeroService.get_heroes_by_talent(talent_to_find.name)

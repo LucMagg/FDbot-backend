@@ -196,7 +196,6 @@ class UpdateService:
         to_delete = False
       elif not to_delete:
         to_return.append(elem)
-
     return [' '.join(skill.split()) for skill in to_return]
 
   @staticmethod
@@ -388,7 +387,9 @@ class UpdateService:
     match schema['schema']:
       case 'name':
         to_return = td.get_text()
-        if 'File:' in to_return: #exception du nom du perso sans image dans la table du Fandom Wiki
+        if 'File:Trait' in to_return: #exception du talent sans image dans la table du Fandom Wiki
+          to_return = td.find('span').get_text()
+        elif 'File:' in to_return: #exception du nom du perso sans image dans la table du Fandom Wiki
           to_return = td.find('a').get_text().split('File:')[1].split(' Portrait')[0]
         while '  ' in to_return:
           to_return = to_return.replace('  ',' ')
@@ -487,6 +488,5 @@ class UpdateService:
           talent = talent.split('2nd')[0]
           talent = talent.split('3rd')[0]
           to_return.append(talent)
-        return to_return
 
     return to_return
