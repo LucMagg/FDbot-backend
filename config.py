@@ -13,6 +13,12 @@ class Config:
   BACKUP_HOUR = int(os.getenv('BACKUP_HOUR'))
   BACKUP_MINUTE = int(os.getenv('BACKUP_MINUTE'))
 
+  HOST = os.getenv('HOST')
+  PORT = int(os.getenv('PORT'))
+
+  LOG_FILE = os.getenv('LOG_FILE')
+
+
 class DevelopmentConfig(Config):
   DEBUG = True
 

@@ -13,41 +13,40 @@ def need_backup(db_names: list):
   today = datetime.now().strftime('%d-%m-%y')
   return not any(today in d for d in db_names)
 
-def delete_old_and_corrupted_backups(db_names: list, app):
+def delete_old_and_corrupted_backups(app, db_names: list):
   for db in db_names:
     if '_' in db:
       db_date = datetime.strptime(db.split('_')[-1], '%d-%m-%y')
-      if datetime.now() - db_date > timedelta(days=app.config['DAYS_OF_BACKUP_RETENTION']):
+      if datetime.now() - db_date > timedelta(days=app.config.get('DAYS_OF_BACKUP_RETENTION')):
         app.mongo_client.drop_database(db)
-        print(f"  Backup expiré ({db}) : suppression...")
+        app.logger.back_log(f"  Backup expiré ({db}) : suppression...")
     else:
       app.mongo_client.drop_database(db)
-      print(f"  Backup incohérent détecté ({db}) : suppression...")
+      app.logger.back_log(f"  Backup incohérent détecté ({db}) : suppression...")
 
 def backup_my_db(app):
   lock = FileLock("/tmp/backup.lock", timeout=10)
 
   try:
     with lock:
-      time = datetime.now().strftime('%d/%b/%Y %H:%M:%S')
-      print(f"{os.getenv('HOST')} - - [{time}] Vérification du backup de la database")
+      app.logger.back_log("Vérification du backup de la database")
 
-      backup_database_names = [db for db in app.mongo_client.list_database_names() if app.config['MONGO_DB_BACKUP'] in db]
-      delete_old_and_corrupted_backups(backup_database_names, app)
+      backup_database_names = [db for db in app.mongo_client.list_database_names() if app.config.get('MONGO_DB_BACKUP') in db]
+      delete_old_and_corrupted_backups(app, backup_database_names)
 
       if not need_backup(backup_database_names):
-        print("  Backup déjà effectué aujourd'hui :)")
+        app.logger.back_log("  Backup déjà effectué aujourd'hui :)")
         return True
 
-      print("  Début du backup de la database")
+      app.logger.back_log("  Début du backup de la database")
       source_db = app.mongo_db
-      backup_db_name = f"{app.config['MONGO_DB_BACKUP']}_{datetime.now().strftime('%d-%m-%y')}"
+      backup_db_name = f"{app.config.get('MONGO_DB_BACKUP')}_{datetime.now().strftime('%d-%m-%y')}"
       backup_db = app.mongo_client[backup_db_name]
 
       collections = source_db.list_collection_names()
 
       for collection_name in collections:
-        print(f"  Sauvegarde de la collection : {collection_name}")
+        app.logger.back_log(f"  Sauvegarde de la collection : {collection_name}")
         backup_db.drop_collection(collection_name)
         source_collection = source_db[collection_name]
         backup_collection = backup_db[collection_name]
@@ -56,20 +55,22 @@ def backup_my_db(app):
         if documents:
           backup_collection.insert_many(documents)
 
-      print(f" * Sauvegarde terminée avec succès dans la db : {backup_db_name}")
+      app.logger.back_log(f" * Sauvegarde terminée avec succès dans la db : {backup_db_name}")
       return True
   except Exception as e:
-    print(f"Erreur lors de la sauvegarde : {e}")
+    app.logger.back_log(f"Erreur lors de la sauvegarde : {e}")
     return False
-
-def job_listener(event):
-  global is_backup_done
-  if event.exception:
-    print(f"Backup échoué. Exception: {event.exception}")
-    is_backup_done = False
-  else:
-    print("Backup effectué avec suuccès :)")
-    is_backup_done = True
+  
+def create_job_listener(app):
+  def job_listener(event):
+    global is_backup_done
+    if event.exception:
+      app.logger.back_log(f"Backup échoué. Exception: {event.exception}")
+      is_backup_done = False
+    else:
+      app.logger.back_log("Backup effectué avec succès :)")
+      is_backup_done = True
+  return job_listener
 
 def retry_backup(app):
   global is_backup_done, max_retries
@@ -80,13 +81,13 @@ def retry_backup(app):
     if is_backup_done:
       break
 
-    print(f"Tentative de backup {attempt + 1}/{max_retries}")
     with app.app_context():
       if backup_my_db(app):
         is_backup_done = True
         break
     
-    if not is_backup_done and attempt < max_retries - 1: 
+    if not is_backup_done and attempt < max_retries - 1:
+      app.logger.back_log(f"Échec - Nouvelle tentative de backup {attempt + 1}/{max_retries} dans {retry_delay} minutes") 
       scheduler.add_job(
         func=lambda: retry_backup(app),
         trigger="date",
@@ -94,7 +95,7 @@ def retry_backup(app):
         id=f'retry_backup_{attempt}'
       )
   if not is_backup_done:
-    print(f"Le backup a échoué après {max_retries} tentatives. Veuillez vérifier le système.")
+    app.logger.back_log(f"Le backup a échoué après {max_retries} tentatives. Veuillez vérifier le système.")
 
 def init_backup(app):
   global scheduler, is_backup_done
@@ -107,7 +108,7 @@ def init_backup(app):
       minute=app.config.get('BACKUP_MINUTE', 0),
       id='daily_backup'
     )
-    scheduler.add_listener(job_listener, EVENT_JOB_EXECUTED | EVENT_JOB_ERROR)
+    scheduler.add_listener(create_job_listener(app), EVENT_JOB_EXECUTED | EVENT_JOB_ERROR)
     scheduler.start()
   
   if not is_backup_done:

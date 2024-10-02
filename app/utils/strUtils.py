@@ -1,4 +1,9 @@
 import re
+from datetime import datetime
+from config import Config
+
+def str_now() -> str:
+  return f"{Config.HOST} - - [{datetime.now().strftime('%d/%b/%Y %H:%M:%S')}]"
 
 def str_to_slug(input_string: str|None) -> str|None:
   if input_string is None or not isinstance(input_string, str):

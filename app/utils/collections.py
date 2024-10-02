@@ -4,8 +4,7 @@ from bson.json_util import dumps
 from app.services.update import UpdateService
 
 def init_collections():
-  print('COLLECTIONS CHECK')
-  print('-----------------')
+  current_app.logger.back_log('COLLECTIONS CHECK')
   existing_collections = current_app.mongo_db.list_collection_names()
 
   static_collections = ['commands','dusts','messages','qualities','wikiSchemas', 'pipelines']
@@ -29,13 +28,13 @@ def init_collections():
       db_str = dumps(db_data, sort_keys=True)
         
       if json_str != db_str:
-        print(f'  Collection {collec} différente du JSON...')
+        current_app.logger.back_log(f'  Collection {collec} différente du JSON...')
         collection.drop()
         needs_update = 'mise à jour'
       else:
-        print(f'  Collection {collec} à jour')
+        current_app.logger.back_log(f'  Collection {collec} à jour')
     else:
-      print(f'  Collection {collec} n\'existe pas...')
+      current_app.logger.back_log(f'  Collection {collec} n\'existe pas...')
       needs_update = 'créée'
     
     if needs_update:
@@ -49,7 +48,7 @@ def init_collections():
         json_data.pop('_id', None)
         collection.insert_one(json_data)
       
-      print(f'  Collection {collec} {needs_update}')
+      current_app.logger.back_log(f'  Collection {collec} {needs_update}')
   
   dynamic_collections = ['heroes','pets','talents']  
   dynamic_collections_names = ''
@@ -65,8 +64,8 @@ def init_collections():
   
   
   if need_to_create_dynamic_collections:
-    print(f'  Collections {dynamic_collections_names} en cours de création...')
+    current_app.logger.back_log(f'  Collections {dynamic_collections_names} en cours de création...')
     UpdateService.update_all()
-    print(f'  Collections créées')
+    current_app.logger.back_log(f'  Collections créées')
   else:
-    print(f'  Collections {dynamic_collections_names} déjà existantes')  
+    current_app.logger.back_log(f'  Collections {dynamic_collections_names} déjà existantes')  

@@ -14,3 +14,6 @@ BACKUP_MINUTE = 0 # backup minute
 
 HOST = 'your_backend_url_or_IP'
 PORT = 0 # a number between 1024 and 49151
+FLASK_ENV = 'development|testing|production'
+
+LOG_FILE = 'name_of_the_log_file.log'

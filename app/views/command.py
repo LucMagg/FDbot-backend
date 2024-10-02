@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, request, current_app
 from app.services.command import CommandService
 
 command_blueprint = Blueprint('command', __name__)
@@ -21,7 +21,13 @@ def get_command(command):
 
 @command_blueprint.route('/command', methods=['GET'])
 def get_commands():
+  req = '/command GET'
+  current_app.logger.req(req)
   commands = CommandService.get_all_commands()
+  
   if commands:
+    current_app.logger.req_ok(req)
     return jsonify([command.to_dict() for command in commands])
+  
+  current_app.logger.req_404(req)
   return jsonify({'error': 'Commands not found'}), 404

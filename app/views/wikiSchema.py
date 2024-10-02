@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, request, current_app
 from app.services.wikiSchema import WikiSchemaService
 
 wikiSchema_blueprint = Blueprint('wikischema', __name__)
@@ -21,7 +21,13 @@ def get_wikiSchema(wikiSchema):
 
 @wikiSchema_blueprint.route('/wikischema', methods=['GET'])
 def get_wikiSchemas():
+  req = '/wikischema GET'
+  current_app.logger.req(req)
+
   wikiSchemas = WikiSchemaService.get_all_wikiSchemas()
   if wikiSchemas:
+    current_app.logger.req_ok(req)
     return jsonify([wikiSchema.to_dict() for wikiSchema in wikiSchemas])
+  
+  current_app.logger.req_404(req)
   return jsonify({'error': 'WikiSchemas not found'}), 404

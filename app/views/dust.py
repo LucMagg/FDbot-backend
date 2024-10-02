@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, request, current_app
 from app.services.dust import DustService
 
 dust_blueprint = Blueprint('dust', __name__)
@@ -21,7 +21,12 @@ def get_dust(dust):
 
 @dust_blueprint.route('/dust', methods=['GET'])
 def get_dusts():
+  req = '/dust GET'
+  current_app.logger.req(req)
   dusts = DustService.get_all_dusts()
   if dusts:
+    current_app.logger.req_ok(req)
     return jsonify([dust.to_dict() for dust in dusts])
+  
+  current_app.logger.req_404(req)
   return jsonify({'error': 'Dusts not found'}), 404

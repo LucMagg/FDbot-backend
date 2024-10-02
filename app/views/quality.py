@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, request, current_app
 from app.services.quality import QualityService
 
 quality_blueprint = Blueprint('quality', __name__)
@@ -21,15 +21,27 @@ def get_quality(quality):
 
 @quality_blueprint.route('/quality', methods=['GET'])
 def get_qualitys():
+  req = '/quality GET'
+  current_app.logger.req(req)
+
   qualities = QualityService.get_all_qualitys()
   if qualities:
+    current_app.logger.req_ok(req)
     return jsonify([quality.to_dict() for quality in qualities])
+  
+  current_app.logger.req_404(req)
   return jsonify({'error': 'Qualitys not found'}), 404
 
 
 @quality_blueprint.route('/quality/gears', methods=['GET'])
 def get_gear_qualities():
+  req = '/quality/gears GET'
+  current_app.logger.req(req)
+
   qualities = QualityService.get_gear_qualities()
   if qualities:
+    current_app.logger.req_ok(req)
     return jsonify([quality.to_dict() for quality in qualities])
+  
+  current_app.logger.req_404(req)
   return jsonify({'error': 'Gear qualities not found'}), 404

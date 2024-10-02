@@ -1,5 +1,6 @@
 from flask import Flask
 from config import config
+from .utils.logger import Logger
 from backup import init_backup
 from .utils.collections import init_collections
 
@@ -22,6 +23,7 @@ from .views.ready import ready_blueprint
 def create_app(config_name='default'):
   app = Flask(__name__)
   app.config.from_object(config[config_name])
+  app.logger = Logger(log_file=f'logs/{app.config.get('LOG_FILE')}')
 
   init_mongo(app)
 
@@ -42,5 +44,7 @@ def create_app(config_name='default'):
   app.register_blueprint(command_blueprint)
   app.register_blueprint(gear_blueprint)
   app.register_blueprint(ready_blueprint)
+
+  app.logger.back_log('Application en ligne')
 
   return app

@@ -7,9 +7,12 @@ comment_blueprint = Blueprint('comment', __name__)
 
 @comment_blueprint.route('/comment', methods=['POST'])
 def add_comment():
+  req = '/comment POST'
+  current_app.logger.req(req)
   hero_or_pet = request.args.get('hero_or_pet')
   comment = request.args.get('comment')
   author = request.args.get('author')
+  current_app.logger.log_info('info', f"arg : {hero_or_pet} | author : {author} | comment : {comment}")
 
   if hero_or_pet and comment:
     to_comment = HeroService.get_one_hero(hero_or_pet)
@@ -22,7 +25,14 @@ def add_comment():
         HeroService.add_comment(to_comment, comment, author)
       else:
         PetService.add_comment(to_comment, comment, author)
+
+      current_app.logger.req_ok(req)
       return jsonify({'message': 'comment added and/or modified'}), 201
+
+    return_msg = 'Hero or pet not found'
+    current_app.logger.req_404(req, return_msg)
+    return jsonify({'error': return_msg}), 404
   
-    return jsonify({'error': 'Hero or pet not found'}), 404
-  return jsonify({'error': 'Hero, pet or comment missing'}), 404
+  return_msg = 'Hero, pet or comment missing'
+  current_app.logger.req_404(req, return_msg)
+  return jsonify({'error': return_msg}), 404
