@@ -51,10 +51,12 @@ class Option:
   
 
 class Command:
-  def __init__(self, name: str, type: int, description: str, _id: Optional[str] = None, options: Union[List[Option], List] = None):
+  def __init__(self, name: str, type: int, description: str, to_update: bool, setup_type: Optional[str] = None, _id: Optional[str] = None, options: Union[List[Option], List] = None):
     self._id = ObjectId(_id) if _id else None
     self.name = name
     self.type = type
+    self.setup_type = setup_type
+    self.to_update = to_update
     self.description = description
     self.options = options
 
@@ -64,6 +66,8 @@ class Command:
       _id = str(data.get('_id')) if data.get('_id') else None,
       name = data.get('name'),
       type = data.get('type'),
+      setup_type = data.get('setup_type'),
+      to_update = data.get('to_update'),
       description = data.get('description'),
       options = [Option.from_dict(option_data) for option_data in data.get('options', []) if isinstance(option_data, dict)]
     )
@@ -72,6 +76,8 @@ class Command:
     command = {
       'name': self.name,
       'type': self.type,
+      'setup_type': self.setup_type,
+      'to_update': self.to_update,
       'description': self.description,
       'options': [option.to_dict() for option in self.options] if self.options else []
     }

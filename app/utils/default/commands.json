@@ -5,6 +5,8 @@
   "name": "addcomment",
   "type": 1,
   "description": "Permet d'ajouter un commentaire sur le héros ou le pet passé en paramètre.",
+  "setup_type": "hero/pet",
+  "to_update": true,
   "options": [
     {
       "name": "héros_ou_pet",
@@ -26,6 +28,8 @@
   },
   "name": "bothelp",
   "type": 1,
+  "setup_type": null,
+  "to_update": false,
   "description": "Affiche le bloc d'aide des commandes disponibles."
 },
 {
@@ -34,6 +38,8 @@
   },
   "name": "botstats",
   "type": 1,
+  "setup_type": null,
+  "to_update": false,
   "description": "Renvoie les données recensées par le bot."
 },
 {
@@ -42,6 +48,8 @@
   },
   "name": "class",
   "type": 1,
+  "setup_type": null,
+  "to_update": true,
   "description": "Permet de lister les différents héros et pets de la classe passée en paramètre.",
   "options": [
     {
@@ -58,6 +66,8 @@
   },
   "name": "dhjk",
   "type": 1,
+  "setup_type": null,
+  "to_update": false,
   "description": "Prie le dieu du jeu :)"
 },
 {
@@ -66,6 +76,8 @@
   },
   "name": "hero",
   "type": 1,
+  "setup_type": "hero",
+  "to_update": true,
   "description": "Affiche les informations du héros passé en paramètre.",
   "options": [
     {
@@ -82,6 +94,8 @@
   },
   "name": "item",
   "type": 1,
+  "setup_type": null,
+  "to_update": true,
   "description": "Permet de lister les différents héros pouvant équiper l'item passé en paramètre.",
   "options": [
     {
@@ -98,6 +112,8 @@
   },
   "name": "pet",
   "type": 1,
+  "setup_type": "pet",
+  "to_update": true,
   "description": "Affiche les informations du pet passé en paramètre.",
   "options": [
     {
@@ -114,6 +130,8 @@
   },
   "name": "petlist",
   "type": 1,
+  "setup_type": "hero",
+  "to_update": true,
   "description": "Permet de lister les différents pets pouvant être équipés par le héros passé en paramètre.",
   "options": [
     {
@@ -130,6 +148,8 @@
   },
   "name": "talent",
   "type": 1,
+  "setup_type": null,
+  "to_update": true,
   "description": "Permet de lister les différents héros et/ou pets possédant le talent passé en paramètre.",
   "options": [
     {
@@ -147,6 +167,8 @@
   "name": "update",
   "type": 1,
   "description": "Permet d'update le bot à partir du wiki.",
+  "setup_type": null,
+  "to_update": false,
   "options": [
     {
       "name": "type",
@@ -182,6 +204,8 @@
   "name": "level",
   "type": 1,
   "description": "Ajoute un niveau pour récolter des données sur ses récompenses",
+  "setup_type": "level",
+  "to_update": false,
   "options": [
     {
       "name": "name",
@@ -201,6 +225,8 @@
   "name": "reward",
   "type": 1,
   "description": "Ajoute une récompense pour un niveau",
+  "setup_type": "level",
+  "to_update": false,
   "options": [
     {
       "name": "level",
@@ -241,9 +267,11 @@
   ]
 },
 {
-  "name": "reward-stat",
+  "name": "rewardstat",
   "type": 1,
-  "description": "Afficher les stats de récompense pour un niveau",
+  "setup_type": "level",
+  "to_update": false,
+  "description": "Affiche les stats de récompense pour un niveau",
   "options": [
     {
       "name": "level",
@@ -259,6 +287,8 @@
   },
   "name": "spire",
   "type": 1,
+  "setup_type": null,
+  "to_update": false,
   "description": "Permet d'envoyer ton score en spire.",
   "options": [
     {
