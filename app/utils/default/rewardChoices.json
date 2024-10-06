@@ -1,0 +1,98 @@
+[
+  {
+    "name": "Gear and Dust Qualities",
+    "choices": [
+      {
+        "name": "Magic",
+        "icon": ":blue_circle:"
+      },
+      {
+        "name": "Epic",
+        "icon": ":purple_circle:"
+      },
+      {
+        "name": "Mythic",
+        "icon": ":yellow_circle:"
+      },
+      {
+        "name": "Legendary",
+        "icon": ":red_circle:"
+      },
+      {
+        "name": "Exalted",
+        "icon": ":green_circle:"
+      },
+      {
+        "name": "Divine",
+        "icon": ":orange_circle:"
+      }
+    ]
+  },
+  {
+    "name": "Amulet Qualities",
+    "choices": [
+      {
+        "name": "Radiant",
+        "icon": ":purple_circle:"
+      },
+      {
+        "name": "Brilliant",
+        "icon": ":yellow_circle:"
+      },
+      {
+        "name": "Coruscating",
+        "icon": ":red_circle:"
+      },
+      {
+        "name": "Incandescent",
+        "icon": ":orange_circle:"
+      }
+    ]
+  },
+  {
+    "name": "Hero Types",
+    "choices": [
+      {
+        "name": "Melee",
+        "icon": ":crossed_swords:"
+      },
+      {
+        "name": "Ranged",
+        "icon": ":archery:"
+      },
+      {
+        "name": "Magic",
+        "icon": ":cross:magic_wand:"
+      }
+    ]
+  },
+  {
+    "name": "Rune Types",
+    "choices": [
+      {
+        "name": "Talent",
+        "icon": ""
+      },
+      {
+        "name": "Silver Talent",
+        "icon": ""
+      },
+      {
+        "name": "Gold Talent",
+        "icon": ""
+      },
+      {
+        "name": "Pet Talent",
+        "icon": ""
+      },
+      {
+        "name": "Silver pet Talent",
+        "icon": ""
+      },
+      {
+        "name": "Gold pet Talent",
+        "icon": ""
+      }
+    ]
+  }
+]

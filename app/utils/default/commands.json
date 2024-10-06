@@ -214,8 +214,14 @@
       "required": true
     },
     {
-      "name": "cost",
-      "description": "Coût du niveau en énergies",
+      "name": "standard energy cost",
+      "description": "Coût du niveau en énergies solo",
+      "type": 3,
+      "required": true
+    },
+    {
+      "name": "coop energy cost",
+      "description": "Coût du niveau en énergies coop",
       "type": 3,
       "required": true
     }

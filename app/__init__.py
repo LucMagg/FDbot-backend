@@ -18,6 +18,7 @@ from .views.level import levels_blueprint
 from .views.command import command_blueprint
 from .views.gear import gear_blueprint
 from .views.ready import ready_blueprint
+from .views.rewardTypes import rewardType_blueprint
 
 
 def create_app(config_name='default'):
@@ -44,7 +45,7 @@ def create_app(config_name='default'):
   app.register_blueprint(command_blueprint)
   app.register_blueprint(gear_blueprint)
   app.register_blueprint(ready_blueprint)
-
+  app.register_blueprint(rewardType_blueprint)
   app.logger.back_log('Application en ligne')
 
   return app

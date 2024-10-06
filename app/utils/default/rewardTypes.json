@@ -1,0 +1,76 @@
+[
+  {
+    "name": "potions",
+    "icon": "customIcon:potion"
+  },
+  {
+    "name": "gold",
+    "icon": ":moneybag:"
+  },
+  {
+    "name": "dust",
+    "options": [
+      {
+        "name": "Quality",
+        "choices": "Gear and Dust Qualities"
+      }
+    ]
+  },
+  {
+    "name": "gear",
+    "options": [
+      {
+        "name": "Hero Types",
+        "choices": "Hero Types"
+      },
+      {
+        "name": "Quality",
+        "choices": "Gear and Dust Qualities"
+      },
+      {
+        "name": "Gear Position",
+        "choices": [
+          {
+            "name": "Amulet",
+            "icon": "",
+            "choices": "Amulet Qualities"
+          },
+          {
+            "name": "Weapon",
+            "icon": "",
+            "choices": "Gear and Dust Qualities"
+          },
+          {
+            "name": "Ring",
+            "icon": "",
+            "choices": "Gear and Dust Qualities"
+          },
+          {
+            "name": "Head",
+            "icon": "",
+            "choices": "Gear and Dust Qualities"
+          },
+          {
+            "name": "Off-Hand",
+            "icon": "",
+            "choices": "Gear and Dust Qualities"
+          },
+          {
+            "name": "Body",
+            "icon": "",
+            "choices": "Gear and Dust Qualities"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "rune",
+    "options": [
+      {
+        "name": "Types",
+        "choices": "Rune Types"
+      }
+    ]
+  }
+]
