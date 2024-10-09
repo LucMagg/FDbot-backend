@@ -4,10 +4,11 @@ from app.utils.strUtils import str_to_slug
 
 
 class Choice:
-  def __init__(self, name: str, icon: Optional[str] = '', choices: Optional[Union[str, List['Choice']]] = None):
+  def __init__(self, name: str, grade: int, icon: Optional[str] = '', choices: Optional[Union[str, List['Choice']]] = None):
     self.name = name
     self.icon = icon
     self.choices = choices
+    self.grade = grade
 
   @classmethod
   def from_dict(cls, data: Dict):
@@ -24,13 +25,15 @@ class Choice:
     return cls(
       name = data.get('name'),
       icon = data.get('icon', ''),
+      grade = data.get('grade'),
       choices = choices
     )
 
   def to_dict(self) -> Dict:
     to_return = {
       "name": self.name,
-      "icon": self.icon
+      "icon": self.icon,
+      "grade": self.grade
     }
     if self.choices is not None:
       if isinstance(self.choices, list):
@@ -51,17 +54,18 @@ class Choice:
         if isinstance(choice.choices, str):
           choice = choice.resolve_choices(db)
         resolved_choices.append(choice)
-      self.choices = resolved_choices
+      self.choices = sorted(resolved_choices, key=lambda k: k.grade)
     return self
 
 
 class RewardType:
-  def __init__(self, name: str, name_slug: str, _id: Optional[str] = None, icon: Optional[str] = None, options: List[Choice] = None):
+  def __init__(self, name: str, name_slug: str, grade: int, _id: Optional[str] = None, icon: Optional[str] = None, choices: List[Choice] = None):
     self._id = ObjectId(_id) if _id else None
     self.name = name
     self.name_slug = name_slug
+    self.grade = grade
     self.icon = icon or ''
-    self.options = options or []
+    self.choices = choices or []
 
   @classmethod
   def from_dict(cls, data: Dict):
@@ -69,27 +73,29 @@ class RewardType:
       _id = str(data.get('_id')) if data.get('_id') else None,
       name = data.get('name'),
       name_slug = data.get('name_slug') if data.get('name_slug') is not None else str_to_slug(data.get('name')),
+      grade = data.get('grade'),
       icon = data.get('icon', ''),
-      options = [Choice.from_dict(option) for option in data.get('options', [])]
+      choices = [Choice.from_dict(choice) for choice in data.get('choices', [])]
     )
 
   def to_dict(self) -> Dict:
     reward_type = {
       "name": self.name,
       "name_slug": self.name_slug,
+      "grade": self.grade,
       "icon": self.icon,
-      "options": [option.to_dict() for option in self.options]
+      "choices": [choice.to_dict() for choice in self.choices]
     }
     if self._id:
       reward_type["_id"] = str(self._id)
     return reward_type
   
   def resolve_choices(self, db):
-    resolved_options = []
-    for option in self.options:
-      resolved_option = option.resolve_choices(db)
-      resolved_options.append(resolved_option)
-    self.options = resolved_options
+    resolved_choices = []
+    for choice in self.choices:
+      resolved_choice = choice.resolve_choices(db)
+      resolved_choices.append(resolved_choice)
+    self.choices = resolved_choices
     return self
 
   def create(self, db):

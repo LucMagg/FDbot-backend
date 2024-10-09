@@ -1,64 +1,72 @@
 [
   {
     "name": "potions",
-    "icon": "customIcon:potion"
+    "icon": "customIcon:potion",
+    "grade": 1
   },
   {
     "name": "gold",
-    "icon": ":moneybag:"
+    "icon": ":moneybag:",
+    "grade": 2
   },
   {
     "name": "dust",
-    "options": [
+    "grade": 3,
+    "choices": [
       {
         "name": "Quality",
-        "choices": "Gear and Dust Qualities"
+        "choices": "Gear and Dust Qualities",
+        "grade": 1
       }
     ]
   },
   {
     "name": "gear",
-    "options": [
+    "grade": 4,
+    "choices": [
       {
         "name": "Hero Types",
-        "choices": "Hero Types"
+        "choices": "Hero Types",
+        "grade": 1
       },
       {
         "name": "Quality",
-        "choices": "Gear and Dust Qualities"
+        "choices": "Gear and Dust Qualities",
+        "grade": 2
       },
       {
         "name": "Gear Position",
+        "grade": 3,
         "choices": [
           {
             "name": "Amulet",
             "icon": "",
-            "choices": "Amulet Qualities"
+            "grade": 1
           },
           {
             "name": "Weapon",
             "icon": "",
-            "choices": "Gear and Dust Qualities"
+            "grade": 2
           },
           {
             "name": "Ring",
             "icon": "",
-            "choices": "Gear and Dust Qualities"
+            "grade": 3
           },
           {
             "name": "Head",
             "icon": "",
-            "choices": "Gear and Dust Qualities"
+            "grade": 4
           },
           {
             "name": "Off-Hand",
             "icon": "",
-            "choices": "Gear and Dust Qualities"
+            "grade": 5
           },
           {
             "name": "Body",
             "icon": "",
-            "choices": "Gear and Dust Qualities"
+            "grade": 6
           }
         ]
       }
@@ -66,10 +74,12 @@
   },
   {
     "name": "rune",
-    "options": [
+    "grade": 5,
+    "choices": [
       {
         "name": "Types",
-        "choices": "Rune Types"
+        "choices": "Rune Types",
+        "grade": 1
       }
     ]
   }

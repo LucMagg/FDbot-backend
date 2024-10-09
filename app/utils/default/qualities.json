@@ -6,10 +6,10 @@
     "price": 20,
     "recycling": {
       "dust": {
-        "name": "Epic",
-        "quantity": 10
+        "name": null,
+        "quantity": null
       },
-      "gold": 250
+      "gold": 350
     },
     "name_slug": "magic",
     "type": "gear",
@@ -23,7 +23,7 @@
     "recycling": {
       "dust": {
         "name": "Epic",
-        "quantity": 25
+        "quantity": 20
       },
       "gold": 1000
     },

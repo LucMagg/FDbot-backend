@@ -4,27 +4,33 @@
     "choices": [
       {
         "name": "Magic",
-        "icon": ":blue_circle:"
+        "icon": ":blue_circle:",
+        "grade": 1
       },
       {
         "name": "Epic",
-        "icon": ":purple_circle:"
+        "icon": ":purple_circle:",
+        "grade": 2
       },
       {
         "name": "Mythic",
-        "icon": ":yellow_circle:"
+        "icon": ":yellow_circle:",
+        "grade": 3
       },
       {
         "name": "Legendary",
-        "icon": ":red_circle:"
+        "icon": ":red_circle:",
+        "grade": 4
       },
       {
         "name": "Exalted",
-        "icon": ":green_circle:"
+        "icon": ":green_circle:",
+        "grade": 5
       },
       {
         "name": "Divine",
-        "icon": ":orange_circle:"
+        "icon": ":orange_circle:",
+        "grade": 6
       }
     ]
   },
@@ -33,19 +39,23 @@
     "choices": [
       {
         "name": "Radiant",
-        "icon": ":purple_circle:"
+        "icon": ":purple_circle:",
+        "grade": 1
       },
       {
         "name": "Brilliant",
-        "icon": ":yellow_circle:"
+        "icon": ":yellow_circle:",
+        "grade": 2
       },
       {
         "name": "Coruscating",
-        "icon": ":red_circle:"
+        "icon": ":red_circle:",
+        "grade": 3
       },
       {
         "name": "Incandescent",
-        "icon": ":orange_circle:"
+        "icon": ":orange_circle:",
+        "grade": 4
       }
     ]
   },
@@ -53,16 +63,19 @@
     "name": "Hero Types",
     "choices": [
       {
+        "name": "Magic",
+        "icon": ":cross:magic_wand:",
+        "grade": 1
+      },
+      {
         "name": "Melee",
-        "icon": ":crossed_swords:"
+        "icon": ":crossed_swords:",
+        "grade": 2
       },
       {
         "name": "Ranged",
-        "icon": ":archery:"
-      },
-      {
-        "name": "Magic",
-        "icon": ":cross:magic_wand:"
+        "icon": ":archery:",
+        "grade": 3
       }
     ]
   },
@@ -71,27 +84,33 @@
     "choices": [
       {
         "name": "Talent",
-        "icon": ""
+        "icon": "",
+        "grade": 1
       },
       {
         "name": "Silver Talent",
-        "icon": ""
+        "icon": "",
+        "grade": 2
       },
       {
         "name": "Gold Talent",
-        "icon": ""
+        "icon": "",
+        "grade": 3
       },
       {
         "name": "Pet Talent",
-        "icon": ""
+        "icon": "",
+        "grade": 4
       },
       {
         "name": "Silver pet Talent",
-        "icon": ""
+        "icon": "",
+        "grade": 5
       },
       {
         "name": "Gold pet Talent",
-        "icon": ""
+        "icon": "",
+        "grade": 6
       }
     ]
   }
