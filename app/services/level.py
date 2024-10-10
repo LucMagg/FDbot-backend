@@ -31,3 +31,6 @@ class LevelService:
     if level:
       return level.expected_reward()
     return None
+  
+  def set_new_reward_types():
+    return Level.build_new_levels(current_app.mongo_db)

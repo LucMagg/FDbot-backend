@@ -71,3 +71,16 @@ def get_expected_reward(level):
   
   current_app.logger.req_404(req)
   return jsonify({'error': 'Level not found'}), 404
+
+@levels_blueprint.route('/levels/newrewards', methods=['GET'])
+def set_new_rewards():
+  req = '/levels/newrewards GET'
+  current_app.logger.req(req)
+
+  levels = LevelService.set_new_reward_types()
+  if levels:
+    current_app.logger.req_ok(req)
+    return jsonify(levels)
+  
+  current_app.logger.req_404(req)
+  return jsonify({'error': 'Levels not found'}), 404

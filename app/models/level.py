@@ -1,33 +1,136 @@
 from bson import ObjectId
 from typing import Dict, Optional, List, Union
 
-from .reward import Reward, GoldReward, PotionsReward, GearReward, DustReward
-from ..utils.strUtils import str_to_slug
+from app.utils.strUtils import str_to_slug
+from app.models.rewardType import RewardType
+
+
+from app.models.reward import Reward, GoldReward, PotionsReward, GearReward, DustReward
+from collections import defaultdict
   
 
-class RewardChoice:
-  def __init__(self, type: str, qualities: Optional[List[str]] = None, positions: Optional[List[str]] = None, item_types: Optional[List[str]] = None):
-    self.type = type
-    self.qualities = qualities or []
-    self.positions = positions or []
-    self.item_types = item_types or []
+
+class Detail:
+  def __init__(self, quantity: Optional[int] = None, appearances: Optional[int] = None, item: Optional[str] = None):
+    self.quantity = quantity if quantity else None
+    self.appearances = appearances if appearances else None
+    self.item = item if item else None
 
   @classmethod
   def from_dict(cls, data: Dict):
+    if not data:
+      return None
+
     return cls(
+      quantity = data.get('quantity', None),
+      appearances = data.get('appearances', None),
+      item = data.get('item', None)
+    )
+  
+  def to_dict(self) -> Dict:
+    print({
+      "quantity": self.quantity,
+      "appearances": self.appearances,
+      "item": self.item
+    })
+    return {
+      "quantity": self.quantity,
+      "appearances": self.appearances,
+      "item": self.item
+    }
+
+
+class Reward:
+  def __init__(self, appearances: int, type: str, details: List['Detail'], quality: Optional[str] = None):
+    self.appearances = appearances
+    self.type = type
+    self.quality = quality or None
+    self.details = details
+
+  @classmethod
+  def from_dict(cls, data: Dict):
+    if not data:
+      return None
+
+    return cls(
+      appearances = data.get('appearances'),
       type = data.get('type'),
-      qualities = [qualities_data.get('name') for qualities_data in data.get('qualities', []) if isinstance(qualities_data, dict)],
-      positions = [positions_data.get('name') for positions_data in data.get('positions', []) if isinstance(positions_data, dict)],
-      item_types = [item_types_data.get('name') for item_types_data in data.get('item_types', []) if isinstance(item_types_data, dict)]
+      quality = data.get('quality', None),
+      details = [Detail.from_dict(detail_data) for detail_data in data.get('details', []) if isinstance(detail_data, dict)]
+    )
+  
+  def to_dict(self) -> Dict:
+    details = [detail.to_dict() for detail in self.details]
+    if any(d.get('appearances') is not None for d in details):
+      if any(d.get('quantity') is not None for d in details):
+        if any(d.get('item') is not None for d in details):
+          details = sorted(details, key = lambda x: (-x.get('appearances'), -x.get('item')))
+        else:
+          details = sorted(details, key = lambda x: (-x.get('appearances'), x.get('quantity')))
+      else:
+        details = sorted(details, key = lambda x: (-x.get('appearances'), -x.get('item')))
+    else:
+      details = sorted(details, key = lambda x: x.get('quantity'))
+
+    return {
+      "appearances": self.appearances,
+      "type": self.type,
+      "quality": self.quality,
+      "details": details
+    }
+
+class RewardChoice:
+  def __init__(self, name: str, grade: int, icon: Optional[str] = '', choices: Optional[Union[List['RewardChoice'], 'RewardChoice']] = []):
+    self.name = name
+    self.icon = icon
+    self.choices = choices
+    self.grade = grade
+
+  @classmethod
+  def from_dict(cls, data: Dict):
+    if not data:
+      return None
+     
+    choices_data = data.get('choices')
+    if choices_data is not None:
+      choices = [RewardChoice.from_dict(choice) for choice in choices_data if isinstance(choice, dict)]
+    else:
+      choices = None
+
+    return cls(
+      name = data.get('name'),
+      icon = data.get('icon', ''),
+      grade = data.get('grade'),
+      choices = choices
     )
 
   def to_dict(self) -> Dict:
-    return {
-      "type": self.type,
-      "qualities": [{'name': quality} for quality in self.qualities],
-      "positions": [{'name': position} for position in self.positions],
-      "item_types": [{'name': item_type} for item_type in self.item_types]
+    to_return = {
+      "name": self.name,
+      "icon": self.icon,
+      "grade": self.grade
     }
+    if self.choices is not None:
+      if isinstance(self.choices, list):
+        to_return["choices"] = [choice.to_dict() for choice in self.choices]
+      else:
+        to_return["choices"] = self.choices
+    return to_return
+    
+  def resolve_choices(self, db):
+    if isinstance(self.choices, str):
+      reward_choice = db.rewardChoices.find_one({"name": self.choices})
+      if reward_choice:
+        resolved_choices = [RewardChoice.from_dict(choice) for choice in reward_choice.get('choices', [])]
+        self.choices = resolved_choices
+    elif isinstance(self.choices, list):
+      resolved_choices = []
+      for choice in self.choices:
+        if isinstance(choice.choices, str):
+          choice = choice.resolve_choices(db)
+        resolved_choices.append(choice)
+      self.choices = sorted(resolved_choices, key=lambda k: k.grade)
+    return self
 
 class Level:
   def __init__(self, name: str, name_slug: str, standard_energy_cost: int, coop_energy_cost: int, rewards : List[Reward], _id: Optional[str] = None, reward_choices: Union[List[RewardChoice], List] = None):
@@ -48,13 +151,12 @@ class Level:
       standard_energy_cost = data.get('standard_energy_cost'),
       coop_energy_cost = data.get('coop_energy_cost'),
       reward_choices = [RewardChoice.from_dict(reward_choices_data) for reward_choices_data in data.get('reward_choices', []) if isinstance(reward_choices_data, dict)],
-      rewards = [Level.create_reward(reward_data) for reward_data in data.get('rewards', []) if
-               isinstance(reward_data, dict)]
+      rewards = [Reward.from_dict(reward_data) for reward_data in data.get('rewards', []) if isinstance(reward_data, dict)]
     )
 
   def to_dict(self) -> Dict:
     rewards = [reward.to_dict() for reward in self.rewards] if self.rewards else []
-    rewards = sorted(rewards, key = lambda r: (-r.get('appearances'), -r.get('quantity')))
+    rewards = sorted(rewards, key = lambda r: -r.get('appearances'))
     level = {
       "name": self.name,
       "name_slug": self.name_slug,
@@ -77,24 +179,7 @@ class Level:
     return self
 
   def add_reward(self, db, reward_data: Dict):
-    reward_data['appearances'] = 1
-    new_reward = Level.create_reward(reward_data)
-    existing_rewards = [existing_reward for existing_reward in self.rewards if existing_reward == new_reward]
-    if len(existing_rewards) == 1:
-      reward = existing_rewards[0]
-      reward.appearances += 1
-    elif len(existing_rewards) == 0:
-      self.rewards.append(new_reward)
-    else:
-      return None
-    db.levels.update_one({"_id": self._id}, {"$set": {'rewards': [reward.to_dict() for reward in self.rewards]}})
-    return self
-
-  def expected_reward(self):
-    if len(self.rewards) == 0:
-      return 0
-    quantities = [reward.quantity for reward in self.rewards]
-    return sum(quantities) / len(quantities)
+    pass
 
   @staticmethod
   def read_by_name(db, level_name):
@@ -108,8 +193,9 @@ class Level:
 
   @staticmethod
   def read_all(db):
-    return [Level.from_dict(level) for level in db.levels.find()]
-
+    data = db.levels.find()
+    return [Level.from_dict(level) for level in data] if data else None
+  
   @staticmethod
   def create_reward(reward_data):
     factories = {
@@ -119,3 +205,48 @@ class Level:
       "dust": DustReward
     }
     return factories[reward_data['type']](reward_data)
+  
+  @staticmethod
+  def build_new_levels(db):
+    levels = [Level.to_dict(level) for level in Level.read_all(db)]
+    reward_types = [RewardType.to_dict(reward) for reward in RewardType.read_all(db)]
+
+    for level in levels:
+      level['reward_choices'] = []
+      for reward in level.get('rewards'):
+        if reward.get('type') != 'gear' and reward.get('type') != 'dust':
+          if not any(reward.get('type') == r.get('name') for r in level['reward_choices']):
+            rw = next((rw for rw in reward_types if rw.get('name') == reward.get('type')), None)
+            if 'id' in rw.keys():
+              del rw['_id']
+            level['reward_choices'].append(rw)
+    
+    for level in levels:
+      rewards = level.get('rewards')
+
+      for r in rewards:
+        result = [{
+          'type': r.get('type'),
+          'details': [{'quantity': r.get('quantity')}],
+          'appearances': r.get('appearances')
+        } for r in rewards]
+        
+      result.sort(key=lambda x: -x['appearances'])
+      level['rewards'] = result
+
+    to_return = []
+    for level in levels:
+      if len(level['reward_choices']) > 0:
+        if '_id' in level['reward_choices'][0].keys():
+          del level['reward_choices'][0]['_id']
+        if 'name_slug' in level['reward_choices'][0].keys():
+          del level['reward_choices'][0]['name_slug']
+        if 'choices' in level['reward_choices'][0].keys():
+          del level['reward_choices'][0]['choices']
+        to_return.append(level)
+
+    
+    
+    return to_return
+
+
