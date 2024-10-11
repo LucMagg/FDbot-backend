@@ -28,11 +28,6 @@ class Detail:
     )
   
   def to_dict(self) -> Dict:
-    print({
-      "quantity": self.quantity,
-      "appearances": self.appearances,
-      "item": self.item
-    })
     return {
       "quantity": self.quantity,
       "appearances": self.appearances,
@@ -41,8 +36,8 @@ class Detail:
 
 
 class Reward:
-  def __init__(self, appearances: int, type: str, details: List['Detail'], quality: Optional[str] = None):
-    self.appearances = appearances
+  def __init__(self, type: str, details: List['Detail'], total_appearances: Optional[int] = 1, quality: Optional[str] = None):
+    self.total_appearances = total_appearances or 1
     self.type = type
     self.quality = quality or None
     self.details = details
@@ -53,7 +48,7 @@ class Reward:
       return None
 
     return cls(
-      appearances = data.get('appearances'),
+      total_appearances = data.get('total_appearances'),
       type = data.get('type'),
       quality = data.get('quality', None),
       details = [Detail.from_dict(detail_data) for detail_data in data.get('details', []) if isinstance(detail_data, dict)]
@@ -61,19 +56,11 @@ class Reward:
   
   def to_dict(self) -> Dict:
     details = [detail.to_dict() for detail in self.details]
-    if any(d.get('appearances') is not None for d in details):
-      if any(d.get('quantity') is not None for d in details):
-        if any(d.get('item') is not None for d in details):
-          details = sorted(details, key = lambda x: (-x.get('appearances'), -x.get('item')))
-        else:
-          details = sorted(details, key = lambda x: (-x.get('appearances'), x.get('quantity')))
-      else:
-        details = sorted(details, key = lambda x: (-x.get('appearances'), -x.get('item')))
-    else:
-      details = sorted(details, key = lambda x: x.get('quantity'))
+
+    details = sorted(details, key = lambda x: (-x.get('appearances')))
 
     return {
-      "appearances": self.appearances,
+      "total_appearances": self.total_appearances,
       "type": self.type,
       "quality": self.quality,
       "details": details
@@ -156,7 +143,7 @@ class Level:
 
   def to_dict(self) -> Dict:
     rewards = [reward.to_dict() for reward in self.rewards] if self.rewards else []
-    rewards = sorted(rewards, key = lambda r: -r.get('appearances'))
+    rewards = sorted(rewards, key = lambda r: -r.get('total_appearances'))
     level = {
       "name": self.name,
       "name_slug": self.name_slug,
@@ -170,16 +157,48 @@ class Level:
 
     return level
 
-  def create(self, db):
-    existing = self.read_by_level(db, self.name)
+  @staticmethod
+  def add_level(db, level_data):
+    existing = Level.read_by_level(db, level_data.get('name'))
     if existing:
       return existing
-    result = db.levels.insert_one(self.to_dict())
-    self._id = result.inserted_id
-    return self
+    result = db.levels.insert_one(level_data)
+    result._id = result.inserted_id
+    return result
 
-  def add_reward(self, db, reward_data: Dict):
-    pass
+  @staticmethod
+  def add_reward(db, level, reward_data: Dict):
+
+    found_reward = next((r for r in level.get('rewards') if r.get('type') == reward_data.get('type') and r.get('quality') == reward_data.get('quality')), None)
+    done = False
+    if found_reward:
+      for detail in found_reward.get('details'):
+        if detail.get('quantity') == reward_data.get('quantity') and detail.get('item') == reward_data.get('item'):
+          detail['appearances'] += 1
+          done = True
+      if not done:
+        found_reward['details'].append({'appearances': 1, 'item': reward_data.get('item'), 'quantity': reward_data.get('quantity')})
+      found_reward['total_appearances'] += 1
+
+    else:
+      level.get('rewards').append({
+        'type': reward_data.get('type'),
+        'quality': reward_data.get('quality'),
+        'details': [
+          {
+            'quantity': reward_data.get('quantity'),
+            'item': reward_data.get('item'),
+            'appearances': 1
+          }
+        ],
+        'total_appearances': 1
+      })
+
+    del level['_id']
+
+    db.levels.update_one({"name": level.get('name')}, {"$set": level})
+    return Level.from_dict(level)
+
 
   @staticmethod
   def read_by_name(db, level_name):
@@ -187,8 +206,8 @@ class Level:
     return Level.from_dict(data) if data else None
 
   @staticmethod
-  def read_by_level(db, level_name):
-    data = db.levels.find_one({"name": str_to_slug(level_name)})
+  def read_by_id(db, level_id):
+    data = db.levels.find_one({"_id": ObjectId(level_id)})
     return Level.from_dict(data) if data else None
 
   @staticmethod
@@ -197,18 +216,8 @@ class Level:
     return [Level.from_dict(level) for level in data] if data else None
   
   @staticmethod
-  def create_reward(reward_data):
-    factories = {
-      "gold": GoldReward,
-      "potions": PotionsReward,
-      "gear": GearReward,
-      "dust": DustReward
-    }
-    return factories[reward_data['type']](reward_data)
-  
-  @staticmethod
   def build_new_levels(db):
-    levels = [Level.to_dict(level) for level in Level.read_all(db)]
+    levels = [] #insérer la collection exportée en json pour extraire les levels
     reward_types = [RewardType.to_dict(reward) for reward in RewardType.read_all(db)]
 
     for level in levels:
@@ -224,14 +233,28 @@ class Level:
     for level in levels:
       rewards = level.get('rewards')
 
+      count = []
       for r in rewards:
-        result = [{
-          'type': r.get('type'),
-          'details': [{'quantity': r.get('quantity')}],
-          'appearances': r.get('appearances')
-        } for r in rewards]
+        if r.get('type') not in count:
+          count.append(r.get('type'))
+      
+      if len(count) == 1:
+
+        result = []
+        for r in rewards:
+          if not any(rt for rt in result if r.get('type') == rt.get('type')):
+            result.append({
+              'type': r.get('type'),
+              'quality': r.get('quality', None),
+              'details': [{'quantity': r.get('quantity'), 'appearances': r.get('appearances')}],
+              'total_appearances': r.get('appearances')
+            })
+          else:
+            rt = next((rt for rt in result if r.get('type') == rt.get('type')), None)
+            rt.get('details').append({'quantity': r.get('quantity'), 'appearances': r.get('appearances')})
+            rt['total_appearances'] += r.get('appearances')
         
-      result.sort(key=lambda x: -x['appearances'])
+      result.sort(key=lambda x: -x['total_appearances'])
       level['rewards'] = result
 
     to_return = []
@@ -244,8 +267,6 @@ class Level:
         if 'choices' in level['reward_choices'][0].keys():
           del level['reward_choices'][0]['choices']
         to_return.append(level)
-
-    
     
     return to_return
 
