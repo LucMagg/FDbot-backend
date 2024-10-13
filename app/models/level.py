@@ -157,14 +157,13 @@ class Level:
 
     return level
 
-  @staticmethod
-  def add_level(db, level_data):
-    existing = Level.read_by_level(db, level_data.get('name'))
+  def create(self, db):
+    existing = self.read_by_name(db, self.name)
     if existing:
       return existing
-    result = db.levels.insert_one(level_data)
-    result._id = result.inserted_id
-    return result
+    result = db.levels.insert_one(self.to_dict())
+    self._id = result.inserted_id
+    return self
 
   @staticmethod
   def add_reward(db, level, reward_data: Dict):

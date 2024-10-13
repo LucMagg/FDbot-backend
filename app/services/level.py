@@ -7,7 +7,7 @@ class LevelService:
   @staticmethod
   def add_level(level_data):
     level = Level.from_dict(level_data)
-    return Level.add_level(current_app.mongo_db, level_data)
+    return level.create(current_app.mongo_db)
 
   @staticmethod
   def get_one_level(level_name):

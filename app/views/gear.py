@@ -15,10 +15,12 @@ def get_gear():
   if type:
     if ',' in type:
       type = type.split(',')
+      type = [t.capitalize() for t in type]
       current_app.logger.log_info('info', f'type(s) : {type}')
   if position:
     if ',' in position:
       position = position.split(',')
+      position = [p.capitalize() for p in position]
       current_app.logger.log_info('info', f'position(s) : {position}')
 
   gear_data = GearService.get_gear(type, position)
