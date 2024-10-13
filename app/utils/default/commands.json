@@ -217,13 +217,13 @@
       "name": "standard_energy_cost",
       "description": "Coût du niveau en énergies solo",
       "type": 3,
-      "required": true
+      "required": false
     },
     {
       "name": "coop_energy_cost",
       "description": "Coût du niveau en énergies coop",
       "type": 3,
-      "required": true
+      "required": false
     }
   ]
 },

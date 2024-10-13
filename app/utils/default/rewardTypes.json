@@ -1,86 +1,99 @@
-[
-  {
-    "name": "potions",
-    "icon": "customIcon:potion",
-    "grade": 1
+[{
+  "_id": {
+    "$oid": "67099ae54c66a6cd3cb023d4"
   },
-  {
-    "name": "gold",
-    "icon": ":moneybag:",
-    "grade": 2
+  "name": "potions",
+  "icon": "customIcon:potion",
+  "grade": 1
+},
+{
+  "_id": {
+    "$oid": "67099ae54c66a6cd3cb023d5"
   },
-  {
-    "name": "dust",
-    "grade": 3,
-    "choices": [
-      {
-        "name": "Quality",
-        "choices": "Gear and Dust Qualities",
-        "grade": 1
-      }
-    ]
+  "name": "gold",
+  "icon": "\\U0001F4B0",
+  "grade": 2
+},
+{
+  "_id": {
+    "$oid": "67099ae54c66a6cd3cb023d6"
   },
-  {
-    "name": "gear",
-    "grade": 4,
-    "choices": [
-      {
-        "name": "Hero Types",
-        "choices": "Hero Types",
-        "grade": 1
-      },
-      {
-        "name": "Quality",
-        "choices": "Gear and Dust Qualities",
-        "grade": 2
-      },
-      {
-        "name": "Gear Position",
-        "grade": 3,
-        "choices": [
-          {
-            "name": "Amulet",
-            "icon": "",
-            "grade": 1
-          },
-          {
-            "name": "Weapon",
-            "icon": "",
-            "grade": 2
-          },
-          {
-            "name": "Ring",
-            "icon": "",
-            "grade": 3
-          },
-          {
-            "name": "Head",
-            "icon": "",
-            "grade": 4
-          },
-          {
-            "name": "Off-Hand",
-            "icon": "",
-            "grade": 5
-          },
-          {
-            "name": "Body",
-            "icon": "",
-            "grade": 6
-          }
-        ]
-      }
-    ]
+  "name": "dust",
+  "grade": 3,
+  "choices": [
+    {
+      "name": "Quality",
+      "choices": "Gear and Dust Qualities",
+      "grade": 1
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "67099ae54c66a6cd3cb023d7"
   },
-  {
-    "name": "rune",
-    "grade": 5,
-    "choices": [
-      {
-        "name": "Types",
-        "choices": "Rune Types",
-        "grade": 1
-      }
-    ]
-  }
-]
+  "name": "gear",
+  "grade": 4,
+  "choices": [
+    {
+      "name": "Hero Types",
+      "choices": "Hero Types",
+      "grade": 1
+    },
+    {
+      "name": "Quality",
+      "choices": "Gear and Dust Qualities",
+      "grade": 2
+    },
+    {
+      "name": "Gear Position",
+      "grade": 3,
+      "choices": [
+        {
+          "name": "Amulet",
+          "icon": "",
+          "grade": 1
+        },
+        {
+          "name": "Weapon",
+          "icon": "",
+          "grade": 2
+        },
+        {
+          "name": "Ring",
+          "icon": "",
+          "grade": 3
+        },
+        {
+          "name": "Head",
+          "icon": "",
+          "grade": 4
+        },
+        {
+          "name": "Off-Hand",
+          "icon": "",
+          "grade": 5
+        },
+        {
+          "name": "Body",
+          "icon": "",
+          "grade": 6
+        }
+      ]
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "67099ae54c66a6cd3cb023d8"
+  },
+  "name": "rune",
+  "grade": 5,
+  "choices": [
+    {
+      "name": "Types",
+      "choices": "Rune Types",
+      "grade": 1
+    }
+  ]
+}]

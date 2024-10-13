@@ -1,117 +1,127 @@
-[
-  {
-    "name": "Gear and Dust Qualities",
-    "choices": [
-      {
-        "name": "Magic",
-        "icon": ":blue_circle:",
-        "grade": 1
-      },
-      {
-        "name": "Epic",
-        "icon": ":purple_circle:",
-        "grade": 2
-      },
-      {
-        "name": "Mythic",
-        "icon": ":yellow_circle:",
-        "grade": 3
-      },
-      {
-        "name": "Legendary",
-        "icon": ":red_circle:",
-        "grade": 4
-      },
-      {
-        "name": "Exalted",
-        "icon": ":green_circle:",
-        "grade": 5
-      },
-      {
-        "name": "Divine",
-        "icon": ":orange_circle:",
-        "grade": 6
-      }
-    ]
+[{
+  "_id": {
+    "$oid": "67027cfccd1800cfcd5ae49c"
   },
-  {
-    "name": "Amulet Qualities",
-    "choices": [
-      {
-        "name": "Radiant",
-        "icon": ":purple_circle:",
-        "grade": 1
-      },
-      {
-        "name": "Brilliant",
-        "icon": ":yellow_circle:",
-        "grade": 2
-      },
-      {
-        "name": "Coruscating",
-        "icon": ":red_circle:",
-        "grade": 3
-      },
-      {
-        "name": "Incandescent",
-        "icon": ":orange_circle:",
-        "grade": 4
-      }
-    ]
+  "name": "Gear and Dust Qualities",
+  "choices": [
+    {
+      "name": "Magic",
+      "icon": ":blue_circle:",
+      "grade": 1
+    },
+    {
+      "name": "Epic",
+      "icon": ":purple_circle:",
+      "grade": 2
+    },
+    {
+      "name": "Mythic",
+      "icon": ":yellow_circle:",
+      "grade": 3
+    },
+    {
+      "name": "Legendary",
+      "icon": ":red_circle:",
+      "grade": 4
+    },
+    {
+      "name": "Exalted",
+      "icon": ":green_circle:",
+      "grade": 5
+    },
+    {
+      "name": "Divine",
+      "icon": ":orange_circle:",
+      "grade": 6
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "67027cfccd1800cfcd5ae49d"
   },
-  {
-    "name": "Hero Types",
-    "choices": [
-      {
-        "name": "Magic",
-        "icon": ":cross:magic_wand:",
-        "grade": 1
-      },
-      {
-        "name": "Melee",
-        "icon": ":crossed_swords:",
-        "grade": 2
-      },
-      {
-        "name": "Ranged",
-        "icon": ":archery:",
-        "grade": 3
-      }
-    ]
+  "name": "Amulet Qualities",
+  "choices": [
+    {
+      "name": "Radiant",
+      "icon": ":purple_circle:",
+      "grade": 1
+    },
+    {
+      "name": "Brilliant",
+      "icon": ":yellow_circle:",
+      "grade": 2
+    },
+    {
+      "name": "Coruscating",
+      "icon": ":red_circle:",
+      "grade": 3
+    },
+    {
+      "name": "Incandescent",
+      "icon": ":orange_circle:",
+      "grade": 4
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "67027cfccd1800cfcd5ae49e"
   },
-  {
-    "name": "Rune Types",
-    "choices": [
-      {
-        "name": "Talent",
-        "icon": "",
-        "grade": 1
-      },
-      {
-        "name": "Silver Talent",
-        "icon": "",
-        "grade": 2
-      },
-      {
-        "name": "Gold Talent",
-        "icon": "",
-        "grade": 3
-      },
-      {
-        "name": "Pet Talent",
-        "icon": "",
-        "grade": 4
-      },
-      {
-        "name": "Silver pet Talent",
-        "icon": "",
-        "grade": 5
-      },
-      {
-        "name": "Gold pet Talent",
-        "icon": "",
-        "grade": 6
-      }
-    ]
-  }
-]
+  "name": "Hero Types",
+  "choices": [
+    {
+      "name": "Magic",
+      "icon": "🪄",
+      "grade": 1
+    },
+    {
+      "name": "Melee",
+      "icon": "⚔️",
+      "grade": 2
+    },
+    {
+      "name": "Ranged",
+      "icon": "🏹",
+      "grade": 3
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "67027cfccd1800cfcd5ae49f"
+  },
+  "name": "Rune Types",
+  "choices": [
+    {
+      "name": "Talent",
+      "icon": "",
+      "grade": 1
+    },
+    {
+      "name": "Silver Talent",
+      "icon": "",
+      "grade": 2
+    },
+    {
+      "name": "Gold Talent",
+      "icon": "",
+      "grade": 3
+    },
+    {
+      "name": "Pet Talent",
+      "icon": "",
+      "grade": 4
+    },
+    {
+      "name": "Silver pet Talent",
+      "icon": "",
+      "grade": 5
+    },
+    {
+      "name": "Gold pet Talent",
+      "icon": "",
+      "grade": 6
+    }
+  ]
+}]
