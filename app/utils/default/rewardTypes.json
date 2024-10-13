@@ -4,15 +4,17 @@
   },
   "name": "potions",
   "icon": "customIcon:potion",
-  "grade": 1
+  "grade": 1,
+  "has_quantity": true
 },
 {
   "_id": {
     "$oid": "67099ae54c66a6cd3cb023d5"
   },
   "name": "gold",
-  "icon": "\\U0001F4B0",
-  "grade": 2
+  "icon": ":moneybag:",
+  "grade": 2,
+  "has_quantity": true
 },
 {
   "_id": {
@@ -26,7 +28,8 @@
       "choices": "Gear and Dust Qualities",
       "grade": 1
     }
-  ]
+  ],
+  "has_quantity": true
 },
 {
   "_id": {
@@ -81,7 +84,8 @@
         }
       ]
     }
-  ]
+  ],
+  "has_quantity": false
 },
 {
   "_id": {
@@ -95,5 +99,6 @@
       "choices": "Rune Types",
       "grade": 1
     }
-  ]
+  ],
+  "has_quantity": true
 }]

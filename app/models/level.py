@@ -67,9 +67,10 @@ class Reward:
     }
 
 class RewardChoice:
-  def __init__(self, name: str, grade: int, icon: Optional[str] = '', choices: Optional[Union[List['RewardChoice'], 'RewardChoice']] = []):
+  def __init__(self, name: str, grade: int, icon: Optional[str] = '', has_quantity: Optional[bool] = None, choices: Optional[Union[List['RewardChoice'], 'RewardChoice']] = []):
     self.name = name
     self.icon = icon
+    self.has_quantity = has_quantity
     self.choices = choices
     self.grade = grade
 
@@ -88,6 +89,7 @@ class RewardChoice:
       name = data.get('name'),
       icon = data.get('icon', ''),
       grade = data.get('grade'),
+      has_quantity = data.get('has_quantity'),
       choices = choices
     )
 
@@ -95,7 +97,8 @@ class RewardChoice:
     to_return = {
       "name": self.name,
       "icon": self.icon,
-      "grade": self.grade
+      "grade": self.grade,
+      "has_quantity": self.has_quantity
     }
     if self.choices is not None:
       if isinstance(self.choices, list):

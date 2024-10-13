@@ -59,12 +59,13 @@ class Choice:
 
 
 class RewardType:
-  def __init__(self, name: str, name_slug: str, grade: int, _id: Optional[str] = None, icon: Optional[str] = None, choices: List[Choice] = None):
+  def __init__(self, name: str, name_slug: str, grade: int, has_quantity: bool, _id: Optional[str] = None, icon: Optional[str] = None, choices: List[Choice] = None):
     self._id = ObjectId(_id) if _id else None
     self.name = name
     self.name_slug = name_slug
     self.grade = grade
     self.icon = icon or ''
+    self.has_quantity = has_quantity
     self.choices = choices or []
 
   @classmethod
@@ -75,6 +76,7 @@ class RewardType:
       name_slug = data.get('name_slug') if data.get('name_slug') is not None else str_to_slug(data.get('name')),
       grade = data.get('grade'),
       icon = data.get('icon', ''),
+      has_quantity = data.get('has_quantity'),
       choices = [Choice.from_dict(choice) for choice in data.get('choices', [])]
     )
 
@@ -84,6 +86,7 @@ class RewardType:
       "name_slug": self.name_slug,
       "grade": self.grade,
       "icon": self.icon,
+      "has_quantity": self.has_quantity,
       "choices": [choice.to_dict() for choice in self.choices]
     }
     if self._id:
