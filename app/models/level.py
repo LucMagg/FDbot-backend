@@ -44,12 +44,11 @@ class Level:
     return self
 
   def add_reward(self, db, reward_data: Dict):
-    reward_data['appearances'] = 1
     new_reward = Level.create_reward(reward_data)
     existing_rewards = [existing_reward for existing_reward in self.rewards if existing_reward == new_reward]
     if len(existing_rewards) == 1:
       reward = existing_rewards[0]
-      reward.appearances += 1
+      reward.appearances += new_reward.appearances
     elif len(existing_rewards) == 0:
       self.rewards.append(new_reward)
     else:
