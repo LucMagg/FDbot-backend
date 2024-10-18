@@ -4,8 +4,6 @@ from typing import Dict, Optional, List, Union
 from app.utils.strUtils import str_to_slug
 from app.models.rewardType import RewardType
 
-
-from app.models.reward import Reward, GoldReward, PotionsReward, GearReward, DustReward
 from collections import defaultdict
   
 
