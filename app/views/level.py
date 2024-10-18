@@ -24,7 +24,7 @@ def add_level():
   level_data = request.json
   current_app.logger.log_info('info', f'level_data : {level_data}')
 
-  new_level = LevelService.create_level(level_data)
+  new_level = LevelService.add_level(level_data)
   current_app.logger.req_ok(req)
   return jsonify(new_level.to_dict()), 201
 
@@ -59,15 +59,16 @@ def add_reward(level):
   current_app.logger.req_404(req)
   return jsonify({'error': 'Level not found'}), 404
 
-@levels_blueprint.route('/levels/<level>/reward', methods=['GET'])
-def get_expected_reward(level):
-  req = f'/levels/{level}/reward GET'
+
+@levels_blueprint.route('/levels/newrewards', methods=['GET'])
+def set_new_rewards():
+  req = '/levels/newrewards GET'
   current_app.logger.req(req)
 
-  expected_reward = LevelService.get_expected_reward(level)
-  if expected_reward:
+  levels = LevelService.set_new_reward_types()
+  if levels:
     current_app.logger.req_ok(req)
-    return jsonify(expected_reward)
+    return jsonify(levels)
   
   current_app.logger.req_404(req)
-  return jsonify({'error': 'Level not found'}), 404
+  return jsonify({'error': 'Levels not found'}), 404

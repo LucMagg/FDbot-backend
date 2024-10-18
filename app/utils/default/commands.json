@@ -214,10 +214,16 @@
       "required": true
     },
     {
-      "name": "cost",
-      "description": "Coût du niveau en énergies",
+      "name": "standard_energy_cost",
+      "description": "Coût du niveau en énergies solo",
       "type": 3,
-      "required": true
+      "required": false
+    },
+    {
+      "name": "coop_energy_cost",
+      "description": "Coût du niveau en énergies coop",
+      "type": 3,
+      "required": false
     }
   ]
 },
@@ -233,42 +239,6 @@
       "description": "Nom du niveau",
       "type": 3,
       "required": true
-    },
-    {
-      "name": "type",
-      "description": "Type de récompense",
-      "type": 3,
-      "required": true,
-      "choices": [
-        {
-          "name": "gold",
-          "value": 1
-        },
-        {
-          "name": "potions",
-          "value": 2
-        },
-        {
-          "name": "dust",
-          "value": 3
-        },
-        {
-          "name": "gear",
-          "value": 4
-        }
-      ]
-    },
-    {
-      "name": "quantity",
-      "description": "Quantitée reçue",
-      "type": 3,
-      "required": true
-    },
-    {
-      "name": "times",
-      "description": "Ajouter plusieurs fois le reward",
-      "type": 4,
-      "required": false
     }
   ]
 },

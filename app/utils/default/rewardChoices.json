@@ -1,0 +1,89 @@
+[{
+  "_id": {
+    "$oid": "67027cfccd1800cfcd5ae49c"
+  },
+  "name": "Gear and Dust Qualities",
+  "choices": [
+    {
+      "name": "Magic",
+      "icon": ":blue_circle:",
+      "grade": 1
+    },
+    {
+      "name": "Epic",
+      "icon": ":purple_circle:",
+      "grade": 2
+    },
+    {
+      "name": "Mythic",
+      "icon": ":yellow_circle:",
+      "grade": 3
+    },
+    {
+      "name": "Legendary",
+      "icon": ":red_circle:",
+      "grade": 4
+    },
+    {
+      "name": "Exalted",
+      "icon": ":green_circle:",
+      "grade": 5
+    },
+    {
+      "name": "Divine",
+      "icon": ":orange_circle:",
+      "grade": 6
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "67027cfccd1800cfcd5ae49d"
+  },
+  "name": "Amulet Qualities",
+  "choices": [
+    {
+      "name": "Radiant",
+      "icon": ":purple_circle:",
+      "grade": 1
+    },
+    {
+      "name": "Brilliant",
+      "icon": ":yellow_circle:",
+      "grade": 2
+    },
+    {
+      "name": "Coruscating",
+      "icon": ":red_circle:",
+      "grade": 3
+    },
+    {
+      "name": "Incandescent",
+      "icon": ":orange_circle:",
+      "grade": 4
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "67027cfccd1800cfcd5ae49e"
+  },
+  "name": "Hero Types",
+  "choices": [
+    {
+      "name": "Magic",
+      "icon": "🪄",
+      "grade": 1
+    },
+    {
+      "name": "Melee",
+      "icon": "⚔️",
+      "grade": 2
+    },
+    {
+      "name": "Ranged",
+      "icon": "🏹",
+      "grade": 3
+    }
+  ]
+}]
