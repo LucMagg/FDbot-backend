@@ -12,7 +12,7 @@
     "$oid": "67099ae54c66a6cd3cb023d5"
   },
   "name": "gold",
-  "icon": ":moneybag:",
+  "icon": "💰",
   "grade": 2,
   "has_quantity": true
 },
@@ -94,11 +94,42 @@
   "name": "rune",
   "grade": 5,
   "choices": [
-    {
-      "name": "Types",
-      "choices": "Rune Types",
-      "grade": 1
-    }
+
+        {
+          "name": "Quality",
+          "choices": [
+            {
+              "name": "Talent",
+              "icon": "",
+              "grade": 1
+            },
+            {
+              "name": "Silver Talent",
+              "icon": "",
+              "grade": 2
+            },
+            {
+              "name": "Gold Talent",
+              "icon": "",
+              "grade": 3
+            },
+            {
+              "name": "Pet Talent",
+              "icon": "",
+              "grade": 4
+            },
+            {
+              "name": "Silver pet Talent",
+              "icon": "",
+              "grade": 5
+            },
+            {
+              "name": "Gold pet Talent",
+              "icon": "",
+              "grade": 6
+            }
+          ]
+        }   
   ],
   "has_quantity": true
 }]

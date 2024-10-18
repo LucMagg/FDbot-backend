@@ -86,42 +86,4 @@
       "grade": 3
     }
   ]
-},
-{
-  "_id": {
-    "$oid": "67027cfccd1800cfcd5ae49f"
-  },
-  "name": "Rune Types",
-  "choices": [
-    {
-      "name": "Talent",
-      "icon": "",
-      "grade": 1
-    },
-    {
-      "name": "Silver Talent",
-      "icon": "",
-      "grade": 2
-    },
-    {
-      "name": "Gold Talent",
-      "icon": "",
-      "grade": 3
-    },
-    {
-      "name": "Pet Talent",
-      "icon": "",
-      "grade": 4
-    },
-    {
-      "name": "Silver pet Talent",
-      "icon": "",
-      "grade": 5
-    },
-    {
-      "name": "Gold pet Talent",
-      "icon": "",
-      "grade": 6
-    }
-  ]
 }]
