@@ -21,7 +21,6 @@ class LevelService:
   @staticmethod
   def add_reward(level_name, reward_data):
     level = Level.read_by_name(current_app.mongo_db, level_name)
-    print(level_name)
     if level:
       return Level.add_reward(current_app.mongo_db, level.to_dict(), reward_data)
     return None
