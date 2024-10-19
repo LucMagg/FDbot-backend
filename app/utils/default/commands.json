@@ -258,6 +258,45 @@
   ]
 },
 {
+  "name": "xp",
+  "type": 1,
+  "setup_type": "hero",
+  "to_update": true,
+  "description": "Calcule le nombre de potions nécessaires pour passer de l'ascend X/level X à l'ascend Y/level Y",
+  "options": [
+    {
+      "name": "héros",
+      "description": "Le héros en question",
+      "type": 3,
+      "required": true
+    },
+    {
+      "name": "current_ascend",
+      "description": "L'ascension actuelle du héros",
+      "type": 3,
+      "required": true
+    },
+    {
+      "name": "current_level",
+      "description": "Le level actuel du héros",
+      "type": 3,
+      "required": true
+    },
+    {
+      "name": "target_ascend",
+      "description": "L'ascend à atteindre",
+      "type": 3,
+      "required": true
+    },
+    {
+      "name": "target_level",
+      "description": "Le level à atteindre",
+      "type": 3,
+      "required": true
+    }
+  ]
+},
+{
   "_id": {
     "$oid": "66d8524b0f048b7ec4ca34ac"
   },
