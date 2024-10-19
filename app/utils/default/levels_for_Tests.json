@@ -1,0 +1,475 @@
+[{
+  "_id": {
+    "$oid": "671104916529c67baa229a81"
+  },
+  "name": "GoldTest",
+  "name_slug": "goldtest",
+  "standard_energy_cost": 5,
+  "coop_energy_cost": null,
+  "reward_choices": [
+    {
+      "name": "gold",
+      "icon": "💰",
+      "grade": 2,
+      "has_quantity": true
+    }
+  ],
+  "rewards": [
+    {
+      "total_appearances": 18,
+      "type": "gold",
+      "quality": null,
+      "details": [
+        {
+          "quantity": 10,
+          "appearances": 7,
+          "item": null
+        },
+        {
+          "quantity": 50,
+          "appearances": 5,
+          "item": null
+        },
+        {
+          "quantity": 7500,
+          "appearances": 2,
+          "item": null
+        },
+        {
+          "quantity": 60,
+          "appearances": 1,
+          "item": null
+        },
+        {
+          "quantity": 100000,
+          "appearances": 1,
+          "item": null
+        },
+        {
+          "quantity": 10000,
+          "appearances": 1,
+          "item": null
+        },
+        {
+          "appearances": 1,
+          "item": null,
+          "quantity": 40
+        }
+      ]
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6711049d6529c67baa229a82"
+  },
+  "name": "PotionTest",
+  "name_slug": "potiontest",
+  "standard_energy_cost": 5,
+  "coop_energy_cost": null,
+  "reward_choices": [
+    {
+      "name": "potions",
+      "icon": "customIcon:potion",
+      "grade": 1,
+      "has_quantity": true
+    }
+  ],
+  "rewards": [
+    {
+      "total_appearances": 15,
+      "type": "potions",
+      "quality": null,
+      "details": [
+        {
+          "quantity": 50000,
+          "appearances": 4,
+          "item": null
+        },
+        {
+          "quantity": 50,
+          "appearances": 3,
+          "item": null
+        },
+        {
+          "quantity": 10,
+          "appearances": 2,
+          "item": null
+        },
+        {
+          "quantity": 10000,
+          "appearances": 2,
+          "item": null
+        },
+        {
+          "quantity": 540000,
+          "appearances": 1,
+          "item": null
+        },
+        {
+          "quantity": 60000,
+          "appearances": 1,
+          "item": null
+        },
+        {
+          "quantity": 500000,
+          "appearances": 1,
+          "item": null
+        },
+        {
+          "quantity": 100000,
+          "appearances": 1,
+          "item": null
+        }
+      ]
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "671104c86529c67baa229a84"
+  },
+  "name": "DustOrGearTest",
+  "name_slug": "dustorgeartest",
+  "standard_energy_cost": 5,
+  "coop_energy_cost": null,
+  "reward_choices": [
+    {
+      "name": "dust",
+      "icon": "",
+      "grade": 3,
+      "has_quantity": true,
+      "choices": [
+        {
+          "name": "Quality",
+          "icon": "",
+          "grade": 1,
+          "has_quantity": null,
+          "choices": [
+            {
+              "name": "Legendary",
+              "icon": ":red_circle:",
+              "grade": 4,
+              "has_quantity": null
+            },
+            {
+              "name": "Mythic",
+              "icon": ":yellow_circle:",
+              "grade": 3,
+              "has_quantity": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "gear",
+      "icon": "",
+      "grade": 4,
+      "has_quantity": false,
+      "choices": [
+        {
+          "name": "Quality",
+          "icon": "",
+          "grade": 2,
+          "has_quantity": null,
+          "choices": [
+            {
+              "name": "Exalted",
+              "icon": ":green_circle:",
+              "grade": 5,
+              "has_quantity": null
+            },
+            {
+              "name": "Legendary",
+              "icon": ":red_circle:",
+              "grade": 4,
+              "has_quantity": null
+            }
+          ]
+        },
+        {
+          "name": "Item",
+          "icon": "",
+          "grade": 3,
+          "has_quantity": null,
+          "choices": [
+            {
+              "name": "Arrows",
+              "icon": "",
+              "grade": 0,
+              "has_quantity": null
+            },
+            {
+              "name": "Axe",
+              "icon": "",
+              "grade": 1,
+              "has_quantity": null
+            },
+            {
+              "name": "Blade",
+              "icon": "",
+              "grade": 2,
+              "has_quantity": null
+            },
+            {
+              "name": "Bludgeon",
+              "icon": "",
+              "grade": 3,
+              "has_quantity": null
+            },
+            {
+              "name": "Bolts",
+              "icon": "",
+              "grade": 4,
+              "has_quantity": null
+            },
+            {
+              "name": "Crystal",
+              "icon": "",
+              "grade": 5,
+              "has_quantity": null
+            },
+            {
+              "name": "Grimoire",
+              "icon": "",
+              "grade": 6,
+              "has_quantity": null
+            },
+            {
+              "name": "Herb",
+              "icon": "",
+              "grade": 7,
+              "has_quantity": null
+            },
+            {
+              "name": "Ingredient",
+              "icon": "",
+              "grade": 8,
+              "has_quantity": null
+            },
+            {
+              "name": "Instrument",
+              "icon": "",
+              "grade": 9,
+              "has_quantity": null
+            },
+            {
+              "name": "Javelin",
+              "icon": "",
+              "grade": 10,
+              "has_quantity": null
+            },
+            {
+              "name": "Knuckles",
+              "icon": "",
+              "grade": 11,
+              "has_quantity": null
+            },
+            {
+              "name": "Orb",
+              "icon": "",
+              "grade": 12,
+              "has_quantity": null
+            },
+            {
+              "name": "Phylactery",
+              "icon": "",
+              "grade": 13,
+              "has_quantity": null
+            },
+            {
+              "name": "Quiver",
+              "icon": "",
+              "grade": 14,
+              "has_quantity": null
+            },
+            {
+              "name": "Scepter",
+              "icon": "",
+              "grade": 15,
+              "has_quantity": null
+            },
+            {
+              "name": "Shield",
+              "icon": "",
+              "grade": 16,
+              "has_quantity": null
+            },
+            {
+              "name": "Tome",
+              "icon": "",
+              "grade": 17,
+              "has_quantity": null
+            },
+            {
+              "name": "Tower Shield",
+              "icon": "",
+              "grade": 18,
+              "has_quantity": null
+            },
+            {
+              "name": "Vial",
+              "icon": "",
+              "grade": 19,
+              "has_quantity": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "rewards": [
+    {
+      "total_appearances": 4,
+      "type": "gear",
+      "quality": "Legendary",
+      "details": [
+        {
+          "quantity": null,
+          "appearances": 3,
+          "item": "Grimoire"
+        },
+        {
+          "quantity": null,
+          "appearances": 1,
+          "item": "Javelin"
+        }
+      ]
+    },
+    {
+      "total_appearances": 2,
+      "type": "dust",
+      "quality": "Mythic",
+      "details": [
+        {
+          "quantity": 5,
+          "appearances": 1,
+          "item": null
+        },
+        {
+          "quantity": 1,
+          "appearances": 1,
+          "item": null
+        }
+      ]
+    },
+    {
+      "total_appearances": 1,
+      "type": "dust",
+      "quality": "Legendary",
+      "details": [
+        {
+          "quantity": 50,
+          "appearances": 1,
+          "item": null
+        }
+      ]
+    },
+    {
+      "total_appearances": 1,
+      "type": "gear",
+      "quality": "Exalted",
+      "details": [
+        {
+          "quantity": null,
+          "appearances": 1,
+          "item": "Tower Shield"
+        }
+      ]
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "671237154a21eecd3f1d9f80"
+  },
+  "name": "RuneTest",
+  "name_slug": "runetest",
+  "standard_energy_cost": 5,
+  "coop_energy_cost": null,
+  "reward_choices": [
+    {
+      "name": "rune",
+      "icon": "",
+      "grade": 5,
+      "has_quantity": true,
+      "choices": [
+        {
+          "name": "Quality",
+          "icon": "",
+          "grade": null,
+          "has_quantity": null,
+          "choices": [
+            {
+              "name": "Talent",
+              "icon": "",
+              "grade": 1,
+              "has_quantity": null
+            },
+            {
+              "name": "Silver Talent",
+              "icon": "",
+              "grade": 2,
+              "has_quantity": null
+            },
+            {
+              "name": "Gold Talent",
+              "icon": "",
+              "grade": 3,
+              "has_quantity": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "rewards": [
+    {
+      "total_appearances": 6,
+      "type": "rune",
+      "quality": "Talent",
+      "details": [
+        {
+          "quantity": 1,
+          "appearances": 4,
+          "item": null
+        },
+        {
+          "quantity": 2,
+          "appearances": 2,
+          "item": null
+        }
+      ]
+    },
+    {
+      "total_appearances": 5,
+      "type": "rune",
+      "quality": "Silver Talent",
+      "details": [
+        {
+          "quantity": 1,
+          "appearances": 4,
+          "item": null
+        },
+        {
+          "quantity": 2,
+          "appearances": 1,
+          "item": null
+        }
+      ]
+    },
+    {
+      "total_appearances": 1,
+      "type": "rune",
+      "quality": "Gold Talent",
+      "details": [
+        {
+          "quantity": 1,
+          "appearances": 1,
+          "item": null
+        }
+      ]
+    }
+  ]
+}]
