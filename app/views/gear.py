@@ -16,7 +16,12 @@ def get_gear():
     if ',' in type:
       type = type.split(',')
       type = [t.capitalize() for t in type]
-      current_app.logger.log_info('info', f'type(s) : {type}')
+      if 'Melee' in type:
+        type.append('Melee/Ranged')
+    if type == 'Melee':
+      type = ['Melee', 'Melee/Ranged']
+    current_app.logger.log_info('info', f'type(s) : {type}')
+    
   if position:
     if ',' in position:
       splitted_positions = position.split(',')
@@ -24,13 +29,10 @@ def get_gear():
       for p in splitted_positions:
         if '-' in p:
           bug_fix = p.split('-')
-          print(bug_fix)
           p = '-'.join([b.capitalize() for b in bug_fix])
-          print(p)
         else:
           p = p.capitalize()
         position.append(p)
-      print(position)
 
       current_app.logger.log_info('info', f'position(s) : {position}')
 
