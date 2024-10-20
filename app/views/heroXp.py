@@ -14,3 +14,15 @@ def get_heroXp():
   
   current_app.logger.req_404(req)
   return jsonify({'error': 'heroXp not found'}), 404
+
+@heroXp_blueprint.route('/xpThresholds', methods=['GET'])
+def get_xpThresholds():
+  req = '/xpThresholds GET'
+  current_app.logger.req(req)
+  heroXp = HeroXpService.get_thresholds()
+  if heroXp:
+    current_app.logger.req_ok(req)
+    return jsonify([xp.to_dict() for xp in heroXp])
+  
+  current_app.logger.req_404(req)
+  return jsonify({'error': 'xpThresholds not found'}), 404
