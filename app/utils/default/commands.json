@@ -265,8 +265,8 @@
   "description": "Calcule le nombre de potions nécessaires pour passer de l'ascend X/level X à l'ascend Y/level Y",
   "options": [
     {
-      "name": "héros",
-      "description": "Le héros en question",
+      "name": "stars",
+      "description": "Le nombre d'étoiles du héros",
       "type": 3,
       "required": true
     },
