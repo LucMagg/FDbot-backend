@@ -1,32 +1,157 @@
 [
   {
     "hero_stars": 5,
-    "A0": 50,
-    "A1": 80,
-    "A2": 95
+    "A0": {
+      "level": {
+        "min": 1,
+        "max": 75
+      },
+      "threshold": 50
+    },
+    "A1": {
+      "level": {
+        "min": 25,
+        "max": 85
+      },
+      "threshold": 80
+    },
+    "A2": {
+      "level": {
+        "min": 40,
+        "max": 95
+      },
+      "threshold": 95
+    },
+    "A3": {
+      "level": {
+        "min": 48,
+        "max": 100
+      },
+      "threshold": null
+    }
   },
   {
     "hero_stars": 4,
-    "A0": 40,
-    "A1": 80,
-    "A2": 90
+    "A0": {
+      "level": {
+        "min": 1,
+        "max": 75
+      },
+      "threshold": 40
+    },
+    "A1": {
+      "level": {
+        "min": 20,
+        "max": 85
+      },
+      "threshold": 80
+    },
+    "A2": {
+      "level": {
+        "min": 40,
+        "max": 95
+      },
+      "threshold": 90
+    },
+    "A3": {
+      "level": {
+        "min": 45,
+        "max": 100
+      },
+      "threshold": null
+    }
   },
   {
     "hero_stars": 3,
-    "A0": 35,
-    "A1": 75,
-    "A2": 90
+    "A0": {
+      "level": {
+        "min": 1,
+        "max": 75
+      },
+      "threshold": 35
+    },
+    "A1": {
+      "level": {
+        "min": 18,
+        "max": 85
+      },
+      "threshold": 75
+    },
+    "A2": {
+      "level": {
+        "min": 38,
+        "max": 95
+      },
+      "threshold": 90
+    },
+    "A3": {
+      "level": {
+        "min": 45,
+        "max": 100
+      },
+      "threshold": null
+    }
   },
   {
     "hero_stars": 2,
-    "A0": 30,
-    "A1": 75,
-    "A2": 90
+    "A0": {
+      "level": {
+        "min": 1,
+        "max": 75
+      },
+      "threshold": 30
+    },
+    "A1": {
+      "level": {
+        "min": 15,
+        "max": 85
+      },
+      "threshold": 75
+    },
+    "A2": {
+      "level": {
+        "min": 38,
+        "max": 95
+      },
+      "threshold": 90
+    },
+    "A3": {
+      "level": {
+        "min": 45,
+        "max": 100
+      },
+      "threshold": null
+    }
   },
   {
     "hero_stars": 1,
-    "A0": 25,
-    "A1": 75,
-    "A2": 90
+    "A0": {
+      "level": {
+        "min": 1,
+        "max": 75
+      },
+      "threshold": 25
+    },
+    "A1": {
+      "level": {
+        "min": 13,
+        "max": 85
+      },
+      "threshold": 75
+    },
+    "A2": {
+      "level": {
+        "min": 38,
+        "max": 95
+      },
+      "threshold": 90
+    },
+    "A3": {
+      "level": {
+        "min": 45,
+        "max": 100
+      },
+      "threshold": null
+    }
   }
 ]

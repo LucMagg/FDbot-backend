@@ -2,28 +2,67 @@ from bson import ObjectId
 from typing import Dict, Optional
 
 
+class XpMinMax:
+  def __init__(self, min: int, max: int):
+    self.min = min
+    self.max = max
+
+  @classmethod
+  def from_dict(cls, data: Dict):
+    return cls(
+      min = data.get('min'),
+      max = data.get('max')
+    )
+  
+  def to_dict(self) -> Dict:
+    return {
+      "min": self.min,
+      "max": self.max
+    }
+  
+class LevelThreshold:
+  def __init__(self, level: XpMinMax, threshold: int|None):
+    self.level = level
+    self.threshold = threshold
+
+  @classmethod
+  def from_dict(cls, data: Dict):
+    return cls(
+      level = XpMinMax.from_dict(data.get('level')),
+      threshold = data.get('threshold')
+    )
+  
+  def to_dict(self) -> Dict:
+    return {
+      "level": self.level.to_dict(),
+      "threshold": self.threshold
+    }
+
 class XpThreshold:
-  def __init__(self, hero_stars: int, A0: int, A1: int, A2: int):
+  def __init__(self, hero_stars: int, A0: LevelThreshold, A1: LevelThreshold, A2: LevelThreshold, A3: LevelThreshold):
     self.hero_stars = hero_stars
     self.A0 = A0
     self.A1 = A1
     self.A2 = A2
+    self.A3 = A3
 
   @classmethod
   def from_dict(cls, data: Dict):
     return cls(
       hero_stars = data.get('hero_stars'),
-      A0 = data.get('A0'),
-      A1 = data.get('A1'),
-      A2 = data.get('A2')
+      A0 = LevelThreshold.from_dict(data.get('A0')),
+      A1 = LevelThreshold.from_dict(data.get('A1')),
+      A2 = LevelThreshold.from_dict(data.get('A2')),
+      A3 = LevelThreshold.from_dict(data.get('A3'))
     )
   
   def to_dict(self) -> Dict:
     result = {
       "hero_stars": self.hero_stars,
-      "A0": self.A0,
-      "A1": self.A1,
-      "A2": self.A2
+      "A0": self.A0.to_dict(),
+      "A1": self.A1.to_dict(),
+      "A2": self.A2.to_dict(),
+      "A3": self.A3.to_dict()
     }
     return result
   
