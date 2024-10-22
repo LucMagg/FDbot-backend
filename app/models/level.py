@@ -174,11 +174,11 @@ class Level:
     if found_reward:
       for detail in found_reward.get('details'):
         if detail.get('quantity') == reward_data.get('quantity') and detail.get('item') == reward_data.get('item'):
-          detail['appearances'] += 1
+          detail['appearances'] += reward_data.get('times')
           done = True
       if not done:
-        found_reward['details'].append({'appearances': 1, 'item': reward_data.get('item'), 'quantity': reward_data.get('quantity')})
-      found_reward['total_appearances'] += 1
+        found_reward['details'].append({'appearances': reward_data.get('times'), 'item': reward_data.get('item'), 'quantity': reward_data.get('quantity')})
+      found_reward['total_appearances'] += reward_data.get('times')
 
     else:
       level.get('rewards').append({
@@ -188,10 +188,10 @@ class Level:
           {
             'quantity': reward_data.get('quantity'),
             'item': reward_data.get('item'),
-            'appearances': 1
+            'appearances': reward_data.get('times')
           }
         ],
-        'total_appearances': 1
+        'total_appearances': reward_data.get('times')
       })
 
     del level['_id']
