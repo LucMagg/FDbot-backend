@@ -425,4 +425,19 @@
       }
     }
   ]
+},
+{
+  "name": "spire_by_date",
+  "pipeline": [
+    {
+      "$match": {
+        "start_date": {
+          "$lt": "{{mydate}}"
+        },
+        "end_date": {
+          "$gt": "{{mydate}}"
+        }   
+      }
+    }
+  ]
 }]

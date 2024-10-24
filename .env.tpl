@@ -17,3 +17,4 @@ PORT = 0 # a number between 1024 and 49151
 FLASK_ENV = 'development|testing|production'
 
 LOG_FILE = 'name_of_the_log_file.log'
+TESSERACT_PATH = 'path_of_the_installed_tesseract_on_your_server'

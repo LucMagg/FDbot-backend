@@ -18,6 +18,8 @@ class Config:
 
   LOG_FILE = os.getenv('LOG_FILE')
 
+  TESSERACT_PATH = os.getenv('TESSERACT_PATH')
+
 
 class DevelopmentConfig(Config):
   DEBUG = True
