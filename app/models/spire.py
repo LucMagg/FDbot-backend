@@ -73,7 +73,6 @@ class Spire:
     if not pipeline_doc:
       return None
     
-    print(pipeline_doc)
     pipeline_stages = [stage.copy() for stage in pipeline_doc['pipeline']]
 
     for stage in pipeline_stages:
