@@ -57,13 +57,13 @@ class Spire:
     dict_to_insert = self.to_dict()
     if '_id' in dict_to_insert:
       del dict_to_insert['_id']
-    result = db.spire.insert_one(dict_to_insert)
+    result = db.spires.insert_one(dict_to_insert)
     self._id = result.inserted_id
     return self
 
   @staticmethod
   def read_by_id(db, spire_id):
-    data = db.spire.find_one({"_id": ObjectId(spire_id)})
+    data = db.spires.find_one({"_id": ObjectId(spire_id)})
     return Spire.from_dict(data) if data else None
   
   @staticmethod
@@ -81,7 +81,7 @@ class Spire:
         stage['$match']['start_date']['$lt'] = target_date
         stage['$match']['end_date']['$gt'] = target_date
 
-    spire = list(db.spire.aggregate(pipeline_stages))
+    spire = list(db.spires.aggregate(pipeline_stages))
       
     if len(spire) > 0:
       print(spire[0])
@@ -89,7 +89,7 @@ class Spire:
    
     print('create new spires')
     while True:
-      last_spire = db.spire.find_one(sort=[("end_date", -1)])
+      last_spire = db.spires.find_one(sort=[("end_date", -1)])
         
       if last_spire:
         start_date = last_spire['end_date'] + timedelta(days=2)
@@ -118,5 +118,5 @@ class Spire:
 
   @staticmethod
   def read_all(db):
-    data = db.spire.find()
+    data = db.spires.find()
     return [Spire.from_dict(d) for d in data] if data else None

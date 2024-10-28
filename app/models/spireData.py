@@ -3,13 +3,15 @@ from typing import Dict, Optional
 from datetime import date
 
 class SpireData:
-  def __init__(self, username: str, image_url: str, climb: int, spire: int, date: date, score: int, floors: int, loss: int, turns: int, bonus: int, _id: Optional[str] = None):
+  def __init__(self, username: str, image_url: str, climb: int, spire: int, tier: str, date: date, guild: str, score: int, floors: int, loss: int, turns: int, bonus: int, _id: Optional[str] = None):
     self._id = ObjectId(_id) if _id else None
     self.username = username
     self.image_url = image_url
     self.spire = spire
     self.climb = climb
+    self.tier = tier
     self.date = date
+    self.guild = guild
     self.score = score
     self.floors = floors
     self.loss = loss
@@ -26,7 +28,9 @@ class SpireData:
       image_url = data.get('image_url'),
       spire = data.get('spire'),
       climb = data.get('climb'),
+      tier = data.get('tier'),
       date = data.get('date'),
+      guild = data.get('guild'),
       score = data.get('score'),
       floors = data.get('floors'),
       loss = data.get('loss'),
@@ -41,7 +45,9 @@ class SpireData:
       "image_url": self.image_url,
       "spire": self.spire,
       "climb": self.climb,
+      "tier": self.tier,
       "date": self.date,
+      "guild": self.guild,
       "score": self.score,
       "floors": self.floors,
       "loss": self.loss,
@@ -53,21 +59,21 @@ class SpireData:
     dict_to_insert = self.to_dict()
     if '_id' in dict_to_insert:
       del dict_to_insert['_id']
-    result = db.spiredata.insert_one(dict_to_insert)
+    result = db.spireDatas.insert_one(dict_to_insert)
     self._id = result.inserted_id
     return self
 
   @staticmethod
   def read_by_id(db, spiredata_id):
-    data = db.spiredata.find({"_id": ObjectId(spiredata_id)})
+    data = db.spireDatas.find({"_id": ObjectId(spiredata_id)})
     return [SpireData.from_dict(d) for d in data] if data else None
   
   @staticmethod
   def read_by_username(db, username):
-    data = db.spiredata.find({"username": username})
+    data = db.spireDatas.find({"username": username})
     return [SpireData.from_dict(d) for d in data] if data else None
 
   @staticmethod
   def read_all(db):
-    data = db.spiredata.find()
+    data = db.spireDatas.find()
     return [SpireData.from_dict(d) for d in data] if data else None

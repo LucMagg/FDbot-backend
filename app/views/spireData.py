@@ -48,11 +48,13 @@ def add_spireData():
   req = '/spiredata POST'
   current_app.logger.req(req)
   spire_data = request.json
-  print(spire_data)
-  added_spire = SpireDataService.post_SpireData(spire_data)
-  if added_spire:
+  spire = SpireDataService.post_SpireData(spire_data)
+  if spire:
     current_app.logger.req_ok(req)
-    return jsonify(added_spire.to_dict())
+    try:
+      return jsonify(spire.to_dict())
+    except:
+      return jsonify(spire)
   
   current_app.logger.req_404(req)
   return jsonify({'error': 'Problem while adding spiredata'}), 404
