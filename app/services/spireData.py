@@ -29,27 +29,30 @@ class SpireDataService:
     return SpireData.read_all(current_app.mongo_db)
   
   @staticmethod
-  def post_SpireData(spire_data: dict):
-    if not 'score' in spire_data.keys():
-      spire_data['date'] = datetime.now()
-      extracted_data_from_pic = SpireDataService.process_pic(spire_data)
-      for k in extracted_data_from_pic.keys():
-        spire_data[k] = extracted_data_from_pic.get(k)
-      spire_data = SpireDataService.add_score(spire_data)
-      print(spire_data)
-      spire_data = SpireDataService.replace_tier(spire_data)
-      print(spire_data)
-      spire_data = SpireDataService.find_spire_and_climb(spire_data)
-      print(spire_data)
-      print(f'spire_data: {spire_data}')
-
-    if None in spire_data.values():
-      print('spire not added')
-      return spire_data
+  def add_SpireData(spire_data: dict):
+    spire_to_add = SpireData.from_dict(spire_data).to_dict()
+    if None in spire_to_add.values():
+      return None
     
     result = SpireData.create(SpireData.from_dict(spire_data), current_app.mongo_db)
     print('spire added')
     return result if result else None
+  
+  @staticmethod
+  def extract_SpireData(spire_data: dict):
+    spire_data['date'] = datetime.now()
+    extracted_data_from_pic = SpireDataService.process_pic(spire_data)
+    for k in extracted_data_from_pic.keys():
+      spire_data[k] = extracted_data_from_pic.get(k)
+    spire_data = SpireDataService.add_score(spire_data)
+    print(spire_data)
+    spire_data = SpireDataService.replace_tier(spire_data)
+    print(spire_data)
+    spire_data = SpireDataService.find_spire_and_climb(spire_data)
+    print(spire_data)
+    print(f'spire_data: {spire_data}')
+
+    return spire_data
 
   def process_pic(spire_data):
     pytesseract.pytesseract.tesseract_cmd = f'{current_app.config.get('TESSERACT_PATH')}\\tesseract.exe'

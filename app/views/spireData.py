@@ -43,12 +43,28 @@ def get_all_spireDatas():
   return jsonify({'error': 'SpireDatas not found'}), 404
 
 
-@spireData_blueprint.route('/spiredata', methods=['POST'])
+@spireData_blueprint.route('/spiredata/add', methods=['POST'])
 def add_spireData():
-  req = '/spiredata POST'
+  req = '/spiredata/add POST'
   current_app.logger.req(req)
   spire_data = request.json
-  spire = SpireDataService.post_SpireData(spire_data)
+  spire = SpireDataService.add_SpireData(spire_data)
+  if spire:
+    current_app.logger.req_ok(req)
+    try:
+      return jsonify(spire.to_dict())
+    except:
+      return jsonify(spire)
+  
+  current_app.logger.req_404(req)
+  return jsonify({'error': 'Problem while adding spiredata'}), 404
+
+@spireData_blueprint.route('/spiredata/extract', methods=['POST'])
+def extract_spireData():
+  req = '/spiredata/extract POST'
+  current_app.logger.req(req)
+  spire_data = request.json
+  spire = SpireDataService.extract_SpireData(spire_data)
   if spire:
     current_app.logger.req_ok(req)
     try:
