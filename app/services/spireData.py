@@ -36,13 +36,11 @@ class SpireDataService:
       spire_data = SpireDataService.find_spire_and_climb(spire_data)
 
     spire_to_add = SpireData.from_dict(spire_data).to_dict()
-    print(spire_to_add)
     if None in spire_to_add.values():
       return None
     
     result = SpireData.create(SpireData.from_dict(spire_data), current_app.mongo_db)
     if result:
-      print('spire added')
       return result
     
     return None
@@ -54,12 +52,8 @@ class SpireDataService:
     for k in extracted_data_from_pic.keys():
       spire_data[k] = extracted_data_from_pic.get(k)
     spire_data = SpireDataService.add_score(spire_data)
-    print(spire_data)
     spire_data = SpireDataService.replace_tier(spire_data)
-    print(spire_data)
     spire_data = SpireDataService.find_spire_and_climb(spire_data)
-    print(spire_data)
-    print(f'spire_data: {spire_data}')
 
     return SpireData.from_dict(spire_data).to_dict()
 
@@ -103,7 +97,6 @@ class SpireDataService:
       matched_data = next((data for data in extract_data if any(s in line for s in data.get('start'))), None)
       
       if matched_data:
-        print(matched_data)
         value = SpireDataService.find_value_in_line(line, matched_data.get('start'))
 
         if not result[matched_data['key']]:
@@ -113,7 +106,6 @@ class SpireDataService:
   
   def find_value_in_line(line, starts):
     start = next((s for s in starts if s in line), None)
-    print(start)
     to_return = line.split(start)[-1].split()[0].replace('#','')
     try:
       return int(to_return)

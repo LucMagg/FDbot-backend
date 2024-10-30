@@ -68,7 +68,6 @@ class Spire:
   
   @staticmethod
   def read_by_date(db, target_date):
-    print(f'date : {target_date}')
     pipeline_doc = db.pipelines.find_one({'name': 'spire_by_date'})
     if not pipeline_doc:
       return None
@@ -83,10 +82,8 @@ class Spire:
     spire = list(db.spires.aggregate(pipeline_stages))
       
     if len(spire) > 0:
-      print(spire[0])
       return Spire.from_dict(spire[0])
    
-    print('create new spires')
     while True:
       last_spire = db.spires.find_one(sort=[("end_date", -1)])
         

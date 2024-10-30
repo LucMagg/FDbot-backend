@@ -86,7 +86,5 @@ class SpireData:
     
     pipeline_stages = [stage.copy() for stage in pipeline_doc['pipeline']]
 
-    print(pipeline_stages)
-
     guilds = list(db.spireDatas.aggregate(pipeline_stages))
     return guilds if guilds else None
