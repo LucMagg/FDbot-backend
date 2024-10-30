@@ -77,3 +77,16 @@ class SpireData:
   def read_all(db):
     data = db.spireDatas.find()
     return [SpireData.from_dict(d) for d in data] if data else None
+  
+  @staticmethod
+  def get_all_guilds(db):
+    pipeline_doc = db.pipelines.find_one({'name': 'existing_guilds_from_spiredata'})
+    if not pipeline_doc:
+      return None
+    
+    pipeline_stages = [stage.copy() for stage in pipeline_doc['pipeline']]
+
+    print(pipeline_stages)
+
+    guilds = list(db.spireDatas.aggregate(pipeline_stages))
+    return guilds if guilds else None

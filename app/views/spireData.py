@@ -57,7 +57,7 @@ def add_spireData():
       return jsonify(spire)
   
   current_app.logger.req_404(req)
-  return jsonify({'error': 'Problem while adding spiredata'}), 404
+  return jsonify({'error': 'Problem while adding spire data'}), 404
 
 @spireData_blueprint.route('/spiredata/extract', methods=['POST'])
 def extract_spireData():
@@ -73,4 +73,16 @@ def extract_spireData():
       return jsonify(spire)
   
   current_app.logger.req_404(req)
-  return jsonify({'error': 'Problem while adding spiredata'}), 404
+  return jsonify({'error': 'Problem while extracting spire data'}), 404
+
+@spireData_blueprint.route('/spiredata/guilds', methods=['GET'])
+def get_guilds():
+  req = '/spiredata/guilds GET'
+  current_app.logger.req(req)
+  guilds = SpireDataService.get_guilds()
+  if guilds:
+    current_app.logger.req_ok(req)
+    return jsonify(guilds)
+  
+  current_app.logger.req_404(req)
+  return jsonify({'error': 'No guilds found'}), 404

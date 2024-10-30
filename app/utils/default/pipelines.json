@@ -440,4 +440,21 @@
       }
     }
   ]
+},
+{
+  "name": "existing_guilds_from_spiredata",
+  "pipeline": [
+      {
+        "$group": {"_id": "$guild"}
+      },
+      {
+        "$project": {
+          "_id": 0,
+          "name": "$_id"
+        }
+      },
+      {
+        "$sort": {"name": 1}
+      }
+  ]
 }]

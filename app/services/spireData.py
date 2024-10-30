@@ -30,13 +30,22 @@ class SpireDataService:
   
   @staticmethod
   def add_SpireData(spire_data: dict):
+    if spire_data.get('score') is None:
+      spire_data = SpireDataService.add_score(spire_data)
+      spire_data['date'] = datetime.now()
+      spire_data = SpireDataService.find_spire_and_climb(spire_data)
+
     spire_to_add = SpireData.from_dict(spire_data).to_dict()
+    print(spire_to_add)
     if None in spire_to_add.values():
       return None
     
     result = SpireData.create(SpireData.from_dict(spire_data), current_app.mongo_db)
-    print('spire added')
-    return result if result else None
+    if result:
+      print('spire added')
+      return result
+    
+    return None
   
   @staticmethod
   def extract_SpireData(spire_data: dict):
@@ -52,7 +61,7 @@ class SpireDataService:
     print(spire_data)
     print(f'spire_data: {spire_data}')
 
-    return spire_data
+    return SpireData.from_dict(spire_data).to_dict()
 
   def process_pic(spire_data):
     pytesseract.pytesseract.tesseract_cmd = f'{current_app.config.get('TESSERACT_PATH')}\\tesseract.exe'
@@ -112,7 +121,7 @@ class SpireDataService:
       return to_return
   
   def add_score(result):
-    if not None in result.values() and not result.get('score'):
+    if not None in [result.get('floors'), result.get('loss'), result.get('turns'), result.get('bonus')]:
       result['score'] = result['floors'] * 50000 - result['loss'] * 1000 - result['turns'] * 100 + result['bonus'] * 250
     return result
 
@@ -144,3 +153,6 @@ class SpireDataService:
     
     return result
 
+  def get_guilds():
+    guilds = SpireData.get_all_guilds(current_app.mongo_db)
+    return guilds if guilds else None
