@@ -36,6 +36,7 @@ class SpireDataService:
       spire_data = SpireDataService.find_spire_and_climb(spire_data)
 
     spire_to_add = SpireData.from_dict(spire_data).to_dict()
+    del spire_to_add['_id']
     if None in spire_to_add.values():
       return None
     

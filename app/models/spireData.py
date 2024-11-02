@@ -4,7 +4,10 @@ from datetime import date
 
 class SpireData:
   def __init__(self, username: str, image_url: str, climb: int, spire: int, tier: str, date: date, guild: str, score: int, floors: int, loss: int, turns: int, bonus: int, _id: Optional[str] = None):
-    self._id = ObjectId(_id) if _id else None
+    try:
+      self._id = ObjectId(_id)
+    except:
+      self._id = None
     self.username = username
     self.image_url = image_url
     self.spire = spire

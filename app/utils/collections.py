@@ -16,18 +16,11 @@ def init_collections():
     with open(json_file, 'r', encoding='utf-8') as file:
       json_data = json.load(file)
     
-    for item in json_data:
-      if "_id" in item:
-        del item["_id"]
-    
     if collec in existing_collections:
       collection = current_app.mongo_db[collec]
-      db_data = list(collection.find({}, {'_id': 0}))
+      db_data = list(collection.find({}))
         
-      json_str = dumps(json_data, sort_keys=True)
-      db_str = dumps(db_data, sort_keys=True)
-        
-      if json_str != db_str:
+      if not compare_collections(json_data, db_data):
         current_app.logger.back_log(f'  Collection {collec} différente du JSON...')
         collection.drop()
         needs_update = 'mise à jour'
@@ -51,21 +44,39 @@ def init_collections():
       current_app.logger.back_log(f'  Collection {collec} {needs_update}')
   
   dynamic_collections = ['heroes','pets','talents']  
-  dynamic_collections_names = ''
-  need_to_create_dynamic_collections = False
-  for i in range(0, len(dynamic_collections)):
-    if i < len(dynamic_collections) - 1:
-      dynamic_collections_names += dynamic_collections[i] + ' '
-    else:
-      dynamic_collections_names += '& ' + dynamic_collections[i]
-
-    if dynamic_collections[i] not in existing_collections:
-      need_to_create_dynamic_collections = True
-  
-  
+  dynamic_collections_names = ' & '.join(dynamic_collections)
+  need_to_create_dynamic_collections = any(coll not in existing_collections for coll in dynamic_collections)
+    
   if need_to_create_dynamic_collections:
     current_app.logger.back_log(f'  Collections {dynamic_collections_names} en cours de création...')
     UpdateService.update_all()
     current_app.logger.back_log(f'  Collections créées')
   else:
-    current_app.logger.back_log(f'  Collections {dynamic_collections_names} déjà existantes')  
+    current_app.logger.back_log(f'  Collections {dynamic_collections_names} déjà existantes')
+
+def compare_collections(json_data, db_data):
+  if len(json_data) != len(db_data):
+    return False
+        
+  json_docs = [normalize_document(doc) for doc in json_data]
+  db_docs = [normalize_document(doc) for doc in db_data]
+  
+  sort_key = next((k for k in ['name_slug', 'name', 'hero_stars'] if json_docs and k in json_docs[0].keys()), '')
+  json_docs.sort(key=lambda x: x.get(sort_key, ''))
+  db_docs.sort(key=lambda x: x.get(sort_key, ''))
+
+  return all(dumps(j, sort_keys=True) == dumps(d, sort_keys=True) for j, d in zip(json_docs, db_docs))
+
+def normalize_document(doc):
+  if not isinstance(doc, (dict, list)):
+    return doc
+        
+  if isinstance(doc, dict):
+    normalized = {}
+    for key, value in sorted(doc.items()):
+      if key != '_id':
+        normalized[key] = normalize_document(value)
+    return normalized
+      
+  if isinstance(doc, list):
+    return [normalize_document(item) for item in doc]
