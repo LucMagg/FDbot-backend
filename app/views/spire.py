@@ -31,3 +31,16 @@ def get_spires():
   
   current_app.logger.req_404(req)
   return jsonify({'error': 'Spires not found'}), 404
+
+@spire_blueprint.route('/spire/add_channel', methods=['POST'])
+def add_channel():
+  req = '/spire/add_channel POST'
+  current_app.logger.req(req)
+  data = request.json
+  spire = SpireService.add_channel_to_spire(data)
+  if spire:
+    current_app.logger.req_ok(req)
+    return jsonify(spire.to_dict())
+  
+  current_app.logger.req_404(req)
+  return jsonify({'error': 'Spire not found'}), 404

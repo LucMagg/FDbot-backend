@@ -10,26 +10,31 @@ from app.services.spire import SpireService
 
 class SpireDataService:
   @staticmethod
-  def get_spireDatas_by_username(username):
+  def get_spiredatas_by_username(username):
     spire_obj = SpireData.read_by_username(current_app.mongo_db, username)
     return spire_obj if spire_obj else None
   
   @staticmethod
-  def get_spireDatas_by_spire_and_climb(spire, climb):
+  def get_spiredatas_by_spire_and_climb(spire, climb):
     spire_obj = SpireData.read_by_spire_and_climb(current_app.mongo_db, spire, climb)
     return spire_obj if spire_obj else None
   
+  staticmethod  
+  def get_spiredatas_by_spire(spire):
+    spire_obj = SpireData.read_by_spire(current_app.mongo_db, spire)
+    return spire_obj if spire_obj else None
+  
   @staticmethod
-  def get_spireDatas_by_best_scores(how_many):
+  def get_spiredatas_by_best_scores(how_many):
     spires = sorted(SpireData.read_all(current_app.mongo_db), key=lambda x:(-x.score, x.date))
     return spires[:(how_many)]
   
   @staticmethod
-  def get_all_spireDatas():
+  def get_all_spiredatas():
     return SpireData.read_all(current_app.mongo_db)
   
   @staticmethod
-  def add_SpireData(spire_data: dict):
+  def add_spiredata(spire_data: dict):
     if spire_data.get('score') is None:
       spire_data = SpireDataService.add_score(spire_data)
       spire_data['date'] = datetime.now()
@@ -47,7 +52,7 @@ class SpireDataService:
     return None
   
   @staticmethod
-  def extract_SpireData(spire_data: dict):
+  def extract_spiredata(spire_data: dict):
     spire_data['date'] = datetime.now()
     extracted_data_from_pic = SpireDataService.process_pic(spire_data)
     for k in extracted_data_from_pic.keys():
@@ -149,3 +154,75 @@ class SpireDataService:
   def get_guilds():
     guilds = SpireData.get_all_guilds(current_app.mongo_db)
     return guilds if guilds else None
+
+  def get_scores(score_data):
+    if score_data.get('type') == 'all_time':
+      return SpireDataService.get_all_time_rankings()
+    return SpireDataService.get_current_spire_rankings(score_data)
+  
+  def get_current_spire_rankings(score_data):
+    score_data['date'] = datetime.now()
+    score_data = SpireDataService.find_spire_and_climb(score_data)
+    
+    current_climb_data = SpireDataService.get_spiredatas_by_spire_and_climb(spire=score_data.get('spire'), climb=score_data.get('climb'))
+    current_spire_data = SpireDataService.get_spiredatas_by_spire(spire=score_data.get('spire'))
+
+    if current_climb_data == current_spire_data:
+      return [{'current_climb': SpireDataService.calc_scores(current_climb_data, score_data)}]
+
+    return [{'current_climb': SpireDataService.calc_scores(current_climb_data, score_data)}, {'current_spire': SpireDataService.calc_scores(current_spire_data, score_data)}]
+  
+  def calc_scores(input_list, score_data):
+    to_return = []
+    group_by_tier = SpireDataService.group_spiredata_tiers(input_list)
+    for tier_group in group_by_tier:
+      group_scores_by_username = SpireDataService.group_scores(tier_group)
+
+      if score_data.get('type') == 'guild':
+        to_return.append({tier_group[0].get('tier'): SpireDataService.group_spiredata_tiers_by_guild(group_scores_by_username, top_count=3)}) #ICI est paramétré le nombre max de participants par tier
+      else:
+        to_return.append({tier_group[0].get('tier'): group_scores_by_username})
+    return to_return
+
+  def group_spiredata_tiers(input_list):
+    to_return = {}
+    for item in input_list:
+      key_item = item.get('tier')
+      if key_item not in to_return:
+        to_return[key_item] = []
+      to_return[key_item].append(item)
+    return [to_return[key_item] for key_item in to_return.keys()]
+  
+  def group_spiredata_tiers_by_guild(input_list, top_count):
+    groups = {}
+    for item in input_list:
+      guild = item.get('guild')
+      if guild not in groups:
+        groups[guild] = []
+      groups[guild].append(item)
+    
+    to_return = []
+    for guild, guild_items in groups.items():
+      sorted_items = sorted(guild_items, key=lambda x: x.get('score'), reverse=True)
+      top_items = sorted_items[:top_count] if len(sorted_items) >= top_count else sorted_items
+
+      if top_items:
+        to_return.append({
+          'guild': guild,
+          'score': sum(item.get('score') for item in top_items)
+        })
+    return sorted(to_return, key=lambda x: -x.get('score'))
+  
+  def group_scores(input_list):
+    users = {}
+    for item in input_list:
+      username = item.get('username')
+      if username not in users:
+        users[username] = {
+            'username': username,
+            'score': item.get('score'),
+            'guild': item.get('guild'),
+        }
+      else:
+        users[username]['score'] += item.get('score')
+    return list(users.values())

@@ -1,35 +1,55 @@
 from bson import ObjectId
-from typing import Dict, Optional
-from datetime import date, datetime, timedelta
+from typing import Dict, Optional, List
+from datetime import datetime, timedelta
+from dateutil import parser
 
+
+class Channel:
+  def __init__(self, discord_channel_id: int, guilds: Optional[List[str]] = None):
+    self.discord_channel_id = discord_channel_id
+    self.guilds = guilds if guilds is not None else []
+
+  @classmethod
+  def from_dict(cls, data: Dict):
+    return cls(
+      discord_channel_id = data.get('discord_channel_id'),
+      guilds = data.get('guilds', [])
+    )
+  
+  def to_dict(self) -> Dict:
+    return {
+      'discord_channel_id': self.discord_channel_id,
+      'guilds': self.guilds
+    }
 
 class Climb:
-  def __init__(self, number: int, start_date: date, end_date: date):
+  def __init__(self, number: int, start_date: datetime, end_date: datetime):
     self.number = number
-    self.start_date = start_date
-    self.end_date = end_date
+    self.start_date = start_date if isinstance(start_date, datetime) else parser.parse(start_date)
+    self.end_date = end_date if isinstance(end_date, datetime) else parser.parse(end_date)
 
   @classmethod
   def from_dict(cls, data: Dict):
     return cls(
       number = data.get('number'),
-      start_date = data.get('start_date'),
-      end_date = data.get('end_date')
+      start_date = data.get('start_date') if isinstance(data.get('start_date'), datetime) else parser.parse(data.get('start_date')),
+      end_date = data.get('end_date') if isinstance(data.get('end_date'), datetime) else parser.parse(data.get('end_date'))
     )
 
   def to_dict(self) -> Dict:
     return {
-      "number": self.number,
-      "start_date": self.start_date,
-      "end_date": self.end_date
+      'number': self.number,
+      'start_date': self.start_date if isinstance(self.start_date, datetime) else parser.parse(self.start_date),
+      'end_date': self.end_date if isinstance(self.end_date, datetime) else parser.parse(self.end_date)
     } 
 
 class Spire:
-  def __init__(self, climbs: list[Climb], number: int, start_date: date=0, end_date: date=0, _id: Optional[str] = None):
+  def __init__(self, climbs: list[Climb], number: int, start_date: datetime=0, end_date: datetime=0, channels: Optional[Channel] = [], _id: Optional[str] = None):
     self._id = ObjectId(_id) if _id else None
     self.number = number
-    self.start_date = start_date
-    self.end_date = end_date
+    self.start_date = start_date if isinstance(start_date, datetime) else parser.parse(start_date)
+    self.end_date = end_date if isinstance(end_date, datetime) else parser.parse(end_date)
+    self.channels = channels or []
     self.climbs = climbs or []
 
   @classmethod
@@ -39,18 +59,20 @@ class Spire:
     return cls(
       _id = str(data.get('_id', {})) if '_id' in data else None,
       number = data.get('number'),
-      start_date = data.get('start_date'),
-      end_date = data.get('end_date'),
+      start_date = data.get('start_date') if isinstance(data.get('start_date'), datetime) else parser.parse(data.get('start_date')),
+      end_date = data.get('end_date') if isinstance(data.get('end_date'), datetime) else parser.parse(data.get('end_date')),
+      channels = [Channel.from_dict(channel_data) for channel_data in data.get('channels')] if data.get('channels') else [],
       climbs = [Climb.from_dict(climb_data) for climb_data in data.get('climbs')] if data.get('climbs') else []
     )
 
   def to_dict(self) -> Dict:
     return {
-      "_id": str(self._id) if self._id else None,
-      "number": self.number,
-      "start_date": self.start_date,
-      "end_date": self.end_date,
-      'climbs': [climb.to_dict() for climb in self.climbs] if self.climbs else [],
+      '_id': str(self._id) if self._id else None,
+      'number': self.number,
+      'start_date': self.start_date if isinstance(self.start_date, datetime) else parser.parse(self.start_date),
+      'end_date': self.end_date if isinstance(self.end_date, datetime) else parser.parse(self.end_date),
+      'channels': [channel.to_dict() for channel in self.channels] if self.channels else [],
+      'climbs': [climb.to_dict() for climb in self.climbs] if self.climbs else []
     }
 
   def create(self, db):
@@ -116,3 +138,18 @@ class Spire:
   def read_all(db):
     data = db.spires.find()
     return [Spire.from_dict(d) for d in data] if data else None
+  
+  @staticmethod
+  def add_channel(db, target_date, channel_id, guild):
+    spire = Spire.read_by_date(db, target_date)
+
+    channel = next((ch for ch in spire.channels if ch.discord_channel_id == channel_id), None)
+
+    if channel:
+      if guild not in channel.guilds:
+        channel.guilds.append(guild)
+    else:
+      spire.channels.append(Channel(discord_channel_id=channel_id, guilds=[guild]))
+    db.spires.update_one({'_id': spire._id}, {'$set': {k: v for k, v in spire.to_dict().items() if k != '_id'}})
+
+    return spire

@@ -457,4 +457,25 @@
         "$sort": {"name": 1}
       }
   ]
+},
+{
+  "name": "spiredatas_by_spire",
+  "pipeline": [
+    {
+      "$match": {
+        "spire": "{{spire}}"
+      }
+    }
+  ]
+},
+{
+  "name": "spiredatas_by_spire_and_climb",
+  "pipeline": [
+    {
+      "$match": {
+        "spire": "{{spire}}",
+        "climb": "{{climb}}"
+      }
+    }
+  ]
 }]

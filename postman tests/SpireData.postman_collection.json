@@ -1,0 +1,301 @@
+{
+	"info": {
+		"_postman_id": "b7394a0c-558a-42b7-808f-45c75e1a0de3",
+		"name": "SpireData",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34841762"
+	},
+	"item": [
+		{
+			"name": "getAllSpireDatas",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"getAllSpireDatas request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200)\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8008/spiredatas",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8008",
+					"path": [
+						"spiredatas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getSpireDataScores",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"getAllSpireDatas request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200)\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8008/spiredatas",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8008",
+					"path": [
+						"spiredatas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getSpireDataByUser",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"getSpireDataByUser request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200)\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"prep\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8008/spiredata/user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8008",
+					"path": [
+						"spiredata",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getBestSpireDatas",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"getBestSpireDatas request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200)\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8008/spiredatas/best/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8008",
+					"path": [
+						"spiredatas",
+						"best",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllGuilds",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"getAllGuilds request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200)\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8008/spiredata/guilds",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8008",
+					"path": [
+						"spiredata",
+						"guilds"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addSpireData",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"addSpireData request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200)\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"_id\": null,\r\n    \"bonus\": 0,\r\n    \"climb\": 3,\r\n    \"date\": \"Thu, 31 Oct 2024 11:59:29 GMT\",\r\n    \"floors\": 14,\r\n    \"guild\": \"Test\",\r\n    \"image_url\": \"https://cdn.discordapp.com/attachments/926571346819956746/1300776804193144832/Screenshot_2024-10-29-11-51-17-870_com.playsome.friendsanddragons.jpg?ex=67240c8d&is=6722bb0d&hm=81896c2a323bf68a03000b7de18e8fa15884c56c4f011116b70cacece9784acb&\",\r\n    \"loss\": 0,\r\n    \"score\": 693500,\r\n    \"spire\": 1,\r\n    \"tier\": \"Platinum\",\r\n    \"turns\": 65,\r\n    \"username\": \"prep\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8008/spiredata/add",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8008",
+					"path": [
+						"spiredata",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "extractSpireData",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"addSpireData request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200)\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"test3\",\r\n    \"image_url\": \"https://cdn.discordapp.com/attachments/926571346819956746/1300776804193144832/Screenshot_2024-10-29-11-51-17-870_com.playsome.friendsanddragons.jpg?ex=6722bb0d&is=6721698d&hm=811ed60b0d33ac50a74704ec1632770195bd4f6a70d16bc67dca01cd8ab28117&\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8008/spiredata/extract",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8008",
+					"path": [
+						"spiredata",
+						"extract"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

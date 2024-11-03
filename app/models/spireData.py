@@ -1,9 +1,10 @@
 from bson import ObjectId
 from typing import Dict, Optional
-from datetime import date
+from datetime import datetime
+from dateutil import parser
 
 class SpireData:
-  def __init__(self, username: str, image_url: str, climb: int, spire: int, tier: str, date: date, guild: str, score: int, floors: int, loss: int, turns: int, bonus: int, _id: Optional[str] = None):
+  def __init__(self, username: str, image_url: str, climb: int, spire: int, tier: str, date: datetime, guild: str, score: int, floors: int, loss: int, turns: int, bonus: int, _id: Optional[str] = None):
     try:
       self._id = ObjectId(_id)
     except:
@@ -13,7 +14,7 @@ class SpireData:
     self.spire = spire
     self.climb = climb
     self.tier = tier
-    self.date = date
+    self.date = date if isinstance(date, datetime) else parser.parse(date)
     self.guild = guild
     self.score = score
     self.floors = floors
@@ -32,7 +33,7 @@ class SpireData:
       spire = data.get('spire'),
       climb = data.get('climb'),
       tier = data.get('tier'),
-      date = data.get('date'),
+      date = data.get('date') if isinstance(data.get('date'), datetime) else parser.parse(data.get('date')),
       guild = data.get('guild'),
       score = data.get('score'),
       floors = data.get('floors'),
@@ -49,7 +50,7 @@ class SpireData:
       "spire": self.spire,
       "climb": self.climb,
       "tier": self.tier,
-      "date": self.date,
+      "date": self.date if isinstance(self.date, datetime) else parser.parse(self.date),
       "guild": self.guild,
       "score": self.score,
       "floors": self.floors,
@@ -60,6 +61,13 @@ class SpireData:
 
   def create(self, db):
     dict_to_insert = self.to_dict()
+
+    existing_spiredatas = db.spireDatas.find()
+    for spiredata in existing_spiredatas:
+      if self.username == spiredata.get('username') and self.spire == spiredata.get('spire') and self.climb == spiredata.get('climb'):
+        print('already posted spire -> delete and reinsert')
+        db.spireDatas.delete_one({"_id": spiredata.get('_id')})
+
     if '_id' in dict_to_insert:
       del dict_to_insert['_id']
     result = db.spireDatas.insert_one(dict_to_insert)
@@ -91,3 +99,34 @@ class SpireData:
 
     guilds = list(db.spireDatas.aggregate(pipeline_stages))
     return guilds if guilds else None
+  
+  @staticmethod
+  def read_by_spire(db, whichone):
+    pipeline_doc = db.pipelines.find_one({'name': 'spiredatas_by_spire'})
+    if not pipeline_doc:
+      return None
+    
+    pipeline_stages = [stage.copy() for stage in pipeline_doc['pipeline']]
+
+    for stage in pipeline_stages:
+      if '$match' in stage:
+        stage['$match']['spire'] = whichone
+
+    spiredatas = list(db.spireDatas.aggregate(pipeline_stages))
+    return spiredatas if spiredatas else None
+  
+  @staticmethod
+  def read_by_spire_and_climb(db, spire, climb):
+    pipeline_doc = db.pipelines.find_one({'name': 'spiredatas_by_spire_and_climb'})
+    if not pipeline_doc:
+      return None
+    
+    pipeline_stages = [stage.copy() for stage in pipeline_doc['pipeline']]
+
+    for stage in pipeline_stages: 
+      if '$match' in stage:
+        stage['$match']['spire'] = spire
+        stage['$match']['climb'] = climb
+
+    spiredatas = list(db.spireDatas.aggregate(pipeline_stages))
+    return spiredatas if spiredatas else None

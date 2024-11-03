@@ -10,7 +10,7 @@ def get_spire():
   current_app.logger.req(req)
   data = request.json
   current_app.logger.log_info('info', f'username : {data.get('username')}')
-  spires = SpireDataService.get_spireDatas_by_username(data.get('username'))
+  spires = SpireDataService.get_spiredatas_by_username(data.get('username'))
   if spires:
     current_app.logger.req_ok(req)
     return jsonify([spire.to_dict() for spire in spires])
@@ -21,7 +21,7 @@ def get_spire():
 def get_best_spireDatas(how_many):
   req = '/spiredatas/best GET'
   current_app.logger.req(req)
-  spires = SpireDataService.get_spireDatas_by_best_scores(int(how_many))
+  spires = SpireDataService.get_spiredatas_by_best_scores(int(how_many))
   if spires:
     current_app.logger.req_ok(req)
     return jsonify([spire.to_dict() for spire in spires])
@@ -34,7 +34,7 @@ def get_best_spireDatas(how_many):
 def get_all_spireDatas():
   req = '/spiredatas GET'
   current_app.logger.req(req)
-  spires = SpireDataService.get_all_spireDatas()
+  spires = SpireDataService.get_all_spiredatas()
   if spires:
     current_app.logger.req_ok(req)
     return jsonify([spire.to_dict() for spire in spires])
@@ -48,7 +48,7 @@ def add_spireData():
   req = '/spiredata/add POST'
   current_app.logger.req(req)
   spire_data = request.json
-  spire = SpireDataService.add_SpireData(spire_data)
+  spire = SpireDataService.add_spiredata(spire_data)
   if spire:
     current_app.logger.req_ok(req)
     try:
@@ -59,12 +59,13 @@ def add_spireData():
   current_app.logger.req_404(req)
   return jsonify({'error': 'Problem while adding spire data'}), 404
 
+
 @spireData_blueprint.route('/spiredata/extract', methods=['POST'])
 def extract_spireData():
   req = '/spiredata/extract POST'
   current_app.logger.req(req)
   spire_data = request.json
-  spire = SpireDataService.extract_SpireData(spire_data)
+  spire = SpireDataService.extract_spiredata(spire_data)
   if spire:
     current_app.logger.req_ok(req)
     try:
@@ -74,6 +75,7 @@ def extract_spireData():
   
   current_app.logger.req_404(req)
   return jsonify({'error': 'Problem while extracting spire data'}), 404
+
 
 @spireData_blueprint.route('/spiredata/guilds', methods=['GET'])
 def get_guilds():
@@ -86,3 +88,17 @@ def get_guilds():
   
   current_app.logger.req_404(req)
   return jsonify({'error': 'No guilds found'}), 404
+
+
+@spireData_blueprint.route('/spiredata/scores', methods=['GET'])
+def get_scores():
+  req = '/spiredata/scores GET'
+  current_app.logger.req(req)
+  score_data = request.json
+  scores = SpireDataService.get_scores(score_data)
+  if scores:
+    current_app.logger.req_ok(req)
+    return jsonify(scores)
+  
+  current_app.logger.req_404(req)
+  return jsonify({'error': 'No scores found'}), 404

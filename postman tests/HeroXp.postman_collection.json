@@ -1,0 +1,76 @@
+{
+	"info": {
+		"_postman_id": "99af2dfe-0f0f-401c-9a71-b05c2aeed55f",
+		"name": "HeroXp",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34841762"
+	},
+	"item": [
+		{
+			"name": "GetHeroXp",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"GetHeroXp request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200)\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8008/heroXp",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8008",
+					"path": [
+						"heroXp"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetXpThresholds",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"GetXpThresholds request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200)\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8008/xpThresholds",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8008",
+					"path": [
+						"xpThresholds"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
