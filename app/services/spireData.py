@@ -54,7 +54,11 @@ class SpireDataService:
   
   @staticmethod
   def extract_spiredata(spire_data: dict):
-    spire_data['date'] = datetime.now()
+    if 'date' in spire_data.keys():
+      spire_data['date'] = parser.parse(spire_data.get('date'))
+    else:
+      spire_data['date'] = datetime.now()
+
     extracted_data_from_pic = SpireDataService.process_pic(spire_data)
     for k in extracted_data_from_pic.keys():
       spire_data[k] = extracted_data_from_pic.get(k)
@@ -172,9 +176,9 @@ class SpireDataService:
     current_spire_data = SpireDataService.get_spiredatas_by_spire(spire=score_data.get('spire'))
 
     if current_climb_data == current_spire_data:
-      return [{'current_climb': SpireDataService.calc_scores(current_climb_data, score_data)}]
+      return {'current_climb': SpireDataService.calc_scores(current_climb_data, score_data)}
 
-    return [{'current_climb': SpireDataService.calc_scores(current_climb_data, score_data)}, {'current_spire': SpireDataService.calc_scores(current_spire_data, score_data)}]
+    return {'current_climb': SpireDataService.calc_scores(current_climb_data, score_data), 'current_spire': SpireDataService.calc_scores(current_spire_data, score_data)}
   
   def calc_scores(input_list, score_data):
     if input_list is None:
