@@ -1,5 +1,6 @@
 from flask import current_app
 from datetime import datetime
+from dateutil import parser
 import pytesseract
 import requests
 import cv2
@@ -161,7 +162,10 @@ class SpireDataService:
     return SpireDataService.get_current_spire_rankings(score_data)
   
   def get_current_spire_rankings(score_data):
-    score_data['date'] = datetime.now()
+    if 'date' in score_data.keys():
+      score_data['date'] = parser.parse(score_data.get('date'))
+    else:
+      score_data['date'] = datetime.now()
     score_data = SpireDataService.find_spire_and_climb(score_data)
     
     current_climb_data = SpireDataService.get_spiredatas_by_spire_and_climb(spire=score_data.get('spire'), climb=score_data.get('climb'))
@@ -173,6 +177,9 @@ class SpireDataService:
     return [{'current_climb': SpireDataService.calc_scores(current_climb_data, score_data)}, {'current_spire': SpireDataService.calc_scores(current_spire_data, score_data)}]
   
   def calc_scores(input_list, score_data):
+    if input_list is None:
+      return None
+    
     to_return = []
     group_by_tier = SpireDataService.group_spiredata_tiers(input_list)
     for tier_group in group_by_tier:
