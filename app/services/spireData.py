@@ -175,24 +175,27 @@ class SpireDataService:
     current_climb_data = SpireDataService.get_spiredatas_by_spire_and_climb(spire=score_data.get('spire'), climb=score_data.get('climb'))
     current_spire_data = SpireDataService.get_spiredatas_by_spire(spire=score_data.get('spire'))
 
+    to_return = {'climb': score_data.get('climb'), 'spire': score_data.get('spire')}
+    to_return['current_climb'] = SpireDataService.calc_scores(current_climb_data, score_data)
     if current_climb_data == current_spire_data:
-      return {'current_climb': SpireDataService.calc_scores(current_climb_data, score_data)}
-
-    return {'current_climb': SpireDataService.calc_scores(current_climb_data, score_data), 'current_spire': SpireDataService.calc_scores(current_spire_data, score_data)}
+      return to_return
+    
+    to_return['current_spire'] = SpireDataService.calc_scores(current_spire_data, score_data)
+    return to_return
   
   def calc_scores(input_list, score_data):
     if input_list is None:
       return None
     
-    to_return = []
+    to_return = {}
     group_by_tier = SpireDataService.group_spiredata_tiers(input_list)
     for tier_group in group_by_tier:
       group_scores_by_username = SpireDataService.group_scores(tier_group)
 
       if score_data.get('type') == 'guild':
-        to_return.append({tier_group[0].get('tier'): SpireDataService.group_spiredata_tiers_by_guild(group_scores_by_username, top_count=3)}) #ICI est paramétré le nombre max de participants par tier
+        to_return[tier_group[0].get('tier')] = SpireDataService.group_spiredata_tiers_by_guild(group_scores_by_username, top_count=3) #ICI est paramétré le nombre max de participants par tier
       else:
-        to_return.append({tier_group[0].get('tier'): group_scores_by_username})
+        to_return[tier_group[0].get('tier')] = group_scores_by_username
     return to_return
 
   def group_spiredata_tiers(input_list):
@@ -236,4 +239,4 @@ class SpireDataService:
         }
       else:
         users[username]['score'] += item.get('score')
-    return list(users.values())
+    return sorted(list(users.values()), key=lambda x: -x.get('score'))
