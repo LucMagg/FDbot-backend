@@ -6,6 +6,11 @@
   "color": "red",
   "title": "Erreur",
   "description": {
+    "generic": [
+      {
+        "text": "Une erreur est survenue avec le bot :rolling_eyes:\nMerci de réitérer la commande plus tard :cry:"
+      }
+    ],
     "hero": [
       {
         "text": "Le héros "
