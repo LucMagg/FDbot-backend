@@ -5,24 +5,24 @@ from dateutil import parser
 
 
 class Channel:
-  def __init__(self, discord_channel_id: float, guilds: Optional[List[str]] = None, message_ids: Optional[List[float]] = None):
+  def __init__(self, discord_channel_id: float, guilds: Optional[List[str]] = None, ranking_message_id: Optional[float] = None):
     self.discord_channel_id = discord_channel_id
     self.guilds = guilds if guilds is not None else []
-    self.message_ids = message_ids if message_ids is not None else []
+    self.ranking_message_id = ranking_message_id if ranking_message_id else None
 
   @classmethod
   def from_dict(cls, data: Dict):
     return cls(
       discord_channel_id = data.get('discord_channel_id'),
       guilds = data.get('guilds', []),
-      message_ids = data.get('message_ids', [])
+      ranking_message_id = data.get('ranking_message_id')
     )
   
   def to_dict(self) -> Dict:
     return {
       'discord_channel_id': self.discord_channel_id,
       'guilds': self.guilds,
-      'message_ids': self.message_ids
+      'ranking_message_id': self.ranking_message_id
     }
 
 class Climb:
@@ -164,8 +164,8 @@ class Spire:
     channel = next((ch for ch in spire.channels if ch.discord_channel_id == channel_id), None)
 
     if channel:
-      if message_id not in channel.message_ids:
-        channel.message_ids.append(message_id)
+      if message_id != channel.ranking_message_id:
+        channel.ranking_message_id = message_id
     else:
       return None
     db.spires.update_one({'_id': spire._id}, {'$set': {k: v for k, v in spire.to_dict().items() if k != '_id'}})
@@ -173,14 +173,13 @@ class Spire:
     return spire
 
   @staticmethod
-  def delete_message_id(db, target_date, channel_id, message_id):
+  def delete_message_id(db, target_date, channel_id):
     spire = Spire.read_by_date(db, target_date)
 
     channel = next((ch for ch in spire.channels if ch.discord_channel_id == channel_id), None)
 
     if channel:
-      if message_id in channel.message_ids:
-        channel.message_ids.pop(message_id)
+      channel.ranking_message_id = None
     else:
       return None
     db.spires.update_one({'_id': spire._id}, {'$set': {k: v for k, v in spire.to_dict().items() if k != '_id'}})
