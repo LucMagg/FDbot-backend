@@ -138,7 +138,7 @@ class SpireDataService:
     ]
 
     if result.get('tier'):
-      matched_data = next((data for data in data_to_replace if result.get('tier') == data.get('match')), None)
+      matched_data = next((data for data in data_to_replace if result.get('tier').lower() == data.get('match').lower()), None)
       if matched_data:
         result['tier'] = matched_data.get('replace')
     return result

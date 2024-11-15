@@ -23,3 +23,21 @@ class SpireService:
 
     spire_obj = Spire.add_channel(current_app.mongo_db, spire_date, channel_id, guild)
     return spire_obj if spire_obj else None
+  
+  @staticmethod
+  def add_message_id_to_channel(data):
+    spire_date = datetime.fromisoformat(data.get('date'))
+    channel_id = data.get('channel_id')
+    message_id = data.get('message_id')
+
+    spire_obj = Spire.add_message_id(current_app.mongo_db, spire_date, channel_id, message_id)
+    return spire_obj if spire_obj else None
+  
+  @staticmethod
+  def delete_message_id_to_channel(data):
+    spire_date = datetime.fromisoformat(data.get('date'))
+    channel_id = data.get('channel_id')
+    message_id = data.get('message_id')
+
+    spire_obj = Spire.delete_message_id(current_app.mongo_db, spire_date, channel_id, message_id)
+    return spire_obj if spire_obj else None

@@ -44,3 +44,29 @@ def add_channel():
   
   current_app.logger.req_404(req)
   return jsonify({'error': 'Spire not found'}), 404
+
+@spire_blueprint.route('/spire/add_message_id', methods=['POST'])
+def add_message_id():
+  req = '/spire/add_message_id POST'
+  current_app.logger.req(req)
+  data = request.json
+  spire = SpireService.add_message_id_to_channel(data)
+  if spire:
+    current_app.logger.req_ok(req)
+    return jsonify(spire.to_dict())
+  
+  current_app.logger.req_404(req)
+  return jsonify({'error': 'Spire not found'}), 404
+
+@spire_blueprint.route('/spire/del_message_id', methods=['DELETE'])
+def delete_message_id():
+  req = '/spire/del_message_id DELETE'
+  current_app.logger.req(req)
+  data = request.json
+  spire = SpireService.delete_message_id_to_channel(data)
+  if spire:
+    current_app.logger.req_ok(req)
+    return jsonify(spire.to_dict())
+  
+  current_app.logger.req_404(req)
+  return jsonify({'error': 'Spire not found'}), 404
