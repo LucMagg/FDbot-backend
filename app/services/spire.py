@@ -1,14 +1,12 @@
 from flask import current_app
-from datetime import datetime
-from bson.objectid import ObjectId
-from bson.errors import InvalidId
+from datetime import datetime, timezone
 from app.models.spire import Spire
 
 
 class SpireService:
   def convert_to_utc(date_str):
     date = datetime.fromisoformat(date_str)
-    return date if date.tzinfo else date.replace(tzinfo=datetime.timezone.utc)
+    return date if date.tzinfo else date.replace(tzinfo=timezone.utc)
 
   @staticmethod
   def get_one_spire(spire_date):
