@@ -38,7 +38,7 @@ class SpireDataService:
   def add_spiredata(spire_data: dict):
     if spire_data.get('score') is None:
       spire_data = SpireDataService.add_score(spire_data)
-      spire_data['date'] = datetime.now(datetime.timezone.utc)
+      spire_data['date'] = datetime.now(tz=timezone.utc)
       spire_data = SpireDataService.find_spire_and_climb(spire_data)
 
     spire_to_add = SpireData.from_dict(spire_data).to_dict()
@@ -58,7 +58,7 @@ class SpireDataService:
       spire_data['date'] = parser.parse(spire_data.get('date'))
       spire_data['date'] = spire_data['date'] if spire_data['date'].tzinfo else spire_data['date'].replace(tzinfo=timezone.utc)
     else:
-      spire_data['date'] = datetime.now(datetime.timezone.utc)
+      spire_data['date'] = datetime.now(tz=timezone.utc)
 
     extracted_data_from_pic = SpireDataService.process_pic(spire_data)
     for k in extracted_data_from_pic.keys():
@@ -171,7 +171,7 @@ class SpireDataService:
       score_data['date'] = parser.parse(score_data.get('date'))
       score_data['date'] = score_data['date'] if score_data['date'].tzinfo else score_data['date'].replace(tzinfo=timezone.utc)
     else:
-      score_data['date'] = datetime.now(datetime.timezone.utc)
+      score_data['date'] = datetime.now(tz=timezone.utc)
     score_data = SpireDataService.find_spire_and_climb(score_data)
     
     current_climb_data = SpireDataService.get_spiredatas_by_spire_and_climb(spire=score_data.get('spire'), climb=score_data.get('climb'))
