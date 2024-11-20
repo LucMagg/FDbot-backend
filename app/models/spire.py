@@ -28,15 +28,36 @@ class Channel:
 class Climb:
   def __init__(self, number: int, start_date: datetime, end_date: datetime):
     self.number = number
-    self.start_date = start_date if isinstance(start_date, datetime) else parser.parse(start_date)
-    self.end_date = end_date if isinstance(end_date, datetime) else parser.parse(end_date)
+    if isinstance(start_date, datetime):
+      self.start_date = start_date if start_date.tzinfo else start_date.replace(tzinfo=datetime.timezone.utc)
+    else:
+      parsed_date = parser.parse(start_date)
+      self.start_date = parsed_date if parsed_date.tzinfo else parsed_date.replace(tzinfo=datetime.timezone.utc)
+    if isinstance(end_date, datetime):
+      self.end_date = end_date if end_date.tzinfo else end_date.replace(tzinfo=datetime.timezone.utc)
+    else:
+      parsed_date = parser.parse(end_date)
+      self.end_date = parsed_date if parsed_date.tzinfo else parsed_date.replace(tzinfo=datetime.timezone.utc)
 
   @classmethod
   def from_dict(cls, data: Dict):
+    start_date = data.get('start_date')
+    if isinstance(start_date, datetime):
+      start_date = start_date if start_date.tzinfo else start_date.replace(tzinfo=datetime.timezone.utc)
+    else:
+      start_date = parser.parse(start_date)
+      start_date = start_date if start_date.tzinfo else start_date.replace(tzinfo=datetime.timezone.utc)
+    end_date = data.get('end_date')
+    if isinstance(end_date, datetime):
+      end_date = end_date if end_date.tzinfo else end_date.replace(tzinfo=datetime.timezone.utc)
+    else:
+      end_date = parser.parse(end_date)
+      end_date = end_date if end_date.tzinfo else end_date.replace(tzinfo=datetime.timezone.utc)
+
     return cls(
-      number = data.get('number'),
-      start_date = data.get('start_date') if isinstance(data.get('start_date'), datetime) else parser.parse(data.get('start_date')),
-      end_date = data.get('end_date') if isinstance(data.get('end_date'), datetime) else parser.parse(data.get('end_date'))
+      number=data.get('number'),
+      start_date=start_date,
+      end_date=end_date
     )
 
   def to_dict(self) -> Dict:
@@ -50,8 +71,16 @@ class Spire:
   def __init__(self, climbs: list[Climb], number: int, start_date: datetime=0, end_date: datetime=0, channels: Optional[Channel] = [], _id: Optional[str] = None):
     self._id = ObjectId(_id) if _id else None
     self.number = number
-    self.start_date = start_date if isinstance(start_date, datetime) else parser.parse(start_date)
-    self.end_date = end_date if isinstance(end_date, datetime) else parser.parse(end_date)
+    if isinstance(start_date, datetime):
+      self.start_date = start_date if start_date.tzinfo else start_date.replace(tzinfo=datetime.timezone.utc)
+    else:
+      parsed_date = parser.parse(start_date)
+      self.start_date = parsed_date if parsed_date.tzinfo else parsed_date.replace(tzinfo=datetime.timezone.utc)
+    if isinstance(end_date, datetime):
+      self.end_date = end_date if end_date.tzinfo else end_date.replace(tzinfo=datetime.timezone.utc)
+    else:
+      parsed_date = parser.parse(end_date)
+      self.end_date = parsed_date if parsed_date.tzinfo else parsed_date.replace(tzinfo=datetime.timezone.utc)
     self.channels = channels or []
     self.climbs = climbs or []
 
@@ -59,11 +88,23 @@ class Spire:
   def from_dict(cls, data: Dict):
     if not data:
       return None
+    start_date = data.get('start_date')
+    if isinstance(start_date, datetime):
+      start_date = start_date if start_date.tzinfo else start_date.replace(tzinfo=datetime.timezone.utc)
+    else:
+      start_date = parser.parse(start_date)
+      start_date = start_date if start_date.tzinfo else start_date.replace(tzinfo=datetime.timezone.utc)
+    end_date = data.get('end_date')
+    if isinstance(end_date, datetime):
+      end_date = end_date if end_date.tzinfo else end_date.replace(tzinfo=datetime.timezone.utc)
+    else:
+      end_date = parser.parse(end_date)
+      end_date = end_date if end_date.tzinfo else end_date.replace(tzinfo=datetime.timezone.utc)
     return cls(
       _id = str(data.get('_id', {})) if '_id' in data else None,
       number = data.get('number'),
-      start_date = data.get('start_date') if isinstance(data.get('start_date'), datetime) else parser.parse(data.get('start_date')),
-      end_date = data.get('end_date') if isinstance(data.get('end_date'), datetime) else parser.parse(data.get('end_date')),
+      start_date = start_date,
+      end_date = end_date,
       channels = [Channel.from_dict(channel_data) for channel_data in data.get('channels')] if data.get('channels') else [],
       climbs = [Climb.from_dict(climb_data) for climb_data in data.get('climbs')] if data.get('climbs') else []
     )
@@ -72,8 +113,8 @@ class Spire:
     return {
       '_id': str(self._id) if self._id else None,
       'number': self.number,
-      'start_date': self.start_date if isinstance(self.start_date, datetime) else parser.parse(self.start_date),
-      'end_date': self.end_date if isinstance(self.end_date, datetime) else parser.parse(self.end_date),
+      'start_date': self.start_date,
+      'end_date': self.end_date,
       'channels': [channel.to_dict() for channel in self.channels] if self.channels else [],
       'climbs': [climb.to_dict() for climb in self.climbs] if self.climbs else []
     }
@@ -93,6 +134,9 @@ class Spire:
   
   @staticmethod
   def read_by_date(db, target_date):
+    if target_date.tzinfo is None:
+      target_date = target_date.replace(tzinfo=datetime.timezone.utc)
+
     pipeline_doc = db.pipelines.find_one({'name': 'spire_by_date'})
     if not pipeline_doc:
       return None
@@ -113,10 +157,10 @@ class Spire:
       last_spire = db.spires.find_one(sort=[("end_date", -1)])
         
       if last_spire:
-        start_date = last_spire['end_date'] + timedelta(days=2)
+        start_date = last_spire['end_date'].replace(tzinfo=datetime.timezone.utc) + timedelta(days=2)
         number = last_spire['number'] + 1
       else:
-        start_date = datetime(2024, 10, 23, 12, 0, 0)
+        start_date = datetime(2024, 10, 23, 11, 0, 0, tzinfo=datetime.timezone.utc)
         number = 1
       end_date = start_date + timedelta(days=12)
         
@@ -135,7 +179,7 @@ class Spire:
         return new_spire
 
       if end_date > target_date:
-          return None
+        return None
 
   @staticmethod
   def read_all(db):

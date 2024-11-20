@@ -6,9 +6,13 @@ from app.models.spire import Spire
 
 
 class SpireService:
+  def convert_to_utc(date_str):
+    date = datetime.fromisoformat(date_str)
+    return date if date.tzinfo else date.replace(tzinfo=datetime.timezone.utc)
+
   @staticmethod
   def get_one_spire(spire_date):
-    spire_obj = Spire.read_by_date(current_app.mongo_db, datetime.fromisoformat(spire_date.get('date')))
+    spire_obj = Spire.read_by_date(current_app.mongo_db, SpireService.convert_to_utc(spire_date.get('date')))
     return spire_obj if spire_obj else None
   
   @staticmethod
@@ -17,7 +21,7 @@ class SpireService:
   
   @staticmethod
   def add_channel_to_spire(data):
-    spire_date = datetime.fromisoformat(data.get('date'))
+    spire_date = SpireService.convert_to_utc(data.get('date'))
     channel_id = data.get('channel_id')
     guild = data.get('guild')
 
@@ -26,7 +30,7 @@ class SpireService:
   
   @staticmethod
   def add_message_id_to_channel(data):
-    spire_date = datetime.fromisoformat(data.get('date'))
+    spire_date = SpireService.convert_to_utc(data.get('date'))
     channel_id = data.get('channel_id')
     message_id = data.get('message_id')
 
@@ -35,7 +39,7 @@ class SpireService:
   
   @staticmethod
   def delete_message_id_to_channel(data):
-    spire_date = datetime.fromisoformat(data.get('date'))
+    spire_date = SpireService.convert_to_utc(data.get('date'))
     channel_id = data.get('channel_id')
 
     spire_obj = Spire.delete_message_id(current_app.mongo_db, spire_date, channel_id)
