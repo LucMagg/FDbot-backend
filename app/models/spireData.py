@@ -1,6 +1,6 @@
 from bson import ObjectId
 from typing import Dict, Optional
-from datetime import datetime
+from datetime import datetime, timezone
 from dateutil import parser
 
 class SpireData:
@@ -14,7 +14,11 @@ class SpireData:
     self.spire = spire
     self.climb = climb
     self.tier = tier
-    self.date = date if isinstance(date, datetime) else parser.parse(date)
+    if isinstance(date, datetime):
+      self.date = date if date.tzinfo else date.replace(tzinfo=timezone.utc)
+    else:
+      parsed_date = parser.parse(date)
+      self.date = date if parsed_date.tzinfo else parsed_date.replace(tzinfo=timezone.utc)
     self.guild = guild
     self.score = score
     self.floors = floors
@@ -26,6 +30,12 @@ class SpireData:
   def from_dict(cls, data: Dict):
     if not data:
       return None
+    date = data.get('date')
+    if isinstance(date, datetime):
+      date = date if date.tzinfo else date.replace(tzinfo=timezone.utc)
+    else:
+      date = parser.parse(date)
+      date = date if date.tzinfo else date.replace(tzinfo=timezone.utc)
     return cls(
       _id = str(data.get('_id', {})) if '_id' in data else None,
       username = data.get('username'),
@@ -33,7 +43,7 @@ class SpireData:
       spire = data.get('spire'),
       climb = data.get('climb'),
       tier = data.get('tier'),
-      date = data.get('date') if isinstance(data.get('date'), datetime) else parser.parse(data.get('date')),
+      date = date,
       guild = data.get('guild'),
       score = data.get('score'),
       floors = data.get('floors'),
@@ -50,7 +60,7 @@ class SpireData:
       "spire": self.spire,
       "climb": self.climb,
       "tier": self.tier,
-      "date": self.date if isinstance(self.date, datetime) else parser.parse(self.date),
+      "date": self.date,
       "guild": self.guild,
       "score": self.score,
       "floors": self.floors,
