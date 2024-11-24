@@ -114,6 +114,9 @@ class SpireDataService:
         if not result[matched_data['key']]:
           result[matched_data['key']] = value
           print(f"{matched_data['key']}: {value}")
+        
+        if matched_data['key'] == 'tier' and value == 'Climb':
+          result[matched_data['key']] = None
     return result
   
   def find_value_in_line(line, starts):
