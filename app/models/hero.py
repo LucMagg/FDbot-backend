@@ -203,6 +203,7 @@ class Hero:
       defense: Defense,
       lead_color: Lead,
       lead_species: Lead,
+      exclusive: str|None,
       talents: Union[List[Talent], List] = None,
       comments: Union[List[Comment], List] = None,
       gear: Union[List[Gear], List] = None,
@@ -231,6 +232,7 @@ class Hero:
     self.talents = talents
     self.comments = comments
     self.gear = gear
+    self.exclusive = exclusive if exclusive else None
 
 
   @classmethod
@@ -255,7 +257,8 @@ class Hero:
       lead_species = Lead.from_dict(data.get('lead_species', {})),
       talents = [Talent.from_dict(talent_data) for talent_data in data.get('talents', []) if isinstance(talent_data, dict)],
       comments = [Comment.from_dict(comment_data) for comment_data in data.get('comments', []) if isinstance(comment_data, dict)],
-      gear = [Gear.from_dict(gear_data) for gear_data in data.get('gear', []) if isinstance(gear_data, dict)]
+      gear = [Gear.from_dict(gear_data) for gear_data in data.get('gear', []) if isinstance(gear_data, dict)],
+      exclusive = data.get('exclusive', None)
     )
 
   def to_dict(self) -> Dict:
@@ -281,7 +284,8 @@ class Hero:
       'comments': [comment.to_dict() for comment in self.comments] if self.comments else [],
       'gear': [gear.to_dict() for gear in self.gear] if self.gear else [],
       'lvl_max': self.lvl_max(),
-      'ascend': self.ascend()
+      'ascend': self.ascend(),
+      'exclusive': self.exclusive
     }
   
   def ascend(self) -> int|None:
