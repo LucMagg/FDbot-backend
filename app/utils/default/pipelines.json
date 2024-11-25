@@ -478,4 +478,63 @@
       }
     }
   ]
+},
+{
+  "name": "exclusive_heroes",
+  "pipeline": [
+    {
+      "$match": {
+          "exclusive": {"$exists": true, "$ne": null}
+        }
+    },
+    {
+      "$sort": {"name": 1}
+    },
+    {
+      "$group": {
+        "_id": "$exclusive",
+        "heroes": {
+          "$push": {
+            "name": "$name",
+            "color": "$color",
+            "stars": "$stars",
+            "heroclass": "$heroclass",
+            "species": "$species"
+          }
+        }
+      }
+    },
+    {
+      "$project": {
+        "_id": 0,
+        "exclusive": "$_id",
+        "heroes": 1
+      }
+    },
+    {
+      "$sort": {"exclusive": 1}
+    }
+  ]
+},
+{
+  "name": "exclusive_types",
+  "pipeline": [
+    {
+      "$match": {
+        "exclusive": {"$exists": true, "$ne": null}
+      }
+    },
+    {
+      "$group": {"_id": "$exclusive"}
+    },
+    {
+      "$project": {
+        "_id": 0,
+        "exclusive": "$_id"
+      }
+    },
+    {
+      "$sort": {"exclusive": 1}
+    }
+  ]
 }]

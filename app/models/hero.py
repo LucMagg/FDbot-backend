@@ -340,13 +340,10 @@ class Hero:
     pipeline_doc = db.pipelines.find_one({'name': 'heroes_by_class'})
     if not pipeline_doc:
       return None
-
     pipeline_stages = [stage.copy() for stage in pipeline_doc['pipeline']]
-
     for stage in pipeline_stages:
       if '$match' in stage:
         stage['$match']['heroclass'] = heroclass
-
     heroes = list(db.heroes.aggregate(pipeline_stages))  
     data = []
     for hero in heroes:
@@ -360,13 +357,10 @@ class Hero:
     pipeline_doc = db.pipelines.find_one({'name': 'heroes_by_gear_name'})
     if not pipeline_doc:
       return None
-
     pipeline_stages = [stage.copy() for stage in pipeline_doc['pipeline']]
-
     for stage in pipeline_stages:
       if '$match' in stage:
         stage['$match']['gear.name'] = gear_name
-
     heroes = list(db.heroes.aggregate(pipeline_stages))
     data = []
     for hero in heroes:
@@ -379,14 +373,11 @@ class Hero:
     pipeline_doc = db.pipelines.find_one({'name': 'heroes_by_gear_name_and_quality'})
     if not pipeline_doc:
       return None
-
     pipeline_stages = [stage.copy() for stage in pipeline_doc['pipeline']]
-
     for stage in pipeline_stages:
       if '$match' in stage:
         stage['$match']['gear.name'] = gear_name
         stage['$match']['gear.quality'] = gear_quality
-
     heroes = list(db.heroes.aggregate(pipeline_stages))
     data = []
     for hero in heroes:
@@ -399,13 +390,10 @@ class Hero:
     pipeline_doc = db.pipelines.find_one({'name': 'heroes_by_talent'})
     if not pipeline_doc:
       return None
-
     pipeline_stages = [stage.copy() for stage in pipeline_doc['pipeline']]
-
     for stage in pipeline_stages:
       if '$match' in stage:
         stage['$match']['talents.name'] = talent
-
     heroes = list(db.heroes.aggregate(pipeline_stages))
     data = []
     for hero in heroes:
@@ -418,18 +406,15 @@ class Hero:
     pet = Pet.read_by_name(db, pet)
     if not pet:
       return None
-    
     pipeline_doc = db.pipelines.find_one({'name': 'heroes_by_pet'})
     if not pipeline_doc:
       return None
-
     pipeline_stages = [stage.copy() for stage in pipeline_doc['pipeline']]
 
     for stage in pipeline_stages:
       if '$match' in stage:
         stage['$match']['color'] = pet.color
         stage['$match']['heroclass'] = pet.petclass
-
     heroes = list(db.heroes.aggregate(pipeline_stages))
     data = []
     for hero in heroes:
@@ -438,14 +423,34 @@ class Hero:
     return data
   
   @staticmethod
+  def read_exclusives(db, type):
+    pipeline_doc = db.pipelines.find_one({'name': 'exclusive_heroes'})
+    if not pipeline_doc:
+      return None
+    pipeline_stages = [stage.copy() for stage in pipeline_doc['pipeline']]
+    if type is not None:
+      for stage in pipeline_stages:
+        if '$match' in stage:
+          stage['$match']['exclusive'] = type
+    heroes = list(db.heroes.aggregate(pipeline_stages))
+    return heroes
+  
+  @staticmethod
+  def read_exclusive_types(db):
+    pipeline_doc = db.pipelines.find_one({'name': 'exclusive_types'})
+    if not pipeline_doc:
+      return None
+    pipeline_stages = [stage.copy() for stage in pipeline_doc['pipeline']]
+    types = list(db.heroes.aggregate(pipeline_stages))
+    return types
+  
+  @staticmethod
   def update_by_name(db, hero_name, update_data):
     hero = Hero.from_dict(update_data).to_dict()
     del hero['ascend']
     del hero['lvl_max']
-
     if '_id' in hero:
       del hero['_id']
-
     result = db.heroes.update_one(
       {'name_slug': str_to_slug(hero_name)},  
       {'$set': hero}
@@ -461,7 +466,6 @@ class Hero:
     existing_heroes = list(db.heroes.find())
     existing_pets = list(db.pets.find())
     operations = []
-
     for new_hero in new_heroes:
       hero_to_update = next((h for h in existing_heroes if h['name'] == new_hero['name']), None)
       if hero_to_update:
@@ -469,7 +473,6 @@ class Hero:
         for key, value in new_hero.items():
           if key not in ['gear', 'talents', 'comments'] and value is not None:
             hero_to_return[key] = value
-
         if 'talents' in new_hero.keys():
           if 'talents' in hero_to_update.keys() and len(hero_to_update['talents']) > 1:
             hero_to_return['talents'] = []
@@ -481,7 +484,6 @@ class Hero:
                 hero_to_return['talents'].append(new_talent)
           else:
             hero_to_return['talents'] = new_hero['talents']
-
         if 'comments' in new_hero.keys():
           if 'comments' in hero_to_update.keys() and len(hero_to_update['comments']) > 1:
             hero_to_return['comments'] = []
@@ -493,7 +495,6 @@ class Hero:
                 hero_to_return['comments'].append(new_comment)
           else:
             hero_to_return['comments'] = new_hero['comments']
-
         if 'gear' in new_hero.keys():
           if 'gear' in hero_to_update.keys() and len(hero_to_update['gear']) > 1:
             hero_to_return['gear'] = []
@@ -506,25 +507,19 @@ class Hero:
                 hero_to_return['gear'].append(new_gear)
           else:
             hero_to_return['gear'] = new_hero['gear']
-
       else:
         hero_to_return = new_hero
-
       if 'attack' in hero_to_return.keys() and 'stars' in hero_to_return.keys():
         if 'att100' in hero_to_return['attack'].keys():
           hero_to_return['ascend_max'] = hero_to_return['stars'] + 3
         else:
           hero_to_return['ascend_max'] = hero_to_return['stars'] + 2
-
       hero_to_return['name_slug'] = str_to_slug(hero_to_return['name'])
-
       existing_pet = next((p for p in existing_pets if p['signature'] == hero_to_return['name'] or p['signature_bis'] == hero_to_return['name']), None)
       if existing_pet:
         hero_to_return['pet'] = existing_pet['name']
       else:
         hero_to_return['pet'] = None
-
-
       operations.append(
         UpdateOne(
           {'name': hero_to_return['name']},
@@ -532,10 +527,8 @@ class Hero:
           upsert = True
         )
       )
-    
     if len(operations) > 0:
       db.heroes.bulk_write(operations)
-
     return True
 
   @staticmethod

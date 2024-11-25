@@ -113,3 +113,33 @@ def get_heroes_by_pet():
   
   current_app.logger.req_404(req)
   return jsonify({'error': 'Heroes not found'}), 404
+
+@hero_blueprint.route('/hero/exclusive', methods=['GET'])
+def get_exclusive_heroes():
+  req = '/hero/exclusive GET'
+  current_app.logger.req(req)
+
+  type = request.json.get('type', None)
+  current_app.logger.log_info('info', f'type : {type}')
+
+  heroes = HeroService.get_exclusive_heroes(type)
+  if heroes:
+    current_app.logger.req_ok(req)
+    return jsonify(heroes)
+  
+  current_app.logger.req_404(req)
+  return jsonify({'error': 'Heroes not found'}), 404
+
+
+@hero_blueprint.route('/hero/exclusives', methods=['GET'])
+def get_all_exclusive_types():
+  req = '/hero/exclusives GET'
+  current_app.logger.req(req)
+
+  exclusives = HeroService.get_all_exclusive_types()
+  if exclusives:
+    current_app.logger.req_ok(req)
+    return jsonify(exclusives)
+  
+  current_app.logger.req_404(req)
+  return jsonify({'error': 'Heroes not found'}), 404

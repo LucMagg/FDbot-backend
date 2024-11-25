@@ -121,7 +121,6 @@ class HeroService:
       to_return = Hero.read_by_id(current_app.mongo_db, ObjectId(hero_name_or_id))
     except InvalidId:
       to_return = Hero.read_by_name(current_app.mongo_db, hero_name_or_id)
-    
     if to_return:
       heroes = HeroService.get_heroes_by_class(to_return.heroclass)
       hero = HeroService.add_stats(to_return.to_dict(), heroes)
@@ -132,7 +131,6 @@ class HeroService:
   @staticmethod
   def get_all_heroes():
     heroes = Hero.read_all(current_app.mongo_db)
-    
     if heroes:
       to_return = []
       for hero in heroes:
@@ -152,7 +150,6 @@ class HeroService:
     for hero in heroes:
       hero = HeroService.add_stats(hero, heroes)
       to_return.append(hero)
-
     return to_return
 
   @staticmethod
@@ -161,7 +158,6 @@ class HeroService:
       heroes = Hero.read_by_gear_name(current_app.mongo_db, gear_name)
     else:
       heroes = Hero.read_by_gear_name_and_quality(current_app.mongo_db, gear_name, gear_quality)
-
     if heroes:
       return heroes
     else:
@@ -170,7 +166,6 @@ class HeroService:
   @staticmethod
   def get_heroes_by_talent(talent_name):
     heroes = Hero.read_by_talent(current_app.mongo_db, talent_name)
-
     if heroes:
       return heroes
     else:
@@ -179,9 +174,24 @@ class HeroService:
   @staticmethod
   def get_heroes_by_pet(pet_name):
     heroes = Hero.read_by_pet(current_app.mongo_db, pet_name)
-
     if heroes:
       return heroes
+    else:
+      return None
+    
+  @staticmethod
+  def get_exclusive_heroes(exclusive_type=None):
+    heroes = Hero.read_exclusives(current_app.mongo_db, exclusive_type)
+    if heroes:
+      return heroes
+    else:
+      return None
+  
+  @staticmethod
+  def get_all_exclusive_types():
+    exclusive_types = Hero.read_exclusive_types(current_app.mongo_db)
+    if exclusive_types:
+      return exclusive_types
     else:
       return None
     
@@ -193,6 +203,5 @@ class HeroService:
       existing_comment['date'] = datetime.now()
     else:
       hero_to_comment['comments'].append({'author': author, 'commentaire': comment, 'date': datetime.now()})
-
     Hero.update_by_name(current_app.mongo_db, hero_to_comment['name'], hero_to_comment)
 
