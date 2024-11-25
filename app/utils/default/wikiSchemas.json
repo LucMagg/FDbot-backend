@@ -105,6 +105,12 @@
         "type": "string",
         "property": "base_IA",
         "schema": "text"
+      },
+      {
+        "row": 18,
+        "type": "string",
+        "property": "exclusive",
+        "schema": "text"
       }
     ],
     "type": "hero"
