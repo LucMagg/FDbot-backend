@@ -525,16 +525,18 @@
       }
     },
     {
-      "$group": {"_id": "$exclusive"}
+      "$group": {
+          "_id": null,
+          "exclusives": {"$addToSet": "$exclusive"}
+      }
     },
     {
       "$project": {
         "_id": 0,
-        "exclusive": "$_id"
+        "exclusives": {
+          "$sortArray": {"input": "$exclusives", "sortBy": 1}
+        }
       }
-    },
-    {
-      "$sort": {"exclusive": 1}
     }
   ]
 }]

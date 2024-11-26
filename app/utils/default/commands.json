@@ -1,6 +1,16 @@
 [{
   "_id": {
-    "$oid": "66d8524b0f048b7ec4ca34a1"
+    "$oid": "67335816d6f39b4ca57b1a35"
+  },
+  "name": "bothelp",
+  "type": 1,
+  "setup_type": null,
+  "to_update": false,
+  "description": "Affiche le bloc d'aide des commandes disponibles."
+},
+{
+  "_id": {
+    "$oid": "67335816d6f39b4ca57b1a34"
   },
   "name": "addcomment",
   "type": 1,
@@ -24,73 +34,7 @@
 },
 {
   "_id": {
-    "$oid": "66d8524b0f048b7ec4ca34a2"
-  },
-  "name": "bothelp",
-  "type": 1,
-  "setup_type": null,
-  "to_update": false,
-  "description": "Affiche le bloc d'aide des commandes disponibles."
-},
-{
-  "_id": {
-    "$oid": "66d8524b0f048b7ec4ca34a3"
-  },
-  "name": "botstats",
-  "type": 1,
-  "setup_type": null,
-  "to_update": false,
-  "description": "Renvoie les données recensées par le bot."
-},
-{
-  "_id": {
-    "$oid": "66d8524b0f048b7ec4ca34a4"
-  },
-  "name": "class",
-  "type": 1,
-  "setup_type": null,
-  "to_update": true,
-  "description": "Permet de lister les différents héros et pets de la classe passée en paramètre.",
-  "options": [
-    {
-      "name": "classe",
-      "description": "Nom de la classe",
-      "type": 3,
-      "required": true
-    }
-  ]
-},
-{
-  "_id": {
-    "$oid": "66d8524b0f048b7ec4ca34a5"
-  },
-  "name": "dhjk",
-  "type": 1,
-  "setup_type": null,
-  "to_update": false,
-  "description": "Prie le dieu du jeu :)"
-},
-{
-  "_id": {
-    "$oid": "66d8524b0f048b7ec4ca34a6"
-  },
-  "name": "hero",
-  "type": 1,
-  "setup_type": "hero",
-  "to_update": true,
-  "description": "Affiche les informations du héros passé en paramètre.",
-  "options": [
-    {
-      "name": "héros",
-      "description": "Nom du héros",
-      "type": 3,
-      "required": true
-    }
-  ]
-},
-{
-  "_id": {
-    "$oid": "66d8524b0f048b7ec4ca34a7"
+    "$oid": "67335816d6f39b4ca57b1a3a"
   },
   "name": "item",
   "type": 1,
@@ -108,7 +52,7 @@
 },
 {
   "_id": {
-    "$oid": "66d8524b0f048b7ec4ca34a8"
+    "$oid": "67335816d6f39b4ca57b1a3b"
   },
   "name": "pet",
   "type": 1,
@@ -126,138 +70,8 @@
 },
 {
   "_id": {
-    "$oid": "66d8524b0f048b7ec4ca34a9"
+    "$oid": "67335816d6f39b4ca57b1a42"
   },
-  "name": "petlist",
-  "type": 1,
-  "setup_type": "hero",
-  "to_update": true,
-  "description": "Permet de lister les différents pets pouvant être équipés par le héros passé en paramètre.",
-  "options": [
-    {
-      "name": "héros",
-      "description": "Nom du héros",
-      "type": 3,
-      "required": true
-    }
-  ]
-},
-{
-  "_id": {
-    "$oid": "66d8524b0f048b7ec4ca34aa"
-  },
-  "name": "talent",
-  "type": 1,
-  "setup_type": null,
-  "to_update": true,
-  "description": "Permet de lister les différents héros et/ou pets possédant le talent passé en paramètre.",
-  "options": [
-    {
-      "name": "talent",
-      "description": "Nom du talent",
-      "type": 3,
-      "required": true
-    }
-  ]
-},
-{
-  "_id": {
-    "$oid": "66d8524b0f048b7ec4ca34ab"
-  },
-  "name": "update",
-  "type": 1,
-  "description": "Permet d'update le bot à partir du wiki.",
-  "setup_type": null,
-  "to_update": false,
-  "options": [
-    {
-      "name": "type",
-      "description": "Type de BDD à mettre à jour",
-      "type": 3,
-      "required": false,
-      "choices": [
-        {
-          "name": "help",
-          "value": "help"
-        },
-        {
-          "name": "Héros",
-          "value": "hero"
-        },
-        {
-          "name": "Pets",
-          "value": "pet"
-        },
-        {
-          "name": "Talents",
-          "value": "talent"
-        },
-        {
-          "name": "Tout",
-          "value": "all"
-        }
-      ]
-    }
-  ]
-},
-{
-  "name": "level",
-  "type": 1,
-  "description": "Ajoute un niveau pour récolter des données sur ses récompenses",
-  "setup_type": "level",
-  "to_update": false,
-  "options": [
-    {
-      "name": "name",
-      "description": "Nom du niveau",
-      "type": 3,
-      "required": true
-    },
-    {
-      "name": "standard_energy_cost",
-      "description": "Coût du niveau en énergies solo",
-      "type": 3,
-      "required": false
-    },
-    {
-      "name": "coop_energy_cost",
-      "description": "Coût du niveau en énergies coop",
-      "type": 3,
-      "required": false
-    }
-  ]
-},
-{
-  "name": "reward",
-  "type": 1,
-  "description": "Ajoute une récompense pour un niveau",
-  "setup_type": "level",
-  "to_update": false,
-  "options": [
-    {
-      "name": "level",
-      "description": "Nom du niveau",
-      "type": 3,
-      "required": true
-    }
-  ]
-},
-{
-  "name": "rewardstat",
-  "type": 1,
-  "setup_type": "level",
-  "to_update": false,
-  "description": "Affiche les stats de récompense pour un niveau",
-  "options": [
-    {
-      "name": "level",
-      "description": "Nom du niveau pour lequel les stats de récompenses seront affichées",
-      "type": 3,
-      "required": true
-    }
-  ]
-},
-{
   "name": "xp",
   "type": 1,
   "setup_type": "hero",
@@ -356,7 +170,147 @@
 },
 {
   "_id": {
-    "$oid": "66d8524b0f048b7ec4ca34ac"
+    "$oid": "67335816d6f39b4ca57b1a36"
+  },
+  "name": "botstats",
+  "type": 1,
+  "setup_type": null,
+  "to_update": false,
+  "description": "Renvoie les données recensées par le bot."
+},
+{
+  "_id": {
+    "$oid": "67335816d6f39b4ca57b1a3f"
+  },
+  "name": "level",
+  "type": 1,
+  "description": "Ajoute un niveau pour récolter des données sur ses récompenses",
+  "setup_type": "level",
+  "to_update": false,
+  "options": [
+    {
+      "name": "name",
+      "description": "Nom du niveau",
+      "type": 3,
+      "required": true
+    },
+    {
+      "name": "standard_energy_cost",
+      "description": "Coût du niveau en énergies solo",
+      "type": 3,
+      "required": false
+    },
+    {
+      "name": "coop_energy_cost",
+      "description": "Coût du niveau en énergies coop",
+      "type": 3,
+      "required": false
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "67335816d6f39b4ca57b1a40"
+  },
+  "name": "reward",
+  "type": 1,
+  "description": "Ajoute une récompense pour un niveau",
+  "setup_type": "level",
+  "to_update": false,
+  "options": [
+    {
+      "name": "level",
+      "description": "Nom du niveau",
+      "type": 3,
+      "required": true
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "67335816d6f39b4ca57b1a38"
+  },
+  "name": "dhjk",
+  "type": 1,
+  "setup_type": null,
+  "to_update": false,
+  "description": "Prie le dieu du jeu :)"
+},
+{
+  "_id": {
+    "$oid": "67335816d6f39b4ca57b1a37"
+  },
+  "name": "class",
+  "type": 1,
+  "setup_type": null,
+  "to_update": true,
+  "description": "Permet de lister les différents héros et pets de la classe passée en paramètre.",
+  "options": [
+    {
+      "name": "classe",
+      "description": "Nom de la classe",
+      "type": 3,
+      "required": true
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "67335816d6f39b4ca57b1a39"
+  },
+  "name": "hero",
+  "type": 1,
+  "setup_type": "hero",
+  "to_update": true,
+  "description": "Affiche les informations du héros passé en paramètre.",
+  "options": [
+    {
+      "name": "héros",
+      "description": "Nom du héros",
+      "type": 3,
+      "required": true
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "67335816d6f39b4ca57b1a3c"
+  },
+  "name": "petlist",
+  "type": 1,
+  "setup_type": "hero",
+  "to_update": true,
+  "description": "Permet de lister les différents pets pouvant être équipés par le héros passé en paramètre.",
+  "options": [
+    {
+      "name": "héros",
+      "description": "Nom du héros",
+      "type": 3,
+      "required": true
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "67335816d6f39b4ca57b1a41"
+  },
+  "name": "rewardstat",
+  "type": 1,
+  "setup_type": "level",
+  "to_update": false,
+  "description": "Affiche les stats de récompense pour un niveau",
+  "options": [
+    {
+      "name": "level",
+      "description": "Nom du niveau pour lequel les stats de récompenses seront affichées",
+      "type": 3,
+      "required": true
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "67335816d6f39b4ca57b1a43"
   },
   "name": "spire",
   "type": 1,
@@ -368,6 +322,82 @@
       "name": "screenshot",
       "description": "Screenshot de ton résultat sur la spire",
       "type": 11,
+      "required": true
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "67335816d6f39b4ca57b1a3d"
+  },
+  "name": "talent",
+  "type": 1,
+  "setup_type": null,
+  "to_update": true,
+  "description": "Permet de lister les différents héros et/ou pets possédant le talent passé en paramètre.",
+  "options": [
+    {
+      "name": "talent",
+      "description": "Nom du talent",
+      "type": 3,
+      "required": true
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "67335816d6f39b4ca57b1a3e"
+  },
+  "name": "update",
+  "type": 1,
+  "description": "Permet d'update le bot à partir du wiki.",
+  "setup_type": null,
+  "to_update": false,
+  "options": [
+    {
+      "name": "type",
+      "description": "Type de BDD à mettre à jour",
+      "type": 3,
+      "required": false,
+      "choices": [
+        {
+          "name": "help",
+          "value": "help"
+        },
+        {
+          "name": "Héros",
+          "value": "hero"
+        },
+        {
+          "name": "Pets",
+          "value": "pet"
+        },
+        {
+          "name": "Talents",
+          "value": "talent"
+        },
+        {
+          "name": "Tout",
+          "value": "all"
+        }
+      ]
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6744da713867998f02badb14"
+  },
+  "name": "exclusive",
+  "type": 1,
+  "setup_type": null,
+  "to_update": false,
+  "description": "Affiche les héros exclusifs du type passé en paramètre.",
+  "options": [
+    {
+      "name": "type",
+      "description": "Type d'exclusif (event ou special summon)",
+      "type": 3,
       "required": true
     }
   ]

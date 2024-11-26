@@ -442,6 +442,8 @@ class Hero:
       return None
     pipeline_stages = [stage.copy() for stage in pipeline_doc['pipeline']]
     types = list(db.heroes.aggregate(pipeline_stages))
+    if types:
+      return types[0].get('exclusives')
     return types
   
   @staticmethod
