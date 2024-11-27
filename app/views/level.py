@@ -72,3 +72,17 @@ def set_new_rewards():
   
   current_app.logger.req_404(req)
   return jsonify({'error': 'Levels not found'}), 404
+
+@levels_blueprint.route('/levels/gear', methods=['GET'])
+def get_level_by_gear():
+  req = '/levels/gear GET'
+  current_app.logger.req(req)
+  item = request.json.get('item', None)
+  quality = request.json.get('quality', None)
+  current_app.logger.log_info('info', f'item : {item}, quality: {quality}')
+  levels = LevelService.get_level_by_gear(item, quality)
+  if levels:
+    current_app.logger.req_ok(req)
+    return jsonify(levels)
+  current_app.logger.req_404(req)
+  return jsonify({'error': 'Level or gear not found'}), 404

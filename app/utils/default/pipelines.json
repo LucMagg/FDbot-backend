@@ -539,4 +539,47 @@
       }
     }
   ]
-}]
+},
+{
+  "name": "levels_by_gear_name_and_quality",
+  "pipeline": [
+    {
+      "$match": {"reward_choices": {"$elemMatch": {
+        "name": "gear",
+        "choices": {
+          "$all": [
+            {
+              "$elemMatch": {
+                "name": "Quality",
+                "choices": {"$elemMatch": {"name": "{{quality}}"}}
+              }
+            },
+            {
+              "$elemMatch": {
+                "name": "Item",
+                "choices": {"$elemMatch": {"name": "{{item}}"}}
+              }
+            }
+          ]
+        }
+      }}}
+    }
+  ]
+},
+{
+  "name": "levels_by_gear_name",
+  "pipeline": [
+    {
+      "$match": {"reward_choices": {"$elemMatch": {
+        "name": "gear",
+        "choices": {
+          "$elemMatch": {
+            "name": "Item",
+            "choices": {"$elemMatch": {"name": "{{item}}"}}
+          }
+        }
+      }}}
+    }
+  ]
+}
+]

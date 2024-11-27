@@ -27,3 +27,25 @@ class LevelService:
   
   def set_new_reward_types():
     return Level.build_new_levels(current_app.mongo_db)
+  
+  @staticmethod
+  def get_level_by_gear(item: str, quality: str = None):
+    if quality is None:
+      pipeline_doc = current_app.mongo_db.pipelines.find_one({'name': 'levels_by_gear_name'})
+    else:
+      pipeline_doc = current_app.mongo_db.pipelines.find_one({'name': 'levels_by_gear_name_and_quality'})
+    if not pipeline_doc:
+      return None
+    pipeline_stages = [stage.copy() for stage in pipeline_doc['pipeline']]
+    
+    for stage in pipeline_stages:
+      if '$match' in stage:
+        if quality is not None:
+          stage['$match']['reward_choices']['$elemMatch']['choices']['$all'][0]['$elemMatch']['choices']['$elemMatch']['name'] = quality
+          stage['$match']['reward_choices']['$elemMatch']['choices']['$all'][1]['$elemMatch']['choices']['$elemMatch']['name'] = item
+        else:
+          stage['$match']['reward_choices']['$elemMatch']['choices']['$elemMatch']['choices']['$elemMatch']['name'] = item
+    levels = list(current_app.mongo_db.levels.aggregate(pipeline_stages))
+    for level in levels:
+      level['_id'] = str(level['_id'])
+    return sorted(levels, key=lambda l:l.get('name'))
