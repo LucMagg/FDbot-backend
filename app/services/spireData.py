@@ -92,12 +92,12 @@ class SpireDataService:
 
   def process_extracted_text(text, result):
     extract_data = [
-      {'key': 'climb', 'start': ['Ascension n°', 'Climb #']},
-      {'key': 'tier', 'start': ['Dragonspire : niveau ', 'Dragonspire ']},
-      {'key': 'floors', 'start': ['terminés x', 'Completed x']},
-      {'key': 'loss', 'start': ['perdus x', 'Lost x']},
-      {'key': 'turns', 'start': ['joués x', 'Taken x']},
-      {'key': 'bonus', 'start' : ['gagnés x', 'Earned x']}
+      {'key': 'climb', 'start': ['Ascension n°', 'Climb #'], 'type': 'int'},
+      {'key': 'tier', 'start': ['Dragonspire : niveau ', 'Dragonspire '], 'type': 'str'},
+      {'key': 'floors', 'start': ['terminés x', 'Completed x'], 'type': 'int'},
+      {'key': 'loss', 'start': ['perdus x', 'Lost x'], 'type': 'int'},
+      {'key': 'turns', 'start': ['joués x', 'Taken x'], 'type': 'int'},
+      {'key': 'bonus', 'start' : ['gagnés x', 'Earned x'], 'type': 'int'}
     ]
 
     for k in [e.get('key') for e in extract_data]:
@@ -109,7 +109,7 @@ class SpireDataService:
       matched_data = next((data for data in extract_data if any(s in line for s in data.get('start'))), None)
       
       if matched_data:
-        value = SpireDataService.find_value_in_line(line, matched_data.get('start'))
+        value = SpireDataService.find_value_in_line(line, matched_data)
 
         if not result[matched_data['key']]:
           result[matched_data['key']] = value
@@ -119,13 +119,15 @@ class SpireDataService:
           result[matched_data['key']] = None
     return result
   
-  def find_value_in_line(line, starts):
-    start = next((s for s in starts if s in line), None)
-    to_return = line.split(start)[-1].split()[0].replace('#','')
-    try:
-      return int(to_return)
-    except ValueError:
-      return to_return
+  def find_value_in_line(line, matched_data):
+    start = next((s for s in matched_data.get('start') if s in line), None)
+    to_return = line.split(start)[-1].split()[0].replace('#','').replace('.','')
+    if matched_data.get('type') == 'int':
+      try:
+        return int(to_return)
+      except ValueError:
+        return None
+    return to_return
   
   def add_score(result):
     if not None in [result.get('floors'), result.get('loss'), result.get('turns'), result.get('bonus')]:
@@ -145,6 +147,9 @@ class SpireDataService:
       matched_data = next((data for data in data_to_replace if result.get('tier').lower() == data.get('match').lower()), None)
       if matched_data:
         result['tier'] = matched_data.get('replace')
+
+    if result.get('tier') not in [t.get('replace') for t in data_to_replace]:
+      result['tier'] = None
     return result
   
   def find_spire_and_climb(result):
