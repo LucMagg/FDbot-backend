@@ -12,12 +12,9 @@ def get_update():
   update_type = request.args.get('type')
   current_app.logger.log_info('info', f'type : {type}')
 
-  match update_type:
-    case 'hero'|'pet'|'talent':
-      update_return = UpdateService.update_one(update_type)
-    case _:
-      update_type = 'all'
-      update_return = UpdateService.update_all()
+  if update_type == 'all':
+    update_type = None
+  update_return = UpdateService.update(update_type)
   
   if update_return:
     current_app.logger.req_ok(req)

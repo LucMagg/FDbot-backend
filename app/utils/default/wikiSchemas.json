@@ -6,7 +6,7 @@
         "row": 0,
         "type": "string",
         "property": "name",
-        "schema": "name"
+        "schema": "template"
       },
       {
         "row": 0,
@@ -18,37 +18,37 @@
         "row": 1,
         "type": "string",
         "property": "heroclass",
-        "schema": "a.title"
+        "schema": "template"
       },
       {
         "row": 2,
         "type": "string",
         "property": "color",
-        "schema": "a.title"
+        "schema": "template"
       },
       {
         "row": 3,
         "type": "string",
         "property": "species",
-        "schema": "a.title"
+        "schema": "template"
       },
       {
         "row": 4,
         "type": "number",
         "property": "stars",
-        "schema": "a.title"
+        "schema": "template"
       },
       {
         "row": 5,
         "type": "string",
         "property": "type",
-        "schema": "a.title./"
+        "schema": "template/"
       },
       {
         "row": 6,
         "type": "string",
         "property": "pattern",
-        "schema": "a.title./"
+        "schema": "template/"
       },
       {
         "row": [
@@ -67,7 +67,7 @@
             "att100"
           ]
         },
-        "schema": "text"
+        "schema": "att_def"
       },
       {
         "row": [
@@ -86,7 +86,7 @@
             "def100"
           ]
         },
-        "schema": "text"
+        "schema": "att_def"
       },
       {
         "row": 15,
@@ -110,7 +110,7 @@
         "row": 18,
         "type": "string",
         "property": "exclusive",
-        "schema": "text"
+        "schema": "template_if_exists"
       }
     ],
     "type": "hero"
@@ -122,7 +122,7 @@
         "row": 0,
         "type": "string",
         "property": "name",
-        "schema": "name"
+        "schema": "template"
       },
       {
         "row": 1,
@@ -151,8 +151,8 @@
       {
         "row": 0,
         "type": "string",
-        "property": "heroname",
-        "schema": "a.title"
+        "property": "name",
+        "schema": "template"
       },
       {
         "row": 1,
@@ -193,7 +193,7 @@
         "row": 0,
         "type": "string",
         "property": "name",
-        "schema": "name"
+        "schema": "template"
       },
       {
         "row": 0,
@@ -205,49 +205,49 @@
         "row": 1,
         "type": "number",
         "property": "stars",
-        "schema": "a.title"
+        "schema": "template"
       },
       {
         "row": 2,
         "type": "string",
         "property": "petclass",
-        "schema": "a.title"
+        "schema": "template"
       },
       {
         "row": 3,
         "type": "string",
         "property": "color",
-        "schema": "a.title"
+        "schema": "template"
       },
       {
         "row": 4,
         "type": "string",
         "property": "signature",
-        "schema": "name"
+        "schema": "template"
       },
       {
         "row": 5,
         "type": "string",
         "property": "signature_bis",
-        "schema": "name"
+        "schema": "template"
       },
       {
         "row": 6,
         "type": "number",
         "property": "attack",
-        "schema": "text"
+        "schema": "number"
       },
       {
         "row": 7,
         "type": "number",
         "property": "defense",
-        "schema": "text"
+        "schema": "number"
       },
       {
         "row": 8,
         "type": "number",
         "property": "manacost",
-        "schema": "text"
+        "schema": "number"
       }
     ],
     "type": "pet"
@@ -259,43 +259,31 @@
         "row": 0,
         "type": "string",
         "property": "name",
-        "schema": "name"
-      },
-      {
-        "row": 0,
-        "type": "string",
-        "property": "image_url",
-        "schema": "portrait"
+        "schema": "template"
       },
       {
         "row": 1,
         "type": "number",
         "property": "base",
-        "schema": "text"
+        "schema": "pet_talent_text"
       },
       {
         "row": 2,
         "type": "number",
         "property": "silver",
-        "schema": "text"
+        "schema": "pet_talent_text"
       },
       {
         "row": 3,
         "type": "string",
         "property": "gold",
-        "schema": "text"
-      },
-      {
-        "row": 4,
-        "type": "string",
-        "property": "gold_description",
-        "schema": "text"
+        "schema": "pet_talent_text"
       },
       {
         "row": 5,
         "type": "string",
         "property": "full",
-        "schema": "talent"
+        "schema": "pet_full_talent"
       },
       {
         "row": [
@@ -312,7 +300,7 @@
         ],
         "type": "string",
         "property": "merge",
-        "schema": "text"
+        "schema": "pet_merge_talents"
       }
     ],
     "type": "pet"
@@ -324,7 +312,7 @@
         "row": 0,
         "type": "string",
         "property": "name",
-        "schema": "name"
+        "schema": "template"
       },
       {
         "row": 0,
@@ -621,19 +609,19 @@
     "name": "single_talent",
     "data": [
       {
-        "row": "h1",
-        "type": "string",
-        "property": "name",
-        "schema": "name"
-      },
-      {
-        "row": "floatleft",
+        "row": 0,
         "type": "string",
         "property": "image_url",
         "schema": "portrait"
       },
       {
-        "row": "mw-parser-output",
+        "row": 2,
+        "type": "string",
+        "property": "type",
+        "schema": "text"
+      },
+      {
+        "row": 3,
         "type": "string",
         "property": "description",
         "schema": "text"
