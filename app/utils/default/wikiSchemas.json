@@ -262,6 +262,12 @@
         "schema": "template"
       },
       {
+        "row": 0,
+        "type": "string",
+        "property": "image_url",
+        "schema": "portrait"
+      },
+      {
         "row": 1,
         "type": "number",
         "property": "base",
@@ -280,13 +286,14 @@
         "schema": "pet_talent_text"
       },
       {
-        "row": 5,
+        "row": 4,
         "type": "string",
         "property": "full",
         "schema": "pet_full_talent"
       },
       {
         "row": [
+          5,
           6,
           7,
           8,
@@ -295,8 +302,7 @@
           11,
           12,
           13,
-          14,
-          15
+          14
         ],
         "type": "string",
         "property": "merge",

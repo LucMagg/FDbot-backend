@@ -189,7 +189,7 @@ class Pet:
     operations = []
 
     for new_pet in new_pets:
-      pet_to_update = next((h for h in existing_pets if h['name'] == new_pet['name']), None)
+      pet_to_update = next((h for h in existing_pets if h['image_url'] == new_pet['image_url']), None)
       if pet_to_update:
         pet_to_return = {}
         for key, value in new_pet.items():
@@ -230,7 +230,7 @@ class Pet:
 
       operations.append(
         UpdateOne(
-          {'name': pet_to_return['name']},
+          {'image_url': pet_to_return['image_url']},
           {'$set': pet_to_return},
           upsert = True
         )

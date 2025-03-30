@@ -517,7 +517,7 @@ class Hero:
         else:
           hero_to_return['ascend_max'] = hero_to_return['stars'] + 2
       hero_to_return['name_slug'] = str_to_slug(hero_to_return['name'])
-      existing_pet = next((p for p in existing_pets if p['signature'] == hero_to_return['name'] or p['signature_bis'] == hero_to_return['name']), None)
+      existing_pet = next((p for p in existing_pets if p.get('signature') == hero_to_return['name'] or p.get('signature_bis') == hero_to_return['name']), None)
       if existing_pet:
         hero_to_return['pet'] = existing_pet['name']
       else:

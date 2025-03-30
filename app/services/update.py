@@ -205,9 +205,9 @@ class UpdateService:
               position = f'{item.get('property')} {str(index + 1)}'
               to_add['talents'].append({'name': talent, 'position': position})
           case 'portrait':
-            to_add[item.get('property')] = UpdateService.schema_template(td[item.get('row')], item.get('property'))
+            to_add[item['property']] = UpdateService.schema_template(td[item.get('row')], item['property'])
           case 'pet_talent_text':
-            talent = td[item.get('row')].get_text().strip('\n')
+            talent = td[item.get('row')].get_text().strip().strip('\n')
             if item.get('type') == 'number':
               talent = int(talent)
             to_add['talents'].append({'name': talent, 'position': item.get('property')})
@@ -218,7 +218,7 @@ class UpdateService:
             to_add['talents'].append({'name': talent, 'position': item.get('property')})
           case 'pet_merge_talents':
             for index, row in enumerate(item.get('row')):
-              talent = td[row].get_text().strip('\n')
+              talent = td[row].get_text().strip().strip('\n')
               position = f'{item.get('property')} {str(index + 1)}'
               to_add['talents'].append({'name': talent, 'position': position})
 
@@ -243,9 +243,9 @@ class UpdateService:
               found_text = int(found_text.strip('Stars'))
             to_add[item.get('property')] = found_text
           case 'portrait':
-            to_add[item['property']] = UpdateService.schema_template(td[item.get('row')], 'portrait')
+            to_add[item['property']] = UpdateService.schema_template(td[item.get('row')], item['property'])
           case 'number':
-            to_add[item.get('property')] = int(td[item.get('row')].get_text().strip('\n'))
+            to_add[item.get('property')] = int(td[item.get('row')].get_text().strip().strip('\n'))
           case 'template/':
             to_add[item.get('property')] = '/'.join([span.find('a').get('title') for span in td[item.get('row')].find_all('span')])
           case 'att_def':
@@ -257,7 +257,6 @@ class UpdateService:
           case 'lead':
             found_lead = UpdateService.schema_lead(td[item.get('row')])
             to_add[item.get('property')] = found_lead
-
       to_return.append(to_add)
     return to_return
   
@@ -314,8 +313,8 @@ class UpdateService:
   
   def schema_template(bs_object, whichone):
     match whichone:
-      case 'portrait':
-        to_return = bs_object.find('span').find('a').get('href')
+      case 'image_url':
+        to_return = bs_object.find('span', {'typeof': 'mw:File/Frameless'}).find_all('a')[0].get('href')
         if 'wiki/Special' in to_return:
           to_return = None
         return to_return
