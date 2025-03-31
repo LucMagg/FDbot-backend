@@ -130,7 +130,8 @@ class SpireDataService:
     return to_return
   
   def add_score(result):
-    if not None in [result.get('floors'), result.get('loss'), result.get('turns'), result.get('bonus')]:
+    list_to_check = [result.get('floors'), result.get('loss'), result.get('turns'), result.get('bonus')]
+    if not None in list_to_check and all(isinstance(r, int) for r in list_to_check):
       result['score'] = result['floors'] * 50000 - result['loss'] * 1000 - result['turns'] * 100 + result['bonus'] * 250
     return result
 
