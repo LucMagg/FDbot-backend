@@ -22,6 +22,10 @@ from .views.rewardTypes import rewardType_blueprint
 from .views.heroXp import heroXp_blueprint
 from .views.spire import spire_blueprint
 from .views.spireData import spireData_blueprint
+from .views.map import map_blueprint
+from .views.channel import channel_blueprint
+from .views.trait import trait_blueprint
+from .views.mapBonus import map_bonus_blueprint
 
 
 def create_app(config_name='default'):
@@ -52,6 +56,10 @@ def create_app(config_name='default'):
   app.register_blueprint(heroXp_blueprint)
   app.register_blueprint(spire_blueprint)
   app.register_blueprint(spireData_blueprint)
+  app.register_blueprint(map_blueprint)
+  app.register_blueprint(channel_blueprint)
+  app.register_blueprint(trait_blueprint)
+  #app.register_blueprint(map_bonus_blueprint)
   app.logger.back_log('Application en ligne')
 
   return app
