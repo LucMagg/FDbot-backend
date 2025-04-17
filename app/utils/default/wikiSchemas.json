@@ -152,7 +152,7 @@
         "row": 0,
         "type": "string",
         "property": "name",
-        "schema": "template"
+        "schema": "name"
       },
       {
         "row": 1,
@@ -634,5 +634,41 @@
       }
     ],
     "type": "talent"
+  },
+  {
+    "name": "Traits2",
+    "data": [
+      {
+        "row": 0,
+        "type": "string",
+        "property": "image_url",
+        "schema": "portrait"
+      },
+      {
+        "row": 0,
+        "type": "string",
+        "property": "name",
+        "schema": "text"
+      },
+      {
+        "row": 1,
+        "type": "string",
+        "property": "type",
+        "schema": "text"
+      },
+      {
+        "row": 2,
+        "type": "string",
+        "property": "sub_type",
+        "schema": "text"
+      },
+      {
+        "row": 3,
+        "type": "string",
+        "property": "description",
+        "schema": "text"
+      }
+    ],
+    "type": "traits"
   }
 ]

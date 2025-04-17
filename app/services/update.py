@@ -5,6 +5,7 @@ from app.models.wikiSchema import WikiSchema
 from app.models.hero import Hero
 from app.models.pet import Pet
 from app.models.talent import Talent
+from app.models.trait import Trait
 from app.utils.strUtils import str_to_wiki_url
 
 
@@ -100,10 +101,10 @@ class UpdateService:
     return to_return
   
 
-##### trait's page parsing #####
+##### talent's page parsing #####
   def parse_talents_one_by_one(talent_names):
     to_return = []
-    raw_bs_data = UpdateService.grab_table_page_data('Traits')
+    raw_bs_data = UpdateService.grab_table_page_data('Traits2')
     talent_schema = WikiSchema.read_by_name(current_app.mongo_db, 'single_talent').to_dict()
 
     for talent in talent_names:
@@ -114,7 +115,7 @@ class UpdateService:
           td = found_talent.find_all('td')[item['row']]
           match item.get('schema'):
             case 'portrait':
-              to_add[item['property']] = UpdateService.schema_template(td, 'portrait')
+              to_add[item['property']] = UpdateService.schema_template(td, item['property'])
             case 'text':
               to_add[item['property']] = td.get_text().strip()
       updatable = False
@@ -126,6 +127,22 @@ class UpdateService:
     return to_return
   
 
+##### trait's page parsing #####
+  def parse_traits_table(schema, raw_bs_object):
+    to_return = []
+    for tr in raw_bs_object:
+      to_add = {}
+      td = tr.find_all('td')
+      for item in schema.get('data'):
+        match item.get('schema'):
+          case 'portrait':
+            to_add[item.get('property')] = UpdateService.schema_template(td[item.get('row')], item.get('property'))
+          case 'text':
+            to_add[item.get('property')] = td[item.get('row')].get_text().strip().strip('\n')
+      to_return.append(to_add)
+    return to_return
+
+
 ##### table page parsing #####
   def parse_table(schema):
     raw_bs_object = UpdateService.grab_table_page_data(schema.get('name'))
@@ -135,6 +152,8 @@ class UpdateService:
         to_update = UpdateService.parse_hero_gear_table(schema, raw_bs_object)
       case 'Hero_Talents'|'Pet_Talents':
         to_update = UpdateService.parse_talents_table(schema, raw_bs_object)
+      case 'Traits2':
+        to_update = UpdateService.parse_traits_table(schema, raw_bs_object)
       case _:
         to_update = UpdateService.parse_stats_table(schema, raw_bs_object)
     #update bdd
@@ -157,6 +176,9 @@ class UpdateService:
 
       case 'talent':
         Talent.update_talents(current_app.mongo_db, to_update)
+      
+      case 'traits':
+        Trait.update_traits(current_app.mongo_db, to_update)
 
 
 ##### Hero_Gear table parsing #####
@@ -168,8 +190,8 @@ class UpdateService:
 
       for item in schema.get('data'):
         match item.get('schema'):
-          case 'template':
-            to_add[item.get('property')] = UpdateService.schema_template(td[item.get('row')], item.get('property'))
+          case 'name':
+            to_add[item.get('property')] = td[item.get('row')].get_text().strip().strip('\n')
           case 'text':
             ascend = UpdateService.schema_ascend_text(td[item.get('row')])
           case 'item':
