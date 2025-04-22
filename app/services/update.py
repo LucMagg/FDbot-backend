@@ -221,6 +221,8 @@ class UpdateService:
         match item.get('schema'):
           case 'template':
             to_add[item.get('property')] = UpdateService.schema_template(td[item.get('row')], item.get('property'))
+            if item.get('property') == 'name' and to_add.get(item.get('property')) == 'Upload file':
+              to_add[item.get('property')] = td[item.get('row')].get_text().strip().strip('\n')
           case 'talent':
             found_talents = UpdateService.schema_multi_templates(td[item.get('row')])
             for index, talent in enumerate(found_talents):
@@ -264,6 +266,8 @@ class UpdateService:
             if item.get('type') == 'number':
               found_text = int(found_text.strip('Stars'))
             to_add[item.get('property')] = found_text
+            if item.get('property') == 'name' and to_add.get(item.get('property')) == 'Upload file':
+              to_add[item.get('property')] = td[item.get('row')].get_text().strip().strip('\n')
           case 'portrait':
             to_add[item['property']] = UpdateService.schema_template(td[item.get('row')], item['property'])
           case 'number':
@@ -327,8 +331,8 @@ class UpdateService:
     to_return = []
     for span in spans:
       if hasattr(span.find('a'), 'title'):
-        if 'File:' in span.find('a').get('title'):
-          to_return.append(span.get_text())
+        if 'Upload' in span.find('a').get('title'):
+          to_return.append(span.next_sibling.strip().strip('\n'))
         else:
           to_return.append(span.find('a').get('title').strip().strip('\n'))
     return to_return
