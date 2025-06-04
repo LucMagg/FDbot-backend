@@ -7,7 +7,7 @@ def init_collections():
   current_app.logger.back_log('COLLECTIONS CHECK')
   existing_collections = current_app.mongo_db.list_collection_names()
 
-  static_collections = ['commands','dusts','messages','qualities','wikiSchemas', 'pipelines', 'rewardTypes', 'rewardChoices', 'heroXp', 'xpThresholds']
+  static_collections = ['commands','dusts','messages','qualities','wikiSchemas', 'pipelines', 'rewardTypes', 'rewardChoices', 'heroXp', 'xpThresholds'] #, 'maps'] #<-- Ajouter maps pour créer la collection à partir du json stocké
 
   for collec in static_collections:
     needs_update = None

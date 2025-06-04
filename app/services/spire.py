@@ -27,18 +27,42 @@ class SpireService:
     return spire_obj if spire_obj else None
   
   @staticmethod
-  def add_message_id_to_channel(data):
+  def add_ranking_message_id_to_channel(data):
     spire_date = SpireService.convert_to_utc(data.get('date'))
     channel_id = data.get('channel_id')
-    message_id = data.get('message_id')
+    message_id = data.get('ranking_message_id')
 
-    spire_obj = Spire.add_message_id(current_app.mongo_db, spire_date, channel_id, message_id)
+    spire_obj = Spire.add_ranking_message_id(current_app.mongo_db, spire_date, channel_id, message_id)
     return spire_obj if spire_obj else None
   
   @staticmethod
-  def delete_message_id_to_channel(data):
+  def delete_ranking_message_id_from_channel(data):
     spire_date = SpireService.convert_to_utc(data.get('date'))
     channel_id = data.get('channel_id')
 
-    spire_obj = Spire.delete_message_id(current_app.mongo_db, spire_date, channel_id)
+    spire_obj = Spire.delete_ranking_message_id(current_app.mongo_db, spire_date, channel_id)
+    return spire_obj if spire_obj else None
+  
+  @staticmethod
+  def add_climb_details_message_id_to_channel(data):
+    spire_date = SpireService.convert_to_utc(data.get('date'))
+    channel_id = data.get('channel_id')
+    message_id = data.get('climb_details_message_id')
+
+    spire_obj = Spire.add_climb_details_message_id(current_app.mongo_db, spire_date, channel_id, message_id)
+    return spire_obj if spire_obj else None
+  
+  @staticmethod
+  def delete_climb_details_message_id_from_channel(data):
+    spire_date = SpireService.convert_to_utc(data.get('date'))
+    channel_id = data.get('channel_id')
+
+    spire_obj = Spire.delete_climb_details_message_id(current_app.mongo_db, spire_date, channel_id)
+    return spire_obj if spire_obj else None
+  
+  @staticmethod
+  def add_climb_details(date, climb_details):
+    spire_date = SpireService.convert_to_utc(date)
+
+    spire_obj = Spire.add_climb_details(current_app.mongo_db, spire_date, climb_details)
     return spire_obj if spire_obj else None

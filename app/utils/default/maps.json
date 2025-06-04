@@ -1,0 +1,267 @@
+[
+  {
+    "name": "Spire 1",
+    "has_water_or_lava": true,
+    "type": "Regular",
+    "gameplay": "Spire",
+    "map": [
+      ["square", "square", "square", "square", "square", "square"],
+      ["rubble", "square", "square", "wall", "square", "wall"],
+      ["square", "square", "square", "square", "square", "square"],
+      ["square", "rubble", "square", "square", "square", "square"],
+      ["square", "water", "water", "water", "square", "square"],
+      ["square", "water", "square", "water", "square", "square"],
+      ["square", "square", "square", "square", "square", "square"],
+      ["square", "square", "square", "water", "square", "wall"]
+    ],
+    "start": [
+      ["A8", "B8", "C8", "B7", "C7", "C6"],
+      ["E8", "E7", "E6", "F7", "F6", "F5"],
+      ["B3", "C3", "C4", "D4", "E4", "E5"]
+    ],
+    "pic_repository": null
+  },
+  {
+    "name": "Spire 2",
+    "has_water_or_lava": false,
+    "type": "Regular",
+    "gameplay": "Spire",
+    "map": [
+      ["square", "rubble", "square", "square", "rubble", "square"],
+      ["square", "wall", "square", "square", "wall", "square"],
+      ["square", "square", "square", "square", "square", "square"],
+      ["square", "square", "square", "square", "square", "square"],
+      ["square", "square", "square", "square", "square", "square"],
+      ["square", "wall", "square", "square", "wall", "square"],
+      ["square", "rubble", "square", "square", "rubble", "square"],
+      ["square", "rubble", "square", "square", "rubble", "square"]
+    ],
+    "start": [
+      ["C1", "D1", "C7", "D7", "C8", "D8"]
+    ],
+    "pic_repository": null
+  },
+  {
+    "name": "Arena 1",
+    "has_water_or_lava": false,
+    "type": "Regular",
+    "gameplay": "Arena",
+    "map": [
+      ["square", "square", "square", "square", "square", "square","square"],
+      ["wall", "square", "square", "square", "square", "square","wall"],
+      ["wall", "rubble", "square", "rubble", "square", "rubble","wall"],
+      ["wall", "rubble", "square", "rubble", "square", "rubble","wall"],
+      ["wall", "square", "square", "square", "square", "square","wall"],
+      ["square", "square", "square", "square", "square", "square","square"]
+    ],
+    "start": null,
+    "pic_repository": null
+  },
+  {
+    "name": "Arena 2",
+    "has_water_or_lava": false,
+    "type": "Regular",
+    "gameplay": "Arena",
+    "map": [
+      ["square", "square", "square", "square", "square", "square","square"],
+      ["square", "wall", "wall", "wall", "square", "square","square"],
+      ["square", "square", "square", "square", "square", "square","square"],
+      ["square", "square", "square", "square", "wall", "wall","square"],
+      ["square", "square", "square", "square", "wall", "wall","square"],
+      ["square", "square", "square", "square", "square", "square","square"],
+      ["square", "wall", "wall", "wall", "square", "square","square"],
+      ["square", "square", "square", "square", "square", "square","square"]
+    ],
+    "start": null,
+    "pic_repository": null
+  },
+  {
+    "name": "Spire 3",
+    "has_water_or_lava": false,
+    "type": "Regular",
+    "gameplay": "Spire",
+    "map": [
+      ["square", "square", "square", "wall", "square", "square"],
+      ["square", "square", "square", "wall", "square", "square"],
+      ["square", "square", "square", "rubble", "square", "square"],
+      ["square", "square", "square", "square", "square", "square"],
+      ["square", "square", "square", "rubble", "square", "square"],
+      ["square", "square", "square", "wall", "square", "square"],
+      ["square", "square", "square", "rubble", "square", "square"],
+      ["square", "square", "square", "square", "square", "square"]
+    ],
+    "start": [
+      ["B8", "A8", "A7", "E8", "F8", "F7"]
+    ],
+    "pic_repository": null
+  },
+  {
+    "name": "Arena 3",
+    "has_water_or_lava": false,
+    "type": "Regular",
+    "gameplay": "Arena",
+    "map": [
+      ["square", "square", "square", "square", "square", "square"],
+      ["square", "square", "square", "square", "square", "square"],
+      ["square", "rubble", "rubble", "rubble", "rubble", "square"],
+      ["square", "rubble", "rubble", "rubble", "rubble", "square"],
+      ["square", "square", "square", "square", "square", "square"],
+      ["square", "square", "square", "square", "square", "square"]      
+    ],
+    "start": null,
+    "pic_repository": null
+  },
+  {
+    "name": "Arena 4",
+    "has_water_or_lava": false,
+    "type": "Regular",
+    "gameplay": "Arena",
+    "map": [
+      ["wall", "wall", "wall", "square", "square", "square","square"],
+      ["wall", "wall", "wall", "rubble", "square", "square","square"],
+      ["wall", "wall", "water", "square", "square", "rubble","wall"],
+      ["wall", "rubble", "square", "square", "water", "wall","wall"],
+      ["square", "square", "square", "rubble", "wall", "wall","wall"],
+      ["square", "square", "square", "square", "wall", "wall","wall"]
+    ],
+    "start": null,
+    "pic_repository": null
+  },
+  {
+    "name": "Spire 4",
+    "has_water_or_lava": true,
+    "type": "Regular",
+    "gameplay": "Spire",
+    "map": [
+      ["water", "square", "square", "square", "square", "water"],
+      ["square", "square", "wall", "wall", "square", "square"],
+      ["square", "square", "square", "square", "square", "square"],
+      ["square", "square", "square", "square", "square", "square"],
+      ["square", "square", "square", "square", "square", "square"],
+      ["square", "square", "wall", "wall", "square", "square"],
+      ["water", "square", "square", "square", "square", "water"]
+    ],
+    "start": [
+      ["C3", "D3", "C4", "D4", "C5", "D5"]
+    ],
+    "pic_repository": null
+  },
+  {
+    "name": "Arena 5",
+    "has_water_or_lava": false,
+    "type": "Regular",
+    "gameplay": "Arena",
+    "map": [
+      ["wall", "wall", "wall", "square", "square", "square"],
+      ["wall", "wall", "rubble", "square", "square", "square"],
+      ["wall", "rubble", "rubble", "square", "square", "square"],
+      ["square", "square", "square", "square", "square", "square"],
+      ["square", "square", "square", "square", "square", "square"],
+      ["square", "square", "square", "rubble", "rubble", "wall"],
+      ["square", "square", "square", "rubble", "wall", "wall"],
+      ["square", "square", "square", "wall", "wall", "wall"]
+    ],
+    "start": null,
+    "pic_repository": null
+  },
+  {
+    "name": "Arena 6",
+    "has_water_or_lava": false,
+    "type": "Regular",
+    "gameplay": "Arena",
+    "map": [
+      ["square", "square", "square", "square", "square", "square","square"],
+      ["square", "rubble", "wall", "square", "wall", "rubble","square"],
+      ["square", "square", "square", "square", "square", "square","square"],
+      ["wall", "wall", "square", "wall", "square", "wall", "wall"],
+      ["wall", "wall", "square", "wall", "square", "wall", "wall"],
+      ["square", "square", "square", "square", "square", "square","square"],
+      ["square", "rubble", "wall", "square", "wall", "rubble","square"],
+      ["square", "square", "square", "square", "square", "square","square"]
+    ],
+    "start": null,
+    "pic_repository": null
+  },
+  {
+    "name": "Spire 5",
+    "has_water_or_lava": true,
+    "type": "Regular",
+    "gameplay": "Spire",
+    "map": [
+      ["square", "square", "square", "square", "wall", "square"],
+      ["square", "square", "wall", "square", "water", "square"],
+      ["wall", "square", "water", "square", "square", "square"],
+      ["water", "square", "square", "square", "square", "wall"],
+      ["square", "square", "square", "wall", "square", "water"],
+      ["square", "wall", "square", "water", "square", "square"],
+      ["square", "water", "square", "square", "square", "square"],
+      ["square", "square", "square", "square", "square", "square"]
+    ],
+    "start": [
+      ["A1", "B1", "C1", "D1", "F2", "F1"],
+      ["E4", "D4", "C4", "B4", "B5", "C5"],
+      ["D7", "E7", "F7", "D8", "E8", "F8"]
+    ],
+    "pic_repository": null
+  },
+  {
+    "name": "Spire 6",
+    "has_water_or_lava": true,
+    "type": "Regular",
+    "gameplay": "Spire",
+    "map": [
+      ["water", "wall", "square", "square", "wall", "water"],
+      ["wall", "square", "square", "square", "square", "square"],
+      ["wall", "square", "square", "square", "square", "wall"],
+      ["water", "square", "square", "square", "square", "wall"],
+      ["water", "square", "square", "square", "square", "wall"],
+      ["wall", "square", "square", "square", "square", "wall"],
+      ["wall", "square", "square", "square", "square", "square"],
+      ["water", "wall", "square", "square", "wall", "water"]
+    ],
+    "start": [
+      ["B4", "B5", "C8", "D8", "C1", "D1"]
+    ],
+    "pic_repository": null
+  },
+  {
+    "name": "Spire 7",
+    "has_water_or_lava": true,
+    "type": "Regular",
+    "gameplay": "Spire",
+    "map": [
+      ["square", "square", "square", "square", "square", "square"],
+      ["square", "square", "square", "wall", "square", "square"],
+      ["square", "square", "square", "square", "square", "square"],
+      ["water", "rubble", "square", "square", "square", "water"],
+      ["square", "water", "rubble", "square", "square", "square"],
+      ["square", "square", "water", "rubble", "square", "square"],
+      ["square", "square", "square", "square", "square", "square"],
+      ["square", "square", "square", "square", "wall", "square"]
+    ],
+    "start": [
+      ["A7", "B7", "C7", "D7", "E7", "F7"],
+      ["A3", "B3", "C3", "D3", "E3", "F3"],
+      ["A7", "B7", "C7", "D7", "E7", "F7"]
+    ],
+    "pic_repository": null
+  },
+  {
+    "name": "Spire 8",
+    "has_water_or_lava": true,
+    "type": "Regular",
+    "gameplay": "Spire",
+    "map": [
+      ["square", "square", "square", "square", "square", "square"],
+      ["square", "square", "square", "square", "square", "square"],
+      ["square", "square", "water", "water", "square", "square"],
+      ["square", "square", "water", "water", "square", "square"],
+      ["square", "square", "square", "square", "square", "square"],
+      ["square", "square", "square", "square", "square", "square"]
+    ],
+    "start": [
+      ["A5", "A6", "B6", "E6", "F6", "F5"]
+    ],
+    "pic_repository": null
+  }
+]

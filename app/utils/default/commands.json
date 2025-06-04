@@ -401,4 +401,11 @@
       "required": true
     }
   ]
+},
+{
+  "name": "spiredetails",
+  "type": 1,
+  "setup_type": null,
+  "to_update": false,
+  "description": "Affiche la map de la spire en cours."
 }]

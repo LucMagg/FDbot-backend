@@ -2,31 +2,98 @@ from bson import ObjectId
 from typing import Dict, Optional, List
 from datetime import datetime, timedelta, timezone
 from dateutil import parser
+from ..utils.strUtils import str_to_slug
 
 
 class Channel:
-  def __init__(self, discord_channel_id: float, guilds: Optional[List[str]] = None, ranking_message_id: Optional[float] = None):
+  def __init__(self, discord_channel_id: float, guilds: Optional[List[str]] = None, ranking_message_id: Optional[float] = None, climb_details_message_id: Optional[float] = None):
     self.discord_channel_id = discord_channel_id
     self.guilds = guilds if guilds is not None else []
     self.ranking_message_id = ranking_message_id if ranking_message_id else None
+    self.climb_details_message_id = climb_details_message_id if climb_details_message_id else None
 
   @classmethod
   def from_dict(cls, data: Dict):
     return cls(
       discord_channel_id = data.get('discord_channel_id'),
       guilds = data.get('guilds', []),
-      ranking_message_id = data.get('ranking_message_id')
+      ranking_message_id = data.get('ranking_message_id'),
+      climb_details_message_id = data.get('climb_details_message_id')
     )
   
   def to_dict(self) -> Dict:
     return {
       'discord_channel_id': self.discord_channel_id,
       'guilds': self.guilds,
-      'ranking_message_id': self.ranking_message_id
+      'ranking_message_id': self.ranking_message_id,
+      'climb_details_message_id': self.climb_details_message_id
     }
 
+class MapDetail:
+  def __init__(self, name: str, water_or_lava: str, name_slug: str = None):
+    self.name = name
+    self.name_slug = name_slug
+    self.water_or_lava = water_or_lava
+
+  @classmethod
+  def from_dict(cls, data: Dict):
+    return cls(
+      name = data.get('name'),
+      name_slug = str_to_slug(data.get('name')),
+      water_or_lava = data.get('water_or_lava')
+    )
+
+  def to_dict(self) -> Dict:
+    return {
+      'name': self.name,
+      'name_slug': self.name_slug,
+      'water_or_lava': self.water_or_lava
+    }
+  
+class BonusDetail:
+  def __init__(self, type: str, buff: str = None):
+    self.type = type
+    self.buff = buff
+
+  @classmethod
+  def from_dict(cls, data: Dict):
+    return cls(
+      type = data.get('type'),
+      buff = data.get('buff')
+    )
+  
+  def to_dict(self) -> Dict:
+    return {
+      'type': self.type,
+      'buff': self.buff
+    }
+  
+class ClimbDetails:
+  def __init__(self, map: Optional[MapDetail] = None, hero_bonus: Optional[BonusDetail] = {}, monster_bonus: Optional[BonusDetail] = {}, talents: Optional[Dict[str, List[str]]] = {}):
+    self.map = map
+    self.hero_bonus = hero_bonus
+    self.monster_bonus = monster_bonus
+    self.talents = talents
+
+  @classmethod
+  def from_dict(cls, data: Dict):
+    return cls(
+      map = MapDetail.from_dict(data.get('map')) if data.get('map') else None,
+      hero_bonus = BonusDetail.from_dict(data.get('hero_bonus')) if data.get('hero_bonus') else {},
+      monster_bonus = BonusDetail.from_dict(data.get('monster_bonus')) if data.get('monster_bonus') else {},
+      talents = data.get('talents', {})
+    )
+  
+  def to_dict(self) -> Dict:
+    return {
+      'map': MapDetail.to_dict(self.map) if self.map else None,
+      'hero_bonus': BonusDetail.to_dict(self.hero_bonus) if self.hero_bonus else {},
+      'monster_bonus': BonusDetail.to_dict(self.monster_bonus) if self.monster_bonus else {},
+      'talents': self.talents
+    }
+  
 class Climb:
-  def __init__(self, number: int, start_date: datetime, end_date: datetime):
+  def __init__(self, number: int, start_date: datetime, end_date: datetime, climb_details: Optional[ClimbDetails] = {}):
     self.number = number
     if isinstance(start_date, datetime):
       self.start_date = start_date if start_date.tzinfo else start_date.replace(tzinfo=timezone.utc)
@@ -38,6 +105,7 @@ class Climb:
     else:
       parsed_date = parser.parse(end_date)
       self.end_date = parsed_date if parsed_date.tzinfo else parsed_date.replace(tzinfo=timezone.utc)
+    self.climb_details = climb_details
 
   @classmethod
   def from_dict(cls, data: Dict):
@@ -55,16 +123,18 @@ class Climb:
       end_date = end_date if end_date.tzinfo else end_date.replace(tzinfo=timezone.utc)
 
     return cls(
-      number=data.get('number'),
-      start_date=start_date,
-      end_date=end_date
+      number = data.get('number'),
+      start_date = start_date,
+      end_date = end_date,
+      climb_details = ClimbDetails.from_dict(data.get('climb_details')) if data.get('climb_details') else {}
     )
 
   def to_dict(self) -> Dict:
     return {
       'number': self.number,
       'start_date': self.start_date if isinstance(self.start_date, datetime) else parser.parse(self.start_date),
-      'end_date': self.end_date if isinstance(self.end_date, datetime) else parser.parse(self.end_date)
+      'end_date': self.end_date if isinstance(self.end_date, datetime) else parser.parse(self.end_date),
+      'climb_details':  self.climb_details.to_dict() if self.climb_details else {}
     } 
 
 class Spire:
@@ -187,13 +257,13 @@ class Spire:
     return [Spire.from_dict(d) for d in data] if data else None
   
   @staticmethod
-  def add_channel(db, target_date, channel_id, guild):
+  def add_channel(db, target_date, channel_id, guild=None):
     spire = Spire.read_by_date(db, target_date)
 
     channel = next((ch for ch in spire.channels if ch.discord_channel_id == channel_id), None)
 
     if channel:
-      if guild not in channel.guilds:
+      if guild and guild not in channel.guilds:
         channel.guilds.append(guild)
     else:
       spire.channels.append(Channel(discord_channel_id=channel_id, guilds=[guild]))
@@ -202,7 +272,7 @@ class Spire:
     return spire
 
   @staticmethod
-  def add_message_id(db, target_date, channel_id, message_id):
+  def add_ranking_message_id(db, target_date, channel_id, message_id):
     spire = Spire.read_by_date(db, target_date)
 
     channel = next((ch for ch in spire.channels if ch.discord_channel_id == channel_id), None)
@@ -217,7 +287,7 @@ class Spire:
     return spire
 
   @staticmethod
-  def delete_message_id(db, target_date, channel_id):
+  def delete_ranking_message_id(db, target_date, channel_id):
     spire = Spire.read_by_date(db, target_date)
 
     channel = next((ch for ch in spire.channels if ch.discord_channel_id == channel_id), None)
@@ -226,6 +296,59 @@ class Spire:
       channel.ranking_message_id = None
     else:
       return None
+    db.spires.update_one({'_id': spire._id}, {'$set': {k: v for k, v in spire.to_dict().items() if k != '_id'}})
+
+    return spire
+  
+  @staticmethod
+  def add_climb_details_message_id(db, target_date, channel_id, message_id):
+    spire = Spire.read_by_date(db, target_date)
+
+    channel = next((ch for ch in spire.channels if ch.discord_channel_id == channel_id), None)
+
+    if channel:
+      if message_id != channel.climb_details_message_id:
+        channel.climb_details_message_id = message_id
+    else:
+      return None
+    db.spires.update_one({'_id': spire._id}, {'$set': {k: v for k, v in spire.to_dict().items() if k != '_id'}})
+
+    return spire
+
+  @staticmethod
+  def delete_climb_details_message_id(db, target_date, channel_id):
+    spire = Spire.read_by_date(db, target_date)
+
+    channel = next((ch for ch in spire.channels if ch.discord_channel_id == channel_id), None)
+
+    if channel:
+      channel.climb_details_message_id = None
+    else:
+      return None
+    db.spires.update_one({'_id': spire._id}, {'$set': {k: v for k, v in spire.to_dict().items() if k != '_id'}})
+
+    return spire
+  
+  @staticmethod
+  def add_climb_details(db, target_date, climb_details):
+    spire = Spire.read_by_date(db, target_date) 
+    if not spire:
+      return None
+
+    if isinstance(climb_details, dict):
+      climb_details = ClimbDetails.from_dict(climb_details)
+
+    target_climb = None
+    for climb in spire.climbs:
+      if climb.start_date <= target_date <= climb.end_date:
+        target_climb = climb
+        break
+
+    if not target_climb:
+      return None
+
+    target_climb.climb_details = climb_details
+
     db.spires.update_one({'_id': spire._id}, {'$set': {k: v for k, v in spire.to_dict().items() if k != '_id'}})
 
     return spire
