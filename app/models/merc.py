@@ -209,6 +209,5 @@ class Merc:
     if pipeline_doc:
       pipeline = pipeline_doc['pipeline']
       result = list(db.mercs.aggregate(pipeline))
-      print(result)
       return [doc['_id'] for doc in result] if result else None
     return None
