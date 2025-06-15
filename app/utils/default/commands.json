@@ -408,4 +408,114 @@
   "setup_type": null,
   "to_update": false,
   "description": "Affiche la map de la spire en cours."
-}]
+},
+{
+  "name": "merclist",
+  "type": 1,
+  "setup_type": null,
+  "to_update": false,
+  "description": "Liste les mercenaires de l'utilisateur.",
+  "options": [
+    {
+      "name": "user",
+      "description": "Nom de l'utilisateur",
+      "type": 3,
+      "required": true
+    }
+  ]
+},
+{
+  "name": "mercregister",
+  "type": 1,
+  "setup_type": null,
+  "to_update": false,
+  "description": "Enregistre une mercenaire de ta box pour que les autres puissent te le demander.",
+  "options": [
+    {
+      "name": "héros",
+      "description": "Nom du héros",
+      "type": 3,
+      "required": true
+    },
+    {
+      "name": "ascend",
+      "description": "Niveau d'ascension du héros (A2 ou A3)",
+      "type": 3,
+      "required": false,
+      "choices": [
+        {
+          "name": "A2",
+          "value": "A2"
+        },
+        {
+          "name": "A3",
+          "value": "A3"
+        }
+      ]
+    },
+    {
+      "name": "pet",
+      "description": "Pet du héros",
+      "type": 3,
+      "required": false,
+      "choices": [
+        {
+          "name": "Oui",
+          "value": "Oui"
+        },
+        {
+          "name": "Non",
+          "value": "Non"
+        }
+      ]
+    }
+  ]
+},
+{
+  "name": "mercask",
+  "type": 1,
+  "setup_type": null,
+  "to_update": false,
+  "description": "Demande un mercenaire à ceux de la guilde qui l'ont.",
+  "options": [
+    {
+      "name": "héros",
+      "description": "Nom du héros",
+      "type": 3,
+      "required": true
+    },
+    {
+      "name": "ascend",
+      "description": "Niveau d'ascension du héros (A2 ou A3)",
+      "type": 3,
+      "required": false,
+      "choices": [
+        {
+          "name": "A2",
+          "value": "A2"
+        },
+        {
+          "name": "A3",
+          "value": "A3"
+        }
+      ]
+    },
+    {
+      "name": "pet",
+      "description": "Pet du héros",
+      "type": 3,
+      "required": false,
+      "choices": [
+        {
+          "name": "Oui",
+          "value": "Oui"
+        },
+        {
+          "name": "Non",
+          "value": "Non"
+        }
+      ]
+    }
+  ]
+}
+]

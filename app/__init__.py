@@ -26,6 +26,7 @@ from .views.map import map_blueprint
 from .views.channel import channel_blueprint
 from .views.trait import trait_blueprint
 from .views.mapBonus import map_bonus_blueprint
+from .views.merc import merc_blueprint
 
 
 def create_app(config_name='default'):
@@ -59,7 +60,8 @@ def create_app(config_name='default'):
   app.register_blueprint(map_blueprint)
   app.register_blueprint(channel_blueprint)
   app.register_blueprint(trait_blueprint)
-  #app.register_blueprint(map_bonus_blueprint)
+  app.register_blueprint(map_bonus_blueprint)
+  app.register_blueprint(merc_blueprint)
   app.logger.back_log('Application en ligne')
 
   return app
