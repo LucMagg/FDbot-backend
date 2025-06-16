@@ -49,7 +49,7 @@ def get_mercs():
       return jsonify([r for r in result]), 200
     return jsonify({'error': 'Error no user found'}), 404
     
-  current_app.logger.req_409(req)
+  current_app.logger.req_404(req)
   return jsonify({'error': 'Bad request'}), 400
 
 

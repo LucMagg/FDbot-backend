@@ -468,6 +468,90 @@
           "value": "Non"
         }
       ]
+    },
+    {
+      "name": "talent_a2",
+      "description": "Le héros a t'il le talent A2",
+      "type": 3,
+      "required": false,
+      "choices": [
+        {
+          "name": "Oui",
+          "value": "Oui"
+        },
+        {
+          "name": "Non",
+          "value": "Non"
+        }
+      ]
+    },
+    {
+      "name": "talent_a3",
+      "description": "Le héros a t'il le talent A3",
+      "type": 3,
+      "required": false,
+      "choices": [
+        {
+          "name": "Oui",
+          "value": "Oui"
+        },
+        {
+          "name": "Non",
+          "value": "Non"
+        }
+      ]
+    },
+    {
+      "name": "merge",
+      "description": "Le niveau de merge du héros",
+      "type": 3,
+      "required": false,
+      "choices": [
+        {
+          "name": "0",
+          "value": "0"
+        },
+        {
+          "name": "1",
+          "value": "1"
+        },
+        {
+          "name": "2",
+          "value": "2"
+        },
+        {
+          "name": "3",
+          "value": "3"
+        },
+        {
+          "name": "4",
+          "value": "4"
+        },
+        {
+          "name": "5",
+          "value": "5"
+        },
+        {
+          "name": "6",
+          "value": "6"
+        },
+        {
+          "name": "7",
+          "value": "7"
+        },
+        {
+          "name": "8",
+          "value": "8"
+        },
+        {
+          "name": "9",
+          "value": "9"
+        },
+        {
+          "name": "10",
+          "value": "10"
+        }
+      ]
     }
   ]
 },
@@ -483,38 +567,6 @@
       "description": "Nom du héros",
       "type": 3,
       "required": true
-    },
-    {
-      "name": "ascend",
-      "description": "Niveau d'ascension du héros (A2 ou A3)",
-      "type": 3,
-      "required": false,
-      "choices": [
-        {
-          "name": "A2",
-          "value": "A2"
-        },
-        {
-          "name": "A3",
-          "value": "A3"
-        }
-      ]
-    },
-    {
-      "name": "pet",
-      "description": "Pet du héros",
-      "type": 3,
-      "required": false,
-      "choices": [
-        {
-          "name": "Oui",
-          "value": "Oui"
-        },
-        {
-          "name": "Non",
-          "value": "Non"
-        }
-      ]
     }
   ]
 }

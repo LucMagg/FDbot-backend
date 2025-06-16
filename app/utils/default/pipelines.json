@@ -589,55 +589,17 @@
       "$match": {"mercs.name": "{{merc_name}}"}
     },
     {
-      "$project": {
-        "_id": 0,
-        "user": 1,
-        "user_id": 1
-      }
-    }
-  ]
-},
-{
-  "name": "user_by_merc_name_and_ascend",
-  "pipeline": [
+      "$unwind": "$mercs"
+    },
     {
-      "$match": {"mercs": {"$elemMatch": {"name": "{{merc_name}}", "ascend": "{{merc_ascend}}"}}}
+      "$match": {"mercs.name": "{{merc_name}}"}
     },
     {
       "$project": {
         "_id": 0,
         "user": 1,
-        "user_id": 1
-      }
-    }
-  ]
-},
-{
-  "name": "user_by_merc_name_and_pet",
-  "pipeline": [
-    {
-      "$match": {"mercs": {"$elemMatch": {"name": "{{merc_name}}", "pet": "{{with_pet}}"}}}
-    },
-    {
-      "$project": {
-        "_id": 0,
-        "user": 1,
-        "user_id": 1
-      }
-    }
-  ]
-},
-{
-  "name": "user_by_merc_name_ascend_and_pet",
-  "pipeline": [
-    {
-      "$match": {"mercs": {"$elemMatch": {"name": "{{merc_name}}", "ascend": "{{merc_ascend}}", "pet": "{{with_pet}}"}}}
-    },
-    {
-      "$project": {
-        "_id": 0,
-        "user": 1,
-        "user_id": 1
+        "user_id": 1,
+        "merc": "$mercs"
       }
     }
   ]

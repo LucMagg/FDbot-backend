@@ -4,11 +4,14 @@ from ..utils.strUtils import str_to_slug
 
 
 class Hero:
-  def __init__(self, name, ascend = None, pet = False, name_slug = None):
+  def __init__(self, name, ascend = None, pet = False, name_slug = None, talent_a2 = None, talent_a3 = None, merge = None):
     self.name = name
     self.name_slug = name_slug if name_slug else str_to_slug(name)
     self.ascend = ascend
     self.pet = pet
+    self.talent_a2 = talent_a2
+    self.talent_a3 = talent_a3
+    self.merge = merge
 
   @classmethod
   def from_dict(cls, data: Dict):
@@ -16,7 +19,10 @@ class Hero:
       name = data.get('name'),
       name_slug = data.get('name_slug', None) if data.get('name_slug') else str_to_slug(data.get('name')),
       ascend = data.get('ascend'),
-      pet = data.get('pet')
+      pet = data.get('pet'),
+      talent_a2 = data.get('talent_a2'),
+      talent_a3 = data.get('talent_a3'),
+      merge = data.get('merge')
     )
 
   def to_dict(self) -> Dict:
@@ -24,7 +30,10 @@ class Hero:
       'name': self.name,
       'name_slug': self.name_slug if self.name_slug else str_to_slug(self.name),
       'ascend': self.ascend,
-      'pet': self.pet
+      'pet': self.pet,
+      'talent_a2': self.talent_a2,
+      'talent_a3': self.talent_a3,
+      'merge': self.merge
     }
     
 
@@ -99,56 +108,6 @@ class Merc:
   
   @staticmethod
   def read_by_merc(db, merc):
-    if 'ascend' in merc.keys() and 'pet' in merc.keys():
-      pipeline = Merc.get_pipeline_by_name_ascend_and_pet(db, merc)
-    elif 'ascend' in merc.keys() and not 'pet' in merc.keys():
-      pipeline = Merc.get_pipeline_by_name_and_ascend(db, merc)
-    elif not 'ascend' in merc.keys() and 'pet' in merc.keys():
-      pipeline = Merc.get_pipeline_by_name_and_pet(db, merc)
-    else:
-      pipeline = Merc.get_pipeline_by_name(db, merc)
-    if not pipeline:
-      return None
-    users = list(db.mercs.aggregate(pipeline))
-    if len(users) > 0:
-      return users
-    return None
-  
-  def get_pipeline_by_name_ascend_and_pet(db, merc):
-    pipeline_doc = db.pipelines.find_one({'name': 'user_by_merc_name_ascend_and_pet'})
-    if not pipeline_doc:
-      return None
-    pipeline_stages = [stage.copy() for stage in pipeline_doc['pipeline']]
-    for stage in pipeline_stages:
-      if '$match' in stage:
-        stage['$match']['mercs']['$elemMatch']['name'] = merc.get('name')
-        stage['$match']['mercs']['$elemMatch']['ascend'] = merc.get('ascend')
-        stage['$match']['mercs']['$elemMatch']['pet'] = merc.get('pet')
-    return pipeline_stages
-  
-  def get_pipeline_by_name_and_ascend(db, merc):
-    pipeline_doc = db.pipelines.find_one({'name': 'user_by_merc_name_and_ascend'})
-    if not pipeline_doc:
-      return None
-    pipeline_stages = [stage.copy() for stage in pipeline_doc['pipeline']]
-    for stage in pipeline_stages:
-      if '$match' in stage:
-        stage['$match']['mercs']['$elemMatch']['name'] = merc.get('name')
-        stage['$match']['mercs']['$elemMatch']['ascend'] = merc.get('ascend')
-    return pipeline_stages
-  
-  def get_pipeline_by_name_and_pet(db, merc):
-    pipeline_doc = db.pipelines.find_one({'name': 'user_by_merc_name_and_pet'})
-    if not pipeline_doc:
-      return None
-    pipeline_stages = [stage.copy() for stage in pipeline_doc['pipeline']]
-    for stage in pipeline_stages:
-      if '$match' in stage:
-        stage['$match']['mercs']['$elemMatch']['name'] = merc.get('name')
-        stage['$match']['mercs']['$elemMatch']['pet'] = merc.get('pet')
-    return pipeline_stages
-  
-  def get_pipeline_by_name(db, merc):
     pipeline_doc = db.pipelines.find_one({'name': 'user_by_merc_name'})
     if not pipeline_doc:
       return None
@@ -156,7 +115,10 @@ class Merc:
     for stage in pipeline_stages:
       if '$match' in stage:
         stage['$match']['mercs.name'] = merc.get('name')
-    return pipeline_stages      
+    users = list(db.mercs.aggregate(pipeline_stages))
+    if len(users) > 0:
+      return users
+    return None          
   
   def add_merc_to_existing_user(self, db, existing_user):
     merc = self.mercs[0]
@@ -174,6 +136,12 @@ class Merc:
         update_fields['mercs.$.ascend'] = merc_data['ascend']
       if 'pet' in merc_data and merc_data['pet'] is not None:
         update_fields['mercs.$.pet'] = merc_data['pet']
+      if 'talent_a2' in merc_data and merc_data['talent_a2'] is not None:
+        update_fields['mercs.$.talent_a2'] = merc_data['talent_a2']
+      if 'talent_a3' in merc_data and merc_data['talent_a3'] is not None:
+        update_fields['mercs.$.talent_a3'] = merc_data['talent_a3']
+      if 'merge' in merc_data and merc_data['merge'] is not None:
+        update_fields['mercs.$.merge'] = merc_data['merge']
       
       db.mercs.update_one(
           {'user': self.user, 'mercs.name': merc.name},
@@ -184,7 +152,10 @@ class Merc:
         'name': merc_data.get('name'),
         'ascend': merc_data.get('ascend'),
         'pet': merc_data.get('pet', False),
-        'name_slug': merc_data.get('name_slug') if merc_data.get('name_slug') else str_to_slug(merc_data.get('name'))
+        'name_slug': merc_data.get('name_slug') if merc_data.get('name_slug') else str_to_slug(merc_data.get('name')),
+        'talent_a2': merc_data.get('talent_a2'),
+        'talent_a3': merc_data.get('talent_a3'),
+        'merge': merc_data.get('merge'),
       }
       db.mercs.update_one(
           {'user': self.user}, 
