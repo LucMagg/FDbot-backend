@@ -4,12 +4,13 @@ from datetime import datetime, timezone
 from dateutil import parser
 
 class SpireData:
-  def __init__(self, username: str, image_url: str, climb: int, spire: int, tier: str, date: datetime, guild: str, score: int, floors: int, loss: int, turns: int, bonus: int, _id: Optional[str] = None):
+  def __init__(self, username: str, user_id, image_url: str, climb: int, spire: int, tier: str, date: datetime, guild: str, score: int, floors: int, loss: int, turns: int, bonus: int, _id: Optional[str] = None):
     try:
       self._id = ObjectId(_id)
     except:
       self._id = None
     self.username = username
+    self.user_id = user_id if isinstance(user_id, int) else int(user_id)
     self.image_url = image_url
     self.spire = spire
     self.climb = climb
@@ -39,6 +40,7 @@ class SpireData:
     return cls(
       _id = str(data.get('_id', {})) if '_id' in data else None,
       username = data.get('username'),
+      user_id = data.get('user_id') if isinstance(data.get('user_id'), int) else int(data.get('user_id')),
       image_url = data.get('image_url'),
       spire = data.get('spire'),
       climb = data.get('climb'),
@@ -54,19 +56,20 @@ class SpireData:
 
   def to_dict(self) -> Dict:
     return {
-      "_id": str(self._id) if self._id else None,
-      "username": self.username,
-      "image_url": self.image_url,
-      "spire": self.spire,
-      "climb": self.climb,
-      "tier": self.tier,
-      "date": self.date,
-      "guild": self.guild,
-      "score": self.score,
-      "floors": self.floors,
-      "loss": self.loss,
-      "turns": self.turns,
-      "bonus": self.bonus
+      '_id': str(self._id) if self._id else None,
+      'username': self.username,
+      'user_id': self.user_id,
+      'image_url': self.image_url,
+      'spire': self.spire,
+      'climb': self.climb,
+      'tier': self.tier,
+      'date': self.date,
+      'guild': self.guild,
+      'score': self.score,
+      'floors': self.floors,
+      'loss': self.loss,
+      'turns': self.turns,
+      'bonus': self.bonus
     }
 
   def create(self, db):
@@ -76,7 +79,7 @@ class SpireData:
     for spiredata in existing_spiredatas:
       if self.username == spiredata.get('username') and self.spire == spiredata.get('spire') and self.climb == spiredata.get('climb'):
         print('already posted spire -> delete and reinsert')
-        db.spireDatas.delete_one({"_id": spiredata.get('_id')})
+        db.spireDatas.delete_one({'_id': spiredata.get('_id')})
 
     if '_id' in dict_to_insert:
       del dict_to_insert['_id']
@@ -86,12 +89,12 @@ class SpireData:
 
   @staticmethod
   def read_by_id(db, spiredata_id):
-    data = db.spireDatas.find({"_id": ObjectId(spiredata_id)})
+    data = db.spireDatas.find({'_id': ObjectId(spiredata_id)})
     return [SpireData.from_dict(d) for d in data] if data else None
   
   @staticmethod
   def read_by_username(db, username):
-    data = db.spireDatas.find({"username": username})
+    data = db.spireDatas.find({'username': username})
     return [SpireData.from_dict(d) for d in data] if data else None
 
   @staticmethod

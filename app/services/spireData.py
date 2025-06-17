@@ -204,7 +204,7 @@ class SpireDataService:
       group_scores_by_username = SpireDataService.group_scores(tier_group)
 
       if score_data.get('type') == 'guild':
-        to_return[tier_group[0].get('tier')] = SpireDataService.group_spiredata_tiers_by_guild(group_scores_by_username, top_count=3) #ICI est paramétré le nombre max de participants par tier
+        to_return[tier_group[0].get('tier')] = SpireDataService.group_spiredata_tiers_by_guild(group_scores_by_username, top_count=10) #ICI est paramétré le nombre max de participants par tier
       else:
         to_return[tier_group[0].get('tier')] = group_scores_by_username
     return to_return
@@ -234,7 +234,7 @@ class SpireDataService:
       if top_items:
         to_return.append({
           'guild': guild,
-          'score': sum(item.get('score') for item in top_items)
+          'score': np.floor(sum(item.get('score') for item in top_items) / len(top_items))
         })
     return sorted(to_return, key=lambda x: -x.get('score'))
   
@@ -245,6 +245,7 @@ class SpireDataService:
       if username not in users:
         users[username] = {
             'username': username,
+            'user_id': item.get('user_id'),
             'score': item.get('score'),
             'guild': item.get('guild'),
         }
