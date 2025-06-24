@@ -234,7 +234,7 @@ class SpireDataService:
       if top_items:
         to_return.append({
           'guild': guild,
-          'score': np.floor(sum(item.get('score') for item in top_items) / len(top_items))
+          'score': int(sum(item.get('score') for item in top_items) / len(top_items)) if top_items else 0
         })
     return sorted(to_return, key=lambda x: -x.get('score'))
   
