@@ -52,7 +52,6 @@ def create_app(config_name='default'):
   app.register_blueprint(levels_blueprint)
   app.register_blueprint(command_blueprint)
   app.register_blueprint(gear_blueprint)
-  app.register_blueprint(ready_blueprint)
   app.register_blueprint(rewardType_blueprint)
   app.register_blueprint(heroXp_blueprint)
   app.register_blueprint(spire_blueprint)
@@ -62,6 +61,7 @@ def create_app(config_name='default'):
   app.register_blueprint(trait_blueprint)
   app.register_blueprint(map_bonus_blueprint)
   app.register_blueprint(merc_blueprint)
+  app.register_blueprint(ready_blueprint)
   app.logger.back_log('Application en ligne')
 
   return app
