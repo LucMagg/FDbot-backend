@@ -7,6 +7,7 @@ from .utils.collections import init_collections
 from .extensions import init_mongo
 from .views.dust import dust_blueprint
 from .views.message import message_blueprint
+from .views.replay import replays_blueprint
 from .views.talent import talent_blueprint
 from .views.quality import quality_blueprint
 from .views.hero import hero_blueprint
@@ -62,6 +63,7 @@ def create_app(config_name='default'):
   app.register_blueprint(map_bonus_blueprint)
   app.register_blueprint(merc_blueprint)
   app.register_blueprint(ready_blueprint)
+  app.register_blueprint(replays_blueprint)
   app.logger.back_log('Application en ligne')
 
   return app
