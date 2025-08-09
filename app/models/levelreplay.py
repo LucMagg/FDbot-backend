@@ -1,8 +1,26 @@
 from bson import ObjectId
 from typing import Dict, Optional, List
 
+class Replay:
+  def __init__(self, player: str, link: str):
+    self.player = player
+    self.link = link
+
+  @classmethod
+  def from_dict(cls, data: Dict):
+    return cls(
+      player=data.get('player'),
+      link=data.get('link'),
+    )
+
+  def to_dict(self) -> Dict:
+    return {
+      "player": self.player,
+      "link": self.link
+    }
+
 class LevelReplay:
-  def __init__(self, name: str, replays: List[str]):
+  def __init__(self, name: str, replays: List[Replay]):
     self.name = name
     self.replays = replays
 
@@ -10,18 +28,20 @@ class LevelReplay:
   def from_dict(cls, data: Dict):
     return cls(
       name=data.get('name'),
-      replays=data.get('replays'),
+      replays=[Replay.from_dict(replay) for replay in data.get('replays', []) if isinstance(replay, dict)],
     )
 
   def to_dict(self) -> Dict:
     return {
       "name": self.name,
-      "replays": [replay for replay in self.replays]
+      "replays": [replay.to_dict() for replay in self.replays]
     }
 
-  def add_replay(self, replay: str):
-    if replay not in self.replays:
-      self.replays.append(replay)
+  def add_replay(self, player: str, link: str):
+    for replay in self.replays:
+      if replay.player == player and replay.link == link:
+        return
+    self.replays.append(Replay(player, link))
 
 
 class EventReplays:
@@ -49,12 +69,12 @@ class EventReplays:
 
     return event_replays
 
-  def add_replay(self, db, level_name: str, replay: str):
+  def add_replay(self, db, level_name: str, player: str, replay: str):
     level = next((lev_replays for lev_replays in self.level_replays if lev_replays.name == level_name), None)
     if level:
-      level.add_replay(replay)
+      level.add_replay(player, replay)
     else:
-      self.level_replays.append(LevelReplay(level_name, [replay]))
+      self.level_replays.append(LevelReplay(level_name, [Replay(player, replay)]))
 
     to_update = self.to_dict()
     del to_update['_id']
@@ -63,9 +83,9 @@ class EventReplays:
     return self
 
   @staticmethod
-  def create(db, event_replays_data):
-    replay = LevelReplay(event_replays_data.get('level'), [event_replays_data.get('replay')])
-    event_replays = EventReplays(event_replays_data.get('event'), None,[replay])
+  def create(db, event_name:str, level_name: str, player: str, replay: str):
+    replay = LevelReplay(level_name, [Replay(player, replay)])
+    event_replays = EventReplays(event_name, None,[replay])
 
     db.replays.insert_one(event_replays.to_dict())
     return event_replays
