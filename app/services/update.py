@@ -258,6 +258,8 @@ class UpdateService:
       to_add = {}
 
       for item in schema.get('data'):
+        #print(td[item.get('row')])
+        print(item.get('schema'))
         match item.get('schema'):
           case 'template':
             found_text = UpdateService.schema_template(td[item.get('row')], item.get('property'))
@@ -360,25 +362,21 @@ class UpdateService:
   def schema_lead(bs_object):
     to_return = {}
     td_text = bs_object.get_text()
-    
-    if 'att/def' in td_text:
+    print(td_text)
+
+    if 'att' in td_text:
       to_return['attack'] = td_text.split('att')[0].split('x')[1]
-      to_return['defense'] = td_text.split('att')[0].split('x')[1]
-    else:
+      while ' ' in to_return['attack']:
+        to_return['attack'] = to_return['attack'].replace(' ','')
+      to_return['attack'] = float(to_return['attack'].replace(',','.'))
+    if 'def' in td_text:
       if 'att' in td_text:
-        to_return['attack'] = td_text.split('att')[0].split('x')[1]
-        while ' ' in to_return['attack']:
-          to_return['attack'] = to_return['attack'].replace(' ','')
-        to_return['attack'] = float(to_return['attack'].replace(',','.'))
-      if 'def' in td_text:
-        if 'att' in td_text:
-          splitted = td_text.split('att')[1]
-        else:
-          splitted = td_text
-        to_return['defense'] = splitted.split('def')[0].split('x')[1]
-        while ' ' in to_return['defense']:
-          to_return['defense'] = to_return['defense'].replace(' ','')
-        to_return['defense'] = float(to_return['defense'].replace(',','.'))
+        to_return['defense'] = td_text.split('def')[0].split('and')[1]
+      else:
+        to_return['defense'] = td_text.split('def')[0].split('x')[1]
+      while ' ' in to_return['defense']:
+        to_return['defense'] = to_return['defense'].replace(' ','')
+      to_return['defense'] = float(to_return['defense'].replace(',','.'))
     
     span = bs_object.find_all('span')
     if span:
@@ -388,7 +386,10 @@ class UpdateService:
         to_return['species'] = span[0].find('a').get('title')
       elif len(span) == 2 and 'att' in td_text:
         to_return['color'] = span[0].find('a').get('title')
-        to_return['species'] = span[1].find('a').get('title')
+        if ' or ' in td_text:
+          to_return['extra'] = span[1].find('a').get('title')
+        else:
+          to_return['species'] = span[1].find('a').get('title')
       elif len(span) == 2 and 'for' in td_text:
         to_return['talent'] = span[0].find('a').get('title')
         to_return['species'] = span[1].find('a').get('title')

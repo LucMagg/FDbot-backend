@@ -107,12 +107,13 @@ class Defense:
 
 
 class Lead:
-  def __init__(self, attack: str|None, defense: str|None, talent: str|None, color: ColorType|None, species: SpeciesType|None):
+  def __init__(self, attack: str|None, defense: str|None, talent: str|None, color: ColorType|None, species: SpeciesType|None, extra: str|None):
     self.attack = attack
     self.defense = defense
     self.talent = talent
     self.color = color
     self.species = species
+    self.extra = extra
 
   @classmethod
   def from_dict(cls, data: Dict):
@@ -121,7 +122,8 @@ class Lead:
       defense = data.get('defense', None),
       talent = data.get('talent', None),
       color = data.get('color', None),
-      species = data.get('species', None)
+      species = data.get('species', None),
+      extra = data.get('extra', None)
     )
 
   def to_dict(self) -> Dict:
@@ -130,7 +132,8 @@ class Lead:
       'defense': self.defense,
       'talent': self.talent,
       'color': self.color,
-      'species': self.species
+      'species': self.species,
+      'extra': self.extra
     }
   
 
