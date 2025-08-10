@@ -1,5 +1,5 @@
 from flask import current_app
-from app.models.levelreplay import EventReplays, LevelReplay
+from app.models.levelreplay import EventReplays
 
 
 class ReplayService:
@@ -31,6 +31,19 @@ class ReplayService:
       current_app.logger.log_info('info', f'Got level: {level.to_dict()}')
 
     return [lev.to_dict() for lev in level.replays] if level else None
+
+  @staticmethod
+  def get_all_levels():
+    events = EventReplays.read_all(current_app.mongo_db)
+    to_return = []
+    for event in events:
+      event_dict = dict()
+      levels = [l.name for l in event.level_replays]
+      event_dict["name"] = event.name
+      event_dict["levels"] = levels
+      to_return.append(event_dict)
+
+    return to_return
 
   @staticmethod
   def get_all_event_names():

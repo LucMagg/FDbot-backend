@@ -569,5 +569,41 @@
       "required": true
     }
   ]
+},
+{
+  "name": "replay",
+  "type": 1,
+  "setup_type": "replay",
+  "to_update": false,
+  "description": "Regarder les replays pour un level spécifique",
+  "options": [
+    {
+      "name": "event",
+      "description": "Le nom de level",
+      "type": 3,
+      "required": true
+    },
+    {
+      "name": "level",
+      "description": "Le niveau de l'event",
+      "type": 3,
+      "required": true
+    }
+  ]
+},
+{
+  "name": "addreplay",
+  "type": 1,
+  "setup_type": null,
+  "to_update": false,
+  "description": "Ajouter un replay",
+  "options": [
+    {
+      "name": "link",
+      "description": "Le link du replay",
+      "type": 3,
+      "required": true
+    }
+  ]
 }
 ]

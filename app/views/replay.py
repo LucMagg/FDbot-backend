@@ -3,20 +3,6 @@ from app.services.replay import ReplayService
 
 replays_blueprint = Blueprint('replays', __name__)
 
-@replays_blueprint.route('/replays', methods=['GET'])
-def get_events():
-  req = '/replays GET'
-  current_app.logger.req(req)
-
-  event_names = ReplayService.get_all_event_names()
-
-  if event_names:
-    current_app.logger.req_ok(req)
-    return jsonify(event_names)
-  
-  current_app.logger.req_404(req)
-  return jsonify({'error': 'Event replays not found'}), 404
-
 @replays_blueprint.route('/replays', methods=['POST'])
 def add_replay():
   req = '/replays POST'
@@ -30,12 +16,14 @@ def add_replay():
   return jsonify(new_replay.to_dict()), 201
 
 
-@replays_blueprint.route('/replays/<event>', methods=['GET'])
-def get_event_replays_by_level_name(event):
-  level = request.args.get('level')
+@replays_blueprint.route('/replays', methods=['GET'])
+def get_event_replays_by_level_name():
+  request_data = request.json
+
+  level = request_data.get('level')
+  event = request_data.get('event')
   req = '/levels GET'
   current_app.logger.req(req)
-  current_app.logger.log_info('info', f'event: {event}, level: {event}')
 
   replays = ReplayService.get_replays_for_event_level(event, level)
   if replays:
@@ -43,4 +31,18 @@ def get_event_replays_by_level_name(event):
     return jsonify(replays)
   
   current_app.logger.req_404(req)
-  return jsonify({'error': 'Level not found'}), 404
+  return jsonify({'error': 'Replays not found'}), 404
+
+
+@replays_blueprint.route('/replays/levels', methods=['GET'])
+def get_level_names_by_event_name():
+  req = '/replays/levels GET'
+  current_app.logger.req(req)
+
+  levels = ReplayService.get_all_levels()
+  if levels:
+    current_app.logger.req_ok(req)
+    return jsonify(levels)
+
+  current_app.logger.req_404(req)
+  return jsonify({'error': 'Levels not found'}), 404
