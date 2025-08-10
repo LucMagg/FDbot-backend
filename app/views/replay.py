@@ -40,9 +40,5 @@ def get_level_names_by_event_name():
   current_app.logger.req(req)
 
   levels = ReplayService.get_all_levels()
-  if levels:
-    current_app.logger.req_ok(req)
-    return jsonify(levels)
-
-  current_app.logger.req_404(req)
-  return jsonify({'error': 'Levels not found'}), 404
+  current_app.logger.req_ok(req)
+  return jsonify(levels)
