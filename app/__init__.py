@@ -28,6 +28,8 @@ from .views.channel import channel_blueprint
 from .views.trait import trait_blueprint
 from .views.mapBonus import map_bonus_blueprint
 from .views.merc import merc_blueprint
+#from .views.eventType import eventType_blueprint
+from .views.language import language_blueprint
 
 
 def create_app(config_name='default'):
@@ -64,6 +66,8 @@ def create_app(config_name='default'):
   app.register_blueprint(merc_blueprint)
   app.register_blueprint(ready_blueprint)
   app.register_blueprint(replays_blueprint)
+ # app.register_blueprint(eventType_blueprint)
+  app.register_blueprint(language_blueprint)
   app.logger.back_log('Application en ligne')
 
   return app
