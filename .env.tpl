@@ -18,3 +18,7 @@ FLASK_ENV = 'development|testing|production'
 
 LOG_FILE = 'name_of_the_log_file.log'
 TESSERACT_PATH = 'path_of_the_installed_tesseract_on_your_server'
+
+
+EN_YAML = 'full_path_of_the_language_en.yml_file_from_wiki_updater'
+FR_YAML = 'full_path_of_the_language_fr.yml_file_from_wiki_updater'
