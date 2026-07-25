@@ -6,27 +6,42 @@
   "type": 1,
   "setup_type": null,
   "to_update": false,
-  "description": "Affiche le bloc d'aide des commandes disponibles."
+  "description": "Displays the help block for available commands",
+  "description_localizations": {
+    "fr": "Affiche le bloc d'aide des commandes disponibles"
+  }
 },
 {
   "_id": {
     "$oid": "67335816d6f39b4ca57b1a34"
   },
   "name": "addcomment",
+  "name_localizations": {"fr": "addcomment"},
   "type": 1,
-  "description": "Permet d'ajouter un commentaire sur le héros ou le pet passé en paramètre.",
+  "description": "Allows you to add a comment about the given hero or pet",
+  "description_localizations": {
+    "fr": "Permet d'ajouter un commentaire sur le héros ou le familier passé en paramètre"
+  },
   "setup_type": "hero/pet",
   "to_update": true,
   "options": [
     {
-      "name": "héros_ou_pet",
-      "description": "Nom du héros ou du pet",
+      "name": "hero_or_pet",
+      "name_localizations": {"fr": "héros_ou_familier"},
+      "description": "Name of the hero or pet",
+      "description_localizations": {
+        "fr": "Nom du héros ou du familier"
+      },
       "type": 3,
       "required": true
     },
     {
-      "name": "commentaire",
-      "description": "Commentaire à ajouter sur la description du héros/pet",
+      "name": "comment",
+      "name_localizations": {"fr": "commentaire"},
+      "description": "Comment to add on the hero or pet's description",
+      "description_localizations": {
+        "fr": "Commentaire à ajouter sur la description du héros/familier"
+      },
       "type": 3,
       "required": false
     }
@@ -37,14 +52,22 @@
     "$oid": "67335816d6f39b4ca57b1a3a"
   },
   "name": "item",
+  "name_localizations": {"fr": "item"},
   "type": 1,
-  "setup_type": null,
+  "setup_type": "hero",
   "to_update": true,
-  "description": "Permet de lister les différents héros pouvant équiper l'item passé en paramètre.",
+  "description": "Displays a list of heroes who can equip the given item",
+  "description_localizations": {
+    "fr": "Permet de lister les différents héros pouvant équiper l'objet passé en paramètre"
+  },
   "options": [
     {
       "name": "item",
-      "description": "Nom de l'item (avec ou sans la qualité)",
+      "name_localizations": {"fr": "objet"},
+      "description": "Name of the item (with or without quality)",
+      "description_localizations": {
+        "fr": "Nom de l'objet (avec ou sans la qualité)"
+      },
       "type": 3,
       "required": true
     }
@@ -55,14 +78,22 @@
     "$oid": "67335816d6f39b4ca57b1a3b"
   },
   "name": "pet",
+  "name_localizations": {"fr": "pet"},
   "type": 1,
   "setup_type": "pet",
   "to_update": true,
-  "description": "Affiche les informations du pet passé en paramètre.",
+  "description": "Displays informations about the given pet",
+  "description_localizations": {
+    "fr": "Affiche les informations du familier passé en paramètre"
+  },
   "options": [
     {
       "name": "pet",
-      "description": "Nom du pet",
+      "name_localizations": {"fr": "familier"},
+      "description": "Name of the pet",
+      "description_localizations": {
+        "fr": "Nom du familier"
+      },
       "type": 3,
       "required": true
     }
@@ -73,96 +104,143 @@
     "$oid": "67335816d6f39b4ca57b1a42"
   },
   "name": "xp",
+  "name_localizations": {"fr": "xp"},
   "type": 1,
   "setup_type": "hero",
-  "to_update": true,
-  "description": "Calcule le nombre de potions nécessaires pour passer de l'ascend X/level X à l'ascend Y/level Y",
+  "to_update": false,
+  "description": "Calculate the number of potions needed to progress from ascend X/level X to ascend Y/level Y",
+  "description_localizations": {
+    "fr": "Calcule le nombre de potions nécessaires pour passer de l'ascend X/level X à l'ascend Y/level Y"
+  },
   "options": [
     {
       "name": "stars",
-      "description": "Le nombre d'étoiles du héros",
+      "name_localizations": {"fr": "étoiles"},
+      "description": "The number of stars of the hero",
+      "description_localizations": {
+        "fr": "Le nombre d'étoiles du héros"
+      },
       "type": 3,
       "required": true,
       "choices": [
         {
           "name": "1",
-          "value": 1
+          "name_localizations": {"fr": "1"},
+          "value": "1"
         },
         {
           "name": "2",
-          "value": 2
+          "name_localizations": {"fr": "2"},
+          "value": "2"
         },
         {
           "name": "3",
-          "value": 3
+          "name_localizations": {"fr": "3"},
+          "value": "3"
         },
         {
           "name": "4",
-          "value": 4
+          "name_localizations": {"fr": "4"},
+          "value": "4"
         },
         {
           "name": "5",
-          "value": 5
+          "name_localizations": {"fr": "5"},
+          "value": "5"
         }
       ]
     },
     {
       "name": "current_ascend",
-      "description": "L'ascension actuelle du héros",
+      "name_localizations": {"fr": "ascension_actuelle"},
+      "description": "Hero's current ascend",
+      "description_localizations": {
+        "fr": "L'ascension actuelle du héros"
+      },
       "type": 3,
       "choices": [
         {
           "name": "A0",
+          "name_localizations": {"fr": "A0"},
           "value": "A0"
         },
         {
           "name": "A1",
+          "name_localizations": {"fr": "A1"},
           "value": "A1"
         },
         {
           "name": "A2",
+          "name_localizations": {"fr": "A2"},
           "value": "A2"
         },
         {
           "name": "A3",
+          "name_localizations": {"fr": "A3"},
           "value": "A3"
+        },
+        {
+          "name": "A4",
+          "name_localizations": {"fr": "A4"},
+          "value": "A4"
         }
       ],
       "required": true
     },
     {
       "name": "current_level",
-      "description": "Le level actuel du héros",
+      "name_localizations": {"fr": "niveau_actuel"},
+      "description": "Hero's current level",
+      "description_localizations": {
+        "fr": "Le niveau actuel du héros"
+      },
       "type": 3,
       "required": true
     },
     {
       "name": "target_ascend",
-      "description": "L'ascend à atteindre",
+      "name_localizations": {"fr": "ascension_ciblée"},
+      "description": "Hero's target ascend",
+      "description_localizations": {
+        "fr": "L'ascension à atteindre pour le héros"
+      },
       "type": 3,
       "choices": [
         {
           "name": "A0",
+          "name_localizations": {"fr": "A0"},
           "value": "A0"
         },
         {
           "name": "A1",
+          "name_localizations": {"fr": "A1"},
           "value": "A1"
         },
         {
           "name": "A2",
+          "name_localizations": {"fr": "A2"},
           "value": "A2"
         },
         {
           "name": "A3",
+          "name_localizations": {"fr": "A3"},
           "value": "A3"
+        },
+        {
+          "name": "A4",
+          "name_localizations": {"fr": "A4"},
+          "value": "A4"
         }
       ],
       "required": true
     },
     {
       "name": "target_level",
-      "description": "Le level à atteindre",
+      "name_localizations": {"fr": "niveau_ciblé"},
+      "description": "Hero's target level",
+      "description_localizations": {
+        "fr": "Le niveau à atteindre pour le héros"
+      },
       "type": 3,
       "required": true
     }
@@ -176,7 +254,10 @@
   "type": 1,
   "setup_type": null,
   "to_update": false,
-  "description": "Renvoie les données recensées par le bot."
+  "description": "Displays the bot's data stats",
+  "description_localizations": {
+    "fr": "Renvoie les données recensées par le bot"
+  }
 },
 {
   "_id": {
@@ -184,25 +265,40 @@
   },
   "name": "level",
   "type": 1,
-  "description": "Ajoute un niveau pour récolter des données sur ses récompenses",
+  "description": "Add a level to gather data on its rewards",
+  "description_localizations": {
+    "fr": "Ajoute un niveau pour récolter des données sur ses récompenses"
+  },
   "setup_type": "level",
-  "to_update": false,
+  "to_update": true,
   "options": [
     {
-      "name": "name",
-      "description": "Nom du niveau",
+      "name": "name_in_english",
+      "name_localizations": {"fr": "nom_en_anglais"},
+      "description": "Level's name",
+      "description_localizations": {
+        "fr": "Nom du niveau"
+      },
       "type": 3,
       "required": true
     },
     {
       "name": "standard_energy_cost",
-      "description": "Coût du niveau en énergies solo",
+      "name_localizations": {"fr": "coût_en_énergie_solo"},
+      "description": "Standard energy cost for this level",
+      "description_localizations": {
+        "fr": "Coût du niveau en énergies solo"
+      },
       "type": 3,
       "required": false
     },
     {
       "name": "coop_energy_cost",
-      "description": "Coût du niveau en énergies coop",
+      "name_localizations": {"fr": "coût_en_énergie_coop"},
+      "description": "Coop energy cost for this level",
+      "description_localizations": {
+        "fr": "Coût du niveau en énergies coop"
+      },
       "type": 3,
       "required": false
     }
@@ -214,15 +310,52 @@
   },
   "name": "reward",
   "type": 1,
-  "description": "Ajoute une récompense pour un niveau",
   "setup_type": "level",
-  "to_update": false,
+  "to_update": true,
+  "description": "Reward management",
+  "description_localizations": {
+    "fr": "Gestion des récompenses"
+  },
   "options": [
     {
-      "name": "level",
-      "description": "Nom du niveau",
-      "type": 3,
-      "required": true
+      "name": "add",
+      "type": 1,
+      "description": "Adds a reward to a level",
+      "description_localizations": {
+        "fr": "Ajoute une récompense pour un niveau"
+      },
+      "options": [
+        {
+          "name": "level",
+          "name_localizations": {"fr": "niveau"},
+          "description": "Level's name",
+          "description_localizations": {
+            "fr": "Nom du niveau"
+          },
+          "type": 3,
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "show",
+      "type": 1,
+      "description": "Displays reward stats of a level",
+      "description_localizations": {
+        "fr": "Affiche les stats de récompense d'un niveau"
+      },
+      "options": [
+        {
+          "name": "level",
+          "name_localizations": {"fr": "niveau"},
+          "description": "Level's name",
+          "description_localizations": {
+            "fr": "Nom du niveau"
+          },
+          "type": 3,
+          "required": true
+        }
+      ]
     }
   ]
 },
@@ -234,7 +367,10 @@
   "type": 1,
   "setup_type": null,
   "to_update": false,
-  "description": "Prie le dieu du jeu :)"
+  "description": "Pray the french god of this game :)",
+  "description_localizations": {
+    "fr": "Prie le dieu du jeu :)"
+  }
 },
 {
   "_id": {
@@ -242,13 +378,20 @@
   },
   "name": "class",
   "type": 1,
-  "setup_type": null,
+  "setup_type": "hero/pet",
   "to_update": true,
-  "description": "Permet de lister les différents héros et pets de la classe passée en paramètre.",
+  "description": "Displays the list of different heroes and pets of the given class",
+  "description_localizations": {
+    "fr": "Affiche la liste des différents héros et familiers de la classe passée en paramètre"
+  },
   "options": [
     {
       "name": "classe",
-      "description": "Nom de la classe",
+      "name_localizations": {"fr": "classe"},
+      "description": "Class name",
+      "description_localizations": {
+        "fr": "Nom de la classe"
+      },
       "type": 3,
       "required": true
     }
@@ -262,47 +405,18 @@
   "type": 1,
   "setup_type": "hero",
   "to_update": true,
-  "description": "Affiche les informations du héros passé en paramètre.",
-  "options": [
-    {
-      "name": "héros",
-      "description": "Nom du héros",
-      "type": 3,
-      "required": true
-    }
-  ]
-},
-{
-  "_id": {
-    "$oid": "67335816d6f39b4ca57b1a3c"
+  "description": "Displays informations about the given hero",
+  "description_localizations": {
+    "fr": "Affiche les informations du héros passé en paramètre"
   },
-  "name": "petlist",
-  "type": 1,
-  "setup_type": "hero",
-  "to_update": true,
-  "description": "Permet de lister les différents pets pouvant être équipés par le héros passé en paramètre.",
   "options": [
     {
-      "name": "héros",
-      "description": "Nom du héros",
-      "type": 3,
-      "required": true
-    }
-  ]
-},
-{
-  "_id": {
-    "$oid": "67335816d6f39b4ca57b1a41"
-  },
-  "name": "rewardstat",
-  "type": 1,
-  "setup_type": "level",
-  "to_update": false,
-  "description": "Affiche les stats de récompense pour un niveau",
-  "options": [
-    {
-      "name": "level",
-      "description": "Nom du niveau pour lequel les stats de récompenses seront affichées",
+      "name": "hero",
+      "name_localizations": {"fr": "héros"},
+      "description": "Name of the hero",
+      "description_localizations": {
+        "fr": "Nom du héros"
+      },
       "type": 3,
       "required": true
     }
@@ -316,13 +430,38 @@
   "type": 1,
   "setup_type": null,
   "to_update": false,
-  "description": "Permet d'envoyer ton score en spire.",
+  "description": "Spire management",
+  "description_localizations": {
+    "fr": "Gestion de la spire"
+  },
   "options": [
     {
-      "name": "screenshot",
-      "description": "Screenshot de ton résultat sur la spire",
-      "type": 11,
-      "required": true
+      "name": "add",
+      "type": 1,
+      "description": "Adds a score to the current spire race",
+      "description_localizations": {
+        "fr": "Ajoute un score à la spire en cours"
+      },
+      "options": [
+        {
+          "name": "screenshot",
+          "name_localizations": {"fr": "capture_d_ecran"},
+          "description": "Screenshot of the result of the climb",
+          "description_localizations": {
+            "fr": "Capture d'écran du résultat de la montée"
+          },
+          "type": 11,
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "details",
+      "type": 1,
+      "description": "Adds/updates current climb's details (map, bonuses & talents)",
+      "description_localizations": {
+        "fr": "Ajoute/met à jour les détails de la montée en cours (carte, bonus et talents)"
+      }
     }
   ]
 },
@@ -332,13 +471,20 @@
   },
   "name": "talent",
   "type": 1,
-  "setup_type": null,
+  "setup_type": "hero/pet",
   "to_update": true,
-  "description": "Permet de lister les différents héros et/ou pets possédant le talent passé en paramètre.",
+  "description": "Displays the list of heroes and pets with the given talent",
+  "description_localizations": {
+    "fr": "Liste les différents héros et/ou familiers possédant le talent passé en paramètre"
+  },
   "options": [
     {
       "name": "talent",
-      "description": "Nom du talent",
+      "name_localizations": {"fr": "talent"},
+      "description": "Name of the talent",
+      "description_localizations": {
+        "fr": "Nom du talent"
+      },
       "type": 3,
       "required": true
     }
@@ -350,35 +496,47 @@
   },
   "name": "update",
   "type": 1,
-  "description": "Permet d'update le bot à partir du wiki.",
+  "description": "Updates the bot's databases from the Wiki",
+  "description_localizations": {
+    "fr": "Met à jour les base de données du bot depuis le Wiki"
+  },
   "setup_type": null,
   "to_update": false,
   "options": [
     {
       "name": "type",
-      "description": "Type de BDD à mettre à jour",
+      "name_localizations": {"fr": "type"},
+      "description": "DB type to update",
+      "description_localizations": {
+        "fr": "Type de BDD à mettre à jour"
+      },
       "type": 3,
       "required": false,
       "choices": [
         {
-          "name": "help",
+          "name": "Help",
+          "name_localizations": {"fr": "Aide"},
           "value": "help"
         },
         {
-          "name": "Héros",
+          "name": "All",
+          "name_localizations": {"fr": "Tout"},
+          "value": "all"
+        },
+        {
+          "name": "Hero",
+          "name_localizations": {"fr": "Héros"},
           "value": "hero"
         },
         {
           "name": "Pets",
+          "name_localizations": {"fr": "Familiers"},
           "value": "pet"
         },
         {
           "name": "Talents",
+          "name_localizations": {"fr": "Talents"},
           "value": "talent"
-        },
-        {
-          "name": "Tout",
-          "value": "all"
         }
       ]
     }
@@ -390,217 +548,432 @@
   },
   "name": "exclusive",
   "type": 1,
-  "setup_type": null,
-  "to_update": false,
-  "description": "Affiche les héros exclusifs du type passé en paramètre.",
-  "options": [
-    {
-      "name": "type",
-      "description": "Type d'exclusif (event ou special summon)",
-      "type": 3,
-      "required": true
-    }
-  ]
-},
-{
-  "name": "spiredetails",
-  "type": 1,
-  "setup_type": null,
-  "to_update": false,
-  "description": "Affiche la map de la spire en cours."
-},
-{
-  "name": "merclist",
-  "type": 1,
-  "setup_type": null,
-  "to_update": false,
-  "description": "Liste les mercenaires de l'utilisateur.",
-  "options": [
-    {
-      "name": "user",
-      "description": "Nom de l'utilisateur",
-      "type": 3,
-      "required": true
-    }
-  ]
-},
-{
-  "name": "mercregister",
-  "type": 1,
-  "setup_type": null,
-  "to_update": false,
-  "description": "Enregistre une mercenaire de ta box pour que les autres puissent te le demander.",
-  "options": [
-    {
-      "name": "héros",
-      "description": "Nom du héros",
-      "type": 3,
-      "required": true
-    },
-    {
-      "name": "ascend",
-      "description": "Niveau d'ascension du héros (A2 ou A3)",
-      "type": 3,
-      "required": false,
-      "choices": [
-        {
-          "name": "A2",
-          "value": "A2"
-        },
-        {
-          "name": "A3",
-          "value": "A3"
-        }
-      ]
-    },
-    {
-      "name": "pet",
-      "description": "Pet du héros",
-      "type": 3,
-      "required": false,
-      "choices": [
-        {
-          "name": "Oui",
-          "value": "Oui"
-        },
-        {
-          "name": "Non",
-          "value": "Non"
-        }
-      ]
-    },
-    {
-      "name": "talent_a2",
-      "description": "Le héros a t'il le talent A2",
-      "type": 3,
-      "required": false,
-      "choices": [
-        {
-          "name": "Oui",
-          "value": "Oui"
-        },
-        {
-          "name": "Non",
-          "value": "Non"
-        }
-      ]
-    },
-    {
-      "name": "talent_a3",
-      "description": "Le héros a t'il le talent A3",
-      "type": 3,
-      "required": false,
-      "choices": [
-        {
-          "name": "Oui",
-          "value": "Oui"
-        },
-        {
-          "name": "Non",
-          "value": "Non"
-        }
-      ]
-    },
-    {
-      "name": "merge",
-      "description": "Le niveau de merge du héros",
-      "type": 3,
-      "required": false,
-      "choices": [
-        {
-          "name": "0",
-          "value": "0"
-        },
-        {
-          "name": "1",
-          "value": "1"
-        },
-        {
-          "name": "2",
-          "value": "2"
-        },
-        {
-          "name": "3",
-          "value": "3"
-        },
-        {
-          "name": "4",
-          "value": "4"
-        },
-        {
-          "name": "5",
-          "value": "5"
-        },
-        {
-          "name": "6",
-          "value": "6"
-        },
-        {
-          "name": "7",
-          "value": "7"
-        },
-        {
-          "name": "8",
-          "value": "8"
-        },
-        {
-          "name": "9",
-          "value": "9"
-        },
-        {
-          "name": "10",
-          "value": "10"
-        }
-      ]
-    }
-  ]
-},
-{
-  "name": "mercask",
-  "type": 1,
-  "setup_type": null,
-  "to_update": false,
-  "description": "Demande un mercenaire à ceux de la guilde qui l'ont.",
-  "options": [
-    {
-      "name": "héros",
-      "description": "Nom du héros",
-      "type": 3,
-      "required": true
-    }
-  ]
-},
-{
-  "name": "replay",
-  "type": 1,
-  "setup_type": "replay",
-  "to_update": false,
-  "description": "Regarder les replays pour un level spécifique",
+  "setup_type": "hero/pet",
+  "to_update": true,
+  "description": "Displays heroes & pets only available in the given event",
+  "description_localizations": {
+    "fr": "Affiche les héros et familiers exclusifs de l'évènement passé en paramètre"
+  },
   "options": [
     {
       "name": "event",
-      "description": "Le nom de level",
-      "type": 3,
-      "required": true
-    },
-    {
-      "name": "level",
-      "description": "Le niveau de l'event",
+      "name_localizations": {"fr": "évènement"},
+      "description": "Event's name (or special summon)",
+      "description_localizations": {
+        "fr": "Nom de l'évènement (ou invocation spéciale)"
+      },
       "type": 3,
       "required": true
     }
   ]
 },
 {
-  "name": "addreplay",
+  "name": "merc",
+  "type": 1,
+  "setup_type": "merc",
+  "to_update": true,
+  "description": "Mercenary management",
+  "description_localizations": {
+    "fr": "Gestion des mercenaires"
+  },
+  "options": [
+    {
+      "name": "show",
+      "type": 1,
+      "description": "Lists all the registered mercenaries of a given player",
+      "description_localizations": {
+        "fr": "Liste tous les mercenaires enregistrés du joueur passé en paramètre"
+      },
+      "options": [
+        {
+          "name": "user",
+          "description": "Player's name",
+          "description_localizations": {
+            "fr": "Nom du joueur"
+          },
+          "type": 3,
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "register",
+      "type": 1,
+      "description": "Registers (or updates) a mercenary so other players can request it",
+      "description_localizations": {
+        "fr": "Enregistre (ou met à jour) un mercenaire pour que les autres joueurs puissent le demander"
+      },
+      "options": [
+        {
+          "name": "hero",
+          "name_localizations": {"fr": "héros"},
+          "description": "Name of the hero",
+          "description_localizations": {
+            "fr": "Nom du héros"
+          },
+          "type": 3,
+          "required": true
+        },
+        {
+          "name": "ascend",
+          "name_localizations": {"fr": "ascension"},
+          "description": "Ascend level of the hero",
+          "description_localizations": {
+            "fr": "Niveau d'ascension du héros"
+          },
+          "type": 3,
+          "required": false,
+          "choices": [
+            {
+              "name": "A2",
+              "name_localizations": {"fr": "A2"},
+              "value": "A2"
+            },
+            {
+              "name": "A3",
+              "name_localizations": {"fr": "A3"},
+              "value": "A3"
+            },
+            {
+              "name": "A4",
+              "name_localizations": {"fr": "A4"},
+              "value": "A4"
+            }
+          ]
+        },
+        {
+          "name": "a2_talent",
+          "name_localizations": {"fr": "talent_a2"},
+          "description": "Does the hero have A2 talent",
+          "description_localizations": {
+            "fr": "Le héros a t'il le talent A2"
+          },
+          "type": 3,
+          "required": false,
+          "choices": [
+            {
+              "name": "Yes",
+              "name_localizations": {"fr": "Oui"},
+              "value": "true"
+            },
+            {
+              "name": "No",
+              "name_localizations": {"fr": "Non"},
+              "value": "false"
+            }
+          ]
+        },
+        {
+          "name": "a3_talent",
+          "name_localizations": {"fr": "talent_a3"},
+          "description": "Does the hero have A3 talent",
+          "description_localizations": {
+            "fr": "Le héros a t'il le talent A3"
+          },
+          "type": 3,
+          "required": false,
+          "choices": [
+            {
+              "name": "Yes",
+              "name_localizations": {"fr": "Oui"},
+              "value": "true"
+            },
+            {
+              "name": "No",
+              "name_localizations": {"fr": "Non"},
+              "value": "false"
+            }
+          ]
+        },
+        {
+          "name": "a4_talent",
+          "name_localizations": {"fr": "talent_a4"},
+          "description": "Does the hero have A4 talent",
+          "description_localizations": {
+            "fr": "Le héros a t'il le talent A4"
+          },
+          "type": 3,
+          "required": false,
+          "choices": [
+            {
+              "name": "Yes",
+              "name_localizations": {"fr": "Oui"},
+              "value": "true"
+            },
+            {
+              "name": "No",
+              "name_localizations": {"fr": "Non"},
+              "value": "false"
+            }
+          ]
+        },
+        {
+          "name": "merge",
+          "name_localizations": {"fr": "fusion"},
+          "description": "Merge level of the hero",
+          "description_localizations": {
+            "fr": "Niveau de fusion du héros"
+          },
+          "type": 3,
+          "required": false,
+          "choices": [
+            {
+              "name": "0",
+              "name_localizations": {"fr": "0"},
+              "value": "0"
+            },
+            {
+              "name": "1",
+              "name_localizations": {"fr": "1"},
+              "value": "1"
+            },
+            {
+              "name": "2",
+              "name_localizations": {"fr": "2"},
+              "value": "2"
+            },
+            {
+              "name": "3",
+              "name_localizations": {"fr": "3"},
+              "value": "3"
+            },
+            {
+              "name": "4",
+              "name_localizations": {"fr": "4"},
+              "value": "4"
+            },
+            {
+              "name": "5",
+              "name_localizations": {"fr": "5"},
+              "value": "5"
+            },
+            {
+              "name": "6",
+              "name_localizations": {"fr": "6"},
+              "value": "6"
+            },
+            {
+              "name": "7",
+              "name_localizations": {"fr": "7"},
+              "value": "7"
+            },
+            {
+              "name": "8",
+              "name_localizations": {"fr": "8"},
+              "value": "8"
+            },
+            {
+              "name": "9",
+              "name_localizations": {"fr": "9"},
+              "value": "9"
+            },
+            {
+              "name": "10",
+              "name_localizations": {"fr": "10"},
+              "value": "10"
+            }
+          ]
+        },
+        {
+          "name": "pet",
+          "name_localizations": {"fr": "familier"},
+          "description": "Pet of the hero",
+          "description_localizations": {
+            "fr": "Familier du héros"
+          },
+          "type": 3,
+          "required": false,
+          "choices": [
+            {
+              "name": "Yes",
+              "name_localizations": {"fr": "Oui"},
+              "value": "true"
+            },
+            {
+              "name": "No",
+              "name_localizations": {"fr": "Non"},
+              "value": "false"
+            }
+          ]
+        },
+        {
+          "name": "pet_talent",
+          "name_localizations": {"fr": "talent_du_familier"},
+          "description": "Does the pet have all talents unlocked",
+          "description_localizations": {
+            "fr": "Le familier a t'il tous ses talents"
+          },
+          "type": 3,
+          "required": false,
+          "choices": [
+            {
+              "name": "Yes",
+              "name_localizations": {"fr": "Oui"},
+              "value": "true"
+            },
+            {
+              "name": "No",
+              "name_localizations": {"fr": "Non"},
+              "value": "false"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ask",
+      "type": 1,
+      "description": "Requests a mercenary from those in the guild who have one",
+      "description_localizations": {
+        "fr": "Demande un mercenaire à ceux de la guilde qui l'ont"
+      },
+      "options": [
+        {
+          "name": "hero",
+          "name_localizations": {"fr": "héros"},
+          "description": "Name of the hero",
+          "description_localizations": {
+            "fr": "Nom du héros"
+          },
+          "type": 3,
+          "required": true
+        }
+      ]
+    }
+  ]
+},
+{
+  "name": "setbotlanguage",
   "type": 1,
   "setup_type": null,
   "to_update": false,
-  "description": "Ajouter un replay",
+  "description": "Set default bot language for this channel",
+  "description_localizations": {
+    "fr": "Choisir le langage par défaut de ce canal"
+  },
   "options": [
     {
-      "name": "link",
-      "description": "Le link du replay",
+      "name": "language",
+      "name_localizations": {"fr": "langue"},
+      "description": "Default language",
+      "description_localizations": {
+        "fr": "Langue par défaut"
+      },
+      "type": 3,
+      "required": true
+    }
+  ]
+},
+{
+  "name": "dc",
+  "type": 1,
+  "setup_type": "dc",
+  "to_update": true,
+  "description": "Dungeon Crawl levels",
+  "description_localizations": {
+    "fr": "Niveaux de la virée dans les donjons"
+  },
+  "options": [
+    {
+      "name": "show",
+      "type": 1,
+      "description": "Displays screenshots and/or replays of a Dungeon Crawl level",
+      "description_localizations": {
+        "fr": "Affiche les captures d'écran et/ou les replays d'un niveau de la virée dans les donjons"
+      },
+      "options": [
+        {
+          "name": "level",
+          "name_localizations": {"fr": "niveau"},
+          "description": "Dungeon Crawl level",
+          "description_localizations": {
+            "fr": "Niveau de la virée dans les donjons"
+          },
+          "type": 3,
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "add",
+      "type": 1,
+      "description": "Add screenshots and/or replays to a Dungeon Crawl level",
+      "description_localizations": {
+        "fr": "Ajoute des captures d'écran et/ou des replays d'un niveau de la virée dans les donjons"
+      },
+
+      "options": [
+        {
+          "name": "level",
+          "name_localizations": {"fr": "niveau"},
+          "description": "Dungeon Crawl level",
+          "description_localizations": {
+            "fr": "Niveau de la virée dans les donjons"
+          },
+          "type": 3,
+          "required": true
+        },
+        {
+          "name": "screenshot_1",
+          "name_localizations": {"fr": "capture_d_ecran_1"},
+          "description": "Screenshot of the first stage - will be ignored if already registered",
+          "description_localizations": {
+            "fr": "Capture d'écran du premier combat - sera ignoré s'il est déjà enregistré"
+          },
+          "type": 11,
+          "required": false
+        },
+        {
+          "name": "screenshot_2",
+          "name_localizations": {"fr": "capture_d_ecran_2"},
+          "description": "Screenshot of the second stage - will be ignored if already registered",
+          "description_localizations": {
+            "fr": "Capture d'écran du second combat - sera ignoré s'il est déjà enregistré"
+          },
+          "type": 11,
+          "required": false
+        },
+        {
+          "name": "screenshot_3",
+          "name_localizations": {"fr": "capture_d_ecran_3"},
+          "description": "Screenshot of the third stage - will be ignored if already registered",
+          "description_localizations": {
+            "fr": "Capture d'écran du troisième combat - sera ignoré s'il est déjà enregistré"
+          },
+          "type": 11,
+          "required": false
+        },
+        {
+          "name": "replay",
+          "name_localizations": {"fr": "replay"},
+          "description": "Replay's link",
+          "description_localizations": {
+            "fr": "Le lien du replay"
+          },
+          "type": 3,
+          "required": false
+        }
+      ]
+    }
+  ]
+},
+{
+  "name": "set_trap",
+  "type": 1,
+  "setup_type": null,
+  "to_update": false,
+  "description": "Set trap role id to ban bots from the server",
+  "description_localizations": {
+    "fr": "Définir l'id du rôle-piège pour bannir les bots du serveur"
+  },
+  "options": [
+    {
+      "name": "trap_id",
+      "name_localizations": {"fr": "trap_id"},
+      "description": "Role id",
+      "description_localizations": {
+        "fr": "Id du rôle"
+      },
       "type": 3,
       "required": true
     }
