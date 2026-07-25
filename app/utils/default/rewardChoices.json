@@ -5,32 +5,32 @@
   "name": "Gear and Dust Qualities",
   "choices": [
     {
-      "name": "Magic",
+      "name": {"en": "Magic", "fr": "Magique"},
       "icon": ":blue_circle:",
       "grade": 1
     },
     {
-      "name": "Epic",
+      "name": {"en": "Epic", "fr": "Épique"},
       "icon": ":purple_circle:",
       "grade": 2
     },
     {
-      "name": "Mythic",
+      "name": {"en": "Mythic", "fr": "Mythique"},
       "icon": ":yellow_circle:",
       "grade": 3
     },
     {
-      "name": "Legendary",
+      "name": {"en": "Legendary", "fr": "Légendaire"},
       "icon": ":red_circle:",
       "grade": 4
     },
     {
-      "name": "Exalted",
+      "name": {"en": "Exalted", "fr": "Exalté"},
       "icon": ":green_circle:",
       "grade": 5
     },
     {
-      "name": "Divine",
+      "name": {"en": "Divine", "fr": "Divin"},
       "icon": ":orange_circle:",
       "grade": 6
     }
@@ -43,22 +43,22 @@
   "name": "Amulet Qualities",
   "choices": [
     {
-      "name": "Radiant",
+      "name": {"en": "Radiant", "fr": "Éclatante"},
       "icon": ":purple_circle:",
       "grade": 1
     },
     {
-      "name": "Brilliant",
+      "name": {"en": "Brilliant", "fr": "Brillante"},
       "icon": ":yellow_circle:",
       "grade": 2
     },
     {
-      "name": "Coruscating",
+      "name": {"en": "Coruscating", "fr": "Étincelante"},
       "icon": ":red_circle:",
       "grade": 3
     },
     {
-      "name": "Incandescent",
+      "name": {"en": "Incandescent", "fr": "Incandescente"},
       "icon": ":orange_circle:",
       "grade": 4
     }
@@ -71,19 +71,54 @@
   "name": "Hero Types",
   "choices": [
     {
-      "name": "Magic",
+      "name": {"en": "Magic", "fr": "Magique"},
       "icon": "🪄",
       "grade": 1
     },
     {
-      "name": "Melee",
+      "name": {"en": "Melee", "fr": "Mêlée"},
       "icon": "⚔️",
       "grade": 2
     },
     {
-      "name": "Ranged",
+      "name": {"en": "Ranged", "fr": "À distance"},
       "icon": "🏹",
       "grade": 3
+    }
+  ]
+},
+{
+  "name": "Gear Position",
+  "choices": [
+    {
+      "name": {"en": "Amulet", "fr": "Amulette"},
+      "icon": "",
+      "grade": 1
+    },
+    {
+      "name": {"en": "Weapon", "fr": "Arme"},
+      "icon": "",
+      "grade": 1
+    },
+    {
+      "name": {"en": "Ring", "fr": "Anneau"},
+      "icon": "",
+      "grade": 1
+    },
+    {
+      "name": {"en": "Head", "fr": "Tête"},
+      "icon": "",
+      "grade": 1
+    },
+    {
+      "name": {"en": "Off-Hand", "fr": "Main secondaire"},
+      "icon": "",
+      "grade": 1
+    },
+    {
+      "name": {"en": "Body", "fr": "Corps"},
+      "icon": "",
+      "grade": 1
     }
   ]
 }]

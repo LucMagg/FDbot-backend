@@ -2,7 +2,7 @@
   "_id": {
     "$oid": "67099ae54c66a6cd3cb023d4"
   },
-  "name": "potions",
+  "name": {"en": "potions", "fr": "potions"},
   "icon": "customIcon:potion",
   "grade": 1,
   "has_quantity": true
@@ -11,7 +11,7 @@
   "_id": {
     "$oid": "67099ae54c66a6cd3cb023d5"
   },
-  "name": "gold",
+  "name": {"en": "gold", "fr": "or"},
   "icon": "💰",
   "grade": 2,
   "has_quantity": true
@@ -20,11 +20,11 @@
   "_id": {
     "$oid": "67099ae54c66a6cd3cb023d6"
   },
-  "name": "dust",
+  "name": {"en": "dust", "fr": "poussière"},
   "grade": 3,
   "choices": [
     {
-      "name": "Quality",
+      "name": {"en": "Quality", "fr": "Qualité"},
       "choices": "Gear and Dust Qualities",
       "grade": 1
     }
@@ -35,54 +35,23 @@
   "_id": {
     "$oid": "67099ae54c66a6cd3cb023d7"
   },
-  "name": "gear",
+  "name": {"en": "gear", "fr": "équipement"},
   "grade": 4,
   "choices": [
     {
-      "name": "Hero Types",
+      "name": {"en": "Hero Types", "fr": "Types de héros"},
       "choices": "Hero Types",
       "grade": 1
     },
     {
-      "name": "Quality",
+      "name": {"en": "Quality", "fr": "Qualité"},
       "choices": "Gear and Dust Qualities",
       "grade": 2
     },
     {
-      "name": "Gear Position",
-      "grade": 3,
-      "choices": [
-        {
-          "name": "Amulet",
-          "icon": "",
-          "grade": 1
-        },
-        {
-          "name": "Weapon",
-          "icon": "",
-          "grade": 2
-        },
-        {
-          "name": "Ring",
-          "icon": "",
-          "grade": 3
-        },
-        {
-          "name": "Head",
-          "icon": "",
-          "grade": 4
-        },
-        {
-          "name": "Off-Hand",
-          "icon": "",
-          "grade": 5
-        },
-        {
-          "name": "Body",
-          "icon": "",
-          "grade": 6
-        }
-      ]
+      "name": {"en": "Gear Position", "fr": "Position des équipements"},
+      "choices": "Gear Position",
+      "grade": 3
     }
   ],
   "has_quantity": false
@@ -91,40 +60,39 @@
   "_id": {
     "$oid": "67099ae54c66a6cd3cb023d8"
   },
-  "name": "rune",
+  "name": {"en": "rune", "fr": "rune"},
   "grade": 5,
   "choices": [
-
         {
-          "name": "Quality",
+          "name": {"en": "Quality", "fr": "Qualité"},
           "choices": [
             {
-              "name": "Talent",
+              "name": {"en": "Talent", "fr": "Talent"},
               "icon": "",
               "grade": 1
             },
             {
-              "name": "Silver Talent",
+              "name": {"en": "Silver Talent", "fr": "Talent argent"},
               "icon": "",
               "grade": 2
             },
             {
-              "name": "Gold Talent",
+              "name": {"en": "Gold Talent", "fr": "Talent or"},
               "icon": "",
               "grade": 3
             },
             {
-              "name": "Pet Talent",
+              "name": {"en": "Pet Talent", "fr": "Talent de familier"},
               "icon": "",
               "grade": 4
             },
             {
-              "name": "Silver pet Talent",
+              "name": {"en": "Silver pet Talent", "fr": "Talent de familier d'argent"},
               "icon": "",
               "grade": 5
             },
             {
-              "name": "Gold pet Talent",
+              "name": {"en": "Gold pet Talent", "fr": "Talent de familier d'or"},
               "icon": "",
               "grade": 6
             }

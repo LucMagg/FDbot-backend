@@ -11,7 +11,7 @@
       }
     },
     "icon": ":purple_circle:",
-    "name": "Epic",
+    "name": { "en": "Epic dusts", "fr": "Poussières épiques" },
     "price_in_gems": {
       "price": 125,
       "quantity": 50
@@ -22,16 +22,16 @@
   {
     "conversion": {
       "input": {
-        "name": "Epic",
-        "quantity": 1500
+        "name": { "en": "Epic dusts", "fr": "Poussières épiques" },
+        "quantity": 1000
       },
       "output": {
-        "name": "Mythic",
+        "name": { "en": "Mythic dusts", "fr": "Poussières mythiques" },
         "quantity": 50
       }
     },
     "icon": ":yellow_circle:",
-    "name": "Mythic",
+    "name": { "en": "Mythic dusts", "fr": "Poussières mythiques" },
     "price_in_gems": {
       "price": 375,
       "quantity": 50
@@ -42,16 +42,16 @@
   {
     "conversion": {
       "input": {
-        "name": "Mythic",
-        "quantity": 1250
+        "name": { "en": "Mythic dusts", "fr": "Poussières mythiques" },
+        "quantity": 1000
       },
       "output": {
-        "name": "Legendary",
+        "name": { "en": "Legendary dusts", "fr": "Poussières légendaires" },
         "quantity": 50
       }
     },
     "icon": ":red_circle:",
-    "name": "Legendary",
+    "name": { "en": "Legendary dusts", "fr": "Poussières légendaires" },
     "price_in_gems": {
       "price": 750,
       "quantity": 50
@@ -62,16 +62,16 @@
   {
     "conversion": {
       "input": {
-        "name": null,
-        "quantity": null
+        "name": { "en": "Legendary dusts", "fr": "Poussières légendaires" },
+        "quantity": 1000
       },
       "output": {
-        "name": null,
-        "quantity": null
+        "name": { "en": "Exalted dusts", "fr": "Poussières exaltées" },
+        "quantity": 50
       }
     },
     "icon": ":green_circle:",
-    "name": "Exalted",
+    "name": { "en": "Exalted dusts", "fr": "Poussières exaltées" },
     "price_in_gems": {
       "price": 1250,
       "quantity": 50
@@ -82,16 +82,16 @@
   {
     "conversion": {
       "input": {
-        "name": null,
-        "quantity": null
+        "name": { "en": "Exalted dusts", "fr": "Poussières exaltées" },
+        "quantity": 1000
       },
       "output": {
-        "name": null,
-        "quantity": null
+        "name": { "en": "Divine dusts", "fr": "Poussières divines" },
+        "quantity": 50
       }
     },
     "icon": ":orange_circle:",
-    "name": "Divine",
+    "name": { "en": "Divine dusts", "fr": "Poussières divines" },
     "price_in_gems": {
       "price": 2500,
       "quantity": 50

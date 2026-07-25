@@ -1,674 +1,327 @@
 [
   {
     "name": "Hero_Stats",
-    "data": [
+    "type": "hero",
+    "base_selector": "table tbody tr",
+    "fields": [
       {
-        "row": 0,
-        "type": "string",
-        "property": "name",
-        "schema": "template"
+        "name": "name",
+        "selector": "td:nth-child(1) a[title]"
       },
       {
-        "row": 0,
-        "type": "string",
-        "property": "image_url",
-        "schema": "portrait"
+        "name": "image_url",
+        "selector": "td:nth-child(1) span[typeof='mw:File/Frameless'] a[href]"
       },
       {
-        "row": 1,
-        "type": "string",
-        "property": "heroclass",
-        "schema": "template"
+        "name": "heroclass",
+        "selector": "td:nth-child(2) a[title]"
       },
       {
-        "row": 2,
-        "type": "string",
-        "property": "color",
-        "schema": "template"
+        "name": "color",
+        "selector": "td:nth-child(3) a[title]"
       },
       {
-        "row": 3,
-        "type": "string",
-        "property": "species",
-        "schema": "template"
+        "name": "species",
+        "selector": "td:nth-child(4) a[title]"
       },
       {
-        "row": 4,
-        "type": "number",
-        "property": "stars",
-        "schema": "template"
+        "name": "stars",
+        "selector": "td:nth-child(5) a[title]",
+        "transform": "stars"
       },
       {
-        "row": 5,
-        "type": "string",
-        "property": "type",
-        "schema": "template/"
+        "name": "type",
+        "selector": "td:nth-child(6) a[title]"
       },
       {
-        "row": 6,
-        "type": "string",
-        "property": "pattern",
-        "schema": "template/"
+        "name": "pattern",
+        "selector": "td:nth-child(7) a[title]"
       },
       {
-        "row": [
-          7,
-          9,
-          11,
-          13
-        ],
-        "type": "number",
-        "property": {
-          "base": "attack",
-          "then": [
-            "att75",
-            "att85",
-            "att95",
-            "att100"
-          ]
-        },
-        "schema": "att_def"
+        "name": "attack",
+        "prefix": "A",
+        "extract": "columns_range",
+        "start": 8,
+        "step": 2,
+        "count": 5,
+        "transform_all": "int"
       },
       {
-        "row": [
-          8,
-          10,
-          12,
-          14
-        ],
-        "type": "number",
-        "property": {
-          "base": "defense",
-          "then": [
-            "def75",
-            "def85",
-            "def95",
-            "def100"
-          ]
-        },
-        "schema": "att_def"
+        "name": "defense",
+        "prefix": "A",
+        "extract": "columns_range",
+        "start": 9,
+        "step": 2,
+        "count": 5,
+        "transform_all": "int"
       },
       {
-        "row": 15,
-        "type": "string",
-        "property": "lead_color",
-        "schema": "lead"
+        "name": "lead_color",
+        "selector": "td:nth-child(18)",
+        "extract": "lead_bonus"
       },
       {
-        "row": 16,
-        "type": "string",
-        "property": "lead_species",
-        "schema": "lead"
+        "name": "lead_species",
+        "selector": "td:nth-child(19)",
+        "extract": "lead_bonus"
       },
       {
-        "row": 17,
-        "type": "string",
-        "property": "base_IA",
-        "schema": "text"
+        "name": "base_IA",
+        "selector": "td:nth-child(20)"
       },
       {
-        "row": 18,
-        "type": "string",
-        "property": "exclusive",
-        "schema": "template_if_exists"
+        "name": "exclusive",
+        "selector": "td:nth-child(21)"
       }
-    ],
-    "type": "hero"
-  },
-  {
-    "name": "Hero_Talents",
-    "data": [
-      {
-        "row": 0,
-        "type": "string",
-        "property": "name",
-        "schema": "template"
-      },
-      {
-        "row": 1,
-        "type": "string",
-        "property": "base",
-        "schema": "talent"
-      },
-      {
-        "row": 2,
-        "type": "string",
-        "property": "ascend",
-        "schema": "talent"
-      },
-      {
-        "row": 3,
-        "type": "string",
-        "property": "merge",
-        "schema": "talent"
-      }
-    ],
-    "type": "hero"
+    ]
   },
   {
     "name": "Hero_Gear",
-    "data": [
+    "type": "hero",
+    "base_selector": "table tbody tr",
+    "group": "hero gear",
+    "fields": [
       {
-        "row": 0,
-        "type": "string",
-        "property": "name",
-        "schema": "name"
+        "name": "name",
+        "selector": "td:nth-child(1)"
       },
       {
-        "row": 1,
-        "type": "string",
-        "property": "ascend",
-        "schema": "text"
+        "name": "ascension",
+        "selector": "td:nth-child(2)"
       },
       {
-        "row": [
-          2,
-          3,
-          4,
-          5,
-          6,
-          7
-        ],
-        "type": "string",
-        "property": {
-          "base": "",
-          "then": [
-            "Amulet",
-            "Weapon",
-            "Ring",
-            "Head",
-            "Off-Hand",
-            "Body"
-          ]
-        },
-        "schema": "item"
+        "name": "Amulet",
+        "selector": "td:nth-child(3)"
+      },
+      {
+        "name": "Weapon",
+        "selector": "td:nth-child(4)"
+      },
+      {
+        "name": "Ring",
+        "selector": "td:nth-child(5)"
+      },
+      {
+        "name": "Head",
+        "selector": "td:nth-child(6)"
+      },
+      {
+        "name": "Off-Hand",
+        "selector": "td:nth-child(7)"
+      },
+      {
+        "name": "Body",
+        "selector": "td:nth-child(8)"
       }
-    ],
-    "type": "hero"
+    ]
+  },
+  {
+    "name": "Hero_Talents",
+    "type": "hero",
+    "base_selector": "table tbody tr",
+    "group": "hero talents",
+    "fields": [
+      {
+      "name": "name",
+      "selector": "td:nth-child(1) a[title]"
+      },
+      {
+        "name": "image_url",
+        "selector": "td:nth-child(1) span[typeof='mw:File/Frameless'] a[href]"
+      },
+      {
+        "name": "base",
+        "selector": "td:nth-child(2)",
+        "multiple": true
+      },
+      {
+        "name": "ascend",
+        "selector": "td:nth-child(3)",
+        "multiple": true
+      },
+      {
+        "name": "merge",
+        "selector": "td:nth-child(4)",
+        "multiple": true
+      }
+    ]
   },
   {
     "name": "Pet_Stats",
-    "data": [
+    "type": "pet",
+    "base_selector": "table tbody tr",
+    "fields": [
       {
-        "row": 0,
-        "type": "string",
-        "property": "name",
-        "schema": "template"
+        "name": "name",
+        "selector": "td:nth-child(1) a[title]"
       },
       {
-        "row": 0,
-        "type": "string",
-        "property": "image_url",
-        "schema": "portrait"
+        "name": "image_url",
+        "selector": "td:nth-child(1) span[typeof='mw:File/Frameless'] a[href]"
       },
       {
-        "row": 1,
-        "type": "number",
-        "property": "stars",
-        "schema": "template"
+        "name": "stars",
+        "selector": "td:nth-child(2) a[title]",
+        "transform": "stars"
       },
       {
-        "row": 2,
-        "type": "string",
-        "property": "petclass",
-        "schema": "template"
+        "name": "petclass",
+        "selector": "td:nth-child(3) a[title]"
       },
       {
-        "row": 3,
-        "type": "string",
-        "property": "color",
-        "schema": "template"
+        "name": "color",
+        "selector": "td:nth-child(4) a[title]"
       },
       {
-        "row": 4,
-        "type": "string",
-        "property": "signature",
-        "schema": "template"
+        "name": "signature",
+        "selector": "td:nth-child(5) a[title]"
       },
       {
-        "row": 5,
-        "type": "string",
-        "property": "signature_bis",
-        "schema": "template"
+        "name": "signature_bis",
+        "selector": "td:nth-child(6) a[title]"
       },
       {
-        "row": 6,
-        "type": "number",
-        "property": "attack",
-        "schema": "number"
+        "name": "exclusive",
+        "selector": "td:nth-child(7)"
       },
       {
-        "row": 7,
-        "type": "number",
-        "property": "defense",
-        "schema": "number"
+        "name": "attack",
+        "selector": "td:nth-child(8)",
+        "transform": "int"
       },
       {
-        "row": 8,
-        "type": "number",
-        "property": "manacost",
-        "schema": "number"
+        "name": "defense",
+        "selector": "td:nth-child(9)",
+        "transform": "int"
+      },
+      {
+        "name": "manacost",
+        "selector": "td:nth-child(10)",
+        "transform": "int"
       }
-    ],
-    "type": "pet"
+    ]
   },
   {
     "name": "Pet_Talents",
-    "data": [
+    "type": "pet",
+    "base_selector": "table tbody tr",
+    "group": "pet talents",
+    "fields": [
       {
-        "row": 0,
-        "type": "string",
-        "property": "name",
-        "schema": "template"
+        "name": "name",
+        "selector": "td:nth-child(1) a[title]"
       },
       {
-        "row": 0,
-        "type": "string",
-        "property": "image_url",
-        "schema": "portrait"
+        "name": "image_url",
+        "selector": "td:nth-child(1) span[typeof='mw:File/Frameless'] a[href]"
       },
       {
-        "row": 1,
-        "type": "number",
-        "property": "base",
-        "schema": "pet_talent_text"
+        "name": "base",
+        "selector": "td:nth-child(2)",
+        "transform": "int"
       },
       {
-        "row": 2,
-        "type": "number",
-        "property": "silver",
-        "schema": "pet_talent_text"
+        "name": "silver",
+        "selector": "td:nth-child(3)",
+        "transform": "int"
       },
       {
-        "row": 3,
-        "type": "string",
-        "property": "gold",
-        "schema": "pet_talent_text"
+        "name": "gold",
+        "selector": "td:nth-child(4) a[title]"
       },
       {
-        "row": 4,
-        "type": "string",
-        "property": "full",
-        "schema": "pet_full_talent"
+        "name": "full",
+        "selector": "td:nth-child(5) a[title]"
       },
       {
-        "row": [
-          5,
-          6,
-          7,
-          8,
-          9,
-          10,
-          11,
-          12,
-          13,
-          14
-        ],
-        "type": "string",
-        "property": "merge",
-        "schema": "pet_merge_talents"
+        "name": "merge 1",
+        "selector": "td:nth-child(6) a[title]"
+      },
+      {
+        "name": "merge 2",
+        "selector": "td:nth-child(7) a[title]"
+      },
+      {
+        "name": "merge 3",
+        "selector": "td:nth-child(8) a[title]"
+      },
+      {
+        "name": "merge 4",
+        "selector": "td:nth-child(9) a[title]"
+      },
+      {
+        "name": "merge 5",
+        "selector": "td:nth-child(10) a[title]"
+      },
+      {
+        "name": "merge 6",
+        "selector": "td:nth-child(11) a[title]"
+      },
+      {
+        "name": "merge 7",
+        "selector": "td:nth-child(12) a[title]"
+      },
+      {
+        "name": "merge 8",
+        "selector": "td:nth-child(13) a[title]"
+      },
+      {
+        "name": "merge 9",
+        "selector": "td:nth-child(14) a[title]"
+      },
+      {
+        "name": "merge 10",
+        "selector": "td:nth-child(15) a[title]"
       }
-    ],
-    "type": "pet"
+    ]
   },
   {
-    "name": "Talents",
-    "data": [
+    "name": "Traits",
+    "type": "talent",
+    "base_selector": "table tbody tr",
+    "fields": [
       {
-        "row": 0,
-        "type": "string",
-        "property": "name",
-        "schema": "template"
+        "name": "name",
+        "selector": "td:nth-child(1) a[title]"
       },
       {
-        "row": 0,
-        "type": "string",
-        "property": "image_url",
-        "schema": "portrait"
+        "name": "image_url",
+        "selector": "td:nth-child(1) span[typeof='mw:File/Frameless'] a[href]"
+      },
+      {
+        "name": "type",
+        "selector": "td:nth-child(2)"
+      },
+      {
+        "name": "sub_type",
+        "selector": "td:nth-child(3)"
+      },
+      {
+        "name": "description",
+        "selector": "td:nth-child(4)",
+        "extract": "clean_text"
       }
-    ],
-    "type": "talent"
+    ]
   },
   {
-    "name": "single_hero",
-    "data": [
-      {
-        "row": "hero_name",
-        "type": "string",
-        "property": "image_url",
-        "schema": "portrait"
-      },
-      {
-        "row": "Hero Description",
-        "type": "string",
-        "property": {
-          "base": "",
-          "then": [
-            "Class",
-            "heroclass",
-            "Color",
-            "color",
-            "Species",
-            "species"
-          ]
-        },
-        "schema": "text"
-      },
-      {
-        "row": "Hero Description",
-        "type": "icon",
-        "property": {
-          "base": "",
-          "then": [
-            "Stars",
-            "stars"
-          ]
-        },
-        "schema": "stars"
-      },
-      {
-        "row": "Hero Description",
-        "type": "AI",
-        "property": {
-          "base": "",
-          "then": [
-            "AI",
-            "AI",
-            "AI Speed",
-            "AI Speed"
-          ]
-        },
-        "schema": "AI"
-      },
-      {
-        "row": "Talents",
-        "type": "Talents",
-        "property": {
-          "base": "",
-          "then": [
-            "Talents",
-            "base"
-          ]
-        },
-        "schema": "talents"
-      },
-      {
-        "row": "Talents",
-        "type": "Talents",
-        "property": {
-          "base": "",
-          "then": [
-            "Merge Talents",
-            "merge"
-          ]
-        },
-        "schema": "talents"
-      },
-      {
-        "row": "Talents",
-        "type": "Talents",
-        "property": {
-          "base": "",
-          "then": [
-            "A1 Talent",
-            "ascend 1"
-          ]
-        },
-        "schema": "text"
-      },
-      {
-        "row": "Talents",
-        "type": "Talents",
-        "property": {
-          "base": "",
-          "then": [
-            "A2 Talent",
-            "ascend 2"
-          ]
-        },
-        "schema": "text"
-      },
-      {
-        "row": "Talents",
-        "type": "Talents",
-        "property": {
-          "base": "",
-          "then": [
-            "A3 Talent",
-            "ascend 3"
-          ]
-        },
-        "schema": "text"
-      },
-      {
-        "row": "Gear",
-        "type": "Gear",
-        "property": {
-          "base": "",
-          "then": [
-            "Base",
-            "A0",
-            "Amulet",
-            "Weapon",
-            "Ring",
-            "Head",
-            "Off-Hand",
-            "Body"
-          ]
-        },
-        "schema": "gear"
-      },
-      {
-        "row": "Gear",
-        "type": "Gear",
-        "property": {
-          "base": "",
-          "then": [
-            "A1 Gear",
-            "A1",
-            "Amulet",
-            "Weapon",
-            "Ring",
-            "Head",
-            "Off-Hand",
-            "Body"
-          ]
-        },
-        "schema": "gear"
-      },
-      {
-        "row": "Gear",
-        "type": "Gear",
-        "property": {
-          "base": "",
-          "then": [
-            "A2 Gear",
-            "A2",
-            "Amulet",
-            "Weapon",
-            "Ring",
-            "Head",
-            "Off-Hand",
-            "Body"
-          ]
-        },
-        "schema": "gear"
-      },
-      {
-        "row": "Gear",
-        "type": "Gear",
-        "property": {
-          "base": "",
-          "then": [
-            "A3 Gear",
-            "A3",
-            "Amulet",
-            "Weapon",
-            "Ring",
-            "Head",
-            "Off-Hand",
-            "Body"
-          ]
-        },
-        "schema": "gear"
-      },
-      {
-        "row": "Stat Caps (Base + Gear)",
-        "type": "number",
-        "property": {
-          "base": "attack",
-          "then": [
-            "Basic Attack",
-            "att75"
-          ]
-        },
-        "schema": "stats"
-      },
-      {
-        "row": "Stat Caps (Base + Gear)",
-        "type": "number",
-        "property": {
-          "base": "defense",
-          "then": [
-            "Basic Health",
-            "def75"
-          ]
-        },
-        "schema": "stats"
-      },
-      {
-        "row": "Stat Caps (Base + Gear)",
-        "type": "number",
-        "property": {
-          "base": "attack",
-          "then": [
-            "A1 Attack",
-            "att85"
-          ]
-        },
-        "schema": "stats"
-      },
-      {
-        "row": "Stat Caps (Base + Gear)",
-        "type": "number",
-        "property": {
-          "base": "defense",
-          "then": [
-            "A1 Health",
-            "def85"
-          ]
-        },
-        "schema": "stats"
-      },
-      {
-        "row": "Stat Caps (Base + Gear)",
-        "type": "number",
-        "property": {
-          "base": "attack",
-          "then": [
-            "A2 Attack",
-            "att95"
-          ]
-        },
-        "schema": "stats"
-      },
-      {
-        "row": "Stat Caps (Base + Gear)",
-        "type": "number",
-        "property": {
-          "base": "defense",
-          "then": [
-            "A2 Health",
-            "def95"
-          ]
-        },
-        "schema": "stats"
-      },
-      {
-        "row": "Stat Caps (Base + Gear)",
-        "type": "number",
-        "property": {
-          "base": "attack",
-          "then": [
-            "A3 Attack",
-            "att100"
-          ]
-        },
-        "schema": "stats"
-      },
-      {
-        "row": "Stat Caps (Base + Gear)",
-        "type": "number",
-        "property": {
-          "base": "defense",
-          "then": [
-            "A3 Health",
-            "def100"
-          ]
-        },
-        "schema": "stats"
-      }
-    ],
-    "type": "hero"
+    "name": "Category:Dragonspire",
+    "type": "grid",
+    "base_selector": "div.mw-content-ltr.mw-parser-output a.mw-file-description.image",
+    "no_header_skip": true,
+    "fields": [
+      { "name": "name", "selector": "img", "attribute": "alt"},
+      { "name": "image_url", "attribute": "href"}
+    ]
   },
   {
-    "name": "single_talent",
-    "data": [
-      {
-        "row": 0,
-        "type": "string",
-        "property": "image_url",
-        "schema": "portrait"
-      },
-      {
-        "row": 2,
-        "type": "string",
-        "property": "type",
-        "schema": "text"
-      },
-      {
-        "row": 3,
-        "type": "string",
-        "property": "description",
-        "schema": "text"
-      }
-    ],
-    "type": "talent"
-  },
-  {
-    "name": "Traits2",
-    "data": [
-      {
-        "row": 0,
-        "type": "string",
-        "property": "image_url",
-        "schema": "portrait"
-      },
-      {
-        "row": 0,
-        "type": "string",
-        "property": "name",
-        "schema": "text"
-      },
-      {
-        "row": 1,
-        "type": "string",
-        "property": "type",
-        "schema": "text"
-      },
-      {
-        "row": 2,
-        "type": "string",
-        "property": "sub_type",
-        "schema": "text"
-      },
-      {
-        "row": 3,
-        "type": "string",
-        "property": "description",
-        "schema": "text"
-      }
-    ],
-    "type": "traits"
+    "name": "Dragonspire",
+    "type": "map",
+    "base_selector": "div.mw-content-ltr.mw-parser-output a.mw-file-description.image",
+    "no_header_skip": true,
+    "parse_type": "category",
+    "fields": [
+      { "name": "name", "selector": "img", "attribute": "alt"},
+      { "name": "image_url", "attribute": "href"}
+    ]
   }
 ]

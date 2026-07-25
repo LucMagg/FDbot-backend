@@ -4,78 +4,203 @@
   },
   "name": "error",
   "color": "red",
-  "title": "Erreur",
-  "description": {
-    "generic": [
-      {
-        "text": "Une erreur est survenue avec le bot :rolling_eyes:\nMerci de réitérer la commande plus tard :cry:"
-      }
-    ],
-    "hero": [
-      {
-        "text": "Le héros "
-      },
-      {
-        "text": " n'a pas été trouvé dans la base des héros recensés.\nMerci de vérifier et de réitérer la commande :cry:"
-      }
-    ],
-    "pet": [
-      {
-        "text": "Le pet "
-      },
-      {
-        "text": " n'a pas été trouvé dans la base des pets recensés.\nMerci de vérifier et de réitérer la commande :cry:"
-      }
-    ],
-    "addcomment": [
-      {
-        "text": "Le héros ou le pet "
-      },
-      {
-        "text": " n'a pas été trouvé dans la base des héros/pets recensés.\nMerci de vérifier et de réitérer la commande :cry:"
-      },
-      {
-        "text": "Le but de la commande est d'envoyer un commentaire...\nS'il n'y en a pas, ça sert à rien :rofl:"
-      }
-    ],
-    "talent": [
-      {
-        "text": "Le talent "
-      },
-      {
-        "text": " n'a pas été trouvé dans la base des talents recensés.\nMerci de vérifier et de réitérer la commande :cry:"
-      }
-    ],
-    "class": [
-      {
-        "text": "La classe "
-      },
-      {
-        "text": " n'a pas été trouvée dans la base des classes recensées.\nMerci de vérifier et de réitérer la commande :cry:"
-      }
-    ],
-    "item": [
-      {
-        "text": "L'objet "
-      },
-      {
-        "text": " n'a pas été trouvé dans la base des objets recensés.\nMerci de vérifier et de réitérer la commande :cry:"
-      }
-    ],
-    "petlist" : [
-      {
-        "text": "Le héros "
-      },
-      {
-        "text": " n'a pas été trouvé dans la base des héros recensés.\nMerci de vérifier et de réitérer la commande :cry:"
-      },
-      {
-        "text": "Le héros "
-      },
-      {
-        "text": "n'a aucun pet à équiper, désolé :grin:"
-      }
-    ]
+  "en": {
+    "title": "Error",
+    "generic": "An error occurred with the bot :rolling_eyes:\nPlease try again later :cry:",
+    "session": "A command is already running for you :shrug:\nPlease complete your command and you'll be able to start another one :wink:",
+    "timeout": {
+      "title": "Session expired ⏰",
+      "cancel": "Cancelled after",
+      "minutes": "minutes",
+      "minute": "minute",
+      "and": "et",
+      "seconds": "seconds",
+      "second": "second"
+    },
+    "hero": {
+      "part1": "The hero ",
+      "part2": " wasn't found in the heroes database.\nPlease check and try it again :cry:"
+    },
+    "pet": {
+      "part1": "The pet ",
+      "part2": " wasn't found in the pets database.\nPlease check and try it again :cry:"
+    },
+    "addcomment": {
+      "part1": "The hero or pet ",
+      "part2": " wasn't found in heroes & pets databases.\nPlease check and try it again :cry:",
+      "notext": "The purpose of this command is to send a comment...\nIf there isn't one, it's useless :rofl:"
+    },
+    "talent": {
+      "part1": "The talent ",
+      "part2": " wasn't found in the talents database.\nPlease check and try it again :cry:",
+      "no talent1": "No hero nor pet was found with the talent ",
+      "no talent2": " :shrug:\nPlease check and try it again :cry:"
+    },
+    "class": {
+      "part1": "The class ",
+      "part2": " wasn't found in the classes database.\nPlease check and try it again :cry:"
+    },
+    "item": {
+      "part1": "The item ",
+      "part2": " wasn't found in the items database.\nPlease check and try it again :cry:"
+    },
+    "merc" : {
+      "part1": "The hero ",
+      "not found": " wasn't found in the heroes database.\n",
+      "no pet": " hasn't any pet.\n",
+      "no A4": " hasn't any 4th ascension.\n",
+      "part2": "Please check and try it again :cry:",
+      "no user1": "No player ",
+      "no user2": " was found in list of mercenaries of the players of the guild ",
+      "no user3": ".\nEither he doesn't exist in this guild or he has no registered mercenaries.\n",
+      "no merc": " wasn't found in the mercenaries database.\n",
+      "no other1": "No one else but oy owns ",
+      "no other2": " in the mercenaries database.\nSorry :shrug:"
+    },
+    "addreplay": "Your replay hasn't been added :cry:",
+    "exclusive": {
+      "part1": "The event ",
+      "part2": " wasn't found in the events database.\nPlease check and try it again :cry:"
+    },
+    "level": {
+      "private": "This command isn't for public use for now.\nPlease contact Prep or Spirou to add a level to the list.",
+      "part1": "## The level ",
+      "part2": " already exists ##\nEverything is already set for you to use /reward add and /reward show commands :wink:",
+      "no_energy": "A level must have at least one energy cost (standard or coop) :rolling_eyes:"
+    },
+    "xp": {
+      "title": "Stupid request :wink:",
+      "same level": "To keep the same level, a hero doesn't need xp potions :shrug:",
+      "start": "It's impossible for a hero ",
+      "ascend down": "to lower its ascend :shrug:",
+      "level down": "to lower its level :shrug:",
+      "input1": " :star: to be ",
+      "input2": " level ",
+      "input3": " :shrug:",
+      "path1": "to go from ",
+      "path2": " level ",
+      "path3": " to ",
+      "path4": ", given that after ascending it will already be ",
+      "end": "Please check and try it again :rolling_eyes:"
+    },
+    "reward": {
+      "part1": "The level ",
+      "part2": " wasn't found in the levels database.\nPlease check and try it again :cry:\nIf you think that this level should exist, feel free to contact Prep or Spirou to add this level to the list.",
+      "not int1": "The value ",
+      "not int2": " isn't a valid quantity.\nPlease retry with a valid value (integer or 'integer'k for higher than 1000 values) :wink:"
+    },
+    "spire": {
+      "not pic": "The screenshot you provided doesn't seem to be valid. For your information, the accepted image extensions are: .png, .jpg, and .jpeg. Please check and try it again :cry:",
+      "file error": "An error occured while saving the screenshot.\nPlease try again later :rolling_eyes:"
+    },
+    "dc": {
+      "not pic": "At least of the screenshots you provided doesn't seem to be valid. For your information, the accepted image extensions are: .png, .jpg, and .jpeg. Please check and try it again :cry:",
+      "file error": "An error occured while saving at least of the screenshots.\nPlease try again later :rolling_eyes:",
+      "addreplay": "Your replay hasn't been added :cry:\nPlease try again later :rolling_eyes:"
+    },
+    "set_trap": {
+      "not found1": "The role id ",
+      "not found2": " wasn't found in your server :shrug:\nPlease check and try it again :rolling_eyes:"
+    }
+  },
+  "fr": {
+    "title": "Erreur",
+    "generic": "Une erreur est survenue avec le bot :rolling_eyes:\nMerci de réitérer la commande plus tard :cry:",
+    "session": "Une commande est déjà en cours d'exécution pour vous :shrug:\nVeuillez terminer votre commande et vous pourrez en démarrer une autre :wink:",
+    "timeout": {
+      "title": "Session expirée ⏰",
+      "cancel": "Annulée après",
+      "minutes": "minutes",
+      "minute": "minute",
+      "and": "et",
+      "seconds": "secondes",
+      "second": "secondes"
+    },
+    "hero": {
+      "part1": "Le héros ",
+      "part2": " n'a pas été trouvé dans la base des héros recensés.\nMerci de vérifier et de réitérer la commande :cry:"
+    },
+    "pet": {
+      "part1": "Le familier ",
+      "part2": " n'a pas été trouvé dans la base des familiers recensés.\nMerci de vérifier et de réitérer la commande :cry:"
+    },
+    "addcomment": {
+      "part1": "Le héros ou le familier ",
+      "part2": " n'a pas été trouvé dans la base des héros/familiers recensés.\nMerci de vérifier et de réitérer la commande :cry:",
+      "notext": "Le but de la commande est d'envoyer un commentaire...\nS'il n'y en a pas, ça sert à rien :rofl:"
+    },
+    "talent": {
+      "part1": "Le talent ",
+      "part2": " n'a pas été trouvé dans la base des talents recensés.\nMerci de vérifier et de réitérer la commande :cry:",
+      "no talent1": "Aucun héros ou familier n'a été trouvé avec le talent ",
+      "no talent2": " :shrug:\nMerci de vérifier et de réitérer la commande :cry:"
+    },
+    "class": {
+      "part1": "La classe ",
+      "part2": " n'a pas été trouvée dans la base des classes recensées.\nMerci de vérifier et de réitérer la commande :cry:"
+    },
+    "item": {
+      "part1": "L'objet ",
+      "part2": " n'a pas été trouvé dans la base des objets recensés.\nMerci de vérifier et de réitérer la commande :cry:"
+    },
+    "merc" : {
+      "part1": "Le héros ",
+      "not found": " n'a pas été trouvé dans la base des héros recensés.\n",
+      "no pet": " n'a aucun familier à équiper.\n",
+      "no A4": " n'a pas de 4ème ascension.\n",
+      "part2": "Merci de vérifier et de réitérer la commande :cry:",
+      "no user1": "Il n'y a aucun joueur ",
+      "no user2": " trouvé dans la liste des joueurs ayant des mercenaires dans la guilde ",
+      "no user3": ".\nSoit il n'existe pas dans cette guilde, soit il n'a enregistré aucun mercenaire.\n",
+      "no merc": " n'a pas été trouvé dans la base des mercenaires recensés.\n",
+      "no other1": "Personne d'autre que toi ne possède ",
+      "no other2": " dans la base des mercenaires recensés.\nDésolé :shrug:"
+    },
+    "addreplay": "Votre replay n'a pas pu être ajouté :cry:",
+    "exclusive": {
+      "part1": "L'évènement ",
+      "part2": " n'a pas été trouvé dans la base des évènements recensés.\nMerci de vérifier et de réitérer la commande :cry:"
+    },
+    "level": {
+      "private": "Cette commande n'est pas publique pour l'instant\nVeuillez contacter Prep ou Spirou pour ajouter votre niveau à la liste.",
+      "part1": "## Le niveau ",
+      "part2": " existe déjà ##\nTout est déjà prêt pour l'utilisation des commandes /reward add et /reward show :wink:",
+      "no_energy": "Un level doit avoir au moins un coût en énergie (standard ou coop) :rolling_eyes:"
+    },
+    "xp": {
+      "title": "Requête stupide :wink:",
+      "same level": "Pour garder le même level, un héros n'a pas besoin de potions d'xp :shrug:",
+      "start": "Il est impossible pour un héros ",
+      "ascend down": "de baisser son niveau d'ascension :shrug:",
+      "level down": "de baisser de niveau :shrug:",
+      "input1": " :star: d'être ",
+      "input2": " niveau ",
+      "input3": " :shrug:",
+      "path1": "de passer de ",
+      "path2": " niveau ",
+      "path3": " à ",
+      "path4": ", étant donné qu'après ascension il sera déjà",
+      "end": "Merci de vérifier et de réitérer la commande :rolling_eyes:"
+    },
+    "reward": {
+      "part1": "Le niveau ",
+      "part2": " n'a pas été trouvé dans la base des niveaux recensés.\nMerci de vérifier et de réitérer la commande :cry:\nSi vous pensez qu'il devrait être recensé, veuillez contacter Prep ou Spirou pour l'ajouter à la liste.",
+      "not int1": "La valeur ",
+      "not int2": " n'est pas une quantité valide.\nMerci de réessayer avec une quantité valide (nombre entier ou 'nombre entier'k pour les valeurs supérieures à 1000) :wink:"
+    },
+    "spire":{
+      "not pic": "La capture d'écran transmise ne semble pas être valide.\nPour info, les extensions d'image acceptées sont : .png, .jpg et .jpeg.\nMerci de vérifier et de réitérer la commande :cry:",
+      "file error": "Une erreur est survenue pendant la sauvegarde de la capture d'écran.\nMerci de réessayer plus tard :rolling_eyes:"
+    },
+    "dc": {
+      "not pic": "Au moins une des captures d'écran transmises ne semble pas être valide.\nPour info, les extensions d'image acceptées sont : .png, .jpg et .jpeg.\nMerci de vérifier et de réitérer la commande :cry:",
+      "file error": "Une erreur est survenue pendant la sauvegarde d'au moins une des captures d'écran.\nMerci de réessayer plus tard :rolling_eyes:",
+      "addreplay": "Votre replay n'a pas pu être ajouté :cry:\nMerci de réessayer plus tard :rolling_eyes:"
+    },
+    "set_trap": {
+      "not found1": "Le rôle avec l'id ",
+      "not found2": " n'a pas été trouvé sur votre serveur :shrug:\nMerci de vérifier et de réitérer la commande :rolling_eyes:"
+    }
   },
   "name_slug": "error"
 },
@@ -84,8 +209,14 @@
     "$oid": "66d066d8a3c0cdb7486e5408"
   },
   "name": "footer",
-  "ok": "généré par F&D-bot",
-  "too_long": "\n**[...]**\n\n:warning: la fin est tronquée pour cause de dépassement de la taille maximum d'un message sur discord :shrug:\nSi possible, merci d'affiner votre recherche pour avoir le résultat complet :wink:",
+  "en": {
+    "ok": "generated by F&D-bot",
+    "too_long": "\n**[...]**\n\n:warning: the end is truncated because it exceeded the maximum message size on Discord :shrug:\nIf possible, please refine your search to get the complete result :wink:"
+  },
+  "fr": {
+    "ok": "généré par F&D-bot",
+    "too_long": "\n**[...]**\n\n:warning: la fin est tronquée pour cause de dépassement de la taille maximum d'un message sur discord :shrug:\nSi possible, merci d'affiner votre recherche pour avoir le résultat complet :wink:"
+  },
   "name_slug": "footer"
 },
 {
@@ -94,18 +225,15 @@
   },
   "name": "wait",
   "color": "default",
-  "title": "Requête en cours...",
-  "description": "Merci de patienter :wink: \nSi ce message ne se met pas à jour, veuillez réitérer la commande :innocent:",
-  "name_slug": "wait"
-},
-{
-  "_id": {
-    "$oid": "66d066d8a3c0cdb7486e540a"
+  "en": {
+    "title": "Request in progress...",
+    "description": "Thank you for your patience :wink: \nIf this message does not update, please repeat the command :innocent:"
   },
-  "name": "class",
-  "color": "default",
-  "title": "Liste des ",
-  "name_slug": "class"
+  "fr": {
+    "title": "Requête en cours...",
+    "description": "Merci de patienter :wink: \nSi ce message ne se met pas à jour, veuillez réitérer la commande :innocent:"
+  },
+  "name_slug": "wait"
 },
 {
   "_id": {
@@ -113,24 +241,71 @@
   },
   "name": "help",
   "color": "default",
-  "description": {
-    "addcomment": "Cette commande permet d'ajouter un commentaire sur le héros ou le pet passé en paramètre.\nIl est possible de laisser un nombre conséquent de commentaires.\nCependant, si vous avez déjà  laissé un commentaire sur le héros/pet en question, il sera simplement mis à jour plutôt que d'être ajouté en tant que commentaire supplémentaire.\nSi le héros/pet en question a trop de commentaires et que le rendu sur Discord est trop long, seuls les derniers commentaires seront affichés :wink:\nExemple de commande valide : /addcomment Adana blablabla blablabla.",
-    "class": "Cette commande permet de lister les différents héros de la classe passée en paramètre.\nExemple de commande valide : /class Rogue\n\nLes différentes classes recensées sont :\n",
-    "error": "\n\nSi vous constatez qu'une erreur s'est glissée dans le retour du bot, n'hésitez pas à mettre à jour la source depuis le Fandom Wiki (/update help pour + d'infos :wink:)",
-    "generic": "Voici les différentes commandes disponibles pour le bot :\n\n- /addcomment [NomDuHérosOuPet][Commentaire] : permet d'ajouter un commentaire sur le héros/pet en question\n- /class [NomDeLaClasse] : affiche les héros/pets de la classe passée en paramètre\n- /bothelp : affiche ce bloc d'aide \n- /hero [NomDuHéros] : affiche les informations du héros passé en paramètre\n- /item [NomDeL'item] : affiche les héros pouvant équiper l'item passé en paramètre\n- /pet [NomDuPet] : affiche les informations du pet passé en paramètre\n- /petlist [NomDuHéros] : affiche les pets pouvant être équipés par le héros passé en paramètre\n- /talent [NomDuTalent] : affiche la liste des héros/pets possédant le talent passé en paramètre\n- /level [NomDuNiveau][CoutEnEnergieStandard][CoutEnEnergieCoop] : ajoute un niveau pour pouvoir récolter des données sur ses récompenses via la commande /reward\n- /reward [NomDuNiveau] : ajoute une récompense au niveau\n- /rewardstat [NomDuNiveau] : affiche les données récoltées sur les récompense du niveau\n- /update : met à jour le bot\n- /xp[NombreD'ÉtoilesDuHéros][AscendActuel][LevelActuel][AscendCible][LevelCible] : calcule la somme de potions d'xp nécessaires pour atteindre le niveau souhaité\nÀ noter que chacunes des commandes ci-dessus ont un paramètre \"help\" pour plus d'info, et qu'elles ne sont disponibles qu'en anglais :wink:",
-    "hero": "Cette commande renvoie les caractéistiques suivantes du héros passé en paramètre :\n- Le nombre d'étoiles, la couleur, la classe, l'espèce, l'ascend max et le lvl max\n- Les attributs à l'ascend max (attaque et défense), le classement par rapport aux autres héros de la même classe et l'orientation offensive (ratio attaque/défense)\n- Le(s) bonus de leader\n- Les talents de base, d'ascend et de merge s'il y en a, et le(s) talent(s) unique(s) à la classe s'il y en a\n- La liste des équipements utilisés en fonction de l'ascend du héros\n- Le pet signature et ses bonus/talents s'il existe\n- Le(s) commentaire(s) laissé(s) par les joueurs à propos de ce héros. Vous pouvez vous-même laisser un commentaire si vous le souhaitez via la commande /addcomment (/addcomment help pour + d'infos :wink:)\n\nExemple de commande valide : /hero Sandor",
-    "item": "Cette commande permet de lister les différents héros pouvant équiper l'item passé en paramètre.\nLes héros en question sont classés par étoile, et le nombre d'occurences de l'item est repris.\nSi la qualité de l'item n'est pas indiquée, alors tous les héros pouvant équiper cette catégorie d'item seront listés\nExemple de commande valide : /item Exalted Dagger ou /item Dagger",
-    "pet": "Cette commande renvoie les caractéristiques suivantes du pet passé en paramètre :\n- La couleur, le nombre d'étoiles et la classe privilégiée du pet\n- Le bonus d'attribut au niveau max (en %)\n- Le(s) héros signature, ainsi que les autres héros pouvant profiter du bonus (même couleur, même classe)\n- Les talents de base, de merge, de classe et le gold talent avec son coût en mana\n- Le(s) commentaire(s) laissé(s) par les joueurs à propos de ce pet. Vous pouvez vous-même laisser un commentaire si vous le souhaitez via la commande /addcomment (/addcomment help pour + d'infos :wink:)\n\nExemple de commande valide : /pet Almond",
-    "petlist": "Cette commande permet de lister les différents pets pouvant être équipés par le héros passé en paramètre.\nLes pets en question sont classés par étoile, en indiquant les bonus correspondants, ainsi que le coût en mana s'il s'agit du talent gold.\n\nExemple de commande valide : /petlist Sandor",
-    "talent": "Cette commande permet de lister les différents héros et/ou pets possédant le talent passé en paramètre.\nLa liste est classée par étoile, et le nombre d'occurences du talent est repris.\n\nExemple de commande valide : /talent Tumble",
-    "update": "Cette commande sert à mettre à jour le bot depuis le site du Fandom Wiki (https://friends-and-dragons.fandom.com/wiki/)\n\nLes différents paramètres possibles sont :\n-   héros : pour mettre à jour les héros\n-   talents : pour mettre  jour les talents\n-   pets : pour mettre à jour les talents\n-   all (ou aucun paramètre) : pour mettre à jour les 3 tables ci-dessus\n\nSi vous souhaitez ajouter un héros du jeu ou modifier un paramètre mal renseigné, il vous suffit de mettre à jour le wiki puis d'entrer la commande correspondante pour que le bot récupère votre modification.\nPour info, la page Hero_Stats est utilisée comme référence : si un héros n'y apparaît pas, il ne sera pas référencé pour le bot.\nIl est donc primordial de mettre à jour cette page si vous souhaitez référencer un nouveau héros :wink:",
-    "level": "Cette commande sert à ajouter un niveau. Necessaire afin de pouvoir utiliser les commandes /reward et /reward-stat.",
-    "reward": "Cette commande permet de récolter des données sur les récompenses d'un niveau.",
-    "rewardstat": "Cette commande sert à afficher les données récupérées sur les récompenses d'un niveau."
+  "en": {
+    "description": {
+      "addcomment": "This command allows you to add a comment about the hero or pet passed as a parameter.\nYou can leave a large number of comments.\nHowever, if you have already left a comment about the hero/pet in question, it will simply be updated instead of being added as an additional comment.\nIf the hero/pet has too many comments and the Discord output becomes too long, only the most recent comments will be displayed :wink:\nValid command example: /addcomment hero_or_pet:Adana comment:blablabla blablabla.",
+      "bothelp": "This command lists all available commands.",
+      "botstats": "This command lists the bot's statistics.",
+      "class": "This command lists all heroes of the class passed as a parameter.\nValid command example: /class class:Rogue\n\nAvailable classes are:\n",
+      "dc add": "This command allows you to add screenshots and/or a replay for a Dungeon Crawl level.\nNote that if screenshots already exist for the selected level, they will be overwritten by yours. Only .png, .jpg, and .jpeg file extensions are accepted.\nHowever, the replay will be added to the list of existing replays.\nSince these parameters are optional, you can choose to add only screenshots or only the replay.\nAs the Dungeon Crawl changes monthly, the level data is cleared on the last day of each month.\nValid command example: /dc add level:100 screenshot_1:{screenshot of 1st battle} screenshot_2:{screenshot of 2nd battle} screenshot_3:{screenshot of 3rd battle} replay:{link pasted directly from the game's replay section}.",
+      "dc show": "This command allows you to view the screenshots and replays saved for a Dungeon Crawl level.\nValid command example: /dc show level:100.",
+      "error": "\n\nIf you notice an error in the bot's output, don't hesitate to update the source from the Fandom Wiki (/update help for more info :wink:)",
+      "exclusive": "This command lists all exclusive heroes from an event passed as a parameter.\nValid command example: /exclusive event:Alpha Genesis",
+      "generic": "Here are the available commands for the bot:\n\n- /addcomment [HeroOrPetName][Comment] : adds a comment about the specified hero/pet\n- /bothelp : displays this help block\n- /botstats : displays the bot stats\n- /class [ClassName] : displays the heroes/pets of the given class\n- /dc add [Level][Screenshot1][Screenshot2][Screenshot3][Replay] : adds data for the specified Dungeon Crawl level\n- /dc show [Level] : displays data for the specified Dungeon Crawl level\n- /exclusive [EventName] : displays the exclusive heroes/pets of the recurring event\n- /hero [HeroName] : displays information about the specified hero\n- /item [ItemName] : displays the heroes that can equip the specified item\n- /level [LevelName][StandardEnergyCost][CoopEnergyCost] : adds a level to collect/display reward data via the /reward commands (restricted command)\n- /merc ask [HeroName] : requests a mercenary among those listed\n- /merc register [HeroName] : registers a hero to make it available for other players through /merc ask\n- /merc show [PlayerName]: lists heroes registered as mercenaries available to the specified player\n- /pet [PetName] : displays information about the specified pet\n- /reward add [LevelName] : adds a reward to the specified level\n- /reward show [LevelName] : displays collected reward data for the specified level\n-set_trap [trap_id] : sets the trap role id to ban bots (command reserved for server admins)\n- /setbotlanguage [Language] : sets the bot’s language for this channel (command reserved for server admins)\n- /spire add [Screenshot] : records your climb score\n- /spire details : records the parameters of the ongoing spire climb\n- /talent [TalentName] : displays the heroes/pets that have the specified talent\n- /update [type] : updates the bot\n- /xp[HeroStars][CurrentAscend][CurrentLevel][TargetAscend][TargetLevel] : calculates the amount of XP potions needed to reach the desired level\n\nNote that each command above has a \"help\" parameter for more info, and they are now available in both English and French depending on the channel used :wink:",
+      "hero": "This command returns the following characteristics of the hero passed as a parameter:\n- Star count, color, class, species, max ascend and max level\n- Attributes at max ascension (attack and defense), ranking relative to other heroes of the same class, and offensive orientation (attack/defense ratio)\n- Max stats gain for each ascension\n- Leader bonus(es)\n- Base, ascension, and merge talents (if applicable), and class-unique talent(s) (if applicable)\n- List of equipment depending on the hero’s ascension\n- Signature pet and its bonuses/talents if available\n- Comment(s) left by players about this hero. You can leave a comment yourself using the /addcomment command (/addcomment help for more info :wink:)\n\nValid command example: /hero hero:Sandor",
+      "item": "This command lists the heroes able to equip the specified item.\nThe heroes are sorted by star count, and the number of occurrences of the item is shown.\nIf the item quality is not provided, then all heroes able to equip that item category will be listed.\nValid command example: /item item:Exalted Dagger or /item item:Dagger",
+      "level": "This restricted command allows the creation of a level for the /reward add and /reward show commands. Only a few selected users can use it. Feel free to contact them if a level does not exist.",
+      "merc ask": "This command allows you to request a mercenary from those who registered their heroes through the /merc register command.\nValid command example: /merc ask hero:Sandor",
+      "merc show": "This command lists a given player's mercenaries.\nFor example, it also allows you to check your own heroes to see which ones need an update.\nValid command example: /merc show user:Prep",
+      "merc register": "This command allows you to register your heroes to make them available through the /mercask command.\nFor each hero, you can specify:\n- their ascension\n- if they have their A2, A3 and A4 talents\n- their merge level\n- their pet and whether all of their talents are unlocked\nIf one of your heroes is already registered, the new informations will be updated, and any non-provided information will remain unchanged or updated too if necessary.\nValid command example: /merc register hero:Sandor ascend:A3 a3_talent:Yes merge:3.",
+      "pet": "This command returns the following characteristics of the pet passed as a parameter:\n- Color, star count, and preferred class\n- Attribute bonus at max level (in %)\n- Signature hero(es), as well as other heroes who can benefit from the bonus (same color, same class)\n- Base, merge, passive and active talents, along with the active talent's mana cost\n- Comment(s) left by players about this pet. You can leave a comment yourself if you want via the /addcomment command (/addcomment help for more info :wink:)\n\nValid command example: /pet pet:Almond",
+      "reward add": "This command collects data about a specific level's rewards.\nValid command example: /reward add level:Shrine 7-2L",
+      "reward show": "This command displays the collected reward data for a specific level.\nValid command example: /reward show level:Shrine 7-2L",
+      "set_trap": "This command is reserved for server admins.\nIt allows you to set up a 'trap role' to ban bots that join your server.\n\nTo use this command, you must first perform a few setup steps on the server:\n- create a specific role that bots will foolishly assign to themselves when joining the server, then right-click on the role and \"Copy role ID\"\n- enable Community mode in your server settings\n- under Onboarding > Customization Questions, create a question with an answer and the associated role. The question and answer must be clear so that real users don't get trapped (e.g., question: 'This is a bot-trap question', answer: 'Do not click, or you will be instantly banned')\n\nWhen a spam bot arrives on your server, it will almost certainly try to assign itself the role and will consequently be banned :wink:\nExample of a valid command: /set_trap trap_id:123456789",
+      "setbotlanguage": "This command is reserved for server admins.\nIt allows you to set the bot's language for the Discord channel where it is used.\nValid command example: /setbotlanguage language:French",
+      "spire add": "This command allows you to record your spire score to participate in the guild battle.\nValid command example: /spire add screenshot:{screenshot of your score}",
+      "spire details": "This command allows you to record the characteristics of the ongoing climb.\nYou can specify:\n- the map among those listed by the bot\n- hero bonuses\n- monster bonuses\n- bonus talents per tier and per floor",
+      "talent": "This command lists the heroes and/or pets that possess the specified talent.\nThe list is sorted by star, and the number of occurrences of the talent is shown.\nValid command example: /talent talent:Tumble",
+      "update": "This command updates the bot using data from the Fandom Wiki (https://friends-and-dragons.fandom.com/wiki/)\n\nAvailable parameters are:\n- Heroes : updates heroes\n- Talents : updates talents\n- Pets : updates pets\n- All : updates all three tables above, as well as spire maps\n\nIf you want to add a hero or correct an entry, simply update the wiki and then run the corresponding command so the bot picks up your change.\nNote that the Hero_Stats page serves as the reference: if a hero doesn't appear there, the bot won't list them.\nIt is therefore crucial to update this page if you want to add a new hero :wink:\nHowever, I update this page regularly myself; your changes might eventually be overwritten by the automatic update based on data sent to me directly by Playsome :stuck_out_tongue:\nValid command example: /update type:All",
+      "xp": "This command calculates the number of potions needed to level up a hero.\nValid command example: /xp stars:5 current_ascension:A0 current_level:1 target_ascension:A4 target_level:100"
+    },
+    "title": {
+      "command": "Help of the command /",
+      "generic": "Help of this discord bot for Friends & Dragons"
+    }
   },
-  "title": {
-    "command": "Aide de la commande /",
-    "generic": "Aide du bot discord de Friends & Dragons FR"
+  "fr": {
+    "description": {
+      "addcomment": "Cette commande permet d'ajouter un commentaire sur le héros ou le familier passé en paramètre.\nIl est possible de laisser un nombre conséquent de commentaires.\nCependant, si vous avez déjà laissé un commentaire sur le héros/familier en question, il sera simplement mis à jour plutôt que d'être ajouté en tant que commentaire supplémentaire.\nSi le héros/familier en question a trop de commentaires et que le rendu sur Discord est trop long, seuls les derniers commentaires seront affichés :wink:\nExemple de commande valide : /addcomment héros_ou_familier:Adana commentaire:blablabla blablabla.",
+      "bothelp": "Cette commande permet de lister toutes les commandes disponibles.",
+      "botstats": "Cette commande permet de lister les stats du bot.",
+      "class": "Cette commande permet de lister les différents héros de la classe passée en paramètre.\nExemple de commande valide : /class classe:Rôdeur\n\nLes différentes classes recensées sont :\n",
+      "dc add": "Cette commande permet d'ajouter les captures d'écran et/ou le replay d'un niveau de la virée dans les donjons.\nÀ noter que si les captures d'écran sont déjà existantes pour le niveau choisi, elles seront écrasées par les vôtres. Seuls les fichiers avec les extensions .png, .jpg et .jpeg sont acceptées.\nEn revanche, le replay sera ajouté à la liste des replays déjà existants.\nCes paramètres étant optionnels, vous pouvez n'ajouter que des captures d'écran ou le replay.\nÉtant donné que la virée dans les donjons change tous les mois, les niveaux seront effacés à chaque dernier jour du mois.\nExemple de commande valide : /dc add niveau:100 capture_d_ecran_1:{screenshot du 1er combat} capture_d_ecran_2:{screenshot du 2ème combat} capture_d_ecran_3:{screenshot du 3ème combat} replay:{lien collé directement depuis la section replay du jeu}.",
+      "dc show": "Cette commande permet de voir les captures d'écran et les replays enregistrées pour un niveau de la virée dans les donjons.\nExemple de commande valide : /dc show niveau:100.",
+      "error": "\n\nSi vous constatez qu'une erreur s'est glissée dans le retour du bot, n'hésitez pas à mettre à jour la source depuis le Fandom Wiki (/update help pour + d'infos :wink:)",
+      "exclusive": "Cette commande permet de lister tous les héros exclusifs d'un évènement passé en paramètre.\nExemple de commande valide : /exclusive évènement:Alpha Genesis.",
+      "generic": "Voici les différentes commandes disponibles pour le bot :\n\n- /addcomment [NomDuHérosOuPet][Commentaire] : ajoute un commentaire sur le héros/familier en question\n- /bothelp : affiche ce bloc d'aide\n- /botstats : affiche les stats du bot\n- /class [NomDeLaClasse] : affiche les héros/familiers de la classe passée en paramètre\n- /dc add [Niveau][CaptureD'écran1][CaptureD'écran1][CaptureD'écran1][Replay] : ajoute les données du niveau de la virée dans les donjons passé en paramètre\n /dc show [Niveau] : affiche les données du niveau de la virée dans les donjons passé en paramètre\n- /exclusive [NomDeL'évènement] : affiche les héros/familiers exclusifs de l'évènement récurrent passé en paramètre\n- /hero [NomDuHéros] : affiche les informations du héros passé en paramètre\n- /item [NomDeL'item] : affiche les héros pouvant équiper l'item passé en paramètre\n- /level [NomDuNiveau][CoutEnEnergieStandard][CoutEnEnergieCoop] : ajoute un niveau pour pouvoir récolter des données sur ses récompenses via la commande /reward (commande réservée)\n- /merc ask[NomDuHéros] : demande un mercenaire parmi ceux listés\n- /merc register[NomDuHéros] : enregistre un héros pour le rendre disponible pour les autres joueurs via la commande /merc ask\n- /merc show[NomDuJoueur] : liste les héros recensés comme étant des mercenaires disponibles pour le joueur passé en paramètre\n- /pet [NomDuFamilier] : affiche les informations du familier passé en paramètre\n- /reward add [NomDuNiveau] : ajoute une récompense au niveau passé en paramètre\n- /reward show [NomDuNiveau] : affiche les données récoltées sur les récompense du niveau passé en paramètre\n- /set_trap [trap_id] : stocke l'id du rôle-piège pour bannir les bots (commande réservée aux admins du serveur)\n- /setbotlanguage [Langue] : fixe la langue du bot pour ce canal (commande réservée aux admins du serveur)\n- /spire add [CaptureD'écran] : enregistre le score de spire\n- /spire details : enregistre les paramètres de la montée de spire en cours\n- /talent [NomDuTalent] : affiche la liste des héros/familiers possédant le talent passé en paramètre\n- /update [type]: met à jour le bot\n- /xp[NombreD'ÉtoilesDuHéros][AscendActuel][LevelActuel][AscendCible][LevelCible] : calcule la somme de potions d'xp nécessaires pour atteindre le niveau souhaité\n\nÀ noter que chacune des commandes ci-dessus ont un paramètre \"aide\" pour plus d'info, et qu'elles sont désormais disponibles en anglais et en français en fonction du canal utilisé :wink:",
+      "hero": "Cette commande renvoie les caractéistiques suivantes du héros passé en paramètre :\n- Le nombre d'étoiles, la couleur, la classe, l'espèce, l'ascend max et le lvl max\n- Les attributs à l'ascend max (attaque et défense), le classement par rapport aux autres héros de la même classe et l'orientation offensive (ratio attaque/défense)\n- Le gain de stats max à chaque ascension\n- Le(s) bonus de leader\n- Les talents de base, d'ascend et de merge s'il y en a, et le(s) talent(s) unique(s) à la classe s'il y en a\n- La liste des équipements utilisés en fonction de l'ascend du héros\n- Le familier signature et ses bonus/talents s'il existe\n- Le(s) commentaire(s) laissé(s) par les joueurs à propos de ce héros. Vous pouvez vous-même laisser un commentaire si vous le souhaitez via la commande /addcomment (/addcomment help pour + d'infos :wink:)\n\nExemple de commande valide : /hero Sandor",
+      "item": "Cette commande permet de lister les différents héros pouvant équiper l'objet passé en paramètre.\nLes héros en question sont classés par étoile, et le nombre d'occurences de l'objet est repris.\nSi la qualité de l'objet n'est pas indiquée, alors tous les héros pouvant équiper cette catégorie d'objet seront listés\nExemple de commande valide : /item objet:Dague exaltée ou /item objet:Dague",
+      "level": "Cette commande réservée permet de créer un niveau pour les commandes /reward add et /reward show. Seuls quelques élus peuvent s'en servir, n'hésitez pas à les contacter si un niveau n'existe pas.",
+      "merc ask": "Cette commande permet de demander un mercenaire auprès de ceux qui ont recensé leurs héros via la commande /merc register.\nExemple de commande valide : /merc ask héros:Sandor",
+      "merc show": "Cette commande permet de lister les mercenaires d'un joueur donné.\nElle vous permet par exemple de vérifier la liste de vos propres héros pour savoir lesquels mettre à jour.\nExemple de commande valide : /merc show user:Prep",
+      "merc register": "Cette commande permet de recenser vos héros afin de les rendre disponibles via la commande /merc ask.\nIl est possible de renseigner pour chaque héros :\n- son ascension\n- ses talents A2, A3 et A4\n- son niveau de fusion\n- son familier et si tous ses talents de ce dernier sont déverrouillés\nSi un de vos héros est déjà enregistré par le bot, les nouvelles informations entrées seront mises à jour, celles non renseignées resteront identiques ou seront également mises à jour au besoin.\nExemple de commande valide : /merc register héros:Sandor ascension:A3 talent_a3:Oui fusion:3.",
+      "pet": "Cette commande renvoie les caractéristiques suivantes du familier passé en paramètre :\n- La couleur, le nombre d'étoiles et la classe privilégiée du familier\n- Le bonus d'attribut au niveau max (en %)\n- Le(s) héros signature, ainsi que les autres héros pouvant profiter du bonus (même couleur, même classe)\n- Les talents de base, de fusion, passif et actif avec son coût en mana\n- Le(s) commentaire(s) laissé(s) par les joueurs à propos de ce familier. Vous pouvez vous-même laisser un commentaire si vous le souhaitez via la commande /addcomment (/addcomment help pour + d'infos :wink:)\n\nExemple de commande valide : /pet familier:Almond",
+      "reward add": "Cette commande permet de récolter des données sur les récompenses d'un niveau.\nExemple de commande valide : /reward add niveau:Sanctuaire 7-2L",
+      "reward show": "Cette commande sert à afficher les données récupérées sur les récompenses d'un niveau.\nExemple de commande valide : /reward show niveau:Sanctuaire 7-2L",
+      "set_trap": "Cette commande est réservée aux admins du serveur.\nElle vous permet de définir un rôle-piège pour bannir les bots qui rejoignent votre serveur.\n\nPour utiliser cette commande, il faut au préalable effectuer quelques manipulations sur le serveur :\n- créer un rôle spécifique que les bots s'attribueront bêtement lorsqu'ils rejoindront le serveur, puis clic droit sur le rôle et \"Copier l'identifiant du rôle\"\n- activer le mode Communauté sur votre serveur dans les paramètres du serveur\n- dans Processus d'accueil > Questionnaire de personnalisation, créer une question avec une réponse et le rôle associé. La question et la réponse doivent être explicites afin que les vrais utilisateurs ne se fassent pas piéger (par exemple, question : \"Cette question est un piège à bots\", réponse : \"Ne cliquez pas sous peine d'être banni directement\")\n\nQuand un bot spammeur arrivera sur votre serveur, il cherchera à coup sûr à s'attribuer le rôle et il sera donc banni :wink:\nExemple de commande valide : /set_trap trap_id:123456789",
+      "setbotlanguage": "Cette commande est réservée aux admins du serveur.\nElle permet de fixer le langage du bot pour le canal Discord dans lequel elle est utilisée.\nExemple de commande valide : /setbotlanguage langue:Français",
+      "spire add": "Cette commande permet d'enregistrer votre score de spire pour participer à la bataille des guildes.\n Exemple de commande valide : /spire add capture_d_ecran:{screenshot du score de la montée}",
+      "spire details": "Cette commande permet d'enregistrer les caractéristiques de la montée en cours.\nIl est possible de renseigner :\n- la carte parmi celles recensées par le bot\n- les bonus des héros\n- les bonus des monstres\n- les talents bonus par tier et par étage",
+      "talent": "Cette commande permet de lister les différents héros et/ou familiers possédant le talent passé en paramètre.\nLa liste est classée par étoile, et le nombre d'occurrences du talent est repris.\n\nExemple de commande valide : /talent talent:Tumble",
+      "update": "Cette commande sert à mettre à jour le bot depuis le site du Fandom Wiki (https://friends-and-dragons.fandom.com/wiki/)\n\nLes différents paramètres possibles sont :\n- Héros : pour mettre à jour les héros\n- Talents : pour mettre  jour les talents\n- Familiers : pour mettre à jour les familiers\n- Tout : pour mettre à jour les 3 tables ci-dessus, ainsi que les cartes de spire\n\nSi vous souhaitez ajouter un héros du jeu ou modifier un paramètre mal renseigné, il vous suffit de mettre à jour le wiki, puis d'entrer la commande correspondante pour que le bot récupère votre modification.\nPour info, la page Hero_Stats est utilisée comme référence : si un héros n'y apparaît pas, il ne sera pas référencé pour le bot.\nIl est donc primordial de mettre à jour cette page si vous souhaitez référencer un nouveau héros :wink:\nCependant, cette page est mise à jour régulièrement par mes soins : il est probable que vos modifications soient par la suite écrasée par la mise à jour automatique faite sur la base des données qui me sont transmises directement par Playsome :stuck_out_tongue:\nExemple de commande valide : /update type:Tout",
+      "xp": "Cette commande permet de calculer le nombre de potions nécessaires pour xp un héros.\nExemple de commande valide : /xp étoiles:5 ascension_actuelle:A0 niveau_actuel:1 ascension ciblée:A4 niveau_ciblé:100"
+    },
+    "title": {
+      "command": "Aide de la commande /",
+      "generic": "Aide du bot discord de Friends & Dragons FR"
+    }
   },
   "name_slug": "help"
 },
@@ -139,44 +314,22 @@
     "$oid": "66d066d8a3c0cdb7486e540c"
   },
   "name": "nocomment",
-  "description": "Pas de commentaire pour l'instant :shrug:\nN'hésitez pas à ajouter le vôtre via la commande /addcomment (/addcomment help pour plus d'info)",
+  "en": "No comments yet :shrug: Feel free to add yours using /addcomment (/addcomment help for more info)",
+  "fr": "Pas de commentaire pour l'instant :shrug:\nN'hésitez pas à ajouter le vôtre via la commande /addcomment (/addcomment help pour plus d'info)",
   "name_slug": "nocomment"
-},
-{
-  "_id": {
-    "$oid": "66d066d8a3c0cdb7486e540d"
-  },
-  "name": "petlist",
-  "title": "Liste des pets équipables par le héros ",
-  "name_slug": "petlist"
 },
 {
   "_id": {
     "$oid": "66d066d8a3c0cdb7486e540e"
   },
   "name": "dhjk",
-  "items": [
-    {
-      "gif": "https://media1.tenor.com/m/Vq3qMfYjhS4AAAAC/waynes-world.gif",
-      "text": "# Priez DHJK !!! #\nOn mérite pas !\nOn mérite pas !\nOn est tout p'tit !\nOn est à chier !"
-    },
-    {
-      "gif": "https://media1.tenor.com/m/1y-Ew1y_ZLsAAAAC/moses-mitsotakis.gif",
-      "text": "# Priez DHJK !!! #\nFracasse est le le lieu qui a donné naissance au dhjkisme. Zeyuka est le messager qui a permis l'exportation internationale de ce courant philosophique qui explique que DHJK est tout, et que sans lui, l'univers n'est rien.\n*Zeyuki[FR]acasse, prophète officiel*"
-    },
-    {
-      "gif": "https://media1.tenor.com/m/84rqaYkWVVQAAAAC/the-office-michael-scott.gif",
-      "text": "# Priez DHJK !!! #\nUn jour Quand j'étais jeune chef de guilde j'ai du résoudre un conflit dans la guilde.\nJ'ai donc tranché pour clore le conflit. Face aux protestations du moment où ça parlait de faire des règles ou une charte ou ce genre de chose, j'ai poliment rappelé que : \"Pas besoin de règles puisque ici le chef c'est moi!\".\nÀ partir de là ben zeyuka a mouillé son pantalon et tu connais les conséquences.\n(Non pas que ça me déplaise.)\nEt depuis la paix règne sur [FR]acasse!\n*dhjk en personne*"
-    },
-    {
-      "gif": "https://media1.tenor.com/m/xEcQqDV9bY4AAAAC/estupefacto.gif",
-      "text": "# Priez DHJK !!! #\nNom de moi!\n*dhjk en personne*"
-    },
-    {
-      "gif": "https://media1.tenor.com/m/dB3E-yGFzZkAAAAC/bucher-kaamelot.gif",
-      "text": "# Priez DHJK !!! #\nOn a affaire à quelque chose de singulier le DHJKisme, une philosophie véhiculée par son plus grand adepte, un psychopathe nommé Zeyuki[FR]acasse Je ne sais pas ce que dhjk lui a fait, mais son cerveau est tellement bien lavé que ça brille !\n*Pandaa, mécréant du dhjkisme*"
-    }
-  ],
+  "color": "default",
+  "title": "Priez DHJK !!!",
+  "text0": "On mérite pas !\nOn mérite pas !\nOn est tout p'tit !\nOn est à chier !",
+  "text1": "Fracasse est le le lieu qui a donné naissance au dhjkisme. Zeyuka est le messager qui a permis l'exportation internationale de ce courant philosophique qui explique que DHJK est tout, et que sans lui, l'univers n'est rien.\n*Zeyuki[FR]acasse, prophète officiel*",
+  "text2": "Un jour Quand j'étais jeune chef de guilde j'ai du résoudre un conflit dans la guilde.\nJ'ai donc tranché pour clore le conflit. Face aux protestations du moment où ça parlait de faire des règles ou une charte ou ce genre de chose, j'ai poliment rappelé que : \"Pas besoin de règles puisque ici le chef c'est moi!\".\nÀ partir de là ben zeyuka a mouillé son pantalon et tu connais les conséquences.\n(Non pas que ça me déplaise.)\nEt depuis la paix règne sur [FR]acasse!\n*dhjk en personne*",
+  "text3": "Nom de moi!\n*dhjk en personne*",
+  "text4": "On a affaire à quelque chose de singulier le DHJKisme, une philosophie véhiculée par son plus grand adepte, un psychopathe nommé Zeyuki[FR]acasse Je ne sais pas ce que dhjk lui a fait, mais son cerveau est tellement bien lavé que ça brille !\n*Pandaa, mécréant du dhjkisme*",
   "name_slug": "dhjk"
 },
 {
@@ -185,8 +338,12 @@
   },
   "name": "none",
   "color": "red",
-  "title": "Commande non trouvée",
-  "description": "Commande inexistante, merci d'utiliser /bothelp pour obtenir la liste des commandes utilisables",
+  "en": {
+    "description": "## Command not found ## This command doesn't exist, please use /bothelp to get a list of available commands"
+  },
+  "fr": {
+    "description": "## Commande non trouvée ## \nCommande inexistante, merci d'utiliser /bothelp pour obtenir la liste des commandes utilisables"
+  },
   "name_slug": "none"
 },
 {
@@ -195,14 +352,711 @@
   },
   "name": "update",
   "color": "default",
-  "title": "Récupération des données",
-  "description": {
-    "all": "Récupération de toutes les données du Fandom Wiki réussie \n",
-    "erreur": "Le paramètre entré pour la commande /update n'a pas été reconnu :cry:\nMerci de vérifier et de réitérer la commande :wink:",
+  "en": {
+    "title": "Gathering data",
+    "all": "All data from Fandom Wiki has been successfully collected",
+    "error": "The parameter given for the /update command was not recognized :cry:\nPlease check and try again :wink:",
+    "part1": "Retrieving the list of ",
+    "part2": " from Fandom Wiki ok :wink:",
+    "thxmsg": "Thank you for your contribution :thumbsup:",
+    "warning": "\n\nThe /update command can take a (very) long time, you'll need to be extra patient :grin:",
+    "hero": "heroes",
+    "pet": "pets",
+    "talent": "talents"
+  },
+  "fr": {
+    "title": "Récupération des données",
+    "all": "Récupération de toutes les données du Fandom Wiki réussie",
+    "error": "Le paramètre entré pour la commande /update n'a pas été reconnu :cry:\nMerci de vérifier et de réitérer la commande :wink:",
     "part1": "Récupération de la liste des ",
-    "part2": " du Fandom Wiki réussie \n",
+    "part2": " du Fandom Wiki réussie :wink:",
     "thxmsg": "Merci pour ta contribution :thumbsup:",
-    "warning": "\n\nLa commande /update peut être (très) longue, il va falloir redoubler de patience :grin:"
+    "warning": "\n\nLa commande /update peut être (très) longue, il va falloir redoubler de patience :grin:",
+    "hero": "héros",
+    "pet": "familiers",
+    "talent": "talents"
   },
   "name_slug": "update"
+},
+{
+  "name": "addreplay",
+  "color": "green",
+  "en": {
+    "title": "Replay successfully added",
+    "part1": "Thanks for your participation ",
+    "part2": " :thumbsup:",
+    "part3": "* Event : ",
+    "part4": "* Level : "
+  },
+  "fr": {
+    "title": "Replay ajouté avec succès",
+    "part1": "Merci pour ta participation ",
+    "part2": " :thumbsup:",
+    "part3": "* Évènement : ",
+    "part4": "* Niveau : "
+  }
+},
+{
+  "name": "botstats",
+  "color": "default",
+  "en": {
+    "title": "Bot stats",
+    "heroes": "identified heroes:",
+    "pets": "identified pets:",
+    "talents": "identified talents",
+    "colors": "colors:",
+    "species": "species:",
+    "classes": "classes:"
+  },
+  "fr": {
+    "title": "Stats du bot",
+    "heroes": "héros recensés :",
+    "pets": "familiers recensés :",
+    "talents": "talents recensés",
+    "colors": "couleurs :",
+    "species": "espèces :",
+    "classes": "classes :"
+  }
+},
+{
+  "name": "class",
+  "color": "default",
+  "en": {
+    "heroes": "List of heroes of the specified class:",
+    "pets": "List of class pets:",
+    "att": "att",
+    "def": "def"
+  },
+  "fr": {
+    "heroes": "Liste des héros de la classe spécifiée :",
+    "pets": "Liste des familiers de classe :",
+    "att": "att",
+    "def": "déf"
+  }
+},
+{
+  "name": "exclusive",
+  "color": "default",
+  "en": {
+    "title": "Liste of all exclusives",
+    "heroes": "Heroes",
+    "pets": "Pets",
+    "exclusives": " exclusives:"
+  },
+  "fr": {
+    "title": "Liste de tous les exclusifs",
+    "heroes": "Héros",
+    "pets": "Familiers",
+    "exclusives": " exclusifs :"
+  }
+},
+{
+  "name": "hero",
+  "color": null,
+  "en": {
+    "stats": "Stat caps",
+    "level": "level",
+    "total": "Total",
+    "base": "base",
+    "gear": "gear",
+    "merge": "merge",
+    "pet": "pet",
+    "out of": "out of",
+    "class average": "class average",
+    "lead bonus": "Lead bonus",
+    "att": "att",
+    "def": "def",
+    "att/def": "att/def",
+    "for": "for",
+    "and": "and",
+    "or": "or",
+    "ascend_gain": "Ascend gain",
+    "talents": "Talents",
+    "ascend": "Ascend",
+    "unique talent": "Unique talent",
+    "unique talents": "Unique talents",
+    "amongst all": "amongst all",
+    "cost": "cost",
+    "gears": "Gear",
+    "signature pet": "Signature pet",
+    "max att/def bonus": "Max att/def bonus",
+    "passive talent": "Passive talent for all",
+    "active talent": "Active talent only for",
+    "comment": "Comment",
+    "comments": "Comments",
+    "date_format": "%m/%d/%Y",
+    "on": "on"
+  },
+  "fr": {
+    "stats": "Stats max",
+    "level": "niveau",
+    "total": "Total",
+    "base": "base",
+    "gear": "équipement",
+    "merge": "fusion",
+    "pet": "familier",
+    "out of": "sur",
+    "class average": "moyenne de la classe",
+    "lead bonus": "Bonus de chef",
+    "att": "att",
+    "def": "déf",
+    "att/def": "att/déf",
+    "for": "pour les",
+    "and": "et",
+    "or": "ou",
+    "ascend_gain": "Gain d'ascension",
+    "talents": "Talents",
+    "ascend": "Ascension",
+    "unique talent": "Talents uniques",
+    "unique talents": "Talents uniques",
+    "amongst all": "parmi tous les",
+    "cost": "coût",
+    "gears": "Équipements",
+    "signature pet": "Familier signature",
+    "max att/def bonus": "Bonus max d'attaque/défense",
+    "passive talent": "Talent passif pour tous les",
+    "active talent": "Talent actif seulement pour",
+    "comment": "Commentaire",
+    "comments": "Commentaires",
+    "date_format": "%d/%m/%Y",
+    "on": "le"
+  }
+},
+{
+  "name": "item",
+  "color": "default",
+  "en": {
+    "heroes": "Heroes who can equip this item",
+    "where": "Where to find this item",
+    "proba": "1 chance in",
+    "real": "real",
+    "calculated": "calculated",
+    "discount": "discount",
+    "buy": "Buy in store",
+    "recycle": "Recycling"
+  },
+  "fr": {
+    "heroes": "Héros pouvant équiper cet objet",
+    "where": "Où trouver cet objet",
+    "proba": "1 chance sur",
+    "real": "réel",
+    "calculated": "calculé",
+    "discount": "promo",
+    "buy": "Achat en boutique",
+    "recycle": "Recyclage"
+  }
+},
+{
+  "name": "level",
+  "color": "default",
+  "en": {
+    "translations": "Add level's name translations",
+    "reward types": "Choose reward type(s)",
+    "choice part1": "Choices of ",
+    "choice part2": " for the reward type \"",
+    "submit": "Submit",
+    "next": "Next",
+    "final part1": "# The level ",
+    "final part2": " has been added # \nThank you for adding this level ! :kissing_heart:"
+  },
+  "fr": {
+    "translations": "Ajout des traductions du nom du niveau",
+    "reward types": "Choississez le(s) type(s) de récompense",
+    "choice part1": "Choix des ",
+    "choice part2": " pour le type de récompense \"",
+    "submit": "Valider",
+    "next": "Suivant",
+    "final part1": "# Le niveau ",
+    "final part2": " a été ajouté #\nMerci d'avoir ajouté ce niveau ! :kissing_heart:"
+  }
+},
+{
+  "name": "pet",
+  "color": null,
+  "en": {
+    "stats": "Stat caps",
+    "att/def": "attack/defense",
+    "signature hero": "Signature hero:",
+    "signature heroes": "Signature heroes:",
+    "passive talent hero": "Other hero who can benefit from the passive talent:",
+    "passive talent heroes": "Other heroes who can benefit from the passive talent:",
+    "talents": "Talents:",
+    "base": "Base:",
+    "1att/def": "(+1% att/def)",
+    "silver": "Silver:",
+    "2att/def": "(+2% att/def)",
+    "passive": "Passive:",
+    "only for": "only for",
+    "merge": "Merge:",
+    "active": "Active:",
+    "mana cost": "Mana Cost:",
+    "comment": "Comment",
+    "comments": "Comments",
+    "date_format": "%m/%d/%Y",
+    "on": "on"
+  },
+  "fr": {
+    "stats": "Stats max",
+    "att/def": "attaque/défense",
+    "signature hero": "Héros signature :",
+    "signature heroes": "Héros signature :",
+    "passive talent hero": "Autre héros pouvant bénéficier du talent passif :",
+    "passive talent heroes": "Autres héros pouvant bénéficier du talent passif :",
+    "talents": "Talents :",
+    "base": "Base :",
+    "1att/def": "(+1% att/def)",
+    "silver": "Argent :",
+    "2att/def": "(+2% att/def)",
+    "passive": "Passif :",
+    "only for": "seulement pour les",
+    "merge": "Fusion :",
+    "active": "Actif :",
+    "mana cost": "Coût en mana :",
+    "comment": "Commentaire",
+    "comments": "Commentaires",
+    "date_format": "%d/%m/%Y",
+    "on": "le"
+  }
+},
+{
+  "name": "talent",
+  "color": "default",
+  "en": {
+    "hero": "Heroes with",
+    "pet": "Pets with "
+  },
+  "fr": {
+    "hero": "Héros ayant",
+    "pet": "Familiers ayant"
+  }
+},
+{
+  "name": "merc",
+  "color": "default",
+  "en": {
+    "title": "Mercenaries list of",
+    "a2 talent": "A2 talent",
+    "a3 talent": "A3 talent",
+    "a4 talent": "A4 talent",
+    "pet": "pet",
+    "pet talent": "with passive talent",
+    "with": "with",
+    "and": "and",
+    "needs": "needs",
+    "thx": "Thanks a lot :kissing_heart:"
+  },
+  "fr": {
+    "title": "Liste des mercenaires de",
+    "a2 talent": "talent A2",
+    "a3 talent": "talent A3",
+    "a4 talent": "talent A4",
+    "pet": "familier",
+    "pet talent": "avec son talent passif",
+    "with": "avec son",
+    "and": "et son",
+    "needs": "a besoin de",
+    "thx": "Merci beaucoup :kissing_heart:"
+  }
+},
+{
+  "name": "xp",
+  "color": "green",
+  "en": {
+    "part1": "You need ",
+    "part2": " XP potions", 
+    "gold": " :moneybag:",
+    "heroic xp": " heroic XP potions",
+    "comma": ", ",
+    "and": " and ",
+    "part3": " to level up a ",
+    "part4": " :star: hero from ",
+    "level": " level ",
+    "to": " to ",
+    "steps": ", following these steps:\n",
+    "no steps": ".",
+    "skip": "- ascend directly to ",
+    "xp1": "- use ",
+    "xp2": " XP potions d'XP up to",
+    "ascend": "- ascend ",
+    "for": " for "
+  },
+  "fr": {
+    "part1": "Il te faut ",
+    "part2": " potions d'XP", 
+    "gold": " :moneybag:",
+    "heroic xp": " potions d'XP héroïque",
+    "comma": ", ",
+    "and": " et ",
+    "part3": " pour passer un héros ",
+    "part4": " :star: de ",
+    "level": " niveau ",
+    "to": " à ",
+    "steps": ", en suivant ce cheminement :\n",
+    "no steps": ".",
+    "skip": "- passer directement ",
+    "xp1": "- utiliser ",
+    "xp2": " potions d'XP jusqu'au",
+    "ascend": "- passer ",
+    "for": " pour "
+  }
+},
+{
+  "name": "reward",
+  "color": "blue",
+  "en": {
+    "type content": "Choose reward type",
+    "type placeholder": "Choose a type",
+    "quality content": "Choose a quality for the reward type \"",
+    "quality placeholder": "Choose a quality",
+    "item content": "Choose an item type",
+    "item placeholder": "Choose an item",
+    "quantity label": "Enter a quantity",
+    "quantity placeholder": "Quantity",
+    "validation1": "You're about to add ",
+    "validation2S": " time ",
+    "validation2P": " times ",
+    "validation3": ". Voulez-vous valider ?",
+    "ok": "Ok",
+    "cancel": "Cancel",
+    "previous": "Previous",
+    "next": "Next",
+    "cancel message": "Reward canceled.\nFeel free to log your reward later :wink:",
+    "return1": "You've added ",
+    "return2": "\nThank you for your participation :wink: \n\n",
+    "no reward": "No rewards collected yet :shrug:\nFeel free to add some using the /reward add command :wink:",
+    "list1": "Current statistics on ",
+    "list2S": " reward collected",
+    "list2P": " rewards collected",
+    "average": "Averages per fight",
+    "solo energy": "solo energy",
+    "coop energy": "co-op energy",
+    "per fight": " per fight :",
+    "per": "per",
+    "energyS": "energy per fight",
+    "energyP": "energies per fight",
+    "percentage": "Loot chance percentage\n",
+    "avg": "Average"
+  },
+  "fr": {
+    "type content": "Choisissez le type de récompense",
+    "type placeholder": "Choisissez un type",
+    "quality content": "Choisissez une qualité pour le type de récompense \"",
+    "quality placeholder": "Choisissez une qualité",
+    "item content": "Choisissez un type d'objet",
+    "item placeholder": "Choisissez un objet",
+    "quantity label": "Entrez une quantité",
+    "quantity placeholder": "Quantité",
+    "validation1": "Vous êtes sur le point d'ajouter ",
+    "validation2S": " fois ",
+    "validation2P": " fois ",
+    "validation3": ". Voulez-vous valider ?",
+    "ok": "Valider",
+    "cancel": "Annuler",
+    "previous": "Précédent",
+    "next": "Suivant",
+    "cancel message": "Récompense annulée.\nN'hésitez pas à enregistrer votre récompense plus tard :wink:",
+    "return1": "Vous avez bien ajouté ",
+    "return2": "\nMerci pour votre participation :wink: \n\n",
+    "no reward": "Aucune récompense recueillie pour l'instant :shrug:\nN'hésitez pas à en ajouter à l'aide de la commande /reward add :wink:",
+    "list1": "Statistiques actuelles sur ",
+    "list2S": " récompense recueillie",
+    "list2P": " récompenses recueillies",
+    "average": "Moyennes par combat",
+    "solo energy": "énergie solo",
+    "coop energy": "énergie de coop",
+    "per fight": " par combat :",
+    "per": "par",
+    "energyS": "énergie par combat",
+    "energyP": "énergies par combat",
+    "percentage": "Pourcentage de chance de butin\n",
+    "avg": "Moyenne"
+  }
+},
+{
+  "name": "setbotlanguage",
+  "color": "default",
+  "en": {
+    "title": "Language set",
+    "return1": "Default language set to ",
+    "return2": " in this channel"
+  },
+  "fr": {
+    "title": "Langue définie",
+    "return1": "Langue définie par défaut en ",
+    "return2": " dans ce canal"
+  }
+},
+{
+  "name": "spire_add",
+  "color": "blue",
+  "en": {
+    "spire": "Dragonspire",
+    "user": "Name",
+    "guild": "Guild",
+    "tier": "Tier",
+    "climb": "Climb",
+    "score": "Score",
+    "none": "Not set",
+    "validation": "Submit score",
+    "new guild": "Add a new guild",
+    "guild title": "Guild",
+    "guild content": "Please choose a guild or create a new one if yours isn't listed below:",
+    "guild placeholder": "Choose a guild",
+    "previous": "Previous",
+    "next": "Next",
+    "create title": "New guild",
+    "create label": "Enter your guild name",
+    "create placeholder": "Guild",
+    "exists title": "Guild alreay exists",
+    "exists content 1": "The guild ",
+    "exists content 2": " seems already listed.\nDo you want to continue with this one?",
+    "tier title": "Tier",
+    "tier content": "Please choose a tier:",
+    "tier placeholder": "Tier",
+    "climb title": "Climb",
+    "climb content": "Please choose a climb:",
+    "climb placeholder": "Climb",
+    "score title": "Score",
+    "score label 1": "Total Floors Completed",
+    "score placeholder 1": "Floors Completed",
+    "score label 2": "Total Heroes Lost",
+    "score placeholder 2": "Heroes Lost",
+    "score label 3": "Total Turns Taken",
+    "score placeholder 3": "Turns Taken",
+    "score label 4": "Hero Bonuses Earned",
+    "score placeholder 4": "Hero Bonuses",
+    "score error title": "Score error",
+    "score error floors": "Completed floors count must be an integer between 0 and 14.",
+    "score error loss": "Heroes lost count must be an integer greater than or equal to 0.",
+    "score error turns": "Turns count must be an integer greater than or equal to 31 (perfect climb).",
+    "score error bonus": "Bonuses earned count must be an integer between 0 and 84.",
+    "score error end": "Please check and try again :rolling_eyes:",
+    "ok": "Ok",
+    "rank title 1": "Ranking of the ",
+    "rank title 2": " climb"
+  },
+  "fr": {
+    "spire": "Dragonspire",
+    "user": "Nom",
+    "guild": "Guilde",
+    "tier": "Niveau",
+    "climb": "Montée",
+    "score": "Score",
+    "none": "Non défini",
+    "validation": "Soumettre le score",
+    "new guild": "Ajouter une nouvelle guilde",
+    "guild title": "Guilde",
+    "guild content": "Veuillez choisir une guilde ou en créer une nouvelle si la vôtre n'est pas listée ci-dessous :",
+    "guild placeholder": "Choisir une guilde",
+    "previous": "Précédent",
+    "next": "Suivant",
+    "create title": "Nouvelle guilde",
+    "create label": "Entrez le nom de votre guilde",
+    "create placeholder": "Guilde",
+    "exists title": "La guilde existe déjà",
+    "exists content 1": "La guilde ",
+    "exists content 2": " semble déjà répertoriée.\nVoulez-vous continuer avec celle-ci ?",
+    "tier title": "Niveau",
+    "tier content": "Veuillez choisir un niveau :",
+    "tier placeholder": "Niveau",
+    "climb title": "Montée",
+    "climb content": "Veuillez choisir une montée :",
+    "climb placeholder": "Montée",
+    "score title": "Score",
+    "score label 1": "Nombre total d'étages terminés",
+    "score placeholder 1": "Étages terminés",
+    "score label 2": "Nombre total de héros perdus",
+    "score placeholder 2": "Héros perdus",
+    "score label 3": "Nombre total de tours joués",
+    "score placeholder 3": "Tours joués",
+    "score label 4": "Bonus de héros gagnés",
+    "score placeholder 4": "Bonus de héros",
+    "score error title": "Erreur de score",
+    "score error floors": "Le nombre d'étages terminés doit être un nombre entier compris entre 0 et 14.",
+    "score error loss": "Le nombre de héros perdus doit être un nombre entier supérieur ou égal à 0.",
+    "score error turns": "Le nombre de tours doit être un nombre entier supérieur ou égal à 31 (montée parfaite).",
+    "score error bonus": "Le nombre de bonus gagnés doit être un nombre entier compris entre 0 et 84.",
+    "score error end": "Merci de vérifier et de réitérer la saisie du score :rolling_eyes:",
+    "ok": "Ok",
+    "rank title 1": "Classement de la ",
+    "rank title 2": " montée"
+  }
+},
+{
+  "name": "spire ranking loop",
+  "color": "blue",
+  "en": {
+    "start message": "# The guild battle begins! # \nMay bonuses and no missed moves be with you :grin:\nGood luck everyone :wink:",
+    "climb rank 1": "Ranking of the ",
+    "climb rank 2": " climb",
+    "spire rank": "Spire ranking",
+    "final rank": "Final ranking",
+    "players": "Players",
+    "guilds": "Guilds",
+    "no score 1": "No one has posted their score in ",
+    "no score 2": " for this climb :shrug:",
+    "previous": "Previous",
+    "next": "Next"
+  },
+  "fr": {
+    "start message": "# Début de la bataille des guildes ! # \nQue les bonus et l'absence de moves foireux soient avec vous :grin:\nBon courage à tous :wink:",
+    "climb rank 1": "Classement de la ",
+    "climb rank 2": " montée",
+    "spire rank": "Classement de la spire",
+    "final rank": "Classement final",
+    "players": "Joueurs",
+    "guilds": "Guildes",
+    "no score 1": "Personne n'a posté son score en ",
+    "no score 2": " pour cette montée :shrug:",
+    "previous": "Précédent",
+    "next": "Suivant"
+  }
+},
+{
+  "name": "spire reminder loop",
+  "color": "red",
+  "en": {
+    "climb": " climb",
+    "message": "You only have one hour left to send your score and support your guild :kissing_heart:"
+  },
+  "fr": {
+    "climb": " montée",
+    "message": "Il vous reste une heure pour envoyer votre score et soutenir votre guilde :kissing_heart:"
+  }
+},
+{
+  "name": "spire_details",
+  "color": "blue",
+  "en": {
+    "map_label": "Map",
+    "hero_bonus_label": "Hero bonus",
+    "monster_bonus_label": "Monster bonus",
+    "talents_label": "Talents",
+    "finish_label": "Finish",
+    "cancel_label": "Cancel",
+    "previous_label": "Previous",
+    "next_label": "Next",
+    "validate_label": "Submit",
+    "water_label": "Water",
+    "lava_label": "Lava",
+    "no_label": "No",
+    "yes_label": "Yes",
+    "change_label": "Change",
+    "continue_label": "Continue",
+    "climb": " climb",
+    "main content 1": "Details of the ",
+    "main content 2": "Please choose which detail to add/update or validate",
+    "main content 3": "Heroes bonus",
+    "main content 4": "Monsters bonus",
+    "main content 5": "Bonus talents",
+    "map content 1": "Map of the ",
+    "map content 2": "Please choose a map",
+    "map placeholder": "Choose a map",
+    "water_or_lava content 1": "Map of the ",
+    "water_or_lava content 2": "Is it water or lava?",
+    "hero bonus title": "Heroes bonus",
+    "hero bonus label 1": "+250 score for each [XXX] in team",
+    "hero bonus label 2": "All [XXX] gain [YYY]",
+    "hero bonus placeholder 1": "Enter here what corresponds to XXX",
+    "hero bonus placeholder 2": "Enter here what corresponds to YYY",
+    "hero bonus no content": "No bonus :shrug:",
+    "hero bonus content 1": "Heroes bonus of the ",
+    "hero bonus content 2": "Is that correct?",
+    "monster bonus title": "Monsters bonus",
+    "monster bonus label 1": "All [XXX] gain [YYY]",
+    "monster bonus label 2": "All [XXX] gain [YYY]",
+    "monster bonus placeholder 1": "Enter here what corresponds to XXX",
+    "monster bonus placeholder 2": "Enter here what corresponds to YYY",
+    "monster bonus no content": "No bonus :shrug:",
+    "monster bonus content 1": "Monsters bonus of the ",
+    "monster bonus content 2": "Is that correct?",
+    "bracket content 1": "Bonus talents of the ",
+    "bracket content 2": "Please choose a tier for the talent list of each floor",
+    "bracket placeholder": "Choose a tier",
+    "talent title": ": talent list",
+    "floor": "Floor",
+    "talent content 1": "Talents of the ",
+    "cancel content": "Everything is successfully canceled :shrug:\nFeel free to rerun the command to save the details of the climb :wink:",
+    "cancel color": "red"
+  },
+  "fr": {
+    "map_label": "Carte",
+    "hero_bonus_label": "Bonus des héros",
+    "monster_bonus_label": "Bonus des monstres",
+    "talents_label": "Talents",
+    "finish_label": "Terminer",
+    "cancel_label": "Annuler",
+    "previous_label": "Précédent",
+    "next_label": "Suivant",
+    "validate_label": "Valider",
+    "water_label": "Eau",
+    "lava_label": "Lave",
+    "no_label": "Non",
+    "yes_label": "Oui",
+    "change_label": "Modifier",
+    "continue_label": "Continuer",
+    "climb": " montée",
+    "main content 1": "Détails de la ",
+    "main content 2": "Veuillez choisir quel détail ajouter/modifier ou valider",
+    "main content 3": "Bonus des héros",
+    "main content 4": "Bonus des monstres",
+    "main content 5": "Talents bonus",
+    "map content 1": "Carte de la ",
+    "map content 2": "Veuillez choisir une carte",
+    "map placeholder": "Choisir une carte",
+    "water_or_lava content 1": "Carte de la ",
+    "water_or_lava content 2": "S'agit-il d'eau ou de lave ?",
+    "hero bonus title": "Bonus des héros",
+    "hero bonus label 1": "+250 points pour chaque [XXX] dans l'équipe",
+    "hero bonus label 2": "Tous les [XXX] gagnent [YYY]",
+    "hero bonus placeholder 1": "Entrez ici ce qui correspond à XXX",
+    "hero bonus placeholder 2": "Entrez ici ce qui correspond à YYY",
+    "hero bonus no content": "Aucun bonus :shrug:",
+    "hero bonus content 1": "Bonus des héros de la ",
+    "hero bonus content 2": "Est-ce correct ?",
+    "monster bonus title": "Bonus des monstres",
+    "monster bonus label 1": "Tous les [XXX] gagnent [YYY]",
+    "monster bonus label 2": "Tous les [XXX] gagnent [YYY]",
+    "monster bonus placeholder 1": "Entrez ici ce qui correspond à XXX",
+    "monster bonus placeholder 2": "Entrez ici ce qui correspond à YYY",
+    "monster bonus no content": "Aucun bonus :shrug:",
+    "monster bonus content 1": "Bonus des monstres de la ",
+    "monster bonus content 2": "Est-ce correct ?",
+    "bracket content 1": "Talents bonus de la ",
+    "bracket content 2": "Veuillez choisir un niveau pour la liste des talents de chaque étage",
+    "bracket placeholder": "Choisir un niveau",
+    "talent title": " : liste des talents",
+    "floor": "Étage",
+    "talent content 1": "Talents de la ",
+    "cancel content": "Tout est bien annulé :shrug:\nN'hésitez pas à relancer la commande pour sauvegarder les détails de la montée :wink:",
+    "cancel color": "red"
+  }
+},
+{
+  "name": "dc",
+  "color": "blue",
+  "en": {
+    "title": "Dungeon Crawl - ",
+    "add": "Your screenshots and/or replay have been added to this level.\nThank you for sharing :wink:",
+    "replay": "Replay"
+  },
+  "fr": {
+    "title": "Virée dans les donjons - ",
+    "add": "Vos captures d'écran et/ou replay ont été ajoutés pour ce niveau.\nMerci pour ton aide :wink:",
+    "replay": "Replay"
+  }
+},
+{
+  "name": "set_trap",
+  "color": "blue",
+  "en": {
+    "title": "Trap role id set",
+    "return1": "Members with the role ",
+    "return2": " will be banned by the bot :wink:"
+  },
+  "fr": {
+    "title": "Id du rôle-piège défini",
+    "return1": "Les membres ayant le rôle ",
+    "return2": " seront ban par le bot :wink:"
+  }
 }]

@@ -2,7 +2,7 @@
   {
     "discount_price": 10,
     "icon": ":blue_circle:",
-    "name": "Magic",
+    "name": { "en": "Magic", "fr": "Magique" },
     "price": 20,
     "recycling": {
       "dust": {
@@ -18,11 +18,11 @@
   {
     "discount_price": 100,
     "icon": ":purple_circle:",
-    "name": "Epic",
+    "name": { "en": "Epic", "fr": "Épique" },
     "price": 200,
     "recycling": {
       "dust": {
-        "name": "Epic",
+        "name": { "en": "Epic dusts", "fr": "Poussières épiques" },
         "quantity": 20
       },
       "gold": 1000
@@ -34,11 +34,11 @@
   {
     "discount_price": 375,
     "icon": ":yellow_circle:",
-    "name": "Mythic",
+    "name": { "en": "Mythic", "fr": "Mythique" },
     "price": 750,
     "recycling": {
       "dust": {
-        "name": "Mythic",
+        "name": { "en": "Mythic dusts", "fr": "Poussières mythiques" },
         "quantity": 20
       },
       "gold": 2500
@@ -50,11 +50,11 @@
   {
     "discount_price": 750,
     "icon": ":red_circle:",
-    "name": "Legendary",
+    "name": { "en": "Legendary", "fr": "Légendaire" },
     "price": 1500,
     "recycling": {
       "dust": {
-        "name": "Legendary",
+        "name": { "en": "Legendary dusts", "fr": "Poussières légendaires" },
         "quantity": 15
       },
       "gold": 10000
@@ -66,11 +66,11 @@
   {
     "discount_price": 1000,
     "icon": ":green_circle:",
-    "name": "Exalted",
+    "name": { "en": "Exalted", "fr": "Exalté" },
     "price": 2500,
     "recycling": {
       "dust": {
-        "name": "Exalted",
+        "name": { "en": "Exalted dusts", "fr": "Poussières exaltées" },
         "quantity": 10
       },
       "gold": 25000
@@ -78,15 +78,15 @@
     "name_slug": "exalted",
     "type": "gear",
     "grade": 5
-  },  
+  },
   {
     "discount_price": 1980,
     "icon": ":orange_circle:",
-    "name": "Divine",
+    "name": { "en": "Divine", "fr": "Divin" },
     "price": 4950,
     "recycling": {
       "dust": {
-        "name": "Divine",
+        "name": { "en": "Divine dusts", "fr": "Poussières divines" },
         "quantity": 5
       },
       "gold": 50000
@@ -98,11 +98,11 @@
   {
     "discount_price": null,
     "icon": ":purple_circle:",
-    "name": "Radiant",
+    "name": { "en": "Radiant", "fr": "Éclatante" },
     "price": 200,
     "recycling": {
       "dust": {
-        "name": "Epic",
+        "name": { "en": "Epic dusts", "fr": "Poussières épiques" },
         "quantity": 25
       },
       "gold": 1000
@@ -114,11 +114,11 @@
   {
     "discount_price": null,
     "icon": ":yellow_circle:",
-    "name": "Brilliant",
+    "name": { "en": "Brilliant", "fr": "Brillante" },
     "price": 1000,
     "recycling": {
       "dust": {
-        "name": "Mythic",
+        "name": { "en": "Mythic dusts", "fr": "Poussières mythiques" },
         "quantity": 20
       },
       "gold": 2500
@@ -130,11 +130,11 @@
   {
     "discount_price": null,
     "icon": ":red_circle:",
-    "name": "Coruscating",
+    "name": { "en": "Coruscating", "fr": "Étincelante" },
     "price": 3000,
     "recycling": {
       "dust": {
-        "name": "Legendary",
+        "name": { "en": "Legendary dusts", "fr": "Poussières légendaires" },
         "quantity": 15
       },
       "gold": 10000
@@ -146,11 +146,11 @@
   {
     "discount_price": null,
     "icon": ":orange_circle:",
-    "name": "Incandescent",
+    "name": { "en": "Incandescent", "fr": "Incandescente" },
     "price": 5000,
     "recycling": {
       "dust": {
-        "name": "Divine",
+        "name": { "en": "Divine dusts", "fr": "Poussières divines" },
         "quantity": 5
       },
       "gold": 50000

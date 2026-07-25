@@ -541,6 +541,43 @@
   ]
 },
 {
+  "name": "exclusive_pets",
+  "pipeline": [
+    {
+      "$match": {
+          "exclusive": {"$exists": true, "$ne": null}
+        }
+    },
+    {
+      "$sort": {"name": 1}
+    },
+    {
+      "$group": {
+        "_id": "$exclusive",
+        "pets": {
+          "$push": {
+            "name": "$name",
+            "color": "$color",
+            "stars": "$stars",
+            "petclass": "$petclass",
+            "species": "$species"
+          }
+        }
+      }
+    },
+    {
+      "$project": {
+        "_id": 0,
+        "exclusive": "$_id",
+        "pets": 1
+      }
+    },
+    {
+      "$sort": {"exclusive": 1}
+    }
+  ]
+},
+{
   "name": "levels_by_gear_name_and_quality",
   "pipeline": [
     {
@@ -583,10 +620,10 @@
   ]
 },
 {
-  "name": "user_by_merc_name",
+  "name": "users_by_merc_name_and_guild_id",
   "pipeline": [
     {
-      "$match": {"mercs.name": "{{merc_name}}"}
+      "$match": {"guild_id": "{{guild_id}}"}
     },
     {
       "$unwind": "$mercs"
@@ -599,6 +636,7 @@
         "_id": 0,
         "user": 1,
         "user_id": 1,
+        "guild_id": 1,
         "merc": "$mercs"
       }
     }
@@ -607,9 +645,17 @@
 {
   "name": "unique_mercs",
   "pipeline": [
-    {"$unwind": "$mercs"},
-    {"$group": {"_id": "$mercs.name"}},
-    {"$sort": {"_id": 1}}
+    { "$unwind": "$mercs" },
+    {
+      "$group": {"_id": "$guild_id", "mercs": {"$addToSet": "$mercs.name"}}
+    },
+    {
+      "$project": {
+        "_id": 0,
+        "guild_id": "$_id",
+        "mercs": {"$sortArray": {"input": "$mercs", "sortBy": 1}}
+      }
+    }
   ]
 }
 ]
