@@ -4,60 +4,74 @@ from ..utils.strUtils import str_to_slug
 
 
 class Choice:
-  def __init__(self, name: str, value: str):
+  def __init__(self, name: str, name_localizations: Dict[str,str], value: str):
     self.name = name
+    self.name_localizations = name_localizations
     self.value = value
 
   @classmethod
   def from_dict(cls, data: Dict):
     return cls(
       name = data.get('name'),
+      name_localizations = data.get('name_localizations'),
       value = data.get('value')
     )
   
   def to_dict(self) -> Dict:
     return {
       'name': self.name,
+      'name_localizations': self.name_localizations,
       'value': self.value
     }
 
 
 class Option:
-  def __init__(self, name: str, type: int, description: str, required: bool, choices: Union[List[Choice], List] = None):
+  def __init__(self, name: str, name_localizations: dict, type: int, description: str, description_localizations: dict, required: bool, choices: Union[List[Choice], List] = None, options: Union[List['Option'], List] = None):
     self.name = name
+    self.name_localizations = name_localizations
     self.type = type
     self.description = description
+    self.description_localizations = description_localizations
     self.required = required
     self.choices = choices
+    self.options = options
 
   @classmethod
   def from_dict(cls, data: Dict):
     return cls(
       name = data.get('name'),
+      name_localizations = data.get('name_localizations'),
       type = data.get('type'),
       description = data.get('description'),
+      description_localizations = data.get('description_localizations'),
       required = data.get('required'),
-      choices = [Choice.from_dict(choice_data) for choice_data in data.get('choices', []) if isinstance(choice_data, dict)]
+      choices = [Choice.from_dict(choice_data) for choice_data in data.get('choices', []) if isinstance(choice_data, dict)],
+      options = [Option.from_dict(o) for o in data.get('options', []) if isinstance(o, dict)]
     )
   
   def to_dict(self) -> Dict:
     return {
       'name': self.name,
+      'name_localizations': self.name_localizations,
       'type': self.type,
       'description': self.description,
+      'description_localizations': self.description_localizations,
       'required': self.required,
-      'choices': [choice.to_dict() for choice in self.choices] if self.choices else []
+      'choices': [c.to_dict() for c in self.choices] if self.choices else [],
+      'options': [o.to_dict() for o in self.options] if self.options else []
     }
   
 
 class Command:
-  def __init__(self, name: str, type: int, description: str, to_update: bool, setup_type: Optional[str] = None, _id: Optional[str] = None, options: Union[List[Option], List] = None):
+  def __init__(self, name: str, name_localizations: dict, type: int, description: str, description_localizations: dict, to_update: bool, setup_type: Optional[str] = None, _id: Optional[str] = None, options: Union[List[Option], List] = None):
     self._id = ObjectId(_id) if _id else None
     self.name = name
+    self.name_localizations = name_localizations
     self.type = type
     self.setup_type = setup_type
     self.to_update = to_update
     self.description = description
+    self.description_localizations = description_localizations
     self.options = options
 
   @classmethod
@@ -65,20 +79,24 @@ class Command:
     return cls(
       _id = str(data.get('_id')) if data.get('_id') else None,
       name = data.get('name'),
+      name_localizations = data.get('name_localizations'),
       type = data.get('type'),
       setup_type = data.get('setup_type'),
       to_update = data.get('to_update'),
       description = data.get('description'),
+      description_localizations = data.get('description_localizations'),
       options = [Option.from_dict(option_data) for option_data in data.get('options', []) if isinstance(option_data, dict)]
     )
 
   def to_dict(self) -> Dict:
     command = {
       'name': self.name,
+      'name_localizations': self.name_localizations,
       'type': self.type,
       'setup_type': self.setup_type,
       'to_update': self.to_update,
       'description': self.description,
+      'description_localizations': self.description_localizations,
       'options': [option.to_dict() for option in self.options] if self.options else []
     }
     if self._id:
