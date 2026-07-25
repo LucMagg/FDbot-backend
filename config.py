@@ -20,6 +20,9 @@ class Config:
 
   TESSERACT_PATH = os.getenv('TESSERACT_PATH')
 
+  EN_YAML = os.getenv('EN_YAML')
+  FR_YAML = os.getenv('FR_YAML')
+
 
 class DevelopmentConfig(Config):
   DEBUG = True
