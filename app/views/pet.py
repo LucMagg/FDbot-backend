@@ -99,3 +99,19 @@ def get_pets_by_heroname():
   
   current_app.logger.req_404(req, 'Hero not found')
   return jsonify({'error': 'Hero not found'}), 404
+
+@pet_blueprint.route('/pet/exclusive', methods=['GET'])
+def get_exclusive_pets():
+  req = '/pet/exclusive GET'
+  current_app.logger.req(req)
+
+  type = request.json.get('type', None)
+  current_app.logger.log_info('info', f'type : {type}')
+
+  pets = PetService.get_exclusive_pets(type)
+  if pets:
+    current_app.logger.req_ok(req)
+    return jsonify(pets)
+  
+  current_app.logger.req_404(req)
+  return jsonify({'error': 'Pets not found'}), 404
