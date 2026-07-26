@@ -15,23 +15,18 @@ class MercService:
   def get_user(user_or_id):
     try:
       merc_obj = Merc.read_by_id(current_app.mongo_db, ObjectId(user_or_id))
-      current_app.logger.req("read by _id")
       return merc_obj if merc_obj else None
     except:
       pass
-    
     merc_obj = Merc.read_by_user_id(current_app.mongo_db, user_or_id)
     if merc_obj:
-      current_app.logger.req("read by user_id")
       return merc_obj
-
-    current_app.logger.req("read by user")
     merc_obj = Merc.read_by_user(current_app.mongo_db, user_or_id)
     return merc_obj if merc_obj else None
   
   @staticmethod
-  def get_users_by_merc(merc):
-    return Merc.read_by_merc(current_app.mongo_db, merc)
+  def get_users_by_merc(name, guild_id):
+    return Merc.read_by_merc(current_app.mongo_db, name, guild_id)
   
   @staticmethod
   def get_all_mercs():
@@ -40,4 +35,4 @@ class MercService:
   @staticmethod
   def get_all_users():
     result = Merc.read_all(current_app.mongo_db)
-    return [{"user": r.get('user'), "user_id": r.get('user_id')} for r in result] if result else None
+    return [{'user': r.get('user'), 'user_id': r.get('user_id'), 'guild_id': r.get('guild_id')} for r in result] if result else None
