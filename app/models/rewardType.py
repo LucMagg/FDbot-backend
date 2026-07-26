@@ -3,8 +3,34 @@ from typing import Dict, Optional, List, Union
 from app.utils.strUtils import str_to_slug
 
 
+class LocalizedText:
+  def __init__(self, values: Dict[str, str], default_lang: str = 'en'):
+    self.values = values or {}
+    self.default_lang = default_lang
+
+  def get(self, lang: Optional[str] = None) -> Optional[str]:
+    if not self.values:
+      return None
+    lang = lang or self.default_lang
+    return self.values.get(lang) or self.values.get(self.default_lang) or next(iter(self.values.values()))
+
+  def set(self, lang: str, value: str):
+    self.values[lang] = value
+
+  def to_dict(self) -> Dict[str, str]:
+    return self.values
+
+  @classmethod
+  def from_dict(cls, data, default_lang: str = 'en'):
+    if isinstance(data, dict):
+      return cls(data, default_lang)
+    if isinstance(data, str):
+      return cls({default_lang: data}, default_lang)
+    return cls({}, default_lang)
+
+
 class Choice:
-  def __init__(self, name: str, grade: int, icon: Optional[str] = '', choices: Optional[Union[str, List['Choice']]] = None):
+  def __init__(self, name: LocalizedText, grade: int, icon: Optional[str] = '', choices: Optional[Union[str, List['Choice']]] = None):
     self.name = name
     self.icon = icon
     self.choices = choices
@@ -23,7 +49,7 @@ class Choice:
       choices = choices_data
 
     return cls(
-      name = data.get('name'),
+      name = LocalizedText.from_dict(data.get('name')),
       icon = data.get('icon', ''),
       grade = data.get('grade'),
       choices = choices
@@ -31,20 +57,20 @@ class Choice:
 
   def to_dict(self) -> Dict:
     to_return = {
-      "name": self.name,
-      "icon": self.icon,
-      "grade": self.grade
+      'name': self.name.to_dict(),
+      'icon': self.icon,
+      'grade': self.grade
     }
     if self.choices is not None:
       if isinstance(self.choices, list):
-        to_return["choices"] = [choice.to_dict() for choice in self.choices]
+        to_return['choices'] = [choice.to_dict() for choice in self.choices]
       else:
-        to_return["choices"] = self.choices
+        to_return['choices'] = self.choices
     return to_return
     
   def resolve_choices(self, db):
     if isinstance(self.choices, str):
-      reward_choice = db.rewardChoices.find_one({"name": self.choices})
+      reward_choice = db.rewardChoices.find_one({'name': self.choices})
       if reward_choice:
         resolved_choices = [Choice.from_dict(choice) for choice in reward_choice.get('choices', [])]
         self.choices = resolved_choices
@@ -82,15 +108,15 @@ class RewardType:
 
   def to_dict(self) -> Dict:
     reward_type = {
-      "name": self.name,
-      "name_slug": self.name_slug,
-      "grade": self.grade,
-      "icon": self.icon,
-      "has_quantity": self.has_quantity,
-      "choices": [choice.to_dict() for choice in self.choices]
+      'name': self.name,
+      'name_slug': self.name_slug,
+      'grade': self.grade,
+      'icon': self.icon,
+      'has_quantity': self.has_quantity,
+      'choices': [choice.to_dict() for choice in self.choices]
     }
     if self._id:
-      reward_type["_id"] = str(self._id)
+      reward_type['_id'] = str(self._id)
     return reward_type
   
   def resolve_choices(self, db):
@@ -106,40 +132,20 @@ class RewardType:
       result = db.rewardTypes.insert_one(self.to_dict())
       self._id = result.inserted_id
     else:
-      db.rewardTypes.update_one({"_id": self._id}, {"$set": self.to_dict()})
+      db.rewardTypes.update_one({'_id': self._id}, {'$set': self.to_dict()})
     return self  
 
   @staticmethod
   def read_by_id(db, reward_type_id):
-    data = db.rewardTypes.find_one({"_id": ObjectId(reward_type_id)})
+    data = db.rewardTypes.find_one({'_id': ObjectId(reward_type_id)})
     return RewardType.from_dict(data).resolve_choices(db) if data else None
   
   @staticmethod
   def read_by_name(db, reward_type_name):
-    data = db.rewardTypes.find_one({"name": reward_type_name})
+    data = db.rewardTypes.find_one({'name': reward_type_name})
     return RewardType.from_dict(data).resolve_choices(db) if data else None
 
   @staticmethod
   def read_all(db):
     data = db.rewardTypes.find()
     return [RewardType.from_dict(reward_type).resolve_choices(db) for reward_type in data] if data else None
-  
-  @staticmethod
-  def update_by_name(db, reward_type_name, update_data):
-    result = db.rewardTypes.update_one({"name": reward_type_name}, {"$set": update_data})
-    return result.modified_count if result.modified_count > 0 else None
-
-  @staticmethod
-  def update_by_id(db, reward_type_id, update_data):
-    result = db.rewardTypes.update_one({"_id": ObjectId(reward_type_id)}, {"$set": update_data})
-    return result.modified_count if result.modified_count > 0 else None
-
-  @staticmethod
-  def delete_by_name(db, reward_type_name):
-    result = db.rewardTypes.delete_one({"name": reward_type_name})
-    return result.deleted_count if result.deleted_count > 0 else None
-  
-  @staticmethod
-  def delete_by_id(db, reward_type_id):
-    result = db.rewardTypes.delete_one({"_id": ObjectId(reward_type_id)})
-    return result.deleted_count if result.deleted_count > 0 else None
