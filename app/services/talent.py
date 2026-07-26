@@ -2,6 +2,8 @@ from flask import current_app
 from bson.objectid import ObjectId
 from bson.errors import InvalidId
 from app.models.talent import Talent
+from app.models.hero import Hero
+from app.models.pet import Pet
 
 
 class TalentService:
@@ -25,3 +27,10 @@ class TalentService:
   @staticmethod
   def get_all_talents():
     return Talent.read_all(current_app.mongo_db)
+
+  @staticmethod
+  def get_heroes_and_pet_talents():
+    heroes = Hero.read_all(current_app.mongo_db)
+    pets = Pet.read_all(current_app.mongo_db)
+    result = [{'name': name} for name in {talent.name for obj in heroes + pets for talent in obj.talents if talent.name and not isinstance(talent.name, int)}]
+    return sorted(result, key=lambda x:x['name'])

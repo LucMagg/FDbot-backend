@@ -39,3 +39,16 @@ def get_talents():
   
   current_app.logger.req_404(req)
   return jsonify({'error': 'Talents not found'}), 404
+
+@talent_blueprint.route('/talents', methods=['GET'])
+def get_heroes_and_pet_talents():
+  req = '/talents GET'
+  current_app.logger.req(req)
+
+  talents = TalentService.get_heroes_and_pet_talents()
+  if talents:
+    current_app.logger.req_ok(req)
+    return jsonify(talents)
+  
+  current_app.logger.req_404(req)
+  return jsonify({'error': 'Talents not found'}), 404
