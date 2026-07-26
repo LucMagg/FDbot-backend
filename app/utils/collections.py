@@ -7,7 +7,7 @@ def init_collections():
   current_app.logger.back_log('COLLECTIONS CHECK')
   existing_collections = current_app.mongo_db.list_collection_names()
 
-  static_collections = ['commands','dusts','messages','qualities','wikiSchemas', 'pipelines', 'rewardTypes', 'rewardChoices', 'heroXp', 'xpThresholds', 'languages'] # 'maps'] #<-- Ajouter maps pour créer la collection à partir du json stocké
+  static_collections = ['commands','dusts','messages','qualities','wikiSchemas', 'pipelines', 'rewardTypes', 'rewardChoices', 'heroXp', 'xpThresholds', 'languages']
 
   for collec in static_collections:
     needs_update = None
@@ -43,13 +43,13 @@ def init_collections():
       
       current_app.logger.back_log(f'  Collection {collec} {needs_update}')
   
-  dynamic_collections = ['heroes','pets','talents']  
+  dynamic_collections = ['heroes','pets', 'talents']  
   dynamic_collections_names = ' & '.join(dynamic_collections)
   need_to_create_dynamic_collections = any(coll not in existing_collections for coll in dynamic_collections)
     
   if need_to_create_dynamic_collections:
     current_app.logger.back_log(f'  Collections {dynamic_collections_names} en cours de création...')
-    UpdateService.update_all()
+    UpdateService.update(None)
     current_app.logger.back_log(f'  Collections créées')
   else:
     current_app.logger.back_log(f'  Collections {dynamic_collections_names} déjà existantes')
@@ -62,8 +62,14 @@ def compare_collections(json_data, db_data):
   db_docs = [normalize_document(doc) for doc in db_data]
   
   sort_key = next((k for k in ['name_slug', 'name', 'hero_stars'] if json_docs and k in json_docs[0].keys()), '')
-  json_docs.sort(key=lambda x: x.get(sort_key, ''))
-  db_docs.sort(key=lambda x: x.get(sort_key, ''))
+  try:
+    json_docs.sort(key=lambda x: x.get(sort_key, ''))
+  except:
+    json_docs.sort(key=lambda x: x.get(sort_key, '').get('en'))
+  try:
+    db_docs.sort(key=lambda x: x.get(sort_key, ''))
+  except:
+    db_docs.sort(key=lambda x: x.get(sort_key, '').get('en'))
 
   return all(dumps(j, sort_keys=True) == dumps(d, sort_keys=True) for j, d in zip(json_docs, db_docs))
 
