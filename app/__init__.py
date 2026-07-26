@@ -3,6 +3,7 @@ from config import config
 from .utils.logger import Logger
 from backup import init_backup
 from .utils.collections import init_collections
+from .utils.transations import Translations
 
 from .extensions import init_mongo
 from .views.dust import dust_blueprint
@@ -24,13 +25,14 @@ from .views.heroXp import heroXp_blueprint
 from .views.spire import spire_blueprint
 from .views.spireData import spireData_blueprint
 from .views.map import map_blueprint
-from .views.channel import channel_blueprint
 from .views.trait import trait_blueprint
 from .views.mapBonus import map_bonus_blueprint
 from .views.merc import merc_blueprint
-#from .views.eventType import eventType_blueprint
 from .views.language import language_blueprint
 from .views.langchannel import langchannel_blueprint
+from .views.grid import grid_blueprint
+from .views.dc import dc_blueprint
+from .views.traprole import traprole_blueprint
 
 
 def create_app(config_name='default'):
@@ -41,6 +43,8 @@ def create_app(config_name='default'):
   init_mongo(app)
 
   with app.app_context():
+    t = Translations(app)
+    t.start()
     init_backup(app)
     init_collections()
 
@@ -61,15 +65,16 @@ def create_app(config_name='default'):
   app.register_blueprint(spire_blueprint)
   app.register_blueprint(spireData_blueprint)
   app.register_blueprint(map_blueprint)
-  app.register_blueprint(channel_blueprint)
   app.register_blueprint(trait_blueprint)
   app.register_blueprint(map_bonus_blueprint)
   app.register_blueprint(merc_blueprint)
   app.register_blueprint(ready_blueprint)
   app.register_blueprint(replays_blueprint)
- # app.register_blueprint(eventType_blueprint)
   app.register_blueprint(language_blueprint)
   app.register_blueprint(langchannel_blueprint)
+  app.register_blueprint(grid_blueprint)
+  app.register_blueprint(dc_blueprint)
+  app.register_blueprint(traprole_blueprint)
   app.logger.back_log('Application en ligne')
 
   return app
