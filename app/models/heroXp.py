@@ -16,35 +16,57 @@ class XpMinMax:
   
   def to_dict(self) -> Dict:
     return {
-      "min": self.min,
-      "max": self.max
+      'min': self.min,
+      'max': self.max
+    }
+  
+class Cost:
+  def __init__(self, gold: int, potions: int):
+    self.gold = gold
+    self.potions = potions
+
+  @classmethod
+  def from_dict(cls, data: Dict):
+    return cls(
+      gold = data.get('gold'),
+      potions = data.get('potions')
+    )
+  
+  def to_dict(self) -> Dict:
+    return {
+      'gold': self.gold,
+      'potions': self.potions
     }
   
 class LevelThreshold:
-  def __init__(self, level: XpMinMax, threshold: int|None):
+  def __init__(self, level: XpMinMax, threshold: int|None, cost: Cost):
     self.level = level
     self.threshold = threshold
+    self.cost = cost
 
   @classmethod
   def from_dict(cls, data: Dict):
     return cls(
       level = XpMinMax.from_dict(data.get('level')),
-      threshold = data.get('threshold')
+      threshold = data.get('threshold'),
+      cost = Cost.from_dict(data.get('cost'))
     )
   
   def to_dict(self) -> Dict:
     return {
-      "level": self.level.to_dict(),
-      "threshold": self.threshold
+      'level': self.level.to_dict(),
+      'threshold': self.threshold,
+      'cost': self.cost.to_dict()
     }
 
 class XpThreshold:
-  def __init__(self, hero_stars: int, A0: LevelThreshold, A1: LevelThreshold, A2: LevelThreshold, A3: LevelThreshold):
+  def __init__(self, hero_stars: int, A0: LevelThreshold, A1: LevelThreshold, A2: LevelThreshold, A3: LevelThreshold, A4: LevelThreshold):
     self.hero_stars = hero_stars
     self.A0 = A0
     self.A1 = A1
     self.A2 = A2
     self.A3 = A3
+    self.A4 = A4
 
   @classmethod
   def from_dict(cls, data: Dict):
@@ -53,27 +75,30 @@ class XpThreshold:
       A0 = LevelThreshold.from_dict(data.get('A0')),
       A1 = LevelThreshold.from_dict(data.get('A1')),
       A2 = LevelThreshold.from_dict(data.get('A2')),
-      A3 = LevelThreshold.from_dict(data.get('A3'))
+      A3 = LevelThreshold.from_dict(data.get('A3')),
+      A4 = LevelThreshold.from_dict(data.get('A4'))
     )
   
   def to_dict(self) -> Dict:
     result = {
-      "hero_stars": self.hero_stars,
-      "A0": self.A0.to_dict(),
-      "A1": self.A1.to_dict(),
-      "A2": self.A2.to_dict(),
-      "A3": self.A3.to_dict()
+      'hero_stars': self.hero_stars,
+      'A0': self.A0.to_dict(),
+      'A1': self.A1.to_dict(),
+      'A2': self.A2.to_dict(),
+      'A3': self.A3.to_dict(),
+      'A4': self.A4.to_dict()
     }
     return result
   
 
 class XpData:
-  def __init__(self, level: int, A0: int|None, A1: int|None, A2: int|None, A3: int|None):
+  def __init__(self, level: int, A0: int|None, A1: int|None, A2: int|None, A3: int|None, A4: int|None):
     self.level = level
     self.A0 = A0
     self.A1 = A1
     self.A2 = A2
     self.A3 = A3
+    self.A4 = A4
 
   @classmethod
   def from_dict(cls, data: Dict):
@@ -82,16 +107,18 @@ class XpData:
       A0 = data.get('A0'),
       A1 = data.get('A1'),
       A2 = data.get('A2'),
-      A3 = data.get('A3')
+      A3 = data.get('A3'),
+      A4 = data.get('A4')
     )
 
   def to_dict(self) -> Dict:
     result = {
-      "level": self.level,
-      "A0": self.A0,
-      "A1": self.A1,
-      "A2": self.A2,
-      "A3": self.A3
+      'level': self.level,
+      'A0': self.A0,
+      'A1': self.A1,
+      'A2': self.A2,
+      'A3': self.A3,
+      'A4': self.A4
     }
     return result
 
@@ -111,9 +138,9 @@ class HeroXp:
 
   def to_dict(self) -> Dict:
     result = {
-      "_id": str(self._id) if self._id else None,
-      "hero_stars": self.hero_stars,
-      "data": [xp.to_dict() for xp in self.data] if self.data else []
+      '_id': str(self._id) if self._id else None,
+      'hero_stars': self.hero_stars,
+      'data': [xp.to_dict() for xp in self.data] if self.data else []
     }
     return result
 
