@@ -47,5 +47,8 @@ class GearService:
     pipeline_stages = [stage.copy() for stage in pipeline_doc['pipeline']]
 
     gear = list(current_app.mongo_db.heroes.aggregate(pipeline_stages))
+    for empty_gear in ['', ' ']:
+      if empty_gear in gear[0].get('gears'):
+        gear[0].get('gears').remove(empty_gear)
 
     return gear
