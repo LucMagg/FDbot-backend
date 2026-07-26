@@ -1,6 +1,5 @@
 from bson import ObjectId
-from typing import Dict, Optional, Union, List
-from ..utils.strUtils import str_to_slug
+from typing import Dict, Optional
 
 
 class LangChannel:
