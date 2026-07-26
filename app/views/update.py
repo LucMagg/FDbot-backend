@@ -18,7 +18,7 @@ def get_update():
   
   if update_return:
     current_app.logger.req_ok(req)
-    return jsonify({'message': f"Update {update_type} OK"}), 200
+    return jsonify({'message': f'Update {update_type} OK'}), 200
   
   current_app.logger.req_404(req)
   return jsonify({'error': 'Type of update not found'}), 404

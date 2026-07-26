@@ -1,397 +1,350 @@
-import requests #type ignore
+import requests
+import re
 from flask import current_app
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup, NavigableString
+from typing import Optional
 from app.models.wikiSchema import WikiSchema
 from app.models.hero import Hero
 from app.models.pet import Pet
 from app.models.talent import Talent
-from app.models.trait import Trait
-from app.utils.strUtils import str_to_wiki_url
+from app.models.map import Map
+from app.models.grid import Grid
 
 
-base_url = 'https://friends-and-dragons.fandom.com/wiki/'
+class HttpClient:
+  api_url = 'https://friends-and-dragons.fandom.com/api.php'
 
-
-class UpdateService:
-
-##### main function #####
-  def update(update_type_or_id=None):
-    wiki_schemas = WikiSchema.read_all(current_app.mongo_db)
-    schemas_to_update = [schema.to_dict() for schema in wiki_schemas if update_type_or_id is None or schema.type == update_type_or_id]
-    if schemas_to_update:
-      for schema in schemas_to_update:
-        print(f'update {schema.get('name')}')
-        current_app.logger.log_info('info', f'update {schema.get('name')}')
-        if 'single' in schema.get('name'):
-          UpdateService.parse_single_page(schema)
-        else:
-          UpdateService.parse_table(schema)
-      return True
-    return False
-
-
-##### single pages parsing (heroes or talents) #####
-  def parse_single_page(schema):
-    if 'hero' in schema.get('type'):
-      heroes = Hero.read_all(current_app.mongo_db)
-      heroes_to_update = [hero.name for hero in heroes if len(hero.gear) == 0 or len(hero.talents) == 0 or hero.stars is None]
-      updated_heroes = UpdateService.parse_heroes_one_by_one(schema, heroes_to_update)
-      Hero.update_heroes(current_app.mongo_db, updated_heroes)
-    else:
-      talents = Talent.read_all(current_app.mongo_db)
-      talents_to_update = [talent.name for talent in talents if talent.description is None or talent.description == '' or talent.image_url is None or talent.image_url == '']
-      updated_talents = UpdateService.parse_talents_one_by_one(talents_to_update)
-      Talent.update_talents(current_app.mongo_db, updated_talents)  
-
-
-##### hero's page parsing #####
-  def parse_heroes_one_by_one(schema, heroes):
-    to_return = []
-    for hero in heroes:
-      rawdata = UpdateService.grab_hero_page_data(hero)
-      to_add = {'name': rawdata.h2.get_text(), 'talents': [], 'gear': [], 'attack': {}, 'defense': {}}
-
-      for item in schema.get('data'):
-        if item.get('schema') == 'portrait':
-          to_search = rawdata.find('h2', string = to_add.get('name')).find_next_sibling()
-        else:  
-          to_search = rawdata.find('h2', string = item.get('row')).parent
-
-        match item.get('schema'):
-          case 'portrait':
-            to_add[item['property']] = to_search.find('span').find('a').get('href')
-            if 'wiki/Special' in to_add[item['property']]:
-              to_add[item['property']] = None
-          case 'text':
-            found_text = UpdateService.schema_text_in_heroes_page(to_search, item.get('property').get('then'))
-            if item.get('type') == 'Talents':
-              to_add['talents'].append({'name': found_text, 'position': item.get('property').get('then')[1]})
-            else:
-              for key, value in found_text:
-                to_add[key] = value
-          case 'stars':
-            found_stars = UpdateService.schema_text_in_heroes_page(to_search, item.get('property').get('then'))
-            to_add['stars'] = found_stars.count('⭐')
-          case 'AI':
-            found_AI = UpdateService.schema_text_in_heroes_page(to_search, item.get('property').get('then'))
-            to_add['base_IA'] = found_AI.get('AI') + ' (' + found_AI.get('AI Speed') + ')'
-          case 'talents':
-            bs_talents = to_search.find('h3', string = item.get('property').get('then')[0]).find_next_sibling()
-            found_talents = UpdateService.schema_multi_templates(bs_talents)
-            for talent, index in found_talents:
-              position = item.get('property').get('then')[1] + ' ' + str(index + 1)
-              to_add['talents'].append({'name': talent, 'position': position})
-          case 'gear':
-            bs_gear = to_search.find('h3', string = item.get('property').get('then')[0]).find_next_sibling().get_text()
-            found_gear = UpdateService.split_raw_gear_to_list(bs_gear)
-            for gear, index in found_gear:
-              ascend = item.get('property').get('then')[1]
-              position = item.get('property').get('then')[index + 2]
-              splitted_gear = gear.split(' ')
-              quality = splitted_gear[0]
-              name = ' '.join(splitted_gear[1:])
-              to_add['gear'].append({'name': name, 'position': position, 'ascend': ascend, 'quality': quality})
-          case 'stats':
-            text_to_search = item.get('property').get('then')[0]
-            property_to_add = item.get('property').get('then')[1]
-            found_text = to_search.find('h3', string = text_to_search).find_next_sibling().get_text()
-            to_add[item['property']['base']][property_to_add] = int(found_text.split('(Base ')[1].split(' + Gear')[0])
-
-      to_return.append(to_add)
-    return to_return
+  @classmethod
+  def get_page(cls, page_name):
+    params = {
+      'action': 'parse',
+      'page': page_name,
+      'prop': 'text',
+      'format': 'json'
+    }
+    r = requests.get(cls.api_url, params=params)
+    r.raise_for_status()
+    html = r.json()['parse']['text']['*']
+    return BeautifulSoup(html, 'html.parser')
+  
+  @classmethod
+  def get_category_members(cls, page_name):
+    params = {
+      'action': 'query',
+      'list': 'categorymembers',
+      'cmtitle': f'Category:{page_name}',
+      'cmlimit': 100,
+      'format': 'json'
+    }
+    r = requests.get(cls.api_url, params=params)
+    r.raise_for_status()
+    return r.json()['query']['categorymembers']
   
 
-##### talent's page parsing #####
-  def parse_talents_one_by_one(talent_names):
-    to_return = []
-    raw_bs_data = UpdateService.grab_table_page_data('Traits2')
-    talent_schema = WikiSchema.read_by_name(current_app.mongo_db, 'single_talent').to_dict()
-
-    for talent in talent_names:
-      to_add = {'name': talent}            
-      found_talent = next((tr for tr in raw_bs_data if tr.find_all('td')[0].find('span').find('a').get('title') == talent), None)
-      if found_talent:
-        for item in talent_schema.get('data'):
-          td = found_talent.find_all('td')[item['row']]
-          match item.get('schema'):
-            case 'portrait':
-              to_add[item['property']] = UpdateService.schema_template(td, item['property'])
-            case 'text':
-              to_add[item['property']] = td.get_text().strip()
-      updatable = False
-      for key, value in to_add.items():
-        if key != 'name' and value is not None:
-          updatable = True
-      if updatable:
-        to_return.append(to_add)
-    return to_return
+class Extractor:
+  def extract(page, schema):
+    base_selector = schema.get('base_selector')
+    rows = page.select(base_selector)
+    if not schema.get('no_header_skip'):
+      rows = rows[1:]
+    results = []
+    for row in rows:
+      obj = Extractor.extract_object(row, schema['fields'])
+      if obj:
+        results.append(obj)
+    return results
   
-
-##### trait's page parsing #####
-  def parse_traits_table(schema, raw_bs_object):
-    to_return = []
-    for tr in raw_bs_object:
-      to_add = {}
-      td = tr.find_all('td')
-      for item in schema.get('data'):
-        match item.get('schema'):
-          case 'portrait':
-            to_add[item.get('property')] = UpdateService.schema_template(td[item.get('row')], item.get('property'))
-          case 'text':
-            to_add[item.get('property')] = td[item.get('row')].get_text().strip().strip('\n')
-      to_return.append(to_add)
-    return to_return
-
-
-##### table page parsing #####
-  def parse_table(schema):
-    raw_bs_object = UpdateService.grab_table_page_data(schema.get('name'))
-    #get table infos
-    match schema.get('name'):
-      case 'Hero_Gear':
-        to_update = UpdateService.parse_hero_gear_table(schema, raw_bs_object)
-      case 'Hero_Talents'|'Pet_Talents':
-        to_update = UpdateService.parse_talents_table(schema, raw_bs_object)
-      case 'Traits2':
-        to_update = UpdateService.parse_traits_table(schema, raw_bs_object)
-      case _:
-        to_update = UpdateService.parse_stats_table(schema, raw_bs_object)
-    #update bdd
-    match schema.get('type'):
-      case 'hero':
-        Hero.update_heroes(current_app.mongo_db, to_update)
-      case 'pet':
-        if any('signature' in d for d in to_update):
-          heroes_to_update = []
-          for pet in to_update:
-            heroes_to_update.append({'name': pet['signature'], 'pet': pet['name']})
-            if pet['signature_bis'] is not None:
-              heroes_to_update.append({'name': pet['signature_bis'], 'pet': pet['name']})
-          Hero.update_heroes(current_app.mongo_db, heroes_to_update)
-        if any('talents' in d for d in to_update):
-          unique_talents = list(set(talent.get('name') for pet in to_update for talent in pet.get('talents') if talent.get('position') not in ['base', 'silver']))
-          talents_to_update = UpdateService.parse_talents_one_by_one(unique_talents)
-          Talent.update_talents(current_app.mongo_db, talents_to_update)
-        Pet.update_pets(current_app.mongo_db, to_update)
-
-      case 'talent':
-        Talent.update_talents(current_app.mongo_db, to_update)
-      
-      case 'traits':
-        Trait.update_traits(current_app.mongo_db, to_update)
-
-
-##### Hero_Gear table parsing #####
-  def parse_hero_gear_table(schema, raw_bs_object):
-    to_return = []
-    for tr in raw_bs_object:
-      td = tr.find_all('td')
-      to_add = {'gear': []}
-
-      for item in schema.get('data'):
-        match item.get('schema'):
-          case 'name':
-            to_add[item.get('property')] = td[item.get('row')].get_text().strip().strip('\n')
-          case 'text':
-            ascend = UpdateService.schema_ascend_text(td[item.get('row')])
-          case 'item':
-            for index, row in enumerate(item.get('row')):
-              splitted_gear = td[row].get_text().strip().split(' ')
-              quality = splitted_gear[0]
-              name = ' '.join(splitted_gear[1:]).replace('\n', '')
-              to_add['gear'].append({'ascend': ascend, 'position': item.get('property').get('then')[index], 'quality': quality, 'name': name})
-      to_return.append(to_add)
-    
-    grouped_heroes = {}
-    for hero in to_return:
-      hero_name = hero.get('name')
-      if hero_name not in grouped_heroes:
-        grouped_heroes[hero_name] = {'name': hero_name, 'gear': []}
-      grouped_heroes[hero_name]['gear'].extend(hero['gear'])
-    return list(grouped_heroes.values())
-
-##### Talents tables parsing (hero or pet) #####
-  def parse_talents_table(schema, raw_bs_object):
-    to_return = []
-    for tr in raw_bs_object:
-      td = tr.find_all('td')
-      to_add = {'talents': []}
-
-      for item in schema.get('data'):
-        match item.get('schema'):
-          case 'template':
-            to_add[item.get('property')] = UpdateService.schema_template(td[item.get('row')], item.get('property'))
-            if item.get('property') == 'name' and to_add.get(item.get('property')) == 'Upload file':
-              to_add[item.get('property')] = td[item.get('row')].get_text().strip().strip('\n')
-          case 'talent':
-            found_talents = UpdateService.schema_multi_templates(td[item.get('row')])
-            for index, talent in enumerate(found_talents):
-              position = f'{item.get('property')} {str(index + 1)}'
-              to_add['talents'].append({'name': talent, 'position': position})
-          case 'portrait':
-            to_add[item['property']] = UpdateService.schema_template(td[item.get('row')], item['property'])
-          case 'pet_talent_text':
-            talent = td[item.get('row')].get_text().strip().strip('\n')
-            if item.get('type') == 'number':
-              talent = int(talent)
-            to_add['talents'].append({'name': talent, 'position': item.get('property')})
-          case 'pet_full_talent':
-            talent = UpdateService.schema_template(td[item.get('row')], item.get('property'))
-            if talent == '':
-              talent = None
-            to_add['talents'].append({'name': talent, 'position': item.get('property')})
-          case 'pet_merge_talents':
-            for index, row in enumerate(item.get('row')):
-              talent = td[row].get_text().strip().strip('\n')
-              position = f'{item.get('property')} {str(index + 1)}'
-              to_add['talents'].append({'name': talent, 'position': position})
-
-      to_return.append(to_add)
-    return to_return
-
-
-##### Stats tables parsing (hero or pet) #####
-  def parse_stats_table(schema, raw_bs_object):
-    to_return = []
-    for tr in raw_bs_object:
-      td = tr.find_all('td')
-      to_add = {}
-
-      for item in schema.get('data'):
-        #print(td[item.get('row')])
-        print(item.get('schema'))
-        match item.get('schema'):
-          case 'template':
-            found_text = UpdateService.schema_template(td[item.get('row')], item.get('property'))
-            if found_text == '':
-              found_text = None
-            if item.get('type') == 'number':
-              found_text = int(found_text.strip('Stars'))
-            to_add[item.get('property')] = found_text
-            if item.get('property') == 'name' and to_add.get(item.get('property')) == 'Upload file':
-              to_add[item.get('property')] = td[item.get('row')].get_text().strip().strip('\n')
-          case 'portrait':
-            to_add[item['property']] = UpdateService.schema_template(td[item.get('row')], item['property'])
-          case 'number':
-            to_add[item.get('property')] = int(td[item.get('row')].get_text().strip().strip('\n'))
-          case 'template/':
-            to_add[item.get('property')] = '/'.join([span.find('a').get('title') for span in td[item.get('row')].find_all('span')])
-          case 'att_def':
-            if item.get('property').get('base') not in to_add.keys():
-              to_add[item.get('property').get('base')] = {}
-            for index, row in enumerate(item.get('row')):
-              found_text = int(td[row].get_text().strip())
-              to_add[item.get('property').get('base')][item.get('property').get('then')[index]] = found_text
-          case 'lead':
-            found_lead = UpdateService.schema_lead(td[item.get('row')])
-            to_add[item.get('property')] = found_lead
-      to_return.append(to_add)
-    return to_return
-  
-
-##### wiki's data grab functions #####
-  def grab_hero_page_data(hero_name):
-    hero_slug = str_to_wiki_url(hero_name)
-    url = f'{base_url}{hero_slug}'
-    page = requests.get(url)
-    return BeautifulSoup(page.content, 'html.parser').find('aside', class_ = 'type-Hero_Character')
-  
-  def grab_table_page_data(whichone):
-    url = f'{base_url}{whichone}'
-    page = requests.get(url)
-    return BeautifulSoup(page.content, 'html.parser').find_all('tr')[1:]
-
-
-##### bs objects read functions #####
-  def split_raw_gear_to_list(rawstring):
-    to_return = []
-    current = ''
-    for char in rawstring:
-      if char.isupper() and current and not current[-1].isspace() and not current[-1] in ['-', '&', ':']:
-        to_return.append(current)
-        current = char
-      elif char == chr(10):
-        pass
+  def extract_object(element, fields):
+    obj = {}
+    for field in fields:
+      if field.get('attribute'):
+        value = Extractor.extract_from_attribute(element, field)
       else:
-        current += char
-    if current:
-      to_return.append(current)
-    return to_return
+        value = Extractor.extract_field(element, field)
+      obj[field['name']] = value
+    return obj
   
-  def schema_text_in_heroes_page(bs_object, schema_item_list):
-    i = 0
-    to_return = []
-    while i < len(schema_item_list):
-      text_to_search = schema_item_list[i]
-      property_to_add = schema_item_list[i + 1]
-      to_return[property_to_add] = bs_object.find('h3', string = text_to_search).find_next_sibling().get_text().strip()
-      i += 2
-    return to_return
-   
-  def schema_multi_templates(bs_object):
-    spans = bs_object.find_all('span')
-    to_return = []
-    for span in spans:
-      if hasattr(span.find('a'), 'title'):
-        if 'Upload' in span.find('a').get('title'):
-          to_return.append(span.next_sibling.strip().strip('\n'))
-        else:
-          to_return.append(span.find('a').get('title').strip().strip('\n'))
-    return to_return
+  def extract_from_attribute(element, field):
+    selector = field.get('selector')
+    node = element.select_one(selector) if selector else element
+    if not node:
+      return None
+    value = node.get(field.get('attribute', ''), '')
+    if field.get('transform'):
+      value = Transform.apply(value, field['transform'])
+    return value
   
-  def schema_template(bs_object, whichone):
-    match whichone:
-      case 'image_url':
-        to_return = bs_object.find('span', {'typeof': 'mw:File/Frameless'}).find_all('a')[0].get('href')
-        if 'wiki/Special' in to_return:
-          to_return = None
-        return to_return
+  def extract_field(element, field):
+    selector = field.get('selector')
+    if selector:
+      nodes = element.select(selector)
+    else:
+      nodes = [element]
+    if not nodes:
+      return None
+    if field.get('multiple'):
+      return Extractor.extract_multiple_nodes(nodes, field)
+    return Extractor.extract_single_node(nodes[0], field)
+  
+  def extract_multiple_nodes(nodes, field):
+    values = []
+    for elem in nodes[0].contents:
+      if elem.name == 'a' and not elem.find_parent('span'):
+        values.append(elem.get_text(strip=True))
+      elif elem.name == 'span' and 'new' in elem.get('class', []):
+        values.append(elem.get_text(strip=True))
+    if field.get('transform'):
+      values = [Transform.apply(v, field['transform']) for v in values]
+    return values
+  
+  def extract_single_node(node, field):
+    match field.get('extract'):
+      case 'columns_range':
+        value = FieldParsers.parse_columns_range(node, field)
+      case 'lead_bonus':
+        value = FieldParsers.parse_lead(node)
+      case 'gear_row':
+        value = FieldParsers.parse_gear_row(node)
+      case 'clean_text':
+        value = FieldParsers.parse_trait_description(node)
       case _:
-        if bs_object.find('span'):
-          return bs_object.find('span').find('a').get('title').strip().strip('\n')
-        return None
+        selector = field.get('selector') or ''
+        if selector.endswith('a[href]'):
+          value = node.get('href')
+        elif selector.endswith('a[title]'):
+          value = node.get('title')
+        else:
+          value = node.get_text(strip=True)
+    if field.get('transform'):
+      value = Transform.apply(value, field['transform'])
+    return value
 
-  def schema_ascend_text(bs_object):
-    text = bs_object.get_text()
-    match text:
-      case 'Basic': return 'A0'
-      case '1st': return 'A1'
-      case '2nd': return 'A2'
-      case '3rd': return 'A3'
 
-  def schema_lead(bs_object):
+class Transform:
+  def apply(value, transform):
+    if not value:
+      return None
+    match transform:
+      case 'stars':
+        return int(re.sub(r'[^0-9]', '', value))
+      case 'int':
+        return int(value)
+      case 'remove_wiki_prefix':
+        return value.removeprefix('/wiki/')
+      
+
+class Group:
+  ascend_map = {'Basic': 'A0', '1st': 'A1', '2nd': 'A2', '3rd': 'A3', '4th': 'A4'}
+  gear_meta_keys = {'name', 'ascension'}
+  talent_positions = ['base', 'ascend', 'merge']
+  pet_meta_keys = {'name', 'image_url'}
+
+  def group(data, whichone):
+    match whichone:
+      case 'hero gear':
+        return Group._gear(data)
+      case 'hero talents':
+        return Group._hero_talents(data)
+      case 'pet talents':
+        return Group._pet_talents(data)
+  
+  @classmethod
+  def _gear(cls, data):
+    result = {}
+    for row in data:
+      hero = row.get('name')
+      if not hero:
+        continue
+      gear_items = [(k, v) for k, v in row.items() if k not in cls.gear_meta_keys]
+      if all(not v for _, v in gear_items):
+        continue
+      if hero not in result:
+        result[hero] = {'name': hero, 'gear': []}
+      ascend = cls.ascend_map.get(row.get('ascension'))
+      for key, value in gear_items:
+        value = value or ''
+        parts = value.strip().split(' ', 1) if value else []
+        result[hero]['gear'].append({
+          'ascend': ascend,
+          'position': key,
+          'quality': parts[0] if len(parts) > 0 else '',
+          'name': parts[1] if len(parts) > 1 else ''
+        })
+    return list(result.values())
+  
+  @classmethod
+  def _hero_talents(cls, data):
+    result = []
+    for hero in data:
+      talents = []
+      for pos in cls.talent_positions:
+        items = hero.get(pos) or []
+        for idx, name in enumerate(items, start=1):
+          talents.append({'name': name, 'position': f'{pos} {idx}'})
+      result.append({'name': hero.get('name'), 'talents': talents})
+    return result
+
+  @classmethod
+  def _pet_talents(cls, data):
+    result = []
+    for pet in data:
+      talents = []
+      for key, value in pet.items():
+        if key not in cls.pet_meta_keys:
+          talents.append({'position': key, 'name': value})
+      result.append({'name': pet.get('name'), 'image_url': pet.get('image_url'), 'talents': talents})
+    return result
+
+
+class FieldParsers:
+  def parse_columns_range(node, field):
+    result = {}
+    count = 0
+    while count < field.get('count'):
+      nth = field.get('start') + (count * field.get('step'))
+      value = node.select_one(f'td:nth-child({nth})')
+      if value and field.get('transform_all'):
+        value = Transform.apply(value.get_text(strip=True), field.get('transform_all'))
+      whichone = f'{field.get('prefix')}{count}'
+      result[whichone] = value
+      count += 1
+    return result
+  
+  def parse_lead(node):
     to_return = {}
-    td_text = bs_object.get_text()
-    print(td_text)
-
+    td_text = node.get_text()
     if 'att' in td_text:
-      to_return['attack'] = td_text.split('att')[0].split('x')[1]
-      while ' ' in to_return['attack']:
-        to_return['attack'] = to_return['attack'].replace(' ','')
-      to_return['attack'] = float(to_return['attack'].replace(',','.'))
+      attack = td_text.split('att')[0].split('x')[1].replace(' ', '')
+      to_return['attack'] = float(attack.replace(',', '.'))
     if 'def' in td_text:
       if 'att' in td_text:
-        to_return['defense'] = td_text.split('def')[0].split('and')[1]
+        defense = td_text.split('def')[0].split('and')[1].replace(' ', '')
       else:
-        to_return['defense'] = td_text.split('def')[0].split('x')[1]
-      while ' ' in to_return['defense']:
-        to_return['defense'] = to_return['defense'].replace(' ','')
-      to_return['defense'] = float(to_return['defense'].replace(',','.'))
-    
-    span = bs_object.find_all('span')
-    if span:
-      if len(span) == 1 and 'att' in td_text:
-        to_return['color'] = span[0].find('a').get('title')
-      elif len(span) == 1 and not('att') in td_text:
-        to_return['species'] = span[0].find('a').get('title')
-      elif len(span) == 2 and 'att' in td_text:
-        to_return['color'] = span[0].find('a').get('title')
-        if ' or ' in td_text:
-          to_return['extra'] = span[1].find('a').get('title')
+        defense = td_text.split('def')[0].split('x')[1].replace(' ', '')
+      to_return['defense'] = float(defense.replace(',', '.'))
+    spans = node.find_all('span')
+    if spans:
+      if len(spans) == 1:
+        title = spans[0].find('a').get('title')
+        if 'att' in td_text:
+          to_return['color'] = title
         else:
-          to_return['species'] = span[1].find('a').get('title')
-      elif len(span) == 2 and 'for' in td_text:
-        to_return['talent'] = span[0].find('a').get('title')
-        to_return['species'] = span[1].find('a').get('title')
-    
+          if 'Leader' in td_text:
+            to_return['talent'] = title
+            to_return['species'] = 'the leader'
+          else:
+            to_return['species'] = title
+      elif len(spans) == 2:
+        title0 = spans[0].find('a').get('title')
+        title1 = spans[1].find('a').get('title')
+        if 'att' in td_text:
+          to_return['color'] = title0
+          if ' or ' in td_text:
+            to_return['extra'] = title1
+          else:
+            to_return['species'] = title1
+        elif 'for' in td_text:
+          to_return['talent'] = title0
+          to_return['species'] = title1
     return to_return
+
+  def parse_trait_description(node):
+    parts = []
+    for child in node.children:
+      if isinstance(child, NavigableString):
+        text = str(child).strip()
+        if text:
+          parts.append(text)
+      elif child.name == 'a' and not child.find('img'):
+        text = child.get_text(strip=True)
+        if text:
+          parts.append(text)
+      elif child.name == 'span':
+        img = child.find('img')
+        if img:
+          alt = img.get('alt') or ''
+          next_a = child.find_next_sibling('a')
+          if not next_a or next_a.get_text(strip=True) != alt:
+            parts.append(alt)
+    parts = FieldParsers._compress_parts(parts)
+    text = ' '.join(parts)
+    text = re.sub(r'\s+', ' ', text).strip()
+    return text
+  
+  def _compress_parts(parts):
+    if not parts:
+      return ''
+    compressed = []
+    i = 0
+    n = len(parts)
+    while i < n:
+      count = 1
+      current = parts[i]
+      while i + count < n and parts[i + count] == current:
+        count += 1
+      if count > 1:
+        compressed.append(f"x{count} {current}")
+      else:
+        compressed.append(current)
+      i += count
+    final = []
+    for idx, part in enumerate(compressed):
+      if final:
+        prev = final[-1]
+        if part.startswith(prev):
+          part = part[len(prev):].lstrip()
+      final.append(part)
+    return final
+  
+
+class UpdateService:
+  def update(update_type_or_id: Optional[list] = None):
+    wiki_schemas = WikiSchema.read_all(current_app.mongo_db)
+    schemas_to_update = [schema.to_dict() for schema in wiki_schemas if update_type_or_id is None or schema.type == update_type_or_id]
+    if not schemas_to_update:
+      return False
+    for schema in schemas_to_update:
+      current_app.logger.log_info('info', f'update {schema.get('name')}')
+      match schema.get('parse_type'):
+        case 'category':
+          pages = [HttpClient.get_page(page.get('title')) for page in HttpClient.get_category_members(schema.get('name'))]
+          for page in pages:
+            UpdateService.process(page, schema)
+        case None:
+          page = HttpClient.get_page(schema.get('name'))
+          UpdateService.process(page, schema)
+    return True
+  
+  def process(page, schema):
+    data = Extractor.extract(page, schema)
+    if schema.get('follow'):
+      data = UpdateService.fetch_follow(data, schema.get('follow'))
+    if schema.get('group'):
+      data = Group.group(data, schema.get('group'))
+    UpdateService.save(schema.get('type'), data)
+  
+  def fetch_follow(data, follow):
+    for item in data:
+      sub_page_name = item.pop(follow.get('field'), None)
+      if not sub_page_name:
+        continue
+      sub_page = HttpClient.get_page(sub_page_name)
+      nodes = sub_page.select(follow.get('base_selector'))
+      item[follow.get('into')] = [
+        Extractor.extract_object(node, follow.get('fields', []))
+        for node in nodes
+      ]
+    return data
+  
+  def save(type, data):
+    match type:
+      case 'hero':
+        Hero.update_heroes(current_app.mongo_db, data)
+      case 'pet':
+        Pet.update_pets(current_app.mongo_db, data)
+      case 'talent':
+        Talent.update_talents(current_app.mongo_db, data)
+      case 'grid':
+        Grid.update(current_app.mongo_db, data)
+      case 'map':
+        Map.update(current_app.mongo_db, data)
