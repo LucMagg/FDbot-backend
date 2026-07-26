@@ -9,10 +9,12 @@ comment_blueprint = Blueprint('comment', __name__)
 def add_comment():
   req = '/comment POST'
   current_app.logger.req(req)
-  hero_or_pet = request.args.get('hero_or_pet')
-  comment = request.args.get('comment')
-  author = request.args.get('author')
-  current_app.logger.log_info('info', f"arg : {hero_or_pet} | author : {author} | comment : {comment}")
+  comment_data = request.get_json()
+  hero_or_pet = comment_data.get('hero_or_pet')
+  comment = comment_data.get('comment')
+  author = comment_data.get('author')
+  lang = comment_data.get('lang')
+  current_app.logger.log_info('info', f'arg : {hero_or_pet} | author : {author} | comment : {comment} | lang : {lang}')
 
   if hero_or_pet and comment:
     to_comment = HeroService.get_one_hero(hero_or_pet)
@@ -22,9 +24,9 @@ def add_comment():
       comment_type = 'pet'
     if to_comment:
       if comment_type == 'hero':
-        HeroService.add_comment(to_comment, comment, author)
+        HeroService.add_comment(to_comment, comment, author, lang)
       else:
-        PetService.add_comment(to_comment, comment, author)
+        PetService.add_comment(to_comment, comment, author, lang)
 
       current_app.logger.req_ok(req)
       return jsonify({'message': 'comment added and/or modified'}), 201
