@@ -3,51 +3,48 @@ from bson.objectid import ObjectId
 from bson.errors import InvalidId
 from math import ceil
 from datetime import datetime
-from collections import defaultdict
 
 from app.models.hero import Hero
 from app.services.pet import PetService
 
 
-
 class HeroService:
-  def att_gear(hero):
-    return ceil(hero['attack']['max'] * 5 / 100 * hero['ascend'])
+  def add_ascend_stats(hero):
+    ascend_levels = ['A0', 'A1', 'A2', 'A3', 'A4']
+    available = [a for a in ascend_levels if hero['attack'].get(a)]
+    pet = PetService.get_one_pet(hero['pet']) if hero.get('pet') else None
+    pet_att_pct = pet['attack'] / 100 if pet else 0
+    pet_def_pct = pet['defense'] / 100 if pet else 0
+    att_slots = ['Amulet', 'Weapon', 'Ring']
+    def_slots  = ['Head', 'Off-Hand', 'Body']
+    attack_max = {}
+    defense_max = {}
+
+    for ascend in available:
+      base_att = hero.get('attack').get(ascend)
+      base_def = hero.get('defense').get(ascend)
+      att_g = HeroService._gear_pct(hero, ascend, att_slots)
+      def_g = HeroService._gear_pct(hero, ascend, def_slots)
+      attack_max[ascend] = {
+        'base':  base_att,
+        'gear':  ceil(base_att * att_g),
+        'merge': ceil(base_att * 0.15),
+        'pet':   ceil(base_att * pet_att_pct),
+      }
+      attack_max[ascend]['total'] = sum(attack_max.get(ascend).values())
+      defense_max[ascend] = {
+        'base':  base_def,
+        'gear':  ceil(base_def * def_g),
+        'merge': ceil(base_def * 0.15),
+        'pet':   ceil(base_def * pet_def_pct),
+      }
+      defense_max[ascend]['total'] = sum(defense_max.get(ascend).values())
+    hero['attack_max'] = attack_max
+    hero['defense_max'] = defense_max
+    return hero
   
-  def def_gear(hero):
-    return ceil(hero['defense']['max'] * 5 / 100 * hero['ascend'])
-  
-  def att_merge(hero):
-    return ceil(hero['attack']['max'] * 15 / 100)
-  
-  def def_merge(hero):
-    return ceil(hero['defense']['max'] * 15 / 100)
-  
-  def att_pet_boost(hero):
-    if hero['pet'] is not None:
-      pet = PetService.get_one_pet(hero['pet'])
-      if pet is not None:
-        return ceil(hero['attack']['max'] * pet['attack'] / 100)
-      else:
-        return 0
-    else:
-      return 0
-  
-  def def_pet_boost(hero):
-    if hero['pet'] is not None:
-      pet = PetService.get_one_pet(hero['pet'])
-      if pet is not None:
-        return ceil(hero['defense']['max'] * pet['defense'] / 100)
-      else:
-        return 0
-    else:
-      return 0
-    
-  def att_max(hero):
-    return hero['attack']['max'] + hero['att_gear'] + hero['att_merge'] + hero['att_pet_boost']
-  
-  def def_max(hero):
-    return hero['defense']['max'] + hero['def_gear'] + hero['def_merge'] + hero['def_pet_boost']
+  def _gear_pct(hero, ascend, slots) -> int:
+    return sum(1 for g in hero['gear'] if g['ascend'] == ascend and g['position'] in slots and g.get('name')) * 0.05
   
   def add_stats_rank(hero, heroes):
     for stat, rank, average in [('att_max', 'att_rank', 'att_average'), ('def_max', 'def_rank', 'def_average')]:
@@ -75,7 +72,6 @@ class HeroService:
           total += h[stat]
         hero[average] = round(total / len(heroes))
         
-
     hero['class_count'] = len(heroes)
     return hero
   
@@ -98,14 +94,10 @@ class HeroService:
     return hero
   
   def add_stats(hero, heroes):
-    hero['att_gear'] = HeroService.att_gear(hero)
-    hero['att_merge'] = HeroService.att_gear(hero)
-    hero['att_pet_boost'] = HeroService.att_pet_boost(hero)
-    hero['att_max'] = HeroService.att_max(hero)
-    hero['def_gear'] = HeroService.def_gear(hero)
-    hero['def_merge'] = HeroService.def_gear(hero)
-    hero['def_pet_boost'] = HeroService.def_pet_boost(hero)
-    hero['def_max'] = HeroService.def_max(hero)
+    hero = HeroService.add_ascend_stats(hero)
+    last = hero['ascend_max']
+    hero['att_max'] = hero['attack_max'][last]['total']
+    hero['def_max'] = hero['defense_max'][last]['total']
     hero = HeroService.add_stats_rank(hero, heroes)
     hero = HeroService.add_unique_talents(hero, heroes)
     return hero
@@ -125,8 +117,7 @@ class HeroService:
       heroes = HeroService.get_heroes_by_class(to_return.heroclass)
       hero = HeroService.add_stats(to_return.to_dict(), heroes)
       return hero
-    else:
-      return None
+    return None
   
   @staticmethod
   def get_all_heroes():
@@ -136,21 +127,19 @@ class HeroService:
       for hero in heroes:
         to_return.append(hero.to_dict())
       return to_return
-    else:
-      return None
+    return None
 
   @staticmethod
   def get_heroes_by_class(heroclass):
     if heroclass == 'all':
-      classes = Hero.read_all_classes(current_app.mongo_db)
-      return classes
-    else:
-      heroes = Hero.read_by_class(current_app.mongo_db, heroclass)
-    to_return = []
+      return Hero.read_all_classes(current_app.mongo_db)
+    heroes = Hero.read_by_class(current_app.mongo_db, heroclass)
     for hero in heroes:
-      hero = HeroService.add_stats(hero, heroes)
-      to_return.append(hero)
-    return to_return
+      hero = HeroService.add_ascend_stats(hero)
+      last = hero['ascend_max']
+      hero['att_max'] = hero['attack_max'][last]['total']
+      hero['def_max'] = hero['defense_max'][last]['total']
+    return heroes
 
   @staticmethod
   def get_heroes_by_gear_name_and_quality(gear_name, gear_quality):
@@ -160,48 +149,44 @@ class HeroService:
       heroes = Hero.read_by_gear_name_and_quality(current_app.mongo_db, gear_name, gear_quality)
     if heroes:
       return heroes
-    else:
-      return None
+    return None
 
   @staticmethod
   def get_heroes_by_talent(talent_name):
     heroes = Hero.read_by_talent(current_app.mongo_db, talent_name)
     if heroes:
       return heroes
-    else:
-      return None
+    return None
     
   @staticmethod
   def get_heroes_by_pet(pet_name):
     heroes = Hero.read_by_pet(current_app.mongo_db, pet_name)
     if heroes:
       return heroes
-    else:
-      return None
+    return None
     
   @staticmethod
   def get_exclusive_heroes(exclusive_type=None):
     heroes = Hero.read_exclusives(current_app.mongo_db, exclusive_type)
     if heroes:
       return heroes
-    else:
-      return None
+    return None
   
   @staticmethod
   def get_all_exclusive_types():
     exclusive_types = Hero.read_exclusive_types(current_app.mongo_db)
     if exclusive_types:
       return exclusive_types
-    else:
-      return None
+    return None
     
   @staticmethod
-  def add_comment(hero_to_comment, comment, author):
-    existing_comment = next((c for c in hero_to_comment['comments'] if c['author'] == author), None)
+  def add_comment(hero_to_comment, comment, author, lang):
+    existing_comment = next((c for c in hero_to_comment['comments'] if c['author'] == author and c['lang'] == lang), None)
     if existing_comment:
       existing_comment['commentaire'] = comment
       existing_comment['date'] = datetime.now()
+      existing_comment['lang'] = lang
     else:
-      hero_to_comment['comments'].append({'author': author, 'commentaire': comment, 'date': datetime.now()})
+      hero_to_comment['comments'].append({'author': author, 'commentaire': comment, 'date': datetime.now(), 'lang': lang})
     Hero.update_by_name(current_app.mongo_db, hero_to_comment['name'], hero_to_comment)
 
