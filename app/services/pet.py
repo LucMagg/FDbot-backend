@@ -27,37 +27,38 @@ class PetService:
   @staticmethod
   def get_pets_by_class(petclass):
     pets = Pet.read_by_class(current_app.mongo_db, petclass)
-
     if pets:
       return pets
-    else:
-      return None
+    return None
   
   @staticmethod
   def get_pets_by_talent(talent_name):
     pets = Pet.read_by_talent(current_app.mongo_db, talent_name)
-
     if pets:
       return pets
-    else:
-      return None
+    return None
     
   @staticmethod
   def get_pets_by_color_or_heroname(color, heroname):
     pets = Pet.read_by_color_or_heroname(current_app.mongo_db, color, heroname)
-
     if pets:
       return pets
-    else:
-      return None
+    return None
+  
+  @staticmethod
+  def get_exclusive_pets(exclusive_type=None):
+    pets = Pet.read_exclusives(current_app.mongo_db, exclusive_type)
+    if pets:
+      return pets
+    return None
     
   @staticmethod
-  def add_comment(pet_to_comment, comment, author):
-    existing_comment = next((c for c in pet_to_comment['comments'] if c['author'] == author), None)
+  def add_comment(pet_to_comment, comment, author, lang):
+    existing_comment = next((c for c in pet_to_comment['comments'] if c['author'] == author and c['lang'] == lang), None)
     if existing_comment:
       existing_comment['commentaire'] = comment
       existing_comment['date'] = datetime.now()
+      existing_comment['lang'] = lang
     else:
-      pet_to_comment['comments'].append({'author': author, 'commentaire': comment, 'date': datetime.now()})
-
+      pet_to_comment['comments'].append({'author': author, 'commentaire': comment, 'date': datetime.now(), 'lang': lang})
     Pet.update_by_name(current_app.mongo_db, pet_to_comment['name'], pet_to_comment)

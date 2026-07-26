@@ -9,24 +9,27 @@ from ..utils.types import *
 
 
 class Comment:
-  def __init__(self, author: str, commentaire: str, date: date):
+  def __init__(self, author: str, commentaire: str, date: date, lang: str):
     self.author = author
     self.commentaire = commentaire
     self.date = date
+    self.lang = lang
 
   @classmethod
   def from_dict(cls, data: Dict):
     return cls(
       author = data.get('author'),
       commentaire = data.get('commentaire'),
-      date = data.get('date')
+      date = data.get('date'),
+      lang = data.get('lang')
     )
 
   def to_dict(self) -> Dict:
     return {
       'author': self.author,
       'commentaire': self.commentaire,
-      'date': self.date
+      'date': self.date,
+      'lang': self.lang
     }
 
 
@@ -36,14 +39,15 @@ class Pet:
       attack: int,
       color: ColorType,
       petclass: ClassType,
-      image_url: str | None,
       name: str,
       defense: int,
       manacost: int,
       stars: int,
       signature: str,
-      signature_bis: str | None,
       name_slug: str,
+      signature_bis: str | None,
+      exclusive: Optional[str] = None,
+      image_url: Optional[str] = None,
       talents: Union[List[Talent], List] = None,
       comments: Union[List[Comment], List] = None,
       _id: Optional[str] = None
@@ -59,6 +63,7 @@ class Pet:
     self.stars = stars
     self.signature = signature
     self.signature_bis = signature_bis
+    self.exclusive = (exclusive or '').strip() or None
     self.name_slug = name_slug
     self.talents = talents
     self.comments = comments
@@ -78,6 +83,7 @@ class Pet:
       stars = data.get('stars'),
       signature = data.get('signature'),
       signature_bis = data.get('signature_bis'),
+      exclusive = (data.get('exclusive') or '').strip() or None,
       name_slug = str_to_slug(data.get('name')),
       talents = [Talent.from_dict(talent_data) for talent_data in data.get('talents', []) if isinstance(talent_data, dict)],
       comments = [Comment.from_dict(comment_data) for comment_data in data.get('comments', []) if isinstance(comment_data, dict)],
@@ -96,6 +102,7 @@ class Pet:
       'stars': self.stars,
       'signature': self.signature,
       'signature_bis': self.signature_bis,
+      'exclusive': self.exclusive,
       'name_slug': self.name_slug,
       'talents': [{'name': talent.name, 'position': talent.position} for talent in self.talents] if self.talents else [],
       'comments': [comment.to_dict() for comment in self.comments] if self.comments else [],
@@ -153,7 +160,7 @@ class Pet:
 
     for stage in pipeline_stages:
       if '$match' in stage:
-        stage['$match']['talents.name'] = slug_to_str(talent)
+        stage['$match']['talents.name'] = talent
 
     pets = list(db.pets.aggregate(pipeline_stages))
     data = []
@@ -182,6 +189,19 @@ class Pet:
       pet['_id'] = str(pet['_id'])
       data.append(pet)
     return data
+
+  @staticmethod
+  def read_exclusives(db, type):
+    pipeline_doc = db.pipelines.find_one({'name': 'exclusive_pets'})
+    if not pipeline_doc:
+      return None
+    pipeline_stages = [stage.copy() for stage in pipeline_doc['pipeline']]
+    if type is not None:
+      for stage in pipeline_stages:
+        if '$match' in stage:
+          stage['$match']['exclusive'] = type
+    pets = list(db.pets.aggregate(pipeline_stages))
+    return pets
   
   @staticmethod
   def update_pets(db, new_pets):
@@ -231,7 +251,7 @@ class Pet:
       operations.append(
         UpdateOne(
           {'image_url': pet_to_return['image_url']},
-          {'$set': pet_to_return},
+          {'$set': Pet._clean_empty_strings(pet_to_return)},
           upsert = True
         )
       )
@@ -250,7 +270,7 @@ class Pet:
 
     result = db.pets.update_one(
       {'name_slug': str_to_slug(pet_name)},  
-      {'$set': pet}
+      {'$set': Pet._clean_empty_strings(pet)}
     )
     return True
 
@@ -269,3 +289,10 @@ class Pet:
   def delete_by_id(db, pet_id):
     result = db.pets.delete_one({'_id': ObjectId(pet_id)})
     return result.deleted_count if result.deleted_count > 0 else None
+
+  def _clean_empty_strings(data: dict):
+    for key, value in data.items():
+      if isinstance(value, str):
+        value = value.strip()
+        data[key] = value if value else None
+    return data
