@@ -10,100 +10,39 @@ from app.utils.strUtils import str_to_slug, slug_to_str
 from app.utils.types import *
 
 
-class Attack:
-  def __init__(self, att75: int|None, att85: int|None, att95: int|None, att100: int|None):
-    self.att75 = att75
-    self.att85 = att85
-    self.att95 = att95
-    self.att100 = att100
+class Stats:
+  def __init__(self, A0: Optional[int] = None, A1: Optional[int] = None, A2: Optional[int] = None, A3: Optional[int] = None, A4: Optional[int] = None):
+    self.A0 = A0
+    self.A1 = A1
+    self.A2 = A2
+    self.A3 = A3
+    self.A4 = A4
 
   @classmethod
   def from_dict(cls, data: Dict):
     return cls(
-      att75 = data.get('att75', None),
-      att85 = data.get('att85', None),
-      att95 = data.get('att95', None),
-      att100 = data.get('att100', None),
-
+      A0 = data.get('A0', None),
+      A1 = data.get('A1', None),
+      A2 = data.get('A2', None),
+      A3 = data.get('A3', None),
+      A4 = data.get('A4', None)
     )
 
   def to_dict(self) -> Dict:
     return {
-      'att75': self.att75,
-      'att85': self.att85,
-      'att95': self.att95,
-      'att100': self.att100,
-      'max': self.att_max()
+      'A0': self.A0,
+      'A1': self.A1,
+      'A2': self.A2,
+      'A3': self.A3,
+      'A4': self.A4,
+      'max': self._max()
     }
   
-  def att_max(self) -> int|None:
-    to_compare = []
-    if self.att75 is not None:
-      to_compare.append(self.att75)
-    if self.att85 is not None:
-      to_compare.append(self.att85)
-    if self.att95 is not None:
-      to_compare.append(self.att95)
-    if self.att100 is not None:
-      to_compare.append(self.att100)
-    
-    to_return = 0
-    for n in to_compare:
-      if n > to_return:
-        to_return = n
-      
-    if to_return > 0:
-      return to_return
-    else:
-      return None
-  
-
-class Defense:
-  def __init__(self, def75: int|None, def85: int|None, def95: int|None, def100: int|None):
-    self.def75 = def75
-    self.def85 = def85
-    self.def95 = def95
-    self.def100 = def100
-
-  @classmethod
-  def from_dict(cls, data: Dict):
-    return cls(
-      def75 = data.get('def75', None),
-      def85 = data.get('def85', None),
-      def95 = data.get('def95', None),
-      def100 = data.get('def100', None),
-    )
-
-  def to_dict(self) -> Dict:
-    return {
-      'def75': self.def75,
-      'def85': self.def85,
-      'def95': self.def95,
-      'def100': self.def100,
-      'max': self.def_max()
-    }
-    
-  def def_max(self) -> int|None:
-    to_compare = []
-    if self.def75 is not None:
-      to_compare.append(self.def75)
-    if self.def85 is not None:
-      to_compare.append(self.def85)
-    if self.def95 is not None:
-      to_compare.append(self.def95)
-    if self.def100 is not None:
-      to_compare.append(self.def100)
-    
-    to_return = 0
-    for n in to_compare:
-      if n > to_return:
-        to_return = n
-      
-    if to_return > 0:
-      return to_return
-    else:
-      return None
-  
+  def _max(self) -> Optional[int]:
+    to_compare = [a for a in [self.A0, self.A1, self.A2, self.A3, self.A4] if a]        
+    if len(to_compare) > 0:
+      return max(to_compare)
+    return None  
 
 
 class Lead:
@@ -139,24 +78,27 @@ class Lead:
 
 
 class Comment:
-  def __init__(self, author: str, commentaire: str, date: date):
+  def __init__(self, author: str, commentaire: str, date: date, lang: str):
     self.author = author
     self.commentaire = commentaire
     self.date = date
+    self.lang = lang
 
   @classmethod
   def from_dict(cls, data: Dict):
     return cls(
       author = data.get('author'),
       commentaire = data.get('commentaire'),
-      date = data.get('date')
+      date = data.get('date'),
+      lang = data.get('lang')
     )
 
   def to_dict(self) -> Dict:
     return {
       'author': self.author,
       'commentaire': self.commentaire,
-      'date': self.date
+      'date': self.date,
+      'lang': self.lang
     }
   
 
@@ -188,9 +130,10 @@ class Gear:
 
 
 class Hero:
+  ascends = ['A4', 'A3', 'A2', 'A1', 'A0']
   def __init__(
       self,
-      ascend_max: int,
+      ascend_max: str,
       base_IA: str,
       color: ColorType,
       heroclass: ClassType,
@@ -202,8 +145,8 @@ class Hero:
       stars: int,
       type: TypeType,
       name_slug: str,
-      attack: Attack,
-      defense: Defense,
+      attack: Stats,
+      defense: Stats,
       lead_color: Lead,
       lead_species: Lead,
       exclusive: str|None,
@@ -254,8 +197,8 @@ class Hero:
       stars = data.get('stars'),
       type = data.get('type'),
       name_slug = str_to_slug(data.get('name')),
-      attack = Attack.from_dict(data.get('attack', {})),
-      defense = Defense.from_dict(data.get('defense', {})),
+      attack = Stats.from_dict(data.get('attack', {})),
+      defense = Stats.from_dict(data.get('defense', {})),
       lead_color = Lead.from_dict(data.get('lead_color', {})),
       lead_species = Lead.from_dict(data.get('lead_species', {})),
       talents = [Talent.from_dict(talent_data) for talent_data in data.get('talents', []) if isinstance(talent_data, dict)],
@@ -287,21 +230,19 @@ class Hero:
       'comments': [comment.to_dict() for comment in self.comments] if self.comments else [],
       'gear': [gear.to_dict() for gear in self.gear] if self.gear else [],
       'lvl_max': self.lvl_max(),
-      'ascend': self.ascend(),
       'exclusive': self.exclusive
     }
   
-  def ascend(self) -> int|None:
-    if self.ascend_max and self.stars:
-      return self.ascend_max - self.stars
-    else:
-      return None
-  
   def lvl_max(self) -> int:
-    if self.ascend() == 2:
-      return 95
-    else:
-      return 100
+    match self.ascend_max:
+      case 'A0':
+        return 75
+      case 'A1':
+        return 85
+      case 'A2':
+        return 95
+      case _:
+        return 100
 
   @staticmethod
   def create(self, db):
@@ -452,13 +393,15 @@ class Hero:
   @staticmethod
   def update_by_name(db, hero_name, update_data):
     hero = Hero.from_dict(update_data).to_dict()
-    del hero['ascend']
-    del hero['lvl_max']
+    if 'ascend' in hero:
+      del hero['ascend']
+    if 'lvl_max' in hero:
+      del hero['lvl_max']
     if '_id' in hero:
       del hero['_id']
     result = db.heroes.update_one(
       {'name_slug': str_to_slug(hero_name)},  
-      {'$set': hero}
+      {'$set': Hero._clean_empty_strings(hero)}
     )
     return True
 
@@ -466,8 +409,8 @@ class Hero:
   def update_by_id(db, hero_id, update_data):
     return Hero.update_hero(db, hero_id, update_data)
   
-  @staticmethod
-  def update_heroes(db, new_heroes):
+  @classmethod
+  def update_heroes(cls, db, new_heroes):
     existing_heroes = list(db.heroes.find())
     existing_pets = list(db.pets.find())
     operations = []
@@ -514,11 +457,12 @@ class Hero:
             hero_to_return['gear'] = new_hero['gear']
       else:
         hero_to_return = new_hero
-      if 'attack' in hero_to_return.keys() and 'stars' in hero_to_return.keys():
-        if 'att100' in hero_to_return['attack'].keys():
-          hero_to_return['ascend_max'] = hero_to_return['stars'] + 3
-        else:
-          hero_to_return['ascend_max'] = hero_to_return['stars'] + 2
+      if 'attack' in hero_to_return.keys():
+        for ascend in cls.ascends:
+          if ascend in hero_to_return.get('attack').keys():
+            if hero_to_return.get('attack').get(ascend):
+              hero_to_return['ascend_max'] = ascend
+              break
       hero_to_return['name_slug'] = str_to_slug(hero_to_return['name'])
       existing_pet = next((p for p in existing_pets if p.get('signature') == hero_to_return['name'] or p.get('signature_bis') == hero_to_return['name']), None)
       if existing_pet:
@@ -528,7 +472,7 @@ class Hero:
       operations.append(
         UpdateOne(
           {'name': hero_to_return['name']},
-          {'$set': hero_to_return},
+          {'$set': Hero._clean_empty_strings(hero_to_return)},
           upsert = True
         )
       )
@@ -545,3 +489,10 @@ class Hero:
   def delete_by_id(db, hero_id):
     result = db.heroes.delete_one({'_id': ObjectId(hero_id)})
     return result.deleted_count if result.deleted_count > 0 else None
+
+  def _clean_empty_strings(data: dict):
+    for key, value in data.items():
+      if isinstance(value, str):
+        value = value.strip()
+        data[key] = value if value else None
+    return data
