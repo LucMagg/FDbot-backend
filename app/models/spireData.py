@@ -77,7 +77,7 @@ class SpireData:
 
     existing_spiredatas = db.spireDatas.find()
     for spiredata in existing_spiredatas:
-      if self.username == spiredata.get('username') and self.spire == spiredata.get('spire') and self.climb == spiredata.get('climb'):
+      if self.user_id == spiredata.get('user_id') and self.spire == spiredata.get('spire') and self.climb == spiredata.get('climb'):
         print('already posted spire -> delete and reinsert')
         db.spireDatas.delete_one({'_id': spiredata.get('_id')})
 
