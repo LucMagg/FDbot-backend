@@ -10,17 +10,6 @@ class MapService:
   def create_map(map_data):
     map = Map.from_dict(map_data)
     return map.create(current_app.mongo_db)
-
-  @staticmethod
-  def get_one_map(map_name_or_id):
-    try:
-      map_obj = Map.read_by_id(current_app.mongo_db, ObjectId(map_name_or_id))
-      return map_obj if map_obj else None
-    except InvalidId:
-      pass
-
-    map_obj = Map.read_by_name(current_app.mongo_db, map_name_or_id)
-    return map_obj if map_obj else None
   
   @staticmethod
   def get_all_maps():
