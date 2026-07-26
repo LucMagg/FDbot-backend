@@ -3,6 +3,7 @@ from app.models.level import Level
 
 
 class LevelService:
+  DEFAULT_LANG = 'en'
 
   @staticmethod
   def add_level(level_data):
@@ -10,8 +11,8 @@ class LevelService:
     return level.create(current_app.mongo_db)
 
   @staticmethod
-  def get_one_level(level_name):
-    level_obj = Level.read_by_name(current_app.mongo_db, level_name)
+  def get_one_level(level_slug: str):
+    level_obj = Level.read_by_slug(current_app.mongo_db, level_slug)
     return level_obj if level_obj else None
 
   @staticmethod
@@ -19,17 +20,14 @@ class LevelService:
     return Level.read_all(current_app.mongo_db)
 
   @staticmethod
-  def add_reward(level_name, reward_data):
-    level = Level.read_by_name(current_app.mongo_db, level_name)
+  def add_reward(level_slug, reward_data):
+    level = Level.read_by_slug(current_app.mongo_db, level_slug)
     if level:
       return Level.add_reward(current_app.mongo_db, level.to_dict(), reward_data)
     return None
-  
-  def set_new_reward_types():
-    return Level.build_new_levels(current_app.mongo_db)
-  
+   
   @staticmethod
-  def get_level_by_gear(item: str, quality: str = None):
+  def get_level_by_gear(item: str, quality: str = None, lang: str = DEFAULT_LANG):
     if quality is None:
       pipeline_doc = current_app.mongo_db.pipelines.find_one({'name': 'levels_by_gear_name'})
     else:
@@ -48,4 +46,4 @@ class LevelService:
     levels = list(current_app.mongo_db.levels.aggregate(pipeline_stages))
     for level in levels:
       level['_id'] = str(level['_id'])
-    return sorted(levels, key=lambda l:l.get('name'))
+    return sorted(levels, key=lambda l:l.get('name', {}).get(lang))

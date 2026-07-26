@@ -7,7 +7,31 @@ from app.models.rewardType import RewardType
 from collections import defaultdict
   
 
+class LocalizedText:
+  def __init__(self, values: Dict[str, str], default_lang: str = 'en'):
+    self.values = values or {}
+    self.default_lang = default_lang
 
+  def get(self, lang: Optional[str] = None) -> Optional[str]:
+    if not self.values:
+      return None
+    lang = lang or self.default_lang
+    return self.values.get(lang) or self.values.get(self.default_lang) or next(iter(self.values.values()))
+
+  def set(self, lang: str, value: str):
+    self.values[lang] = value
+
+  def to_dict(self) -> Dict[str, str]:
+    return self.values
+
+  @classmethod
+  def from_dict(cls, data, default_lang: str = 'en'):
+    if isinstance(data, dict):
+      return cls(data, default_lang)
+    if isinstance(data, str):
+      return cls({default_lang: data}, default_lang)
+    return cls({}, default_lang)
+    
 class Detail:
   def __init__(self, quantity: Optional[int] = None, appearances: Optional[int] = None, item: Optional[str] = None):
     self.quantity = quantity if quantity else None
@@ -27,9 +51,9 @@ class Detail:
   
   def to_dict(self) -> Dict:
     return {
-      "quantity": self.quantity,
-      "appearances": self.appearances,
-      "item": self.item
+      'quantity': self.quantity,
+      'appearances': self.appearances,
+      'item': self.item
     }
 
 
@@ -58,10 +82,10 @@ class Reward:
     details = sorted(details, key = lambda x: (-x.get('appearances')))
 
     return {
-      "total_appearances": self.total_appearances,
-      "type": self.type,
-      "quality": self.quality,
-      "details": details
+      'total_appearances': self.total_appearances,
+      'type': self.type,
+      'quality': self.quality,
+      'details': details
     }
 
 class RewardChoice:
@@ -93,21 +117,21 @@ class RewardChoice:
 
   def to_dict(self) -> Dict:
     to_return = {
-      "name": self.name,
-      "icon": self.icon,
-      "grade": self.grade,
-      "has_quantity": self.has_quantity
+      'name': self.name,
+      'icon': self.icon,
+      'grade': self.grade,
+      'has_quantity': self.has_quantity
     }
     if self.choices is not None:
       if isinstance(self.choices, list):
-        to_return["choices"] = [choice.to_dict() for choice in self.choices]
+        to_return['choices'] = [choice.to_dict() for choice in self.choices]
       else:
-        to_return["choices"] = self.choices
+        to_return['choices'] = self.choices
     return to_return
     
   def resolve_choices(self, db):
     if isinstance(self.choices, str):
-      reward_choice = db.rewardChoices.find_one({"name": self.choices})
+      reward_choice = db.rewardChoices.find_one({'name': self.choices})
       if reward_choice:
         resolved_choices = [RewardChoice.from_dict(choice) for choice in reward_choice.get('choices', [])]
         self.choices = resolved_choices
@@ -121,7 +145,7 @@ class RewardChoice:
     return self
 
 class Level:
-  def __init__(self, name: str, name_slug: str, standard_energy_cost: int, coop_energy_cost: int, rewards : List[Reward], _id: Optional[str] = None, reward_choices: Union[List[RewardChoice], List] = None):
+  def __init__(self, name: LocalizedText, name_slug: str, standard_energy_cost: int, coop_energy_cost: int, rewards : List[Reward], _id: Optional[str] = None, reward_choices: Union[List[RewardChoice], List] = None):
     self._id = ObjectId(_id) if _id else None
     self.name = name
     self.name_slug = name_slug
@@ -134,8 +158,8 @@ class Level:
   def from_dict(cls, data: Dict):
     return cls(
       _id = str(data.get('_id')) if data.get('_id') else None,
-      name = data.get('name'),
-      name_slug = data.get('name_slug') if data.get('name_slug') is not None else str_to_slug(data.get('name')),
+      name = LocalizedText.from_dict(data.get('name')),
+      name_slug = data.get('name_slug') if data.get('name_slug') else str_to_slug(LocalizedText.from_dict(data.get('name')).get('en')),
       standard_energy_cost = data.get('standard_energy_cost'),
       coop_energy_cost = data.get('coop_energy_cost'),
       reward_choices = [RewardChoice.from_dict(reward_choices_data) for reward_choices_data in data.get('reward_choices', []) if isinstance(reward_choices_data, dict)],
@@ -146,20 +170,20 @@ class Level:
     rewards = [reward.to_dict() for reward in self.rewards] if self.rewards else []
     rewards = sorted(rewards, key = lambda r: -r.get('total_appearances'))
     level = {
-      "name": self.name,
-      "name_slug": self.name_slug,
-      "standard_energy_cost": self.standard_energy_cost,
-      "coop_energy_cost": self.coop_energy_cost,
-      "reward_choices": [possible_reward.to_dict() for possible_reward in self.reward_choices],
-      "rewards": rewards,
+      'name': self.name.to_dict(),
+      'name_slug': self.name_slug,
+      'standard_energy_cost': self.standard_energy_cost,
+      'coop_energy_cost': self.coop_energy_cost,
+      'reward_choices': [possible_reward.to_dict() for possible_reward in self.reward_choices],
+      'rewards': rewards,
     }
     if self._id:
-      level["_id"] = str(self._id)
+      level['_id'] = str(self._id)
 
     return level
 
   def create(self, db):
-    existing = self.read_by_name(db, self.name)
+    existing = self.read_by_slug(db, self.name_slug)
     if existing:
       return existing
     result = db.levels.insert_one(self.to_dict())
@@ -172,42 +196,35 @@ class Level:
     found_reward = next((r for r in level.get('rewards') if r.get('type') == reward_data.get('type') and r.get('quality') == reward_data.get('quality')), None)
     done = False
     if found_reward:
-      for detail in found_reward.get('details'):
+      for detail in found_reward.get('details', []):
         if detail.get('quantity') == reward_data.get('quantity') and detail.get('item') == reward_data.get('item'):
           detail['appearances'] += reward_data.get('times')
           done = True
       if not done:
-        found_reward['details'].append({'appearances': reward_data.get('times'), 'item': reward_data.get('item'), 'quantity': reward_data.get('quantity')})
+        found_reward['details'].append({'quantity': reward_data.get('quantity'), 'item': reward_data.get('item'), 'appearances': reward_data.get('times')})
       found_reward['total_appearances'] += reward_data.get('times')
-
     else:
-      level.get('rewards').append({
+      level.setdefault('rewards', []).append({
         'type': reward_data.get('type'),
         'quality': reward_data.get('quality'),
-        'details': [
-          {
-            'quantity': reward_data.get('quantity'),
-            'item': reward_data.get('item'),
-            'appearances': reward_data.get('times')
-          }
-        ],
+        'details': [{'quantity': reward_data.get('quantity'), 'item': reward_data.get('item'), 'appearances': reward_data.get('times')}],
         'total_appearances': reward_data.get('times')
       })
-
+    level_id = level['_id']
     del level['_id']
 
-    db.levels.update_one({"name": level.get('name')}, {"$set": level})
+    db.levels.update_one({'_id': ObjectId(level_id)}, {'$set': level})
+    level['_id'] = level_id
     return Level.from_dict(level)
 
-
   @staticmethod
-  def read_by_name(db, level_name):
-    data = db.levels.find_one({"name_slug": str_to_slug(level_name)})
+  def read_by_slug(db, level_name_slug: str):
+    data = db.levels.find_one({f'name_slug': level_name_slug})
     return Level.from_dict(data) if data else None
 
   @staticmethod
   def read_by_id(db, level_id):
-    data = db.levels.find_one({"_id": ObjectId(level_id)})
+    data = db.levels.find_one({'_id': ObjectId(level_id)})
     return Level.from_dict(data) if data else None
 
   @staticmethod
