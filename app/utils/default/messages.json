@@ -715,7 +715,7 @@
     "validation1": "You're about to add ",
     "validation2S": " time ",
     "validation2P": " times ",
-    "validation3": ". Voulez-vous valider ?",
+    "validation3": ". Do you want to continue ?",
     "ok": "Ok",
     "cancel": "Cancel",
     "previous": "Previous",
