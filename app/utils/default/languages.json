@@ -955,7 +955,9 @@
         "Lucien": "Lucien",
         "Poppy": "Poppy",
         "Varkhaz": "Varkhaz",
-        "Verena": "Verena"
+        "Verena": "Verena",
+        "Hrim": "Hrim",
+        "Riverclaw": "Riverclaw"
       },
       "Pets": {
         "Adelaide": "Adelaide",
@@ -1257,7 +1259,12 @@
         "Puck": "Puck",
         "Vex (Vera)": "Vex (Vera)",
         "Vex (Varkhaz)": "Vex (Varkhaz)",
-        "Vivi": "Vivi"
+        "Vivi": "Vivi",
+        "Gulliver": "Gulliver",
+        "Hornwall": "Hornwall",
+        "Huffbelly": "Huffbelly",
+        "Knuckle": "Knuckle",
+        "Rumblehorn": "Rumblehorn"
       },
       "Species": {
         "Beastfolk S": "Beastfolk",
@@ -1508,7 +1515,10 @@
         "Ignite": "Ignite",
         "Quadra Fury": "Quadra Fury",
         "Slay Cyclops": "Slay Cyclops",
-        "Conjunction": "Conjunction"
+        "Conjunction": "Conjunction",
+        "Extinguish Fire": "Extinguish Fire",
+        "Initiative: Extinguish Fire": "Initiative: Extinguish Fire",
+        "Surge: Melee Warding": "Surge: Melee Warding"
       },
       "1Command_returns": {
         "Floor": "Floor",
@@ -2501,7 +2511,9 @@
         "Lucien": "Lucien",
         "Poppy": "Poppy",
         "Varkhaz": "Varkhaz",
-        "Verena": "Verena"
+        "Verena": "Verena",
+        "Hrim": "Hrim",
+        "Riverclaw": "Riverclaw"
       },
       "Pets": {
         "Adelaide": "Adelaide",
@@ -2803,7 +2815,12 @@
         "Puck": "Puck",
         "Vex (Vera)": "Vex (Vera)",
         "Vex (Varkhaz)": "Vex (Varkhaz)",
-        "Vivi": "Vivi"
+        "Vivi": "Vivi",
+        "Gulliver": "Gulliver",
+        "Hornwall": "Hornwall",
+        "Huffbelly": "Huffbelly",
+        "Knuckle": "Knuckle",
+        "Rumblehorn": "Rumblehorn"
       },
       "Species": {
         "Beastfolk S": "Homme-bête",
@@ -3054,7 +3071,10 @@
         "Ignite": "Enflammer",
         "Quadra Fury": "Quadruple furie",
         "Slay Cyclops": "Tuer le cyclope",
-        "Conjunction": "Conjunction"
+        "Conjunction": "Conjunction",
+        "Extinguish Fire": "Extinguish Fire",
+        "Initiative: Extinguish Fire": "Initiative: Extinguish Fire",
+        "Surge: Melee Warding": "Surge: Melee Warding"
       },
       "1Command_returns": {
         "Floor": "Étage",
