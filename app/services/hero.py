@@ -11,6 +11,13 @@ from app.services.pet import PetService
 class HeroService:
   def add_ascend_stats(hero):
     ascend_levels = ['A0', 'A1', 'A2', 'A3', 'A4']
+    max_infusion = [{},
+      {'A0':0, 'A1': 0, 'A2': 0, 'A3': 5, 'A4': 10},
+      {'A0':0, 'A1': 0, 'A2': 0, 'A3': 10, 'A4': 25},
+      {'A0':0, 'A1': 0, 'A2': 0, 'A3': 25, 'A4': 50},
+      {'A0':0, 'A1': 0, 'A2': 0, 'A3': 50, 'A4': 100},
+      {'A0':0, 'A1': 0, 'A2': 0, 'A3': 100, 'A4': 150}
+    ]
     available = [a for a in ascend_levels if hero['attack'].get(a)]
     pet = PetService.get_one_pet(hero['pet']) if hero.get('pet') else None
     pet_att_pct = pet['attack'] / 100 if pet else 0
@@ -29,6 +36,7 @@ class HeroService:
         'base':  base_att,
         'gear':  ceil(base_att * att_g),
         'merge': ceil(base_att * 0.15),
+        'infusion': ceil(base_att * (max_infusion[int(hero.get('stars'))].get(ascend) / 1000)),
         'pet':   ceil(base_att * pet_att_pct),
       }
       attack_max[ascend]['total'] = sum(attack_max.get(ascend).values())
@@ -36,6 +44,7 @@ class HeroService:
         'base':  base_def,
         'gear':  ceil(base_def * def_g),
         'merge': ceil(base_def * 0.15),
+        'infusion': ceil(base_def * (max_infusion[int(hero.get('stars'))].get(ascend) / 1000)),
         'pet':   ceil(base_def * pet_def_pct),
       }
       defense_max[ascend]['total'] = sum(defense_max.get(ascend).values())
